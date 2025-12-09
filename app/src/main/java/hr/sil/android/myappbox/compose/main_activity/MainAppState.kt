@@ -22,6 +22,7 @@ object MainDestinations {
     const val HELP_CONTENT_SCREEN = "HelpContentScreen"
     const val SETTINGS = "Settings"
     const val SETTINGS_NOFITICATIONS = "SettingsNotifications"
+    const val SETTINGS_LANGUAGE = "SettingsLanguages"
     const val DEVICE_DETAILS = "DeviceDetails"
     const val PARCEL_PICKUP = "ParcelPickup"
 }

@@ -5,17 +5,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
@@ -31,17 +26,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.Dimension
 import hr.sil.android.myappbox.R
 import hr.sil.android.myappbox.compose.components.ButtonWithFont
-import hr.sil.android.myappbox.compose.components.SettingsRoundedBackground
 import hr.sil.android.myappbox.compose.components.TextViewWithFont
 import hr.sil.android.myappbox.compose.components.ThmButtonLetterSpacing
 import hr.sil.android.myappbox.compose.components.ThmButtonTextSize
 import hr.sil.android.myappbox.compose.components.ThmDescriptionTextColor
-import hr.sil.android.myappbox.compose.components.ThmLoginBackground
 import hr.sil.android.myappbox.compose.components.ThmLoginButtonTextColor
 import hr.sil.android.myappbox.compose.components.ThmMainButtonBackgroundColor
 import hr.sil.android.myappbox.compose.components.ThmSubTitleTextColor
@@ -49,12 +40,11 @@ import hr.sil.android.myappbox.compose.components.ThmSubTitleTextSize
 import hr.sil.android.myappbox.compose.components.ThmTitleLetterSpacing
 import hr.sil.android.myappbox.compose.components.ThmTitleTextColor
 import hr.sil.android.myappbox.compose.components.ThmTitleTextSize
-import hr.sil.android.myappbox.compose.login_forgot_password.ForgotPasswordEvent
 
 @Composable
-fun SettingsNotificationsScreen(
+fun NotificationsScreen(
     modifier: Modifier = Modifier,
-    viewModel: SettingsNotificationsViewModel,
+    viewModel: NotificationsViewModel,
     navigateUp: () -> Unit = {}
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -201,8 +191,8 @@ private fun NotificationToggleItem(
             colors = SwitchDefaults.colors(
                 checkedThumbColor = colorResource(id = R.color.colorAccentZwick),
                 checkedTrackColor = colorResource(id = R.color.colorAccentZwick).copy(alpha = 0.3f),
-                uncheckedThumbColor = colorResource(id = R.color.colorWhite),
-                uncheckedTrackColor = colorResource(id = R.color.colorPrimaryDarkZwick)
+                uncheckedThumbColor = colorResource(id = R.color.colorPrimaryDarkZwick),
+                uncheckedTrackColor = colorResource(id = R.color.colorWhite)
             )
         )
     }

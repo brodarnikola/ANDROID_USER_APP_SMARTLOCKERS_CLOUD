@@ -140,7 +140,6 @@ fun SettingsScreen(
                         .fillMaxWidth(),
                     onClick = {
                         nextScreen(MainDestinations.SETTINGS_NOFITICATIONS)
-                        //viewModel.onEvent(SettingsScreenEvent.OnNotificationToggle(it))
                     },
                     startIcon = R.drawable.ic_notifications,
                     text = R.string.notifications_title,
@@ -152,7 +151,7 @@ fun SettingsScreen(
                         .fillMaxWidth()
                         .padding(top = 5.dp),
                     onClick = {
-                        //viewModel.onEvent(SettingsScreenEvent.OnLanguageClick)
+                        nextScreen(MainDestinations.SETTINGS_LANGUAGE)
                     },
                     startIcon = R.drawable.ic_language,
                     text = R.string.nav_settings_language,

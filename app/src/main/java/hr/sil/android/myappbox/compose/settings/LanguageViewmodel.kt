@@ -13,51 +13,51 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-data class SettingsNotificationsUiState(
-    val pushNotifications: Boolean = false,
-    val emailNotifications: Boolean = false,
+data class SettingsLanguageUiState(
+    val availableLanguages: List<RLanguage> = emptyList(),
+    val selectedLanguage: RLanguage? = null,
     val isLoading: Boolean = false,
     val isSaveEnabled: Boolean = false,
     val isNetworkAvailable: Boolean = true,
     val errorMessage: String? = null
 )
 
-class NotificationsViewModel : ViewModel() {
+class LanguageViewModel : ViewModel() {
 
     private val log = logger()
 
-    private val _uiState = MutableStateFlow(SettingsNotificationsUiState())
-    val uiState: StateFlow<SettingsNotificationsUiState> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow(SettingsLanguageUiState())
+    val uiState: StateFlow<SettingsLanguageUiState> = _uiState.asStateFlow()
 
     private var cachedUser = UserUtil.user
     private var cachedUserGroup = UserUtil.userGroup
-    private var cachedLanguage: RLanguage? = null
 
     init {
-        loadNotificationSettings()
+        loadLanguageSettings()
     }
 
-    private fun loadNotificationSettings() {
+    private fun loadLanguageSettings() {
         viewModelScope.launch {
+            _uiState.update { it.copy(isLoading = true) }
             try {
                 val languages = WSUser.getLanguages() ?: listOf()
                 val languageName = SettingsHelper.languageName
-                cachedLanguage = languages.firstOrNull { it.code == languageName }
+                val selectedLang = languages.firstOrNull { it.code == languageName }
                 cachedUser = UserUtil.user
                 cachedUserGroup = UserUtil.userGroup
 
                 _uiState.update {
                     it.copy(
-                        pushNotifications = SettingsHelper.pushEnabled,
-                        emailNotifications = SettingsHelper.emailEnabled,
+                        availableLanguages = languages,
+                        selectedLanguage = selectedLang,
                         isLoading = false
                     )
                 }
             } catch (e: Exception) {
-                log.error("Error loading notification settings", e)
+                log.error("Error loading language settings", e)
                 _uiState.update {
                     it.copy(
-                        errorMessage = "Failed to load settings",
+                        errorMessage = "Failed to load languages",
                         isLoading = false
                     )
                 }
@@ -65,21 +65,15 @@ class NotificationsViewModel : ViewModel() {
         }
     }
 
-    fun onPushNotificationsChanged(enabled: Boolean) {
-        _uiState.update {
-            it.copy(
-                pushNotifications = enabled,
-                isSaveEnabled = true
-            )
-        }
-    }
-
-    fun onEmailNotificationsChanged(enabled: Boolean) {
-        _uiState.update {
-            it.copy(
-                emailNotifications = enabled,
-                isSaveEnabled = true
-            )
+    fun onLanguageSelected(language: RLanguage) {
+        val currentSelected = _uiState.value.selectedLanguage
+        if (currentSelected?.code != language.code) {
+            _uiState.update {
+                it.copy(
+                    selectedLanguage = language,
+                    isSaveEnabled = true
+                )
+            }
         }
     }
 
@@ -91,7 +85,7 @@ class NotificationsViewModel : ViewModel() {
         _uiState.update { it.copy(errorMessage = null) }
     }
 
-    fun saveNotificationSettings(onSuccess: () -> Unit, onError: (String) -> Unit) {
+    fun saveLanguageSettings(onSuccess: () -> Unit, onError: (String) -> Unit) {
         val currentState = _uiState.value
 
         if (!currentState.isNetworkAvailable) {
@@ -101,7 +95,7 @@ class NotificationsViewModel : ViewModel() {
 
         val user = cachedUser
         val userGroup = cachedUserGroup
-        val language = cachedLanguage
+        val language = currentState.selectedLanguage
 
         if (user == null || language == null) {
             onError("User data not available")
@@ -117,15 +111,14 @@ class NotificationsViewModel : ViewModel() {
                     address = user.address ?: "",
                     phone = user.telephone ?: "",
                     language = language,
-                    pushNotification = currentState.pushNotifications,
-                    emailNotification = currentState.emailNotifications,
+                    pushNotification = SettingsHelper.pushEnabled,
+                    emailNotification = SettingsHelper.emailEnabled,
                     groupName = userGroup?.name ?: ""
                 )
 
                 if (result) {
-                    log.info("Notification settings saved successfully")
-                    SettingsHelper.pushEnabled = currentState.pushNotifications
-                    SettingsHelper.emailEnabled = currentState.emailNotifications
+                    log.info("Language settings saved successfully: ${language.code}")
+                    SettingsHelper.languageName = language.code
 
                     _uiState.update {
                         it.copy(
@@ -136,10 +129,10 @@ class NotificationsViewModel : ViewModel() {
                     onSuccess()
                 } else {
                     _uiState.update { it.copy(isLoading = false) }
-                    onError("Failed to save notification settings")
+                    onError("Failed to save language settings")
                 }
             } catch (e: Exception) {
-                log.error("Error saving notification settings", e)
+                log.error("Error saving language settings", e)
                 _uiState.update {
                     it.copy(
                         isLoading = false,
