@@ -49,7 +49,8 @@ fun TextViewWithFont(
     fontSize: androidx.compose.ui.unit.TextUnit = 14.sp,
     fontWeight: FontWeight = FontWeight.Normal, // ?attr/thmMainFontTypeRegular/Bold/Medium
     textAlign: TextAlign? = null,
-    letterSpacing: androidx.compose.ui.unit.TextUnit = 0.sp
+    letterSpacing: androidx.compose.ui.unit.TextUnit = 0.sp,
+    maxLines: Int = 1,
 ) {
     Text(
         text = text,
@@ -59,7 +60,8 @@ fun TextViewWithFont(
         fontWeight = fontWeight,
         fontFamily = FontFamily.Default, // ?attr/thmMainFontName placeholder
         textAlign = textAlign,
-        letterSpacing = letterSpacing
+        letterSpacing = letterSpacing,
+        maxLines = maxLines
     )
 }
 

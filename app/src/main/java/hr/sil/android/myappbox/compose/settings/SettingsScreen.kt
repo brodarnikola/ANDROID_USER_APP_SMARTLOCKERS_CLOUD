@@ -3,11 +3,13 @@ package hr.sil.android.myappbox.compose.settings
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -17,6 +19,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -36,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import hr.sil.android.myappbox.BuildConfig
 import hr.sil.android.myappbox.R
 import hr.sil.android.myappbox.compose.components.GradientBackground
 import hr.sil.android.myappbox.compose.components.SettingsRoundedBackground
@@ -68,8 +72,21 @@ fun SettingsScreen(
     val activity = LocalContext.current as Activity
     val context = LocalContext.current
 
+    var appVersion by remember {
+        mutableStateOf("")
+    }
+
     LaunchedEffect(key1 = Unit) {
         val log = logger()
+
+        try {
+            val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
+            appVersion = "Version: ${packageInfo.versionName}"
+            log.info("collecting events: appVersion 11 $appVersion")
+        } catch (e: PackageManager.NameNotFoundException) {
+            appVersion = "Version: Unknown"
+            log.info("collecting events: appVersion 22 $appVersion")
+        }
        // log.info("collecting events: start ${viewModel.uiEvents}")
 //        viewModel.uiEvents.collect { event ->
 //            log.info("collecting event: ${event}")
@@ -134,25 +151,27 @@ fun SettingsScreen(
                         .padding(top = 10.dp, start = 20.dp, end = 20.dp)
                 )
 
-                SettingsNotificationItem(
+                SettingsItem(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 5.dp),
+                        .fillMaxWidth(),
                     onClick = {
-
-                    }
-//                    onCheckedChange = {
-//                        //viewModel.onEvent(SettingsScreenEvent.OnNotificationToggle(it))
-//                    }
+                        //viewModel.onEvent(SettingsScreenEvent.OnNotificationToggle(it))
+                    },
+                    startIcon = R.drawable.ic_notifications,
+                    text = R.string.notifications_title,
+                    endIcon = R.drawable.ic_chevron_right_black
                 )
 
-                SettingsLanguageItem(
+                SettingsItem(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 5.dp),
                     onClick = {
                         //viewModel.onEvent(SettingsScreenEvent.OnLanguageClick)
-                    }
+                    },
+                    startIcon = R.drawable.ic_language,
+                    text = R.string.nav_settings_language,
+                    endIcon = R.drawable.ic_chevron_right_black
                 )
 
                 // ACCOUNT Section
@@ -167,40 +186,52 @@ fun SettingsScreen(
                         .padding(top = 20.dp, start = 20.dp, end = 20.dp)
                 )
 
-                SettingsMyDetailsItem(
+                SettingsItem(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 5.dp),
                     onClick = {
-                        //viewModel.onEvent(SettingsScreenEvent.OnMyDetailsClick)
-                    }
+                        //viewModel.onEvent(SettingsScreenEvent.OnLanguageClick)
+                    },
+                    startIcon = R.drawable.ic_settings_account,
+                    text = R.string.settings_account_details,
+                    endIcon = R.drawable.ic_chevron_right_black
                 )
 
-                SettingsQrCodeItem(
+                SettingsItem(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 5.dp),
                     onClick = {
-                        //viewModel.onEvent(SettingsScreenEvent.OnQrCodeClick)
-                    }
+                        //viewModel.onEvent(SettingsScreenEvent.OnLanguageClick)
+                    },
+                    startIcon = R.drawable.qr_code,
+                    text = R.string.user_identification_QR_code,
+                    endIcon = R.drawable.ic_chevron_right_black
                 )
 
-                SettingsChangePasswordItem(
+                SettingsItem(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 5.dp),
                     onClick = {
-                        //viewModel.onEvent(SettingsScreenEvent.OnChangePasswordClick)
-                    }
+                        //viewModel.onEvent(SettingsScreenEvent.OnLanguageClick)
+                    },
+                    startIcon = R.drawable.ic_password_zwick,
+                    text = R.string.nav_settings_change_password,
+                    endIcon = R.drawable.ic_chevron_right_black
                 )
 
-                SettingsSignOutItem(
+                SettingsItem(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 5.dp),
                     onClick = {
-                        //viewModel.onEvent(SettingsScreenEvent.OnSignOutClick)
-                    }
+                        //viewModel.onEvent(SettingsScreenEvent.OnLanguageClick)
+                    },
+                    startIcon = R.drawable.ic_settings_sign_out,
+                    text = R.string.app_generic_sign_out,
+                    endIcon = R.drawable.ic_chevron_right_black
                 )
 
                 // SUPPORT Section
@@ -215,45 +246,63 @@ fun SettingsScreen(
                         .padding(top = 20.dp, start = 20.dp, end = 20.dp)
                 )
 
-                SettingsHelpItem(
+                SettingsItem(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 5.dp),
                     onClick = {
-                        //viewModel.onEvent(SettingsScreenEvent.OnHelpClick)
-                    }
+                        //viewModel.onEvent(SettingsScreenEvent.OnLanguageClick)
+                    },
+                    startIcon = R.drawable.ic_help,
+                    text = R.string.app_generic_help,
+                    endIcon = R.drawable.ic_chevron_right_black
                 )
 
-                SettingsTermsItem(
+                SettingsItem(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 5.dp),
                     onClick = {
-                        //viewModel.onEvent(SettingsScreenEvent.OnTermsClick)
-                    }
+                        //viewModel.onEvent(SettingsScreenEvent.OnLanguageClick)
+                    },
+                    startIcon = R.drawable.ic_terms,
+                    text = R.string.nav_ttc_title,
+                    endIcon = R.drawable.ic_chevron_right_black
                 )
 
-                SettingsPrivacyPolicyItem(
+                SettingsItem(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 5.dp),
                     onClick = {
-                        //viewModel.onEvent(SettingsScreenEvent.OnPrivacyPolicyClick)
-                    }
+                        //viewModel.onEvent(SettingsScreenEvent.OnLanguageClick)
+                    },
+                    startIcon = R.drawable.ic_privacy,
+                    text = R.string.settings_privacy_policy,
+                    endIcon = R.drawable.ic_chevron_right_black
                 )
 
-                SettingsContactItem(
+                SettingsItem(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 5.dp),
                     onClick = {
-                       // viewModel.onEvent(SettingsScreenEvent.OnContactClick)
-                    }
+                        val emailIntent = Intent(
+                            Intent.ACTION_SENDTO,
+                            Uri.parse("mailto:${BuildConfig.APP_BASE_EMAIL}")
+                        )
+                        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "")
+                        context.startActivity(Intent.createChooser(emailIntent, ""))
+                    },
+                    startIcon = R.drawable.ic_email,
+                    text = R.string.email_us,
+                    endIcon = R.drawable.ic_chevron_right_black,
+                    hasEndIcon = false
                 )
 
                 // Version
                 TextViewWithFont(
-                    text = "GET, FETCH VERSION", //state.currentVersion,
+                    text = appVersion, //state.currentVersion,
                     color = ThmDescriptionTextColor,
                     fontSize = ThmSubTitleTextSize,
                     fontWeight = FontWeight.Normal,
@@ -268,44 +317,52 @@ fun SettingsScreen(
 
 // Individual Settings Items as Composables
 @Composable
-fun SettingsNotificationItem(
+fun SettingsItem(
     modifier: Modifier = Modifier,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    startIcon: Int,
+    text: Int,
+    endIcon: Int,
+    hasEndIcon: Boolean = true
 ) {
     SettingsRoundedBackground(
         modifier = modifier
             .fillMaxWidth()
             .clickable(onClick = onClick)
-            .padding(vertical = 5.dp) // matches XML top/bottom padding
+            //.padding(top = 5.dp) // matches XML top/bottom padding
     ) {
+        val paddingStart = if( hasEndIcon ) 10.dp else 5.dp
         Row(
             modifier = Modifier
-                .padding(horizontal = 20.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
+                .padding(vertical = 8.dp)
+                .padding(end = 5.dp, start = paddingStart),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
 
             Icon(
-                painter = painterResource(id = R.drawable.ic_collect_parcel), // your XML left icon
+                painter = painterResource(id = startIcon), // your XML left icon
                 contentDescription = null,
                 modifier = Modifier.weight(1.5f),
                 tint = Color.Unspecified
             )
 
             TextViewWithFont(
-                text = stringResource(id = R.string.notifications_title),
+                text = stringResource(id = text),
                 color = ThmDescriptionTextColor,
                 fontSize = ThmSubTitleTextSize,
-                fontWeight = FontWeight.Normal,
+                fontWeight = FontWeight.Light,
                 modifier = Modifier.weight(7f),
-                //maxLines = 1
+                maxLines = 1
             )
 
-            Icon(
-                painter = painterResource(id = R.drawable.ic_chevron_right),
-                contentDescription = null,
-                modifier = Modifier.weight(1.5f),
-                tint = Color.Unspecified
-            )
+            if( hasEndIcon )
+                Icon(
+                    painter = painterResource(id = endIcon),
+                    contentDescription = null,
+                    modifier = Modifier.weight(1.5f),
+                    tint = Color.Unspecified
+                )
         }
 //        Switch(
 //            checked = isChecked,
@@ -314,224 +371,5 @@ fun SettingsNotificationItem(
 //                onCheckedChange(it)
 //            }
 //        )
-    }
-}
-
-@Composable
-fun SettingsLanguageItem(
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit
-) {
-    Row(
-        modifier = modifier
-            .clickable(onClick = onClick)
-            .padding(horizontal = 20.dp, vertical = 12.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        TextViewWithFont(
-            text = stringResource(id = R.string.nav_settings_language),
-            color = ThmDescriptionTextColor,
-            fontSize = ThmSubTitleTextSize,
-            fontWeight = FontWeight.Normal
-        )
-
-        Icon(
-            painter = painterResource(id = R.drawable.ic_chevron_right),
-            contentDescription = null,
-            tint = Color.Unspecified
-        )
-    }
-}
-
-@Composable
-fun SettingsMyDetailsItem(modifier: Modifier = Modifier, onClick: () -> Unit) {
-    Row(
-        modifier = modifier
-            .clickable(onClick = onClick)
-            .padding(horizontal = 20.dp, vertical = 12.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        TextViewWithFont(
-            text = stringResource(id = R.string.settings_account_details),
-            color = ThmDescriptionTextColor,
-            fontSize = ThmSubTitleTextSize,
-            fontWeight = FontWeight.Normal
-        )
-
-        Icon(
-            painter = painterResource(id = R.drawable.ic_chevron_right),
-            contentDescription = null,
-            tint = Color.Unspecified
-        )
-    }
-}
-
-@Composable
-fun SettingsQrCodeItem(modifier: Modifier = Modifier, onClick: () -> Unit) {
-    Row(
-        modifier = modifier
-            .clickable(onClick = onClick)
-            .padding(horizontal = 20.dp, vertical = 12.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        TextViewWithFont(
-            text = stringResource(id = R.string.user_identification_QR_code),
-            color = ThmDescriptionTextColor,
-            fontSize = ThmSubTitleTextSize,
-            fontWeight = FontWeight.Normal
-        )
-
-        Icon(
-            painter = painterResource(id = R.drawable.ic_chevron_right),
-            contentDescription = null,
-            tint = Color.Unspecified
-        )
-    }
-}
-
-@Composable
-fun SettingsChangePasswordItem(modifier: Modifier = Modifier, onClick: () -> Unit) {
-    Row(
-        modifier = modifier
-            .clickable(onClick = onClick)
-            .padding(horizontal = 20.dp, vertical = 12.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        TextViewWithFont(
-            text = stringResource(id = R.string.nav_settings_change_password),
-            color = ThmDescriptionTextColor,
-            fontSize = ThmSubTitleTextSize,
-            fontWeight = FontWeight.Normal
-        )
-
-        Icon(
-            painter = painterResource(id = R.drawable.ic_chevron_right),
-            contentDescription = null,
-            tint = Color.Unspecified
-        )
-    }
-}
-
-@Composable
-fun SettingsSignOutItem(modifier: Modifier = Modifier, onClick: () -> Unit) {
-    Row(
-        modifier = modifier
-            .clickable(onClick = onClick)
-            .padding(horizontal = 20.dp, vertical = 12.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        TextViewWithFont(
-            text = stringResource(id = R.string.app_generic_sign_out),
-            color = ThmDescriptionTextColor,
-            fontSize = ThmSubTitleTextSize,
-            fontWeight = FontWeight.Normal
-        )
-
-        Icon(
-            painter = painterResource(id = R.drawable.ic_chevron_right),
-            contentDescription = null,
-            tint = Color.Unspecified
-        )
-    }
-}
-
-@Composable
-fun SettingsHelpItem(modifier: Modifier = Modifier, onClick: () -> Unit) {
-    Row(
-        modifier = modifier
-            .clickable(onClick = onClick)
-            .padding(horizontal = 20.dp, vertical = 12.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        TextViewWithFont(
-            text = stringResource(id = R.string.app_generic_help),
-            color = ThmDescriptionTextColor,
-            fontSize = ThmSubTitleTextSize,
-            fontWeight = FontWeight.Normal
-        )
-
-        Icon(
-            painter = painterResource(id = R.drawable.ic_chevron_right),
-            contentDescription = null,
-            tint = Color.Unspecified
-        )
-    }
-}
-
-@Composable
-fun SettingsTermsItem(modifier: Modifier = Modifier, onClick: () -> Unit) {
-    Row(
-        modifier = modifier
-            .clickable(onClick = onClick)
-            .padding(horizontal = 20.dp, vertical = 12.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        TextViewWithFont(
-            text = stringResource(id = R.string.nav_ttc_title),
-            color = ThmDescriptionTextColor,
-            fontSize = ThmSubTitleTextSize,
-            fontWeight = FontWeight.Normal
-        )
-
-        Icon(
-            painter = painterResource(id = R.drawable.ic_chevron_right),
-            contentDescription = null,
-            tint = Color.Unspecified
-        )
-    }
-}
-
-@Composable
-fun SettingsPrivacyPolicyItem(modifier: Modifier = Modifier, onClick: () -> Unit) {
-    Row(
-        modifier = modifier
-            .clickable(onClick = onClick)
-            .padding(horizontal = 20.dp, vertical = 12.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        TextViewWithFont(
-            text = stringResource(id = R.string.settings_privacy_policy),
-            color = ThmDescriptionTextColor,
-            fontSize = ThmSubTitleTextSize,
-            fontWeight = FontWeight.Normal
-        )
-
-        Icon(
-            painter = painterResource(id = R.drawable.ic_chevron_right),
-            contentDescription = null,
-            tint = Color.Unspecified
-        )
-    }
-}
-
-@Composable
-fun SettingsContactItem(modifier: Modifier = Modifier, onClick: () -> Unit) {
-    Row(
-        modifier = modifier
-            .clickable(onClick = onClick)
-            .padding(horizontal = 20.dp, vertical = 12.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        TextViewWithFont(
-            text = stringResource(id = R.string.email_us),
-            color = ThmDescriptionTextColor,
-            fontSize = ThmSubTitleTextSize,
-            fontWeight = FontWeight.Normal
-        )
-
-        Icon(
-            painter = painterResource(id = R.drawable.ic_chevron_right),
-            contentDescription = null,
-            tint = Color.Unspecified
-        )
     }
 }
