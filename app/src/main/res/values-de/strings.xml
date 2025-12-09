@@ -1,0 +1,1008 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">"ZWICKbox"</string>
+    <string name="name">"Name"</string>
+    <string name="app_generic_password">"Passwort"</string>
+    <string name="app_generic_enter_ble">"Ausserhalb der Reichweite"</string>
+    <string name="locker_details_no_pikcups">"Momentan gibt es in Ihrer Paketfachanlage nichts abzuholen."</string>
+    <string name="app_generic_privacy_policy">"Datenschutzrichtlinien"</string>
+    <string name="intro_key_sharing_slide_title">"Zugriffsfreigabe"</string>
+    <string name="intro_register_your_account">"Benutzerkonto anlegen"</string>
+    <string name="intro_register_show_password">"Passwort anzeigen"</string>
+    <string name="key_sharing_content">"Sie haben derzeit keinen Zugriff auf Ihre Paketfachanlage geteilt."</string>
+    <string name="app_generic_key_sharing">"Zugriffsfreigabe"</string>
+    <string name="help_description_title">"Hilfe"</string>
+    <string name="help_lbl_bottom">"Bei weiteren Fragen senden Sie eine E-Mail an:"</string>
+    <string name="help_link">"support@zwick.it"</string>
+    <string name="peripheral_settings_share_access">"Freigabezugriff für Lieferung %s erteilen: %s"</string>
+    <string name="peripheral_settings_remove_access">"Entfernen Sie die temporäre Zugriffsfreigabe von %s für die Lieferung %s (Erstellt am: %s)"</string>
+    <string name="peripheral_settings_grant_access">"%s hat Ihnen Zugriff auf seine Lieferung gegeben (Grösse %s; Erstellt am: %s)"</string>
+    <string name="peripheral_settings_remove_access_success">"Zugriff auf Paketfachanlage %s erfolgreich gelöscht"</string>
+    <string name="peripheral_settings_remove_access_error">"Fehler beim Löschen des Zugriffs auf Paketfachanlage %s"</string>
+    <string name="app_generic_size">"Grösse: %s"</string>
+    <string name="locker_details_registration_btn">"Zugriff anfordern"</string>
+    <string name="locker_details_registration_pending_body">"Vielen Dank! Ihre Anfrage wurde übermittelt. Wir werden Sie benachrichtigen, sobald Ihr Zugang gewährt wurde."</string>
+    <string name="nav_pickup_parcel_content_lock">"Tippen Sie auf das Schlosssymbol, um Ihre Box zu öffnen."</string>
+    <string name="nav_pickup_parcel_content_unlock">"Bitte entnehmen Sie Ihr Paket und schliessen Sie die Türe."</string>
+    <string name="nav_pickup_parcel_unlock">"Geöffnet"</string>
+    <string name="nav_pickup_parcel_connecting">"Verbinden. Bitte warten..."</string>
+    <string name="nav_pickup_parcel_lock">"Geschlossen"</string>
+    <string name="nav_pickup_no_delivery_alert">"Momentan gibt es in Ihrer Paketfachanlage keine Pakete abzuholen."</string>
+    <string name="nav_send_parcel_content_text">"Das Paketfach ist jetzt geöffnet. Bitte platzieren Sie Ihr Paket und schliessen Sie die Türe."</string>
+    <string name="nav_send_parcel_error_button">"Wiederholen"</string>
+    <string name="nav_settings_title">"Allgemein"</string>
+    <string name="nav_settings_user_details">"Benutzerdetails"</string>
+    <string name="nav_settings_language">"Sprache"</string>
+    <string name="nav_settings_app_language">"Sprache der App"</string>
+    <string name="nav_settings_change_password">"Passwort ändern"</string>
+    <string name="login_submit_title">"Einloggen"</string>
+    <string name="register_submit_title">"Registrieren"</string>
+    <string name="forgot_password_title">"Haben Sie Ihr Passwort vergessen?"</string>
+    <string name="forgot_password_description_title">"Bitte geben Sie die E-Mail-Adresse ein, mit welcher Sie registriert sind, damit wir Ihnen einen Wiederherstellungs-PIN zusenden können."</string>
+    <string name="forgot_password_send">"Senden"</string>
+    <string name="access_sharing_new_user_allow">"Zugriff erlauben"</string>
+    <string name="access_sharing_new_user_selection">"Wählen Sie eine E-Mail-Adresse aus Ihren Kontakten aus."</string>
+    <string name="access_sharing_new_user_access_details">"Zugangsdaten"</string>
+
+    <!-- What does this text mean? -->
+    <string name="access_sharing_admin_role">"Unbegrenzte Berechtigung"</string>
+    <string name="access_sharing_user_role">"Nur Paketabholung"</string>
+    <string name="access_sharing_warning_message">"Möchten Sie den Zugriff für %s wirklich entfernen?"</string>
+    <string name="toast_access_sharing_remove_success">"Benutzer %s wurde erfolgreich aus der Gruppe entfernt!"</string>
+    <string name="toast_access_sharing_remove_error">"Fehler beim Entfernen des Benutzerzugriffs. Bitte versuchen Sie es später erneut."</string>
+    <string name="key_sharing_delete_key_message">"Möchten Sie diesen gemeinsamen Schlüssel wirklich stornieren?"</string>
+    <string name="app_generic_confirm">"Bestätigen"</string>
+    <string name="app_generic_cancel">"Abbrechen"</string>
+    <string name="app_generic_sign_in">"Einloggen"</string>
+    <string name="app_generic_sign_out">"Ausloggen"</string>
+    <string name="app_generic_name">"Name"</string>
+    <string name="app_generic_phone">"Telefon"</string>
+    <string name="app_generic_group">"Gruppenname"</string>
+    <string name="app_generic_address">"Adresse"</string>
+    <string name="app_generic_email">"E-Mail"</string>
+    <string name="app_generic_notifications">"Benachrichtigungen"</string>
+    <string name="app_generic_push_notifications">"Mitteilungen"</string>
+    <string name="app_generic_password_recovery">"Haben Sie Ihr Passwort vergessen?"</string>
+    <string name="app_generic_pickup_parcel">"Paket abholen"</string>
+    <string name="app_generic_send_parcel">"Paket deponieren "</string>
+    <string name="app_generic_access_sharing">"Zugriffsfreigabe"</string>
+    <string name="app_generic_next">"Weiter"</string>
+    <string name="app_generic_finish">"Beenden"</string>
+    <string name="app_generic_help">"Hilfe"</string>
+    <string name="app_generic_no_ble">"Bitte Bluetooth einschalten."</string>
+    <string name="send_parcel_available">"%s verfügbar"</string>
+    <string name="reset_password_title">"Setzen Sie Ihr Passwort zurück"</string>
+    <string name="reset_password_description_title">"Bitte geben Sie Ihr neues Passwort ein"</string>
+    <string name="reset_password_new">"Neues Passwort"</string>
+    <string name="reset_password_pin">"PIN Widerherstellen (Via E-Mail zugesendet)*"</string>
+    <string name="reset_password_confirm">"Passwort bestätigen"</string>
+    <string name="reset_password_done">"Erledigt"</string>
+
+    <!-- In App messages -->
+    <string name="toast_access_sharing_add_user_success">"Erfolgreich"</string>
+    <string name="default_notification_channel_id">"fcm_default_channel"</string>
+    <string name="default_notification_channel_name">"Nachrichten"</string>
+    <string name="select_locker_description">"Bitte wählen Sie einen Schliessfach aus, den Sie verwenden möchten."</string>
+    <string name="access_sharing_share_choose_sharing">"Wählen Sie die Freigabemethode"</string>
+
+    <!-- Fuzzy -->
+    <string name="access_sharing_share_app_text_zwick">"Sie wurden zum ZWICKbox app eingeladen."</string>
+    <string name="sent_parcel_error_delete">"Fehler beim Löschen des Schlüssels für Benutzer %s, bitte erneut versuchen!"</string>
+    <string name="app_generic_no_network">"Keine Internetverbindung"</string>
+    <string name="error_while_saving_user">"Fehler beim Speichern der Benutzer-ID %s, bitte erneut versuchen!"</string>
+    <string name="nav_settings_password_update_success">"Passwort erfolgreich aktualisiert!"</string>
+    <string name="ttc_btn">"Ich akzeptiere die Nutzungsbedingungen."</string>
+    <string name="error_accept_terms_and_conditions">"Bitte nehmen sie die Nutzungsbedingungen an."</string>
+    <string name="nav_ttc_title">"Nutzungsbedingungen"</string>
+    <string name="app_generic_password_doesnt_match">"Passwort stimmt nicht überein"</string>
+    <string name="privacy_policy_contact_us_title">"Kontaktieren Sie uns"</string>
+    <string name="send_parcel_description">"Bitte wählen Sie die Fachgrösse"</string>
+    <string name="edit_user_validation_blank_fields_exist">"Bitte geben Sie alle Benutzerinformationen ein."</string>
+    <string name="edit_user_validation_current_password_invalid">"Aktuelles Passwort nicht korrekt!"</string>
+    <string name="edit_user_validation_current_user_invalid">"Aktueller Benutzer ist nicht gültig!"</string>
+    <string name="edit_user_validation_passwords_do_not_match">"Das Passwort ist inkorrekt"</string>
+    <string name="edit_user_validation_password_min_6_characters">"Das Passwort muss mindestens 6 Zeichen lang sein"</string>
+    <string name="edit_user_validation_username_min_4_characters">"Der Benutzername muss mindestens 4 Zeichen lang sein"</string>
+    <string name="edit_user_validation_terms_and_conditions_not_checked">"Bitte akzeptieren Sie die Allgemeinen Geschäftsbedingungen und die Datenschutzerklärung."</string>
+    <string name="edit_user_notification_setting_email">"E-mail"</string>
+    <string name="message_email_invalid">"E-mail Adresse nicht gültig!"</string>
+    <string name="nav_login_missing_account">"Du hast noch keinen Account?"</string>
+    <string name="login_register_text">"Du hast noch keinen Account? Registrieren"</string>
+    <string name="login_register_link">"Registrieren"</string>
+    <string name="access_sharing_pop_up_title">"Temporäre Zugriffsfreigabe"</string>
+    <string name="access_sharing_group_selection">"Gruppe"</string>
+    <string name="app_generic_error">"Fehler"</string>
+    <string name="email_error">"Sie haben kein E-Mail Konto eingerichtet."</string>
+    <string name="register_error">"Fehler beim Registrieren des Benutzers"</string>
+    <string name="register_error_data">"Bitte überprüfen Sie die eingegebenen Daten"</string>
+    <string name="register_error_empty">"Bitte füllen Sie alle Felder aus"</string>
+    <string name="login_error_title">"Ungültiger Benutzername und/oder Passwort"</string>
+    <string name="login_error_incorrect">"Nicht gültiger Benutzername oder Passwort!"</string>
+    <string name="forgot_password_error">"Geben Sie bitte Ihre E-mail Adresse ein"</string>
+    <string name="reset_password_error">"Eingegebener PIN ist ungültig"</string>
+    <string name="reset_password_succes">"Ihr Passwort wurde erfolgreich zurückgesetzt"</string>
+    <string name="reset_password_resend_alert">"E-mail gesendet. Bitte überprüfen Sie Ihren Posteingang."</string>
+    <string name="reset_password_error_empty">"Bitte füllen Sie alle Felder aus"</string>
+    <string name="reset_password_match_error">"Die eingegebenen Passwörter stimmen nicht überein"</string>
+    <string name="pickup_parcel_fetch_error">"Fehler beim herunterladen des geteilten Schlüssels"</string>
+    <string name="locker_details_request_error">"Fehler beim Anfordern des Zugriffs"</string>
+    <string name="pickup_parcel_cancel_error">"Der geteilte Schlüssel konnte nicht wiederrufen werden."</string>
+    <string name="pickup_parcel_create_error">"Zugriff bereits freigegeben"</string>
+    <string name="pickup_parcel_email_error">"E-mail ist ungültig"</string>
+    <string name="pickup_parcel_door_error">"Fehler beim Öffnen der Tür"</string>
+    <string name="app_generic_enter_email">"E-mail Adresse eingeben"</string>
+    <string name="app_generic_success">"Erfolgreich"</string>
+    <string name="send_parcel_error_select">"Bitte Grösse auswählen"</string>
+    <string name="send_parcel_error_pin">"Bitte geben Sie den richtigen Pin ein"</string>
+    <string name="access_sharing_error_delete">"Fehler beim Löschen eines Mitglieds"</string>
+    <string name="grant_access_error">"Benutzer wurde nicht gefunden. Klicken Sie auf OK, wenn Sie die App teilen möchten."</string>
+    <string name="settings_update_error">"Aktualisierung des Benutzerprofils fehlgeschlagen"</string>
+    <string name="settings_update_success">"Alle Änderungen werden gespeichert"</string>
+    <string name="nav_settings_logout_description">"Möchten Sie sich wirklich abmelden?"</string>
+    <string name="app_generic_time_created">"Kreiert: %s"</string>
+
+    <!-- App version %s -->
+    <string name="nav_settings_app_version">"App Version %s"</string>
+    <string name="app_generic_help_link">"&lt;a href=\"mailto:support@zwick.it\"&gt;support@zwick.it&lt;/a&gt;"</string>
+
+    <!-- Activate -->
+    <string name="locker_details_activate_btn">"Aktivieren"</string>
+
+    <!-- support@huber-ag.ch -->
+    <string name="app_generic_support_email">"support@zwick.it"</string>
+    <string name="grant_access_error_exists">"Benutzer hat bereits Zugang"</string>
+    <string name="grant_acces_empty_email">"Bitte geben Sie Ihre E-Mail-Adresse ein"</string>
+    <string name="access_sharing_my_group">"Meine Gruppe"</string>
+    <string name="access_sharing_other_group">"Andere"</string>
+    <string name="locker_details_deactivation_hint">"Sind Sie sicher, dass Sie diesen Schliessfach deaktivieren wollen?"</string>
+    <string name="locker_datails_deactivate">"Schliessfach deaktivieren"</string>
+    <string name="locker_details_header">"Schliessfachdetails bearbeiten"</string>
+    <string name="app_generic_access_forbidden">"Zugriff nicht erlaubt"</string>
+    <string name="app_generic_not_activated">"Nicht aktiviert"</string>
+    <string name="locker_datails_save">"Speichern"</string>
+
+    <!-- Registration -->
+    <string name="registration_name">"Name &amp; Nachname*"</string>
+
+    <!-- Registration -->
+    <string name="registration_address">"Adresse*"</string>
+
+    <!-- Registration -->
+    <string name="registration_email">"E-mail*"</string>
+
+    <!-- Registration -->
+    <string name="registration_password">"Passwort*"</string>
+
+    <!-- Registration -->
+    <string name="registration_repeat_password">"Passwort wiederholen*"</string>
+
+    <!-- Force open -->
+    <string name="app_generic_force_open">"Öffnen erzwingen"</string>
+    <string name="locker_details_deactivation_key_error">"SPL kann wegen des aktiven Schlüssels nicht deaktiviert werden."</string>
+    <string name="peripheral_settings_share_access_spl">"Freigabezugriff auf die Lieferung (kreiert: %s)"</string>
+    <string name="peripheral_settings_remove_access_spl">"Zugriff auf die Lieferung entfernen (erstellt: %s) generiert an %s"</string>
+    <string name="peripheral_settings_grant_access_spl">"%s Zugriff für die Lieferung (angelegt: %s)"</string>
+
+    <!-- Delete p@f key created for [userName] -->
+    <string name="parcel_pickup_delete_key_title">"Entferne p@f Schlüssel generiert für"</string>
+
+    <!-- Are you sure you want to delete this key? -->
+    <string name="pickup_parcel_delete_content">"Sind Sie sicher, dass Sie diesen Schlüssel löschen wollen?"</string>
+    <string name="forgot_password_email_error">"E-mail existiert nicht im System"</string>
+
+    <!-- new terms for zwick app.. terms above are taken, are the same like in huber app -->
+    <string name="home_hi">"Hallo"</string>
+    <string name="home_question">"Was möchtest du heute machen?"</string>
+    <string name="locker_inactive">"Inactiv"</string>
+    <string name="locker_no_access">"Kein Zugriff"</string>
+    <string name="locker_request_send">"Anfrage gesendet"</string>
+    <string name="locker_pick_home_keys">"Pick@Home Schlüssel"</string>
+    <string name="locker_home_keys_proximity">"Du musst in der Nähe des Schliessfachs sein, um pick@home abzubrechen."</string>
+    <string name="locker_pin_title">"Bitte geben Sie Ihre PIN ein"</string>
+    <string name="locker_pin_4_digits">"Ihre PIN = die letzten 4 Ziffern Ihrer Sendungsnummer"</string>
+    <string name="locker_pin_confirm_title">"Bitte wiederholen Sie Ihre PIN."</string>
+    <string name="locker_pin_confirm_description">"Bitte wiederholen Sie Ihre PIN."</string>
+    <string name="locker_pin_confirm_error">"PIN stimmt nicht mit dem vorherigen überein"</string>
+    <string name="settings_title">"Einstellungen"</string>
+    <string name="settings_account_details">"Meine Details"</string>
+    <string name="settings_privacy_policy">"Datenschutzerklärung"</string>
+    <string name="settings_language_eng">"Englisch"</string>
+    <string name="settings_language_de">"Deutsch"</string>
+    <string name="settings_language_it">"Italienisch"</string>
+    <string name="settings_language_fr">"Französisch"</string>
+    <string name="settings_account_title">"Konto"</string>
+    <string name="settings_support">"Support"</string>
+    <string name="app_generic_apply">"OK"</string>
+    <string name="current_password">"Aktuelles Passwort"</string>
+    <string name="new_password">"Neues Passwort"</string>
+    <string name="retype_password">"Passwort erneut eingeben"</string>
+    <string name="collect_parcel_title">"Pakete empfangen"</string>
+    <string name="sending_parcels_title">"Pakete Senden"</string>
+    <string name="logout_question">"Sind Sie sicher, dass Sie sich abmelden wollen?"</string>
+    <string name="logout_again">"Sie können sich jederzeit wieder anmelden."</string>
+    <string name="something_went_wrong">"Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut."</string>
+    <string name="cancel_pick_home">"ABBRECHEN PICK@HOME"</string>
+    <string name="not_in_proximity_description">"Scheint, Sie sind nicht in der Nähe des Schliessfachs. Gehen Sie in die Nähe des Schliessfachs %s um es zu entriegeln."</string>
+    <string name="privacy_policy_title">"Datenschutzerklärung"</string>
+
+    <!-- Fuzzy -->
+    <string name="privacy_policy_zwick">"Letzte Aktualisierung: Juni 2019
+
+
+ZWICK (genannt \"wir\", \"uns\" oder \"unser\") verpflichtet sich, Ihre Privatsphäre zu schützen und sicherzustellen, dass Sie ZWICK Ihre persönlichen Daten anvertrauen. Wenn Sie (als \"Besucher\" bezeichnet) mit uns in Kontakt treten, um zusätzliche Informationen zu unseren Diensten zu erhalten oder unseren Newsletter zu abonnieren, können Sie uns personenbezogene Daten mitteilen, mit denen Sie sich als Einzelperson identifizieren können (z. B. Name, Nachname, E-Mail-Adresse und Firmenname). In dieser Mitteilung erläutern wir, wie wir diese Daten verwenden und welche Rechte Sie haben, wenn Sie mit uns auf dieser Website/APP interagieren.
+
+1. Einleitung 
+Diese Datenschutzerklärung gilt für die personenbezogenen Daten, die wir über Sie sammeln, um Ihnen unsere von uns angebotenen Produkte und Dienstleistungen zur Verfügung zu stellen. Durch die Nutzung unserer Website/APP oder die Angabe Ihrer persönlichen Daten akzeptieren Sie die in dieser Datenschutzerklärung beschriebenen Praktiken. Wenn Sie mit dieser Datenschutzerklärung nicht einverstanden sind, verwenden Sie unsere Website/APP bitte nicht und geben Sie uns keine persönlichen Daten. ZWICK behält sich das Recht vor, diese Datenschutzerklärung jederzeit zu ändern. Wir empfehlen Ihnen, diese Datenschutzerklärung regelmässig zu überprüfen, um sicherzustellen, dass Sie über Änderungen informiert sind und wie Ihre persönlichen Daten verwendet werden.
+
+
+2. Von dieser Website/APP gesammelte Daten zu den personenbezogenen Daten, die diese Website/APP sammelt, gehören Nutzungsdaten, Vor- und Nachname, E-Mail-Informationen und Firmenname. Name, E-Mail-Adresse und Firmenname.
+
+Die Angabe personenbezogener Daten ist auf dieser Website/APP nicht obligatorisch, und die Nichtangabe macht es der Website/APP nicht unmöglich, ihre Dienste bereitzustellen. Im Falle von Nutzungsdaten verwenden wir Cookies, die beim Besuch der Website/APP automatisch gesammelt werden.
+
+
+2.1. Cookies 
+Cookies sind Dateien mit geringen Datenmengen, die üblicherweise als anonyme eindeutige Kennung verwendet werden. Diese werden von der von Ihnen besuchten Website/APP an Ihren Browser gesendet und auf der Festplatte Ihres Computers gespeichert. Unsere Website/APP verwendet diese \"Cookies\", um Informationen zu sammeln und unseren Service zu verbessern. Sie können diese Cookies entweder akzeptieren oder ablehnen und wissen, wann ein Cookie an Ihren Computer gesendet wird.
+
+
+2.2. Personenbezogene Daten von Kindern 
+ZWICK fordert nicht wissentlich personenbezogene Daten von Kindern unter 13 Jahren an oder sammelt diese. Wenn wir feststellen, dass wir versehentlich personenbezogene Daten von Kindern unter 13 Jahren gesammelt haben, werden wir die personenbezogenen Daten dieses Kindes so schnell wie möglich aus den Aufzeichnungen entfernen. Wir können jedoch personenbezogene Daten von Kindern unter 13 Jahren direkt und daher mit deren ausdrücklicher Zustimmung beim Elternteil oder der Aufsichtsbehörde erheben.
+
+
+3. Ihre Rechte
+3.1. Recht zum Abbestellen der Newsletter-Kommunikation
+Sie haben das Recht, den Erhalt von Newslettern von ZWICK abzulehnen. Sie können dies direkt aus Ihrer E-Mail heraus durchführen, indem Sie auf \"Abbestellen\" klicken. Wenn Sie keine der vorherigen Newsletter behalten haben, können Sie sich abmelden, indem Sie eine E-Mail an support@zwick.it senden und die Entfernung von der Newsletter-Liste beantragen.
+
+
+3.2. Zugang und Berichtigung 
+Sie haben das Recht, den Zugang zu Ihren persönlichen Daten anzufordern. Sie können uns jederzeit eine Anfrage senden, um sich mit uns in Verbindung zu setzen, um Informationen über den Inhalt und die Herkunft Ihrer personenbezogenen Daten zu erhalten, um die Richtigkeit der Daten zu überprüfen oder um die Ergänzung, Löschung, Aktualisierung oder Berichtigung von Daten zu verlangen. Anfragen müssen an die oben angegebenen Kontaktinformationen gesendet werden und werden innerhalb von 30 Tagen beantwortet.
+
+
+3.3. Aufbewahrung 
+ZWICK speichert Ihre personenbezogenen Daten nur so lange, wie dies für den angegebenen Zweck erforderlich ist (Erhalt von PDF-Informationen über das Formular oder gelegentliche Newsletter). Dabei berücksichtigen wir auch unsere Notwendigkeit, Fragen zu beantworten oder Probleme zu lösen, verbesserte und neue Dienste bereitzustellen und die gesetzlichen Anforderungen gemäss den geltenden Gesetzen einzuhalten. Dies bedeutet, dass wir Ihre personenbezogenen Daten nach Ihrer letzten Interaktion mit uns möglicherweise für einen angemessenen Zeitraum aufbewahren. Wenn die von uns erhobenen personenbezogenen Daten auf diese Weise nicht mehr benötigt werden, vernichten oder löschen wir sie auf sichere Weise.
+
+
+4. Kontaktieren Sie uns
+ZWICK fungiert als \"Datenschutzbeauftragter\" für die im Rahmen dieser Datenschutzerklärung verarbeiteten personenbezogenen Daten. Wenn Sie Fragen oder Kommentare zu dieser Datenschutzerklärung oder den Praktiken von ZWICK zur Erfassung personenbezogener Daten haben, wenden Sie sich bitte per E-Mail an support@zwick.it oder schriftlich an ZWICK SRL, Zona Produttiva 25, I-39028 Silandro (BZ). Wir werden Ihre Anfrage innerhalb von 30 Tagen beantworten.
+"</string>
+    <string name="terms_and_condtions_title">"Allgemeine Geschäftsbedingungen"</string>
+
+    <!-- Fuzzy -->
+    <string name="terms_and_condtions_zwick">"Letzte Aktualisierung: Juni 2019
+
+
+- Annahme der Bedingungen:
+Willkommen bei der ZWICKbox von ZWICK. ZWICK bietet Tools und Technologien, die es einfacher denn je machen, Pakete nach Ihrem Zeitplan zu senden und zu empfangen. ZWICK verwendet eine Website, eine mobile Anwendung, ein angeschlossenes Schliessfach, Software, Prozesse und Dienste, damit Benutzer Pakete annehmen und senden können (zusammen die \"Dienste\").
+
+Durch die Nutzung der Dienste erklären Sie sich damit einverstanden, diese Allgemeinen Geschäftsbedingungen (\"Bedingungen\") einzuhalten und rechtlich gebunden zu sein, unabhängig davon, ob Sie ein registrierter Benutzer der Dienste werden oder nicht. Diese Bedingungen regeln Ihren Zugang und die Nutzung der Dienste und stellen eine verbindliche rechtliche Vereinbarung zwischen Ihnen und ZWICK dar. In diesen Nutzungsbedingungen beziehen sich \"Sie\", \"Ihr\" und \"Benutzer\" auf die Person oder die Identität, die die Dienste nutzt. \"Wir\", \"uns\" oder \"unser\" beziehen sich auf ZWICK. Wenn Sie diese Bedingungen im Namen eines Unternehmens oder einer anderen juristischen Person abschließen, erklären Sie, dass Sie befugt sind, dieses Unternehmen, seine Benutzer, seine Administratoren und seine verbundenen Unternehmen an diese Bedingungen zu binden.
+
+Bitte lesen Sie diese Bedingungen und unsere Datenschutzrichtlinien (die hier enthalten sind und unter www.zwick.it zu finden sind) sorgfältig durch.
+
+SIE BESTÄTIGEN UND STIMMEN ZU, DASS SIE DURCH DEN ZUGRIFF AUF DIE DIENSTLEISTUNGEN ODER DURCH DIE NUTZUNG DER DIENSTLEISTUNGEN ANZEIGEN, DASS SIE DIESE BEDINGUNGEN VERSTEHEN UND EINVERSTANDEN HABEN, OB SIE EINGESCHRIEBEN SIND ODER NICHT. WENN SIE DIESEN BEDINGUNGEN NICHT ZUSTIMMEN, MÜSSEN SIE SICH NICHT ALS BENUTZER REGISTRIEREN, UND SIE HABEN KEIN RECHT AUF ZUGRIFF ODER NUTZUNG DER DIENSTLEISTUNGEN.
+
+
+
+- Änderungen:
+ZWICK behält sich das Recht vor, Aspekte der Dienste jederzeit und ohne vorherige Ankündigung vorübergehend oder dauerhaft zu ändern oder einzustellen. ZWICK kann diese Bedingungen auch jederzeit ändern. Indem Sie weiterhin auf die Dienste zugreifen oder diese nutzen, nachdem wir eine Änderung veröffentlicht oder Sie über eine Änderung dieser Bedingungen informiert haben, erklären Sie sich damit einverstanden, an die geänderten Bedingungen gebunden zu sein. Wenn die geänderten Bedingungen für Sie nicht akzeptabel sind, können Sie lediglich Ihr Konto kündigen und die Nutzung der Dienste einstellen.
+
+
+
+- Teilnahmeberechtigung; Digitale Unterschrift:
+Die Dienstleistungen sind ausschließlich für Personen über 18 Jahre bestimmt, die in der Lage und befugt sind, die in diesen Bedingungen festgelegten Bedingungen, Verpflichtungen, Zusicherungen, Zusicherungen und Gewährleistungen einzuhalten und diese Bedingungen einzuhalten und zu befolgen. 
+
+Mit der Registrierung für ein kostenloses Benutzerkonto oder dem Klicken auf, um diese Bedingungen zu akzeptieren, wird davon ausgegangen, dass Sie diese Bedingungen ab dem Datum der Registrierung Ihres Kontos elektronisch ausgeführt haben. Die Einrichtung eines Benutzerkontos stellt eine Bestätigung dar, dass Sie diese Nutzungsbedingungen und etwaige Änderungen elektronisch empfangen, herunterladen und ausdrucken können.
+
+
+
+- Wie der funktioniert der Dienst?
+Die Dienste bestehen aus Tools, Technologien und Diensten, die über eine Plattform verfügbar sind, über die Benutzer mit einem aktuellen und gültigen Benutzerkonto Pakete annehmen und senden können.
+
+Um auf die Dienste zugreifen und diese nutzen zu können, müssen Sie ein Konto (\"Benutzerkonto\") registrieren und ein Benutzer werden. Sie erklären sich damit einverstanden, bei der Registrierung genaue, aktuelle und vollständige Informationen bereitzustellen und diese zu aktualisieren, um sie genau, aktuell und vollständig zu halten. Sie erklären sich damit einverstanden, dass Sie Ihr Passwort schützen und allein für Aktivitäten oder Aktionen in Ihrem Benutzerkonto verantwortlich sind, unabhängig davon, ob Sie solche Aktivitäten oder Aktionen autorisiert haben oder nicht. Sie werden uns umgehend über eine nicht autorisierte Nutzung Ihres Benutzerkontos informieren. ZWICK übernimmt keine Verantwortung für Benutzerkontoinformationen.
+
+Um die Services nutzen zu können, müssen Sie ausserdem bei einem ZWICKbox registriert sein. Über die ZWICKbox-App erhalten Sie eine Push-Benachrichtigung, sobald ein Paket zu Ihrem Locker geliefert oder von Ihrem Locker zur Auslieferung abgeholt wurde. Wenn Sie technische oder sonstige Probleme beim Abrufen Ihres Pakets aus Ihrer Box haben, wenden Sie sich bitte an support@zwick.it
+
+Die Aufgabe von ZWICK besteht ausschließlich darin, die Verfügbarkeit der Services, einschließlich Schließfächer, zu erleichtern und den dazugehörigen Support bereitzustellen. ZWICK ist kein Kurier und nicht am Transport von Paketen beteiligt.
+
+
+
+- Benutzer und allgemeine Garantien:
+Mit dem Absenden des Benutzerregistrierungsformulars erklären Sie sich mit Folgendem einverstanden:
+o Sie sind mindestens 18 Jahre alt, berechtigt, ein Benutzerkonto zu erstellen und haben die volle Befugnis und Berechtigung, diese Bedingungen einzugeben.
+
+o Sie akzeptieren und stimmen zu, dass wir keine Verantwortung oder Haftung für die Lagerung oder Übermittlung von Paketen übernehmen und dass alle Aspekte des Paketversands und der Zustellung in jeder Hinsicht durch die Beziehung zwischen Ihnen, einem Zustelldienst, der Ihren Locker verwendet, und jedes andere Unternehmen welches Ihnen Pakete schickt. Ihr Schließfach liegt in Ihrer Hand und Sie sind für Ihre Pakete verantwortlich, als hätten Sie sich persönlich mit dem Lieferservice befasst.
+
+
+
+- Eigentum:
+Alle hier verwendeten Marken, Dienstleistungsmarken, Logos, Handelsnamen und sonstigen geschützten Bezeichnungen von ZWICK und ZWICKbox sind Marken oder eingetragene Marken von ZWICK. Alle anderen Marken, Dienstleistungsmarken, Logos, Handelsnamen und sonstigen geschützten Bezeichnungen sind Marken oder eingetragene Marken der jeweiligen Parteien.
+
+
+Lizenz für Dienste und Inhalt (Content)
+Unter der Voraussetzung, dass Sie diese Bedingungen einhalten, gewährt Ihnen ZWICK eine eingeschränkte, nicht ausschließliche, widerrufliche und nicht übertragbare Lizenz für den Zugriff auf und die Anzeige von ZWICK-Inhalten, auf die Sie ausschließlich zu Ihren persönlichen Zwecken zugreifen dürfen.
+
+Sie werden keine abgeleiteten Werke verwenden, kopieren, anpassen, modifizieren, vorbereiten, die auf den Diensten oder ZWICK-Inhalten basieren, diese verbreiten, lizenzieren, verkaufen, übertragen, öffentlich anzeigen, aufführen, übertragen, ausstrahlen oder anderweitig verwerten, es sei denn, dies ist ausdrücklich in diesen Nutzungsbedingungen gestattet. Mit Ausnahme der in diesen Bedingungen ausdrücklich gewährten Lizenzen und Rechte werden Ihnen implizit oder anderweitig keine Lizenzen oder Rechte an geistigem Eigentum gewährt, die Eigentum von ZWICK oder seinen Lizenzgebern sind oder von diesen kontrolliert werden.
+
+
+
+- Kündigung und Deaktivierung des Benutzerkontos:
+Diese Bedingungen bleiben in vollem Umfang in Kraft, bis Ihr Konto oder diese Bedingungen wie hier beschrieben gekündigt werden. Sie haben das Recht, Ihr Konto jederzeit über die in der ZWICKbox-App bereitgestellte Schnittstelle zur Kontodeaktivierung zu deaktivieren. Nur Eigentümer können Teamkonten deaktivieren und löschen. Alle angefallenen Zahlungsrechte und Rechte, die ZWICK eingeräumt werden, sowie die nachstehenden Bedingungen gelten auch nach Beendigung dieser Bedingungen.
+
+
+
+- Haftungsausschluss:
+WENN SIE DIE DIENSTLEISTUNGEN NUTZEN, TUN SIE DAS AUF EIGENES RISIKO. DIENSTLEISTUNGEN UND INHALTE WERDEN OHNE JEGLICHE AUSDRÜCKLICHE ODER STILLSCHWEIGENDE GEWÄHRLEISTUNG BEREITGESTELLT.
+
+Ohne das Vorhergehende einzuschränken, lehnt ZWICK ausdrücklich jegliche Gewährleistung der Marktgängigkeit, der Eignung für einen bestimmten Zwick, der Unbeschwertheit, des Genusses oder der Nichtverletzung sowie jegliche Gewährleistungen ab, die sich aus dem Handel oder der Nutzung ergeben. 
+
+ZWICK ÜBERNIMMT KEINE GARANTIE, DASS DIE WEBSITE, ANWENDUNG, DIENSTLEISTUNGEN ODER INHALTE IHREN ANFORDERUNGEN ENTSPRECHEN ODER UNTERBROCHEN, SICHER ODER FEHLERFREI VERFÜGBAR SIND. WEITERHIN LEHNEN WIR JEGLICHE GEWÄHRLEISTUNG AB, DASS DIE IN IHNEN GELAGERTEN KÄSTEN ODER GEGENSTÄNDE NICHT DIEBSTAHL, FEUER, WASSERSCHÄDEN, EINGEHALTETEM WETTER, VANDALIMEN ODER VERLUSTEN ODER ALLGEMEINEN SCHÄDEN UNTERLIEHEN.
+
+SIE SIND FÜR ALLE PAKETE DIE VON IHNEN GESENDET ODER EMPFANGEN WERDEN VERANTWORTLICH, BIS ZU DEM ZEITPUNKT WO EIN LIEFERDIENST NACH DESSEN BEDINGUNGEN DEN RECHTLICHEN BESITZ ÜBERNIMMT. ZU KEINEM ZEITPUNKT IST ZWICK IM BESITZ ODER IN IRGENDEINER WEISE FÜR PAKETE VERANTWORTLICH, EINSCHLIESSLICH, WENN ES IN IHRER BOX ENTHALTEN IST. SIE BESTÄTIGEN UND STIMMEN ZU, ZWICK SCHADLOS IM ZUSAMMENHANG MIT JEGLICHEN ANSPRÜCHEN UND SCHÄDEN ODER AUFWENDUNGEN, DIE AUS DER NUTZUNG DER DIENSTLEISTUNGEN ENTSTEHEN, ZU VERZICHTEN UND ZU HALTEN.
+
+
+
+- Haftungsbeschränkung:
+SIE ERKENNEN UND STIMMEN ZU, DASS DAS GESAMTE RISIKO AUS IHREM ZUGANG UND DIE NUTZUNG DER DIENSTE BEI IHNEN LIEGT. WEDER ZWICK NOCH ANDERE PARTEI, VERANTWORTLICH FÜR DIE ERSTELLUNG, PRODUKTION, LIEFERUNG, GESTALTUNG ODER INHALT, SIND HAFTBAR FÜR DIREKTE ODER INDIREKTE SCHÄDEN UND FOLGESCHÄDEN, 
+einschließlich entgangener Gewinne, Verlust von Daten entgangener KULANZ, Service-Unterbrechungen, Schäden an technischen Produkten, SYSTEMAUSFALL KOSTEN FÜR ERSATZPRODUKTE, PRODUKTHAFTUNG ODER ANDERE RECHTLICHEN GRUNDLAGEN.
+
+
+
+- Entschädigung:
+Sie erklären sich damit einverstanden, ZWICK und seine verbundenen Unternehmen und Tochterunternehmen sowie deren leitende Angestellte, Direktoren, Mitarbeiter und Vertreter von jeglichen Ansprüchen, Verbindlichkeiten, Schäden, Verlusten und Aufwendungen freizustellen, die aus oder in irgendeiner Weise im Zusammenhang mit (a) Ihrem Zugang zu oder Ihrer Nutzung der Dienste entstehen; (b) Ihre Verletzung dieser Bedingungen; (c) Ihren Benutzerinhalt; (c) Ihr Vertrauen in Informationen, die über die Dienste ausgetauscht werden; (d) Ihre Verletzung von Rechten Dritter, einschließlich, jedoch nicht beschränkt auf Urheberrechte, Eigentumsrechte oder Datenschutzrechte; oder (e) jegliche Behauptung, dass Sie oder Ihr Benutzerinhalt einem Dritten Schaden zugefügt haben. ZWICK hat das Recht, alle Einstellungen in der Backend-Lösung zu prüfen und bei Bedarf anzupassen.
+
+
+
+- Zuordnung:
+Ohne die vorherige schriftliche Zustimmung von ZWICK dürfen Sie diese Bedingungen weder gesetzlich noch anderweitig abtreten oder übertragen. Jeder Versuch von Ihnen, diese Bedingungen ohne eine solche Zustimmung abzutreten oder zu übertragen, ist nichtig und ohne Wirkung. ZWICK kann diese Bedingungen nach eigenem Ermessen ohne Einschränkung abtreten oder übertragen. Vorbehaltlich des Vorstehenden sind diese Bedingungen zum Nutzen der Parteien, ihrer Nachfolger und zugelassenen Abtretungen bindend.
+
+
+
+- Hinweise:
+Sofern in diesem Dokument nicht anders angegeben, erfolgen alle hierin zulässigen oder erforderlichen Mitteilungen oder sonstigen Mitteilungen, einschließlich derer, die Änderungen dieser Bedingungen betreffen, schriftlich und werden von ZWICK (i) per E-Mail an die E-Mail-Adresse Ihres Kontos oder (ii) per Hinweis über die Website oder über die ZWICKbox-APP übermittelt. Bei Mitteilungen per E-Mail gilt als Eingangsdatum das Datum, an dem diese Mitteilung übermittelt wird. Sie können uns per E-Mail unter support@zwick.it benachrichtigen und erreichen.
+
+
+
+- Anwendbares Recht und Gerichtsstand:
+Ausschließlicher Gerichtsstand ist der Sitz von ZWICK. Es steht ZWICK jedoch auch frei, sich an das für den Sitz und den Sitz des Kunden zuständige Gericht zu wenden. Das Wiener Übereinkommen über den internationalen Warenkauf findet keine Anwendung."</string>
+    <string name="main_title">"Hallo %s!"</string>
+    <string name="main_subtitle">"Was möchtest du heute machen?"</string>
+    <string name="locker_selection_description">"Bitte wählen Sie das Schliessfach aus, das Sie benutzen möchten."</string>
+    <string name="locker_selection_title">"Schliessfach wählen"</string>
+    <string name="locker_registrated_label">"Registriert"</string>
+    <string name="locker_not_in_proximity_label">"Ausserhalb der Reichweite"</string>
+    <string name="locker_inactive_label">"Inactiv"</string>
+    <string name="locker_activate_btn">"Aktivieren"</string>
+    <string name="locker_request_access_btn">"Zugriff anfordern"</string>
+    <string name="locker_request_sent_label">"Zugriffanforderung gesendet"</string>
+    <string name="locker_request_no_access">"Kein Zugriff"</string>
+    <string name="locker_request_access_success">"Vielen Dank. Ihre Anfrage wurde übermittelt.
+Wir werden Sie benachrichtigen, sobald Ihr Zugang gewährt wurde."</string>
+    <string name="collect_parcel_help_text">"Mit dieser App können Sie die an Sie zugestellten Pakete jederzeit bequem abholen.
+
+Sie müssen sicherstellen, dass Sie eine stabile Internetverbindung haben, Bluetooth eingeschaltet ist und sich in der Nähe der Paketfachanlage befinden.
+
+Wenn alle oben genannten Voraussetzungen erfüllt sind, können Sie mit der Paketabholung fortfahren.
+
+Szenario eins: Das Schloss-Symbol ist grau = Sie erfüllen die oben genannten Voraussetzungen nicht. Bitte überprüfen Sie, ob Ihre Internetverbindung stabil ist, Bluetooth aktiviert ist und Sie sich in der Nähe der Paketfachanlage befinden.
+
+Szenario zwei: Das Schloss-Symbol ist rot = Sie erfüllen alle Voraussetzungen und sind bereit, Ihr Paket abzuholen. Drücken Sie einfach auf das rote Schloss-Symbol und das Schliessfach öffnet sich sofort.
+
+Szenario drei: Das Schloss-Symbol ist grün = Die Schliesfachtüre sind geöffnet, Sie haben Ihr Paket abgeholt. In diesem Schritt müssen Sie die Tür schliessen und die Taste \"Bestätigen\" innerhalb der App anklicken."</string>
+    <string name="collect_parcel_help_text_first_subtitle">"Szenario eins"</string>
+    <string name="collect_parcel_help_text_second_subtitle">"Szenario zwei"</string>
+    <string name="collect_parcel_help_text_third_subtitle">"Szenario drei"</string>
+    <string name="send_parcel_help_text">"Mit unserer App können Sie Pakete ganz einfach über Einzel- oder Mehrfach-Paketfächer versenden, die Ihnen gehören.
+
+Sie müssen sicherstellen, dass Sie eine stabile Internetverbindung haben, Bluetooth eingeschaltet ist und sich in der Nähe der Paketfachanlage befinden.
+
+Im ersten Schritt müssen Sie die Grösse Ihres Pakets wählen (nur MPL-Nutzer).
+
+Zweitens geben Sie die letzten vier Ziffern der von Ihrem Dienstanbieter Trackingnummer ein. Diese vier Nummern bilden Ihre PIN, die später vom Kurier zur Abholung Ihres Pakets verwendet wird.
+
+Der letzte Schritt besteht darin, das Paket in den offenen Schliessfach zu legen, die Tür zu schliessen und die Taste \"Fertig\" innerhalb der App zu drücken."</string>
+    <string name="sharing_help_text">"Mit unserer App können Sie den Zugriff auf Ihre Paketfachanlage an eine vertrauenswürdige Person weitergeben - an Dritte, die berechtigt sind, Ihre Anlage zu benutzen.
+
+Sie können aus der Liste der verfügbaren Benutzer (vordefinierte Gruppe) für eine One-Tap-Aktion zum Vergeben/Entfernen des Zugriffs auswählen.
+
+Eine weitere Möglichkeit ist die manuelle Eingabe, bei der Sie Name, E-Mail-Adresse (kann auch aus Kontakten ausgewählt werden) und Zugangsdaten eingeben müssen. Sie können \"Vollzugriff gewähren\" mit Freigabeberechtigungen (d.h. Ihre Vertrauensperson hat die Möglichkeit, den Zugriff für andere Vertrauenspersonen zu teilen) oder \"Nur Paketabholung\" wählen.
+
+Eine vertrauenswürdige Person muss auch ein App-Benutzer sein. Wenn dies nicht der Fall ist, sollten Sie aufgefordert werden, die App zu installieren, um diesen Dienst nutzen zu können."</string>
+    <string name="access_sharing_parcel_locker">"Paketfach"</string>
+    <string name="app_generic_my_configuration">"Einstellungen"</string>
+    <string name="pickup_parcel_empty">"Leer"</string>
+    <string name="key_locker">"Schliessfach"</string>
+    <string name="key_locker_size">"Schliessfachgrösse: %s"</string>
+    <string name="send_parcel_full">"Keine frei Schliessfächer"</string>
+    <string name="send_parcel_not_available">"Nicht verfügbar"</string>
+    <string name="settings_account">"Konto"</string>
+    <string name="settings_contact">"Kontakt"</string>
+    <string name="locker_not_empty">"PAKETFACHANLAGE NICHT LEER"</string>
+    <string name="share_access_group_members_empty">"Niemand von deinen Gruppenmitgliedern hat Zugang zu diesem Schliessfach. Drücken Sie das Symbol +, um ein neues Mitglied zu Ihrer Access Sharing-Gruppe hinzuzufügen."</string>
+    <string name="share_access_group_membership_empty">"Sie sind derzeit nicht Mitglied einer Access-Sharing-Gruppe."</string>
+    <string name="no_access_sharing_rights">"Es gibt keine Schliessfächer (MPL oder SPL), die gemeinsam genutzt werden könnten. Sie müssen Eigentümer von einer SPL oder Zugriff zu einer Gruppe von MPL sein."</string>
+    <string name="group_name_correct_start">"Der Gruppenname darf nicht mit einem Leerzeichen beginnen."</string>
+    <string name="generated_pin_title">"Wir haben eine neue PIN für Ihre Sendung generiert:"</string>
+    <string name="generated_pin_description">"Bitte vergessen Sie nicht, diese PIN an den Empfänger dieses Pakets zu senden.Wenn das Paket von der Post abgeholt werden soll, führen Sie bitte den Vorgang \"Pick at Home\" direkt mit dem Service der Post durch und teilen Sie diese PIN der Post mit."</string>
+    <string name="app_generic_parcel_pin">"Tracking-Nummer/PIN: %s"</string>
+    <string name="no_lockers_to_select">"Es gibt keine Schliessfächer zur Auswahl."</string>
+    <string name="terms_and_condtions_flexi">"Annahme der Bedingungen
+Willkommen bei der Flexilocker-Anwendung, die sich im Besitz der Smart Locker Technologies AG (kollektiv \"Smart Locker Technologies\", \"wir\", \"uns\" oder \"unser\"), einem Schweizer Unternehmen, befindet und von ihr betrieben wird. Smart Locker Technologies stellt Werkzeuge und Technologien zur Verfügung, mit denen es einfacher als je zuvor wird, Pakete nach Ihrem Zeitplan zu versenden und zu empfangen. Smart Locker Technologies verwendet eine Website, eine mobile Anwendung, ein angeschlossenes Paketschliessfach, Software, Prozesse und Dienste, um es den Benutzern zu ermöglichen, Pakete anzunehmen und zu versenden (zusammenfassend \"Dienste\" genannt).
+
+Durch die Nutzung der Dienste erklären Sie sich damit einverstanden, diese Allgemeinen Geschäftsbedingungen (\"Bedingungen\") einzuhalten und rechtlich an sie gebunden zu sein, unabhängig davon, ob Sie ein registrierter Benutzer der Dienste werden oder nicht. Diese Bedingungen regeln Ihren Zugang zu und Ihre Nutzung der Dienste und stellen eine verbindliche rechtliche Vereinbarung zwischen Ihnen und Smart Locker Technologies dar. In diesen Bedingungen beziehen sich \"Sie\", \"Ihr\" und \"Benutzer\" auf die natürliche oder juristische Person, die die Dienste nutzt. \"Wir\", \"uns\" oder \"unser\" beziehen sich auf die Schweizer Inno Lab AG. Wenn Sie diese Bedingungen im Namen eines Unternehmens oder einer anderen juristischen Person eingehen, erklären Sie, dass Sie befugt sind, diese Person, ihre Benutzer, ihre Administratoren und ihre verbundenen Unternehmen an diese Bedingungen zu binden.
+
+Bitte lesen Sie diese Bedingungen und unsere Datenschutzbestimmungen (die Bestandteil dieser Bedingungen sind und unter www.smartlockertec.com abgerufen werden können) sorgfältig durch.
+
+SIE BESTÄTIGEN UND ERKLÄREN SICH DAMIT EINVERSTANDEN, DASS SIE DURCH DEN ZUGRIFF AUF DIE DIENSTE ODER DEREN NUTZUNG ANZEIGEN, DASS SIE DIESE BEDINGUNGEN GELESEN HABEN UND DASS SIE DIESE BEDINGUNGEN VERSTEHEN UND SICH DAMIT EINVERSTANDEN ERKLÄREN, AN SIE GEBUNDEN ZU SEIN, UNABHÄNGIG DAVON, OB SIE SICH REGISTRIERT HABEN ODER NICHT. WENN SIE DIESEN BEDINGUNGEN NICHT ZUSTIMMEN, SOLLTEN SIE SICH NICHT ALS BENUTZER REGISTRIEREN, UND SIE HABEN KEIN RECHT, AUF DIE DIENSTE ZUZUGREIFEN ODER SIE ZU NUTZEN.
+
+Änderung
+Smart Locker Technologies behält sich das Recht vor, jeden Aspekt der Dienste jederzeit und ohne vorherige Ankündigung vorübergehend oder dauerhaft zu ändern oder einzustellen. Smart Locker Technologies kann auch diese Bedingungen jederzeit ändern. Indem Sie weiterhin auf die Dienste zugreifen oder diese nutzen, nachdem wir eine Änderung veröffentlicht oder Sie über eine Änderung dieser Bedingungen benachrichtigt haben, geben Sie an, dass Sie mit den geänderten Bedingungen einverstanden sind. Wenn die geänderten Bedingungen für Sie nicht akzeptabel sind, besteht Ihr einziger Ausweg darin, Ihr Konto zu kündigen und die Nutzung der Dienste einzustellen.
+
+Anspruchsberechtigung; Digitale Unterschrift
+Die Dienste sind ausschließlich für Personen bestimmt, die 18 Jahre oder älter sind und die in vollem Umfang in der Lage und befähigt sind, die in diesen Bedingungen festgelegten Bedingungen, Auflagen, Verpflichtungen, Bestätigungen, Zusicherungen und Gewährleistungen einzugehen und sich an diese Bedingungen zu halten und sie einzuhalten. Die Dienste sind nicht für Kinder unter 13 Jahren bestimmt; wenn Sie unter 13 Jahre alt sind, dann nutzen Sie den Dienst bitte nicht.
+
+Indem Sie sich für ein kostenloses Benutzerkonto registrieren oder indem Sie auf die Schaltfläche klicken, um diese Bedingungen zu akzeptieren, wird davon ausgegangen, dass Sie diese Bedingungen ab dem Datum der Registrierung Ihres Kontos elektronisch ausgeführt haben. Mit der Einrichtung eines Benutzerkontos bestätigen Sie, dass Sie in der Lage sind, diese Bedingungen und alle Änderungen elektronisch zu empfangen, herunterzuladen und auszudrucken.
+
+Wie die Dienste funktionieren
+Die Dienste bestehen aus Werkzeugen, Technologien und Dienstleistungen, die über eine Plattform verfügbar sind, über die Benutzer mit einem aktuellen und gültigen Benutzerkonto Pakete annehmen und versenden können.
+
+Um auf die Dienste zugreifen und sie nutzen zu können, müssen Sie ein Konto (\"Benutzerkonto\") registrieren und Benutzer werden. Sie verpflichten sich, bei der Registrierung genaue, aktuelle und vollständige Informationen anzugeben und diese Informationen zu aktualisieren, damit sie genau, aktuell und vollständig bleiben. Sie erklären sich damit einverstanden, dass Sie Ihr Passwort schützen und dass Sie allein für alle Aktivitäten oder Handlungen unter Ihrem Benutzerkonto verantwortlich sind, unabhängig davon, ob Sie solche Aktivitäten oder Handlungen autorisiert haben oder nicht. Sie werden uns unverzüglich über jede unbefugte Nutzung Ihres Benutzerkontos informieren. Smart Locker Technologies übernimmt keine Verantwortung für die Informationen Ihres Benutzerkontos.
+
+Um die Dienste nutzen zu können, müssen Sie ebenfalls bei Smart Locker Technologies registriert sein. Sie erhalten über die Flexilocker-Anwendung eine Push-Benachrichtigung, wenn ein Paket an Ihr Schließfach geliefert oder zur Zustellung aus Ihrem Schließfach abgeholt wird. Sollten Sie technische oder andere Schwierigkeiten bei der Abholung Ihres Pakets aus Ihrer Box haben, kontaktieren Sie uns bitte unter info@smartlockertec.com.
+
+Die Rolle von Smart Locker Technologies besteht einzig und allein darin, die Verfügbarkeit der Dienste, einschließlich der Schließfächer, zu erleichtern und diesbezüglichen Support zu leisten. Smart Locker Technologies ist kein Kurier und ist nicht an der Beförderung von Paketen beteiligt.
+
+Benutzerrepräsentationen und Garantien
+Durch das Absenden des Benutzerregistrierungsformulars erklären, garantieren und erklären Sie sich mit Folgendem einverstanden:
+
+Sie sind mindestens 18 Jahre alt, sind berechtigt, ein Benutzerkonto zu erstellen, und haben die volle Befugnis und Berechtigung, diesen Bedingungen beizutreten. Sie akzeptieren und erklären sich damit einverstanden, dass wir keine Verantwortung oder Haftung für die Lagerung oder Übertragung von Paketen übernehmen und dass alle Aspekte des Paketversands und der Paketzustellung in jeder Hinsicht durch die Beziehung zwischen Ihnen, jedem Zustelldienst, der Ihr Schließfach nutzt, und jedem Unternehmen, das Ihnen Pakete sendet, kontrolliert werden. Ihr Schließfach befindet sich in Ihrer Kontrolle und Sie sind für Ihre Pakete so verantwortlich, als ob Sie persönlich mit dem Zustelldienst zusammenarbeiten würden.
+Eigentum
+Alle hier verwendeten Warenzeichen, Dienstleistungsmarken, Logos, Handelsnamen und alle anderen geschützten Bezeichnungen von Smart Locker Technologies sind Warenzeichen oder eingetragene Warenzeichen von Smart Locker Technologies. Alle anderen Marken, Dienstleistungsmarken, Logos, Handelsnamen und alle anderen geschützten Bezeichnungen sind die Marken oder eingetragenen Marken der jeweiligen Parteien.
+
+Lizenz für Dienstleistungen und Inhalte von Smart Locker Technologies
+Unter der Voraussetzung, dass Sie diese Bedingungen einhalten, gewährt Ihnen Smart Locker Technologies eine beschränkte, nicht-exklusive, widerrufbare, nicht übertragbare Lizenz zum Zugriff auf und zur Ansicht von Flexilocker-Inhalten, auf die Sie zugreifen dürfen, ausschließlich für Ihre persönlichen Zwecke.
+
+Sie werden die Services oder Flexilocker-Inhalte nicht verwenden, kopieren, anpassen, modifizieren, daraus abgeleitete Werke erstellen, vertreiben, lizenzieren, verkaufen, übertragen, öffentlich anzeigen, öffentlich aufführen, übertragen, senden oder anderweitig verwerten, es sei denn, dies ist in diesen Bedingungen ausdrücklich gestattet. Es werden Ihnen keine Lizenzen oder Rechte stillschweigend oder anderweitig unter geistigen Eigentumsrechten gewährt, die im Besitz oder unter der Kontrolle von Smart Locker Technologies oder seinen Lizenzgebern sind, außer den in diesen Bedingungen ausdrücklich gewährten Lizenzen und Rechten.
+
+Kündigung und Benutzerkonto-Deaktivierung
+Diese Bedingungen bleiben in vollem Umfang in Kraft, sofern und solange Ihr Konto oder diese Bedingungen nicht wie hier beschrieben gekündigt werden. Sie haben das Recht, Ihr Konto jederzeit zu deaktivieren, indem Sie die in der Flexilocker-Anwendung bereitgestellte Schnittstelle zur Kontodeaktivierung verwenden. Nur Eigentümer haben die Möglichkeit, Teamkonten zu deaktivieren und zu löschen. Alle aufgelaufenen Rechte auf Zahlungen und Rechte, die Smart Locker Technologies gewährt werden, sowie die nachstehenden Bedingungen überdauern die Beendigung dieser Bedingungen.
+
+Haftungsausschluss
+WENN SIE SICH FÜR DIE NUTZUNG DER DIENSTE ENTSCHEIDEN, TUN SIE DIES AUF EIGENES RISIKO. DIE DIENSTE UND INHALTE WERDEN OHNE MÄNGELGEWÄHR UND OHNE JEGLICHE AUSDRÜCKLICHE ODER STILLSCHWEIGENDE GARANTIE BEREITGESTELLT. OHNE DAS VORSTEHENDE EINZUSCHRÄNKEN, LEHNT SWISS INNO LAB AUSDRÜCKLICH JEGLICHE GEWÄHRLEISTUNG DER MARKTGÄNGIGKEIT, DER EIGNUNG FÜR EINEN BESTIMMTEN ZWECK, DES UNGESTÖRTEN GENUSSES ODER DER NICHTVERLETZUNG VON RECHTEN DRITTER SOWIE JEGLICHE GEWÄHRLEISTUNGEN AB, DIE SICH AUS DEM HANDELSVERLAUF ODER DER HANDELSBRÄUCHE ERGEBEN. SWISS INNO LAB ÜBERNIMMT KEINE GARANTIE DAFÜR, DASS DIE WEBSITE, DIE ANWENDUNG, DIE DIENSTLEISTUNGEN ODER DER INHALT IHREN ANFORDERUNGEN ENTSPRICHT ODER AUF EINER UNUNTERBROCHENEN, SICHEREN ODER FEHLERFREIEN BASIS VERFÜGBAR IST. WIR LEHNEN AUSSERDEM JEGLICHE GARANTIE AB, DASS DIE BOXEN ODER DIE DARIN DEPONIERTEN GEGENSTÄNDE KEINEM DIEBSTAHL, FEUER, WASSERSCHADEN, SCHLECHTEM WETTER, VANDALISMUS ODER VERLUST ODER BESCHÄDIGUNG IM ALLGEMEINEN AUSGESETZT SIND.
+
+SIE SIND ALLEIN VERANTWORTLICH FÜR ALLE VON IHNEN GESENDETEN ODER EMPFANGENEN PAKETE, BIS EIN ZUSTELLDIENST GEMÄß DEN BESTIMMUNGEN UND BEDINGUNGEN DIESES ZUSTELLDIENSTES RECHTMÄßIG IN BESITZ GENOMMEN WIRD. ZU KEINEM ZEITPUNKT IST SWISS INNO LAB IM BESITZ VON ODER IN IRGENDEINER WEISE VERANTWORTLICH FÜR EIN PAKET, EINSCHLIESSLICH WENN ES IN IHRER BOX ENTHALTEN IST. SIE ANERKENNEN UND ERKLÄREN SICH DAMIT EINVERSTANDEN, SWISS INNO LAB SCHADLOS ZU HALTEN UND SCHADLOS ZU HALTEN IM ZUSAMMENHANG MIT JEGLICHEN ANSPRÜCHEN UND JEGLICHEN SCHÄDEN ODER KOSTEN, DIE SICH AUS IHRER NUTZUNG DER DIENSTE ERGEBEN.
+
+Beschränkung der Haftung
+SIE ERKENNEN AN UND ERKLÄREN SICH DAMIT EINVERSTANDEN, DASS DAS GESAMTE RISIKO, DAS SICH AUS IHREM ZUGANG ZU DEN DIENSTEN UND DEREN NUTZUNG ERGIBT, IM GESETZLICH MAXIMAL ZULÄSSIGEN UMFANG BEI IHNEN VERBLEIBT. WEDER SWISS INNO LAB NOCH IRGENDEINE ANDERE PARTEI, DIE AN DER ERSTELLUNG, PRODUKTION ODER LIEFERUNG DER DIENSTE ODER INHALTE BETEILIGT IST, IST HAFTBAR FÜR ZUFÄLLIGE, SPEZIELLE, EXEMPLARISCHE ODER FOLGESCHÄDEN, EINSCHLIESSLICH ENTGANGENER GEWINNE, DATENVERLUST ODER VERLUST VON GOODWILL, DIENSTUNTERBRECHUNG, COMPUTER-SCHÄDEN ODER SYSTEMAUSFALL ODER DIE KOSTEN VON ERSATZPRODUKTEN ODER -DIENSTLEISTUNGEN, ODER FÜR JEGLICHE SCHÄDEN FÜR PERSÖNLICHE ODER KÖRPERLICHE VERLETZUNGEN ODER EMOTIONALE NOTLAGEN, DIE SICH AUS ODER IN VERBINDUNG MIT DIESEN BEDINGUNGEN ODER AUS DER NUTZUNG ODER DER UNFÄHIGKEIT ZUR NUTZUNG DER DIENSTE ODER INHALTE ERGEBEN, UNABHÄNGIG DAVON, OB DIESE AUF EINER GARANTIE, EINEM VERTRAG, EINER UNERLAUBTEN HANDLUNG (EINSCHLIESSLICH FAHRLÄSSIGKEIT), PRODUKTHAFTUNG ODER EINER ANDEREN RECHTSTHEORIE BERUHEN, UND UNABHÄNGIG DAVON, OB SWISS INNO LAB ÜBER DIE MÖGLICHKEIT SOLCHER SCHÄDEN INFORMIERT WURDE ODER NICHT, SELBST WENN SICH HERAUSSTELLT, DASS EIN HIERIN FESTGELEGTES BESCHRÄNKTES RECHTSMITTEL SEINEN WESENTLICHEN ZWECK VERFEHLT HAT.
+
+
+Sie erklären sich damit einverstanden, Smart Locker Technologies und seine verbundenen Unternehmen und Tochtergesellschaften sowie deren leitende Angestellte, Direktoren, Mitarbeiter und Bevollmächtigte freizustellen, zu verteidigen, zu entschädigen und schadlos zu halten von und gegen jegliche Ansprüche, Haftungen, Schäden, Verluste und Ausgaben, einschließlich, ohne Einschränkung, angemessener Rechtskosten, die sich aus oder in irgendeiner Weise in Verbindung mit (a) Ihrem Zugang zu oder Ihrer Nutzung der Dienste ergeben; (b) Ihrer Verletzung dieser Bedingungen; (c) Ihrem Benutzerinhalt; (c) Ihrem Vertrauen auf Informationen, die über die Dienste ausgetauscht werden; (d) Ihrer Verletzung von Rechten Dritter, einschließlich, ohne Einschränkung, aller Urheber-, Eigentums- oder Persönlichkeitsrechte; oder (e) jeglicher Behauptung, dass Sie oder Ihr Benutzerinhalt einem Dritten Schaden zugefügt haben. Smart Locker Technologies hat das Recht, alle Verteidigungs- und Vergleichsaktivitäten zu kontrollieren.
+
+Abtretung
+Sie dürfen diese Bedingungen weder kraft Gesetzes noch auf andere Weise ohne die vorherige schriftliche Zustimmung von Smart Locker Technologies abtreten oder übertragen. Jeder Versuch Ihrerseits, diese Bedingungen ohne eine solche Zustimmung abzutreten oder zu übertragen, ist null und nichtig. Smart Locker Technologies kann diese Bedingungen nach eigenem Ermessen ohne Einschränkung abtreten oder übertragen. Vorbehaltlich des Vorstehenden sind diese Bedingungen für die Parteien, ihre Rechtsnachfolger und zulässigen Abtretungsempfänger bindend und vorteilhaft.
+
+Hinweise
+Sofern hierin nicht anders angegeben, werden alle Mitteilungen oder andere Mitteilungen, die gemäß diesem Vertrag zulässig oder erforderlich sind, einschließlich solcher, die Änderungen dieser Bedingungen betreffen, schriftlich und von Smart Locker Technologies per E-Mail an die E-Mail-Adresse Ihres Kontos oder (ii) durch Veröffentlichung auf der Website oder über die Anwendung übermittelt. Bei Benachrichtigungen per E-Mail gilt das Eingangsdatum als das Datum, an dem die Benachrichtigung übermittelt wird. Sie können uns Mitteilungen per E-Mail an info@smartlockertec.com senden.
+
+Anwendbares Recht und Gerichtsstand
+Alle Rechtsbeziehungen zwischen dem Kunden und Smart Locker Technologies unterstehen dem materiellen Schweizer Recht. Das Wiener Übereinkommen über den internationalen Warenkauf findet keine Anwendung.  Ausschliesslicher Gerichtsstand sind die Gerichte des Sitzes und der Hauptniederlassung von Smart Locker Technologies. Smart Locker Technologies steht es jedoch auch frei, das zuständige Gericht am Sitz und Hauptgeschäftssitz oder Wohnsitz des Kunden anzurufen.
+
+"</string>
+    <string name="privacy_policy_flexi">"Smart Locker Technologies AG sowie alle angeschlossenen oder verbundenen Unternehmen (zusammen \"Smart Locker Technologies\", \"wir\", \"uns\" oder \"unser\"), erkennt die Wichtigkeit Ihrer Privatsphäre an. In dieser Datenschutzrichtlinie erfahren Sie, welche persönlichen Informationen wir sammeln und wie wir sie verwenden. Smart Locker Technologies kann diese Datenschutzrichtlinie von Zeit zu Zeit nach eigenem Ermessen ändern, und alle derartigen Änderungen treten in Kraft, wenn wir die überarbeitete Datenschutzrichtlinie online veröffentlichen.
+
+Durch die Verwendung von Geräten, Websites oder Anwendungen von Smart Locker Technologies oder durch den Besuch einer Website oder eines Anwendungsprodukts, einer Software, von Daten, Inhalten und/oder Dienstleistungen (zusammenfassend als \"Dienstleistungen\" bezeichnet) von Smart Locker Technologies erklären Sie, dass Sie die Bedingungen dieser Richtlinie verstanden haben und ihnen zustimmen.
+
+1. Welche Informationen sammeln wir?
+a. Persönlich-identifizierbare Informationen: Wir können personenbezogene Daten erfassen, wenn Sie uns diese spezifisch und wissentlich zur Verfügung stellen, z. B. wenn Sie auf die Dienste zugreifen und Benutzerinhalte (wie in den Flexilocker-Dienstbedingungen definiert) zur Verfügung stellen oder wenn Sie sich mit Ihrem Namen, Ihrer Adresse oder E-Mail-Adresse an uns wenden. Smart Locker Technologies betrachtet persönliche Informationen nicht als solche, die anonymisiert wurden, so dass sie es Dritten nicht ermöglichen, eine bestimmte Person leicht zu identifizieren. Wir sammeln und verwenden persönlich identifizierbare Informationen, um unsere Dienstleistungen zu betreiben und zu verbessern, um es Ihnen zu ermöglichen, Dritten oder anderen Benutzern Zugang zu Ihren Benutzerinhalten zu gewähren, um Kundendienst zu leisten, um mit Ihnen zu kommunizieren, wenn Sie darum gebeten werden, und um Forschung und Analysen durchzuführen, die auf die Verbesserung unserer Produkte, Dienstleistungen und Technologien abzielen.
+
+Sie können sich immer dafür entscheiden, keine persönlichen Daten anzugeben, aber wenn Sie dies wünschen, stehen Ihnen die Dienste nicht zur Verfügung. Beachten Sie, dass die von uns erfassten persönlichen Daten und Ihre Benutzerinhalte außerhalb Ihres Landes gespeichert und verarbeitet werden können.
+
+b. Nicht-persönlich-identifizierbare Informationen: Wir können nicht persönlich identifizierbare Informationen sammeln und zusammenfassen, wie z. B. Hardware-Typen, geografischer Standort sowie Zugriffszeiten und -dauer.
+
+c. Website-Nutzung und Technologien: Wenn Sie die Dienste nutzen, können Smart Locker Technologies oder Dritte in unserem Auftrag nicht persönlich identifizierbare Informationen durch die Verwendung von Pixeln, Programmen, Cookies und anderen ähnlichen Technologien sammeln. Cookies sind zum Beispiel Informationen, die zu Aufzeichnungszwecken auf die Festplatte einer Person übertragen werden. Sie werden verwendet, um Sie bei der Nutzung der Website-Informationen und -Inhalte zu unterstützen, indem sie Ihre Benutzereinstellungen speichern, was es uns ermöglicht, registrierte Benutzer zu identifizieren und Ihnen Zeit zu ersparen, da die Notwendigkeit der wiederholten Eingabe derselben Informationen entfällt. Sie werden auch verwendet, um aggregierte Informationen über Benutzer auf anonymer Basis zu sammeln. Zusätzlich zu Cookies können wir auch andere Technologien verwenden, einschließlich Ein-Pixel-Gifs (auch als Web Beacons bekannt) auf unseren Websites und in Werbe-E-Mails oder Newslettern. Diese elektronischen Bilder helfen uns dabei, festzustellen, wie viele Benutzer bestimmte Seiten besucht oder Nachrichten oder Newsletter geöffnet haben. Wir verwenden diese Ein-Pixel-Gifs nicht zur Erfassung persönlicher Informationen. Sie haben die Möglichkeit, Cookies zu akzeptieren oder abzulehnen.
+
+Die meisten Browser akzeptieren Cookies automatisch, aber Sie können Ihre Browsereinstellungen so ändern, dass Sie Cookies ablehnen oder jedes Mal, wenn ein Dienst versucht, ein Cookie zu setzen, um Ihre Erlaubnis bitten. Bitte beachten Sie, dass die Website optimal darauf ausgelegt ist, mit in Ihrem Internet-Browser aktivierten Cookies zu arbeiten. Wenn Sie sich dafür entscheiden, Cookies abzulehnen, können Sie sich möglicherweise nicht anmelden oder andere interaktive Funktionen der Dienste nutzen, die von Cookies abhängen.
+
+2. Was machen wir mit den Informationen, die wir sammeln?
+Mit Ausnahme der in dieser Datenschutzrichtlinie genannten Fälle gibt Smart Locker Technologies Ihre persönlichen Daten nicht an Dritte weiter.
+
+a. Smart Locker Technologies verwendet die von Ihnen direkt übermittelten personenbezogenen Daten und Ihre Benutzerinhalte ausschließlich für den Zweck, für den Sie diese zur Verfügung gestellt haben, wie z. B. für den Zugriff Dritter auf Ihre Benutzerinhalte oder für die Anforderung von Informationen von uns. Wir können diese als Ihr Vertreter und Bevollmächtigter an die Dritten weitergeben, die Sie ausgewählt haben, um Dienstleistungen in Ihrem Namen zu erbringen, oder an Dienstanbieter, die Dienstleistungen in unserem Namen erbringen, wie z.B. die Bereitstellung von Datenspeicherung, Datenübertragung usw. Diese Unternehmen dürfen nur die persönlichen Informationen erhalten, die sie für die Erbringung der Dienstleistungen benötigen, sind verpflichtet, die Vertraulichkeit der Informationen zu wahren, und es ist ihnen untersagt, sie für andere Zwecke zu verwenden. Auch wenn wir einen Unternehmensverkauf, eine Fusion, Reorganisation, Auflösung oder ein ähnliches Ereignis durchlaufen, können die Daten, die wir von Ihnen erfassen, Teil der übertragenen Vermögenswerte sein oder im Zusammenhang mit der Due Diligence für eine solche Transaktion gemeinsam genutzt werden. Jeder Erwerber oder jedes Nachfolgeunternehmen kann die Daten, die wir von Ihnen erfassen, weiterhin wie in dieser Mitteilung beschrieben verwenden.
+
+b. Smart Locker Technologies, von Ihnen autorisierte Drittparteien oder unsere Drittpartner können nicht-persönlich identifizierbare Informationen verwenden, um die Nutzung und volumen statistische Informationen unserer Benutzer zu verfolgen und zu analysieren, um Inhalte zu verwalten und die Dienste bereitzustellen. Wir können auch statistische Analysen des Nutzerverhaltens durchführen, um das Interesse an unseren Online-Produkten und -Dienstleistungen für die Produktentwicklung zu messen.
+
+c. Offenlegung: Als allgemeine Regel wird Smart Locker Technologies keine Ihrer persönlich identifizierbaren Informationen oder Benutzerinhalte offenlegen, außer unter einem der folgenden Umstände: Wir haben Ihre Erlaubnis oder es ist gesetzlich erforderlich. Smart Locker Technologies kann die nicht persönlich identifizierbaren Informationen, die Smart Locker Technologies sammelt, nur in zusammengefasster Form an Werbekunden und andere Partner weitergeben.
+
+3. Wie ändert oder aktualisiert ein Benutzer Informationen?
+Wenn Sie Fragen oder Bedenken zu dieser Datenschutzrichtlinie haben oder möchten, dass die von Ihnen angegebenen persönlich identifizierbaren Informationen aus unseren Dateien entfernt werden, wenden Sie sich bitte per E-Mail an Smart Locker Technologies unter info@smartlockertec.com.
+
+4. Sicherheit und Verschlüsselung
+Wir befolgen allgemein anerkannte Industriestandards, um Ihre persönlichen Daten zu schützen. Keine Methode der Übertragung über das Internet, Mobiltechnologie oder Methode der elektronischen Speicherung ist vollkommen sicher. Obwohl wir uns bemühen, physische, elektronische und verfahrenstechnische Sicherheitsvorkehrungen zu treffen, um die Vertraulichkeit der Informationen, die wir online erfassen, zu schützen, können wir daher keine absolute Sicherheit garantieren.
+
+5. Änderungen an dieser Richtlinie
+Wir behalten uns das Recht vor, die Bedingungen dieser Datenschutzrichtlinie jederzeit zu ändern. Wenn wir Änderungen vornehmen, werden wir das Datum der \"letzten Aktualisierung\" am Anfang der Richtlinie überarbeiten. Wenn es wesentliche Änderungen an dieser Erklärung oder an der Art und Weise gibt, wie wir Ihre persönlichen Daten verwenden werden, werden wir Sie darüber informieren, indem wir an prominenter Stelle eine Mitteilung über solche Änderungen hier oder auf unserer Homepage veröffentlichen oder Ihnen eine E-Mail schicken. Wir empfehlen Ihnen, diese Erklärung bei jedem Besuch einer unserer Websites zu überprüfen."</string>
+    <string name="app_generic_help_link_flexi">"&lt;a href=\"mailto:support@flexilocker.com\"&gt;support@flexilocker.com&lt;/a&gt;"</string>
+    <string name="app_generic_support_email_flexi">"support@flexilocker.com"</string>
+    <string name="list_of_deliveries_cpl">"Lieferungsliste"</string>
+    <string name="tracking_number_cpl">"Sendungsnummer"</string>
+    <string name="delivered_cpl">"Geliefert:"</string>
+    <string name="collect_deadline_cpl">"Abholfrist:"</string>
+    <string name="tan_cpl">"PIN:"</string>
+    <string name="courier_cpl">"Kurier:"</string>
+    <string name="locker_size_cpl">"Schliessfachgrösse"</string>
+    <string name="return_to_sender_cpl">"ZURÜCK ZUM ABSENDER"</string>
+    <string name="deliveries_not_collected_cpl">"Lieferungen nicht vor Abholfrist abgeholt, Lieferung wird zum Absender zurückgeschickt!"</string>
+    <string name="intro_welcome_slide_title">"Willkommen"</string>
+    <string name="intro_welcome_slide_content">"Schön, dass Sie sich für unsere ZwickBox entschieden haben. Schauen Sie sich die wichtigsten Funktionen der App an!"</string>
+    <string name="intro_pickup_slide_title">"Abholung"</string>
+    <string name="intro_send_parcel_slide_title">"Paket deponieren"</string>
+    <string name="intro_pickup_slide_content">"Mit unserer App können Sie problemlos Pakete abholen, die Ihnen zu einem beliebigen Zeitpunkt geliefert werden."</string>
+    <string name="intro_send_parcel_slide_content">"Das Versenden eines Pakets war noch nie einfacher und bequemer."</string>
+    <string name="intro_key_sharing_slide_content">"Sie befinden sich nicht in der Nähe Ihres Schliessfachs, müssen aber ein Paket versenden/abholen? Geben Sie einfach einen permanenten oder temporären Schlüssel an einen Freund oder ein Familienmitglied weiter und gewähren Sie Zugang zu Ihrem Schliessfach."</string>
+    <string name="intro_start_slide_content">"Haben Sie schon ein Benutzerkonto?"</string>
+    <string name="intro_start_title">"Los geht's!"</string>
+    <string name="registration_last_name">"Nachname"</string>
+    <string name="registration_street">"Strasse*"</string>
+    <string name="registration_house_number">"Hausnummer*"</string>
+    <string name="registration_postcode">"Postleitzahl*"</string>
+    <string name="registration_town">"Stadt*"</string>
+    <string name="registration_phone">"Telefon"</string>
+    <string name="registration_reduced_mobility">"Eingeschränkte Mobilität"</string>
+    <string name="name_or_company_error_255_characters">"Name oder Firma kann nicht mehr als 255 Buchstaben haben."</string>
+    <string name="last_name_error_255_characters">"Nachname kann nicht mehr als 255 Buchstaben haben."</string>
+    <string name="street_error_255_characters">"Strasse kann nicht mehr als 255 Buchstaben haben."</string>
+    <string name="house_number_error_8_characters">"Hausnummer kann nicht mehr als 8 Nummern haben."</string>
+
+    <!-- english translation should be numbers instead of letters -->
+    <string name="postcode_error_10_characters">"Postleitzahl kann nicht mehr als 10 Zahlen."</string>
+    <string name="town_error_30_characters">"Stadt kann nicht mehr als 30 Buchstaben haben."</string>
+
+    <!-- Fuzzy -->
+    <string name="accept_terms_and_conditions">"Akzeptieren Sie die AGB"</string>
+    <string name="select_city_parcel_locker">"Paketfachanlage auswählen"</string>
+    <string name="registered_lockers_in_proximity">"Registrierte Schliessfächer innerhalb der Reichweite"</string>
+    <string name="registered_lockers_not_in_proximity">"Registrierte Schliessfächer ausserhalb der Reichweite"</string>
+    <string name="unregistered_lockers">"Nicht registrierte Schliessfächer"</string>
+    <string name="register_account_as">"Konto registrieren als"</string>
+    <string name="register_account_person">"Person"</string>
+    <string name="register_account_company">"Firma"</string>
+    <string name="app_generic_continue">"Weiter"</string>
+    <string name="register_almost_there">"Fast geschafft!"</string>
+    <string name="register_confirmation_mail">"Bitte überprüfen Sie Ihr E-Mail-Postfach, um den Account zu aktivieren. Loggen sie sich dann ein, um die App zu benutzen."</string>
+    <string name="register_first_name">"Vorname"</string>
+    <string name="register_company_name">"Nachname"</string>
+    <string name="register_reduced_mobility">"Person mit eingeschränkter Mobilität"</string>
+    <string name="settings_name_or_company">"NAME / FIRMA"</string>
+    <string name="settings_username">"Benutzername"</string>
+    <string name="locker_selected_title">"Ausgewähltes Schliessfach"</string>
+    <string name="invite_user_title">"Ihre Benutzer-Details"</string>
+    <string name="invite_user_confirm_registration">"Registrierung bestätigen"</string>
+    <string name="password_need_to_be_different">"Das Passwort muss sich vom Vorherigen unterscheiden. Später können Sie es wieder ändern."</string>
+    <string name="you_are_new">"Sie sind neu"</string>
+    <string name="buyer">"Käufer"</string>
+    <string name="retailer">"Händler"</string>
+    <string name="register_buyer_account">"Käufer Account registrieren"</string>
+    <string name="register_retailer_account">"Händler Account registrieren"</string>
+    <string name="store_name">"Laden Name"</string>
+    <string name="shop">"Laden"</string>
+    <string name="invalid_address">"Alle Felder Strasse, Hausnummer, Postleitzahl und Stadt müssen korrekt ausgefüllt sein."</string>
+    <string name="email_already_exists">"Diese E-mail existiert bereits im System"</string>
+    <string name="please_check_email">"Bitte überprüfen Sie Ihr E-mail-Postfach um den Account zu aktivieren."</string>
+    <string name="resend_button_email">"Dürcken Sie den erneut senden Knopf um einen neuen Aktivierungslink zu senden."</string>
+    <string name="resend_button_text">"erneut senden"</string>
+    <string name="account_not_activated">"Account nicht aktiviert"</string>
+    <string name="no_location_services">"Kein Zugriff auf Ihren Standort"</string>
+    <string name="app_name_flexi">"FlexiLocker"</string>
+    <string name="app_name_zwick">"ZWICKbox"</string>
+    <string name="app_name_cpl">"SmartBoxBasel"</string>
+    <string name="app_name_retail">"FlexiLocker RPL"</string>
+    <string name="app_name_flexilockercpl">"FlexiLocker CPL"</string>
+    <string name="nav_send_parcel_failed">"Das Öffnen des Paketfachs war nicht erfolgreich, bitte versuchen Sie es erneut!"</string>
+    <string name="toast_pickup_parcel_error">"Fehler beim Verbinden mit der Paketfachanlage. Bitte überprüfen ob Sie immer noch in der Nähe der Paketfachanlage sind sowie ob die Benutzer-ID %s stimmt!"</string>
+    <string name="registration_group_name">"Gruppenname*"</string>
+    <string name="edit_user_validation_group_name_min_4_characters">"Benutzername muss mindestens 4 Zeichen lang sein."</string>
+    <string name="pin_managment_title">"Wählen Sie einen PIN aus der Liste oder verwenden Sie den PIN welchen wir für Sie generiert haben."</string>
+    <string name="pin_managment_description">"Bitte notieren Sie diese PIN unter \\"speziellen Abholanweisungen\\" auf dem Abholformular Ihres Kuriers."</string>
+    <string name="pin_managment_generate">"(generiert)"</string>
+    <string name="pin_managment_input_edittext">"Pinname eingeben"</string>
+    <string name="pin_managment_name_not_empty">"Der Pinname darf nicht leer sein."</string>
+    <string name="pin_managment_delete_pin">"LÖSCHEN"</string>
+    <string name="app_generic_are_you_sure">"Sind Sie sicher?"</string>
+    <string name="nav_ttc_subtitle">"Bevor Sie fortfahren lesen Sie bitte unsere AGBs:"</string>
+    <string name="ttc_btn_accept">"Ich akzeptiere die Nutzungsbedingungen"</string>
+    <string name="ttc_main_conditions">"Wir verpflichten uns zum Schutz Ihrer Privatsphäre und nehmen die Sicherheit der Informationen unserer Kunden sehr ernst.
+
+Cookie-Richtlinie. Information und Verwendung von Cookies.
+Was sind Cookies?
+Cookies sind kleine Mengen an Informationen, die einige Websites auf Ihrem Computer speichern, um Ihnen die Anmeldung zu erleichtern und sie bei zukünftigen Besuchen zu verwenden. In Wirklichkeit ist ein Cookie eine kleine Textdatei, die vom Browser des Benutzers gespeichert wird und Daten und keinen Code enthält, so dass es keinen Virus oder Spyware enthalten kann. Das bedeutet nicht, dass alle Cookies absichtlich harmlos sind, aber sie können nur Informationen speichern.
+
+Wie verwenden wir Ihre Informationen?
+Wir verwenden Cookies auf dieser Website, um den Traffic der Website zu überwachen und zu analysieren, wie Besucher sie über Google Analytics nutzen. Dieser Service verfolgt Informationen darüber, wie Besucher mit der Website interagieren, einschliesslich der Anzahl der Besucher auf unserer Website, wocher Besucher auf die Website gekommen sind und welche Seiten sie besucht haben. Wir verwenden diese Informationen, um unsere Website zu verbessern.
+
+Solche Informationen beinhalten keine persönliche Benutzerangaben, sondern statistische Daten über Besucher und deren Nutzung unserer Website. Diese statistischen Daten sind völlig anonym und beinhalten keinerlei personenbezogene Daten.
+
+Alle Computer haben die Möglichkeit, Cookies abzulehnen. Sie können Ihren Webbrowser so konfigurieren, dass er Cookies ablehnt oder informiert wird, wenn ein Cookie gesetzt wird. Wie das geht, erfahren Sie, wenn Sie in Ihrem Browser-Menü auf Hilfe klicken. Durch die Nutzung unserer Website erklären Sie sich damit einverstanden, dass wir diese Art von Cookies auf Ihrem Gerät ablegen können."</string>
+    <string name="spl_locker_occupied">"Schliessfach ist bereits besetzt"</string>
+    <string name="selected_city_parcel_locker">"Ausgewählte Paketfachanlage"</string>
+    <string name="no_selected_locker">"Bitte wählen Sie zuerst ein Schliessfach aus."</string>
+    <string name="no_deliveries_to_pickup">"Diese Aktion nicht möglich, da das ausgewählte Schliessfach keine Lieferungen zur Abholung hat."</string>
+    <string name="shared_with">"Geteilt mit:"</string>
+    <string name="enter_email_to_share_access">"Bitte geben sie die E-mail adresse von der Person ein mit der Sie den Zugriff teilen wollen."</string>
+    <string name="person_to_collect_parcel">"Diese Person wird in der Lage sein, Ihr Paket abzuholen."</string>
+    <string name="share_parcel_acess">"Paketzugang teilen"</string>
+    <string name="not_in_proximity_first_description">"Scheint, Sie sind ausserhalb der Reichweite des Schliessfachs."</string>
+    <string name="not_in_proximity_second_description">"Gehen Sie in die Nähe des Schliessfachs %s um es entriegeln."</string>
+    <string name="address_check_not_available">"Ihre Adresse kann zur Zeit nicht verifiziert werden. Bitte versuchen Sie es später erneut."</string>
+    <string name="chosse_a_way_of_delivery">"Wählen Sie eine Zustellart"</string>
+    <string name="delivery_description">"Sie können die Zustellung durch Einfügen von E-Mail oder durch Scannen von QR-code erstellen."</string>
+    <string name="delivery_with_qrcode">"QR-code scannen"</string>
+    <string name="firstname">"Vorname"</string>
+    <string name="lastname">"Nachname"</string>
+    <string name="something_went_wrong_qrcode_scanning">"Bitte versuchen Sie erneut, den QR-code zu scannen oder einen neuen QR-code zu erstellen."</string>
+    <string name="qrcode_wrong_format">"QR-code hat ein falsches Format. Er muss zum Beispiel lauten: email@gmail.com;Vorname;Nachname"</string>
+    <string name="delivery_parcel">"Zustellung Paket"</string>
+    <string name="selected_retail_locker">"Ausgewählter Retail Locker"</string>
+    <string name="despatch_items">"Versandartikel"</string>
+    <string name="collect_items">"Paket abholen"</string>
+    <string name="open_again">"Erneut Öffnen"</string>
+    <string name="online_help">"Online-Hilfe"</string>
+    <string name="skip_onboarding_screen">"Überspringen"</string>
+
+    <!-- Fuzzy -->
+    <string name="not_in_proximity_description_generic">"Scheint, Sie sind ausserhalb der Reichweite des Schliessfachs. Gehen Sie in die Nähe des Schliessfaches um Sie zu entriegeln."</string>
+    <string name="intro_pickup_slide_content_cpl_flexi">"Mit Flexilocker CPL können Sie Pakete, die Sie erhalten, jederzeit problemlos abholen."</string>
+    <string name="intro_welcome_slide_content_1_cpl_flexi">"Vielen Dank, dass Sie sich für Flexilocker Paketfachanlage entschieden haben."</string>
+    <string name="intro_pickup_slide_content_cpl_basel">"Mit SmartBoxBasel können Sie Pakete, die Sie erhalten, jederzeit problemlos abholen."</string>
+    <string name="intro_welcome_slide_content_1_cpl_basel">"Vielen Dank, dass Sie sich für die SmartBoxBasel Paketfachanlage entschieden haben."</string>
+    <string name="intro_welcome_slide_content_2">"Schauen Sie sich die wichtigsten Funktionen der App an!"</string>
+    <string name="download_androdi_app">"Android App herunterladen: "</string>
+    <string name="download_ios_app">"iOS App herunterladen: "</string>
+    <string name="delivery_keys_title">"Zustellungs-Schlüssel"</string>
+    <string name="delivery_keys_description">"Sie müssen sich innerhalb der Reichweite des Schliessfachs befinden, um die Lieferung zu stornieren."</string>
+    <string name="email_suggestion_no_access">"Sie haben keinen Zugang zu diesem Gerät. Bitte kontaktieren Sie den Support oder senden Sie eine E-Mail."</string>
+    <string name="access_sharing_share_app_cpl_basel">"Sie wurden zum SmartBoxBasel System von Smart Locker Technologies eingeladen."</string>
+    <string name="access_sharing_share_app_cpl_flexi">"Sie wurden zum Flexilocker CPL System von Smart Locker Technologies eingeladen."</string>
+    <string name="access_sharing_share_app_retail">"Sie wurden zum Flexilocker RPL System von Smart Locker Technologies eingeladen."</string>
+    <string name="access_sharing_share_app_flexilocker_casual">"Sie wurden zum Flexilocker System von Smart Locker Technologies eingeladen."</string>
+
+    <!-- Edit -->
+    <!-- Fuzzy -->
+    <string name="app_generic_edit">"Bearbeiten"</string>
+
+    <!-- Fuzzy -->
+    <string name="locker_name">"Schliessfach Name"</string>
+
+    <!-- Fuzzy -->
+    <string name="alert_deactivation_modem_queue">"Das Gerät kann im Moment nicht deaktiviert werden, es versucht immer noch mit dem Internet zu kommunizieren, wenn möglich können Sie die Türe öffnen um den Empfang zu erhöhen oder Sie versuchen es später nocheinmal."</string>
+
+    <!-- Fuzzy -->
+    <string name="alert_consume_keys">"Bitte verbrauchen oder löschen Sie Schlüssel vor der Deaktivierung des Geräts"</string>
+    <string name="locker_needs_cleaning">"Dieses Schliessfach muss gereinigt werden."</string>
+    <string name="locker_cleaning_started">"Der Bericht wurde erfolgreich gesendet."</string>
+    <string name="locker_cleaning_failed">"Der Bericht wurde nicht erfolgreich gesendet."</string>
+
+    <!-- Fuzzy -->
+    <string name="terms_and_conditions_cpl_basel">"Vertrag / Nutzungsvereinbarung / Bedingungen für SmartBoxBasel
+
+    1. Vertrag / Geltungsbereich
+
+Die Huber AG, Betreiberin und Inhaberin der SmartBoxBasel ist eine rechtlich als Aktiengesellschaft statuierte juristische Person des schweizerischen Obligationenrechts. Kunden resp. Nutzer (nachstehend Kunde genannt) im Sinne dieser Vereinbarung sind natürliche Personen, welche individuell für sich und/oder als Mitarbeitende eines Unternehmens für dieses die Dienstleistung der SmartBoxBasel benutzen und/oder verwenden. Inhalt dieser Vereinbarung ist die Regelung der Rechte und Pflichten betreffend Nutzung der SmartBoxBasel. 
+
+Mit der Annahme (online / übereinstimmende Willensäusserung) der Allgemeinen Geschäftsbedingungen für die SmartBoxBasel schliesst der Kunde einen Vertrag für die Nutzung der vorliegenden Dienstleistung ab. Spätestens mit der Nutzung des Dienstes durch den Kunden gelten der Vertrag sowie die Anwendung der Allgemeinen Geschäftsbedingungen (nachfolgend AGB genannt) für die SmartBoxBasel als abgeschlossen und angenommen. 
+
+1.2 Geltungsbereich und Vertragsbestandteile 
+Diese AGB regeln die Nutzungsmöglichkeiten der SmartBoxBasel-Dienstleistungen der Huber AG und / oder ihrer Drittpartner (nachfolgend Partner genannt) durch den Kunden.
+
+    2. Rechte und Pflichten
+
+Die Huber AG verpflichtet sich ihre Leistungen entsprechend dem Stand der Technik zu erfüllen oder erfüllen zu lassen. Sie ist dazu berechtigt, qualifizierte Dritte resp. Partner beizuziehen; zieht sie Dritte bei, so wählt sie diese sorgfältig aus, instruiert und überwacht diese.
+
+Die Huber AG bietet keinerlei Gewähr für andere Kunden, Gesellschaften oder Dritte.
+
+Der Kunde garantiert die Richtigkeit seiner persönlichen Daten (Name, Adresse usw.) bei der Registrierung für die SmartBoxBasel-Dienste.
+
+Die Huber AG ist berechtigt, vom Nutzer die Personendaten (Namen, Vornamen, Telefonnummern und E-mail-Adressen), Logindaten sowie die für die Nutzung bei SmartBoxBasel weiteren Daten (namentlich UserID, IP-Addresse etc.) notwendig sind zu speichern und auszuwerten.
+
+Die Huber AG ist berechtigt auf Nachweis auf ein berechtigtes Interesse oder bei Verdacht auf Missbrauch oder bei Hinweisen bezüglich unsachgemässer oder vertragswidriger Nutzung der SmartBoxBasel entsprechende Informationen zum Kunden an Dritte weiterzugeben.
+
+Die Huber AG kann den Zugriff auf die SmartBoxBasel einschränken oder aufheben, wenn dies aus Gründen der Sicherheit, der Serverintegrität oder für technische Massnahmen erforderlich ist.
+
+Wer sich mit seinem Login bei der SmartBoxBasel authentisiert hat, gilt gegenüber der Huber AG als entsprechend legitimiert. Dies gilt auch dann, wenn es sich bei der betreffenden Person nicht um den tatsächlich berechtigten Nutzer handeln sollte.
+
+    3. SmartBoxBasel-Standorte und zugehörige AGB
+
+3.1 Standort-Verzeichnis 
+
+Das aktuelle Standortverzeichnis aller SmartBoxBasel -Standorte ist im Internet unter smartboxbasel.ch verfügbar. 
+
+    4. SmartBoxBasel-Dienst 
+
+4.1 Benutzerhandbuch 
+
+Das SmartBoxBasel-Benutzerhandbuch ist im Internet unter guide.smartboxbasel.ch verfügbar und bildet einen integralen Bestandteil der Vereinbarung mit Huber AG und Partner.
+
+4.2 Registrierung 
+
+Um die SmartBoxBasel-Dienste nutzen zu können, ist es erforderlich, sich unter www.smartboxbasel.ch oder über die SmartBoxBasel User App zu registrieren. Während der Registrierung erhält der Kunde einen Bestätigungslink per E-Mail, der bestätigt werden muss, um die Registrierung abzuschließen. 
+
+Die Nutzung dieses Dienstes als alternative Lieferadresse erfordert eine Registrierung und eine E-Mail-Adresse. Jede Nutzung der Dienste muss einer natürlichen Person zugeordnet werden können.
+
+Durch die Registrierung erteilt der Kunde allen Kurier-, Express- und Paketdienstleistern eine generelle Abstellgenehmigung, um Pakete ohne Empfangsbestätigung an die SmartBoxBasel-Standorte zu liefern. Die Abstellgenehmigung gilt für alle angebotene Services von den jeweiligen Dienstleistern. 
+
+4.3 Auswählen eines Standorts 
+
+Der Kunde hat jederzeit die Möglichkeit, seinen SmartBoxBasel-Standort frei zu wählen. Für die Zustellung ist die SmartBoxBasel-Adresse auf der Sendung relevant.
+
+4.4 Adressierung 
+
+Jede Sendung, die über einen SmartBoxBasel-Standort zugestellt werden soll, muss wie im spezifischen Standortverzeichnis angegeben und wie folgt adressiert sein:
+
+Name Vorname
+SmartBoxBasel – “6-Stelliger Code“
+Strasse Nr, PLZ Stadt
+
+Der “6-Stellige Code“ wird bei der Registrierung automatisch vom System generiert und darf bei der Angabe der Lieferadresse nicht fehlen. Die Strasse Nr, PLZ Stadt bezieht sich auf den spezifischen Standort der SmartBoxBasel. 
+ 
+4.5 Definition einer SmartBoxBasel-Sendung 
+
+Sofern für einen bestimmten SmartBoxBasel-Standort nicht anders definiert, können Pakete bis zu 30 kg, mit einer von einem Lieferdienst offiziell generierten Sendungsnummer, an eine SmartBoxBasel  adressiert und von dort abgeholt werden. 
+
+4.6 Abholung einer Sendung 
+
+Für jede abzuholende Sendung wird der Kunde per E-Mail und/oder Push-Benachrichtigung auf seiner Smartphone App benachrichtigt. Mit dem darin enthaltenen Abholcode (Abholpin oder QR-Code) und/oder über die SmartBoxBasel-Benutzeranwendung kann die Sendung innerhalb der in der Email angegebenen Frist (Standard sind 72 Stunden) aus der spezifischen SmartBoxBasel freigegeben werden.  Es liegt in der Verantwortung des Kunden, sicherzustellen, dass der erhaltene Abholcode nicht für unerwünschte Dritte zugänglich ist. 
+
+Im Falle nicht verfügbarer Schließfachgrößen oder Störungen am Terminal wird die Sendung nicht zugestellt. Eine Lieferung an den gewünschten SmartBoxBasel-Standort kann nicht garantiert werden.
+
+Im Falle der Nichtabholung der Sendung innerhalb der angegebenen Frist wird dem Kunden eine E-Mail-Nachricht zugestellt.  Der Zugang zu dem spezifischen Schließfach wird dann dem Administrator gewährt, der die Sendung herausholt und lagert. Der Administrator setzt sich folglich mit dem Kunden in Verbindung. Es wird entweder eine Abholung am Lagerungsort oder eine persönliche Heimlieferung durch den Administrator organisiert. Sollte sich der Empfänger nach 5 Werktagen ab Lagerung nicht zurückmelden, wird der Auftraggeber der Sendung durch den Administrator kontaktiert. Der Auftraggeber entscheidet folglich über das weitere Vorgehen der Sendung.
+
+4.7. Versenden einer Sendung
+
+Für jede Sendung generiert die SmartBoxBasel einen PIN. Die Rücksendung muss beim jeweiligen Paketdienstleister online vom Kunden gemeldet werden. Nach der Abholung der Sendung durch den Paketdienstleister erhält der Kunde auf seiner Smartphone App eine E-Mail und/oder Push-Benachrichtigung mit der Abholungsbestätigung.
+
+    5. Haftung 
+
+Das Unternehmen haftet höchstens bis zu einem Betrag von CHF 500pro Haftungsfall. Diese Haftungsbeschränkung gilt für jegliche Haftung des Unternehmens unter allen Titeln, soweit eine Haftungsbeschränkung rechtlich zulässig ist und sofern die Haftung gemäss nachfolgenden Ausführungen nicht gänzlich ausgeschlossen ist.
+
+Huber AG und Partner haften nicht für Schäden, die durch falsche Angaben des Kunden entstehen. Die Huber AG und Partner übernehmen insbesondere keine Haftung für unzustellbare SMS, Push-Notizen oder E-Mails infolge einer falschen Mobiltelefonnummer oder E-Mail-Adresse. Kunden werden über unzustellbare Benachrichtigungen nicht informiert. Die Huber AG und Partner übernehmen keine Haftung für die an einen Anbieter zur Weiterleitung gesandten SMS, Push-Notizen und/oder E-Mails, wenn diese dem Kunden vom Anbieter nicht zugestellt werden konnten. Die Huber AG übernimmt keine Haftung für die vom Partner erbrachten Dienstleistungen. Die Huber AG haftet insbesondere nicht für höhere Gewalt, Folgeschäden und entgangenen Gewinn. 
+Sendungen, welche Flüssigkeiten und temperaturempfindliche Waren enthalten, dürfen nicht an Paketboxen bestellt und adressiert werden. Die Huber AG übernimmt keine Haftung für solche Sendungen. 
+
+Wenn Sie sich für die Nutzung der Dienste entscheiden, tun Sie dies auf Ihr eigenes Risiko. Die Huber AG übernimmt keine Gewähr dafür, dass die Website, Anwendungen, Dienste oder Inhalte Ihren Anforderungen entsprechen oder ununterbrochen, sicher oder fehlerfrei zur Verfügung stehen. Wir lehnen ferner jede Garantie ab, dass die in den Boxen deponierten Gegenstände uneingeschränkt geschützt sind vor Diebstahl, Feuer, Wasser, Witterung, Vandalismus, Verlust oder Beschädigung.
+
+Sie sind allein verantwortlich für alle Pakete, die von Ihnen versandt oder empfangen werden, bis ein Lieferdienst gemäss den Geschäftsbedingungen dieses Lieferdienstes in den Rechtsbesitz gelangt. Zu keinem Zeitpunkt ist die Huber AG im Besitz oder in irgendeiner Weise verantwortlich für ein Paket, auch wenn es in Ihrer Box enthalten ist. Sie erkennen an und erklären sich damit einverstanden, die Huber AG im Zusammenhang mit jeglichen Ansprüchen und Schäden oder Kosten, die sich aus ihrer Nutzung der Dienste ergeben, schadlos zu halten.
+
+Im Übrigen schliesst die Huber AG jegliche gesetzlich mögliche und zulässige Haftung für sich und Dritte vollumfänglich aus. Der Kunde haftet persönlich für die von ihm verursachten Schäden gegenüber anderen Personen, Kunden oder der Huber AG.
+
+    6. Datenschutz
+
+Die Huber AG sowie die Kunden verpflichten sich, alle ihnen im Rahmen dieser Vereinbarung übergebenen und bekanntwerdenden Informationen – auch über ein allfälliges Vertragsende hinaus – nach den Massgaben des geltenden Datenschutzgesetzes zu bearbeiten. Sie verpflichten sich ausserdem, die gesetzlich vorgeschriebenen organisatorischen und technischen Massnahmen zur Wahrung des Datenschutzes zu treffen und dafür zu sorgen, dass alle Mitarbeitende und beigezogene Dritte, welche Zugang zu solchen Daten erhalten, in geeigneter und nachprüfbarer Weise über die Pflichten zur Wahrung des Datenschutzes unterrichtet werden.
+
+Der Kunde nimmt ausdrücklich zur Kenntnis und ist damit einverstanden, dass die Zugangsdaten (insbesondere Username, Name, Vorname, Telefonnummern, Email) gespeichert und von der Huber AG bearbeitet werden.
+
+    7. Beendigung / Sperre des Zuganges
+
+Sofern für einen bestimmten SmartBoxBasel-Standort nicht anders definiert, hat die Huber AG die Möglichkeit, die SmartBoxBasel-Dienste für den Kunden innerhalb von 30 Tagen zum Monatsende per Mail zu stornieren. 
+
+Die Huber AG ist zudem berechtigt, bei Gesetzesverstössen, Missbrauch oder Verletzung von Rechten Dritter jederzeit, nicht aber verpflichtet, den Zugang des Nutzers ohne jegliche Entschädigungspflicht sofort zu sperren. Wird der Zugang gesperrt, so teilt sie das dem Kunden unverzüglich mit. Damit ist der Vertrag mit dem Kunden per sofort beendet.
+
+    8. Änderungen des Vertrages / der Bedingungen
+
+Die Huber AG kann den vorliegenden Vertrag sowie diese Bedingungen jederzeit revidieren. Die Revisionen werden dem Kunden schriftlich oder in einer anderen geeigneten Form mitgeteilt. Die Änderungen gelten als akzeptiert, wenn der Kunde die Dienstleistung trotz dieser Änderungen weiterhin nutzt oder wenn er nicht innerhalb eines Monats schriftlich widerspricht.
+
+    9. Anwendbares Recht und Gerichtsstand
+
+Die Rechtsbeziehungen zwischen dem Kunden, der die SmartBoxBasel nutzt, und Huber AG sowie deren Partner unterliegen ausschliesslich dem Schweizer Recht. Der Gerichtsstand ist Basel.
+
+    10.  Kontakt 
+
+Die Kontaktperson für eine bestimmte SmartBoxBasel finden Sie im Internet unter smartboxbasel.ch, indem Sie auf den Link Kontakt für die jeweilige CPL-Stelle klicken."</string>
+
+    <!-- Fuzzy -->
+    <string name="terms_and_conditions_cpl_flexilocker">"Bedingungen und Konditionen für Flexilocker CPL 
+
+    1. Gültigkeitsbereich und Beschreibung der Dienstleistung 
+
+1.1 Annahme der Allgemeinen Geschäftsbedingungen für Flexilocker CPL
+Spätestens mit der Nutzung des Dienstes durch den Kunden gelten die Allgemeinen Geschäftsbedingungen (nachfolgend AGB genannt) für Flexilocker CPL als angenommen. 
+. 
+1.2 Geltungsbereich und Vertragsbestandteile 
+Diese AGB regeln die Nutzungsmöglichkeiten der Flexilocker CPL-Dienstleistungen der Smart Locker Technologies AG (nachfolgend SLT genannt) und / oder ihrer Drittpartner (nachfolgend Partner genannt) durch die Kunden (nachfolgend Kunde genannt).
+
+    2. Flexilocker CPL-Standorte und zugehörige AGB
+
+2.1 Standort-Verzeichnis 
+Das aktuelle Standortverzeichnis aller Flexilocker-CPL-Standorte ist im Internet unter link1_gen verfügbar. 
+
+    3. Flexilocker-CPL-Dienst 
+
+3.1 Benutzerhandbuch 
+Das Flexilocker CPL-Benutzerhandbuch ist im Internet unter link2_gen verfügbar und bildet einen integralen Bestandteil der Vereinbarung mit SLT und Partner.
+
+3.2 Registrierung 
+Um die Flexilocker CPL-Dienste nutzen zu können, ist es erforderlich, sich unter link3_gen oder über die Flexilocker CPL User App zu registrieren. Während der Registrierung erhält der Kunde einen Bestätigungslink per E-Mail, der bestätigt werden muss, um die Registrierung abzuschließen. 
+  
+Die Nutzung dieses Dienstes als alternative Lieferadresse erfordert eine Registrierung und eine E-Mail-Adresse. Jede Nutzung der Dienste muss einer natürlichen Person zugeordnet werden können. Durch die Registrierung erteilt der Kunde allen Kurier-, Express- und Paketdienstleistern eine generelle Abstellgenehmigung, um Pakete ohne Empfangsbestätigung an die Flexilocker-Standorte zu liefern. Die Abstellgenehmigung gilt für alle angebotene Services von den jeweiligen Dienstleistern.
+
+3.3 Auswählen eines Standorts 
+Der Kunde hat jederzeit die Möglichkeit, seinen Flexilocker CPL-Standort frei zu wählen. Für die Zustellung ist die Flexilocker-CPL-Adresse auf der Sendung relevant.
+
+3.4 Adressierung 
+Jede Sendung, die über einen Flexilocker-CPL-Standort zugestellt werden soll, muss wie im spezifischen Standortverzeichnis angegeben und wie folgt adressiert sein:
+
+Name Vorname
+CPL– “6-Stellige Code“
+Strasse Nr, PLZ Stadt
+
+Der “6-Stellige Code“ wird bei der Registrierung automatisch vom System generiert und darf bei der Angabe der Lieferadresse nicht fehlen. Die Strasse Nr, PLZ Stadt bezieht sich auf den spezifischen Standort der Flexilocker-CPL. 
+ 
+3.5 Definition einer Flexilocker-CPL-Sendung 
+Sofern für einen bestimmten Flexilocker-CPL-Standort nicht anders definiert, können Pakete bis zu 30 kg, mit einer von einem Lieferdienst offiziel generierten Sendungsnummer, an einen Flexilocker-CPL adressiert und von dort abgeholt werden. 
+
+3.6 Abholung einer Sendung 
+Für jede abzuholende Sendung wird der Kunde per E-Mail und/oder Push-Benachrichtigung benachrichtigt. Mit dem darin enthaltenen Abholcode und/oder über die Flexilocker-CPL-Benutzeranwendung kann die Sendung innerhalb der angegebenen Frist (Standard sind 72 Stunden) aus der spezifischen Flexilocker-CPL freigegeben werden.  Es liegt in der Verantwortung des Kunden, sicherzustellen, dass der erhaltene Abholcode nicht für unerwünschte Dritte zugänglich ist. 
+
+Im Falle nicht verfügbarer Schließfachgrößen oder Störungen am Terminal wird die Sendung nicht zugestellt. Eine Lieferung an den gewünschten Flexilocker-CPL-Standort kann nicht garantiert werden. 
+
+Im Falle der Nichtabholung der Sendung innerhalb der angegebenen Frist wird dem Kunden eine E-Mail-Nachricht zugestellt.  Der Zugang zu dem spezifischen Schließfach wird dann dem Administrator gewährt, der die Sendung herausholt und lagert. 
+
+    4. Garantie 
+Der Kunde garantiert die Richtigkeit seiner persönlichen Daten (Name, Adresse usw.) bei der Registrierung für die Flexilocker CPL-Dienste.
+
+    5. Haftung 
+SLT und Partner haften nicht für Schäden, die durch falsche Angaben des Kunden entstehen. Die SLT und Partner übernimmt insbesondere keine Haftung für unzustellbare SMS, Push-Notizen oder E-Mails infolge einer falschen Mobiltelefonnummer oder E-Mail-Adresse. Kunden werden über unzustellbare Benachrichtigungen nicht informiert. Die SLT und Partner übernimmt keine Haftung für die an einen Anbieter zur Weiterleitung gesandten SMS, Push-Notizen und/oder E-Mails, wenn diese dem Kunden vom Anbieter nicht zugestellt werden konnten. 
+Die SLT übernimmt keine Haftung für die vom Partner erbrachten Dienstleistungen. 
+SLT haftet insbesondere nicht für höhere Gewalt, Folgeschäden und entgangenen Gewinn.
+
+    6. Informationen an Dritte
+Die SLT und Partner können Dritten den Namen und die Domiziladresse des Kunden bekannt geben, sofern diese ein berechtigtes Interesse daran nachweisen können.
+    7. Stornierung
+Sofern für einen bestimmten Flexilocker CPL-Standort nicht anders definiert, hat SLT die Möglichkeit, die Flexilocker CPL-Dienste für den Kunden innerhalb von 30 Tagen zum Monatsende per Mail zu stornieren.  SLT ist berechtigt, den gewählten Service jederzeit mit sofortiger Wirkung zu sperren, wenn der Verdacht besteht, dass das Service-Angebot missbräuchlich genutzt wurde.
+
+    8. Änderungen der Bedingungen und Konditionen
+Die SLT kann diese Bedingungen jederzeit revidieren. Die Revisionen werden dem Kunden schriftlich oder in einer anderen geeigneten Form mitgeteilt. Änderungen gelten als akzeptiert, wenn der Kunde die Dienstleistung trotz dieser Änderungen nutzt oder wenn er nicht innerhalb eines Monats schriftlich widerspricht.
+
+    9. Anwendbares Recht und Gerichtsstand
+Die Rechtsbeziehungen zwischen dem Kunden, der das Flexilocker CPL nutzt, und SLT und Partner unterliegen ausschliesslich dem Schweizer Recht. Der Gerichtsstand ist Bern.
+
+    10.  Kontakt 
+Die Kontaktperson für eine bestimmte CPL-Stelle finden Sie im Internet unter link4_gen, indem Sie auf den Link Kontakt für die jeweilige CPL-Stelle klicken."</string>
+    <string name="unique_user_number">"Eindeutige Benutzerkennung"</string>
+
+    <!-- Fuzzy -->
+    <string name="wrong_password_format">"Das Passwort muss mindestens 6 Zeichen lang sein und darf keine Leerzeichen enthalten. Es muss mindestens eine Ziffer, einen Kleinbuchstaben, einen Grossbuchstaben und ein Sonderzeichen (@#$%^&amp;amp;+=\-_!) enthalten."</string>
+
+    <!-- Fuzzy -->
+    <string name="link_cpl_flexilokcer_register">"https://flexilockercpl.swissinnolab.com/"</string>
+
+    <!-- Fuzzy -->
+    <string name="link_cpl_flexilokcer_locations">"https://smartlockertec.com/de/flexilocker-cpl-locations/"</string>
+
+    <!-- Fuzzy -->
+    <string name="link_cpl_flexilokcer_manual">"https://smartlockertec.com/flexilocker-cpl-guide/de"</string>
+
+    <!-- Fuzzy -->
+    <string name="link_cpl_basel_locations">"https://smartlockertec.com/de/smartboxbasel-locations/"</string>
+
+    <!-- Fuzzy -->
+    <string name="link_cpl_basel_registration">"https://my.smartboxbasel.ch/"</string>
+
+    <!-- Fuzzy -->
+    <string name="link_cpl_basel_manual">"https://guide.smartboxbasel.ch/de"</string>
+    <string name="alert_home_address_copied">"Adresse wurde in die Zwischenablage kopiert"</string>
+    <string name="rate_this_application">"Bitte bewerten Sie die Qualität unserer Dienstleistung."</string>
+
+    <!-- Fuzzy -->
+    <string name="comment_tell_us_more">"Wollen Sie uns noch mehr erzählen?"</string>
+    <string name="successfully_sended_report">"Sie haben Ihre Rückmeldung erfolgreich gesendet."</string>
+
+    <!-- Fuzzy -->
+    <string name="terms_and_conditions_cpl_basel_gen_link_1">"smartboxbasel.ch"</string>
+    <string name="terms_and_conditions_cpl_basel_gen_link_2">"guide.smartboxbasel.ch"</string>
+    <string name="terms_and_conditions_cpl_basel_gen_link_3">"www.smartboxbasel.ch"</string>
+    <string name="terms_and_conditions_cpl_basel_gen_link_4">"smartboxbasel.ch"</string>
+    <string name="next_time">"Nächstes Mal"</string>
+    <string name="submit">"Senden"</string>
+
+    <!-- Fuzzy -->
+    <string name="open_navigation_drawer">"öffnen"</string>
+
+    <!-- Fuzzy -->
+    <string name="close_navigation_drawer">"Schliessen"</string>
+
+    <!-- Fuzzy -->
+    <string name="notifications_title">"Benachrichtigungen"</string>
+    <string name="parcel_delivered">"Paket zugestellt"</string>
+    <string name="parcel_collected">"Paket abgeholt"</string>
+    <string name="parcel_collected_by_courier">"Paket per Kurier abgeholt"</string>
+    <string name="parcel_collected_by_admin">"Paket vom Systemadministrator abgeholt"</string>
+    <string name="delivery_failed_all_lockers_occupied">"Zustellungsversuch fehlgeschlagen"</string>
+    <string name="expired_parcel_collected">"Sendung mit abgelaufener Abholfrist wurde abgeholt"</string>
+    <string name="web_portal">"WEB portal:"</string>
+
+    <!-- Fuzzy -->
+    <string name="parcel_collected_using_shared_key">"Paket mit geteilten Schlüssel wurde abgeholt"</string>
+
+    <!-- Fuzzy -->
+    <string name="default_error_alert">"Standard-Alarm"</string>
+    <string name="login_error">"E-Mail und Passwort stimmen nicht überein, oder Ihr Konto wurde deaktiviert."</string>
+    <string name="notification_list_empty">"Derzeit haben Sie keine neuen Benachrichtigungen."</string>
+    <string name="no_deliveris_to_cpl_possible">"Es sind keine Lieferungen möglich, bis Sie Ihre Verifizierungs-PIN eingeben!"</string>
+    <string name="enter_verification_pin">"Verifizierungs-PIN eingeben"</string>
+    <string name="please_enter_verification_pin">"Bitte geben Sie Ihre Verifizierungs-PIN aus dem Brief ein, den wir an Ihre Adresse geschickt haben."</string>
+    <string name="still_have_not_received_pin">"Sie haben immer noch keinen Brief mit der Verifizierungs-PIN erhalten?"</string>
+    <string name="request_new_verification_pin">"Neuen Verifizierungs-PIN anfordern"</string>
+    <string name="verification_pin_description">"In wenigen Tagen sollten Sie eine Verifizierungs-PIN in einem Brief erhalten, der an die von Ihnen angegebene Adresse geschickt wird. Bestätigen Sie ausserdem den Link in Ihrer EMail. ( %s )"</string>
+    <string name="still_not_passed_registration_request">"Seit Ihrer Registrierungsanfrage sind noch keine 48 Stunden oder 2 Tage vergangen. Bitte versuchen Sie es später noch einmal!"</string>
+    <string name="last_date_and_time_of_sended_pin">"Letztes Datum und Uhrzeit der Versendung des Verifizierungs-PIN: %s"</string>
+
+    <!-- Fuzzy -->
+    <string name="expired_deliveries_description">"Abgelaufene Lieferungen werden von dem entsprechenden Kurier abgeholt und Sie werden über die nächsten Schritte informiert."</string>
+    <string name="select_locker_to_copy_address">"Sie müssen den Paketautomaten zuerst auswählen, um die Adresse kopieren zu können."</string>
+
+    <!-- Fuzzy -->
+    <string name="main_locker_ble_connection_error">"Verbindungsproblem"</string>
+    <string name="accept_terms_and_conditions_text">"Allgemeine Geschäftsbedingungen akzeptieren"</string>
+    <string name="next_create_user_account">"Weiter: Benutzerkonto anlegen"</string>
+    <string name="decline">"Ablehnen"</string>
+    <string name="register_account">"Konto registrieren"</string>
+    <string name="wrong_phone_format">"Falsches Telefon Format. Die Länge muss zwischen 8 und 20 Ziffern sein."</string>
+    <string name="next_enter_user_details">"Weiter: Benutzerdaten eingeben"</string>
+    <string name="create_user_account">"Benutzerkonto anlegen"</string>
+    <string name="enter_user_details">"Benutzerdaten eingeben"</string>
+    <string name="next_verify_your_address">"Weiter: Adresse verifizieren"</string>
+    <string name="verify_email_address">"Postanschrift verifizieren"</string>
+    <string name="next_wait_for_verification_letter">"Weiter: Warte auf den Verifizierungscode Eingabe"</string>
+    <string name="letter_with_verification_code">"In 1-2 Werktagen sollten Sie einen Brief mit Verifizierungscode per Post erhalten."</string>
+    <string name="enter_verification_code">"Sie müssen diesen Verifizierungscode in der App eingeben."</string>
+    <string name="verificiation_letter_will_be_sent_to">"Der Brief mit Verifizierungscode wird gesendet an: \n %s %s \n %s %s \n %s %s"</string>
+    <string name="app_generic_back">"Zurück"</string>
+    <string name="app_generic_proceed">"Weiter"</string>
+    <string name="thank_you">"Dankeschön!"</string>
+    <string name="you_will_be_able_to_use_mail_confirmation">"Sie können alle Funktionen der App nutzen, sobald Sie den Validierungscode aus dem zugestellten Brief eingegeben haben."</string>
+    <string name="you_will_be_able_to_use_none_confirmation">"Sie können alle Funktionen der App nutzen, sobald Sie den Link innerhalb der E-Mail bestätigt haben."</string>
+    <string name="share_access_pin">"Zugangs-Pin teilen"</string>
+    <string name="share_pin_device_name">"Gerätename: %s"</string>
+    <string name="share_pin_device_address">"Geräteadresse: %s"</string>
+    <string name="share_pin_device_locker_size">"Schliessfachgrösse: %s"</string>
+    <string name="share_pin_device_pin">"Pin: %s"</string>
+    <string name="email_verification_link">"Es wird eine E-Mail mit einem Verifizierungslink an Ihre E-Mail-Adresse gesendet. Sie müssen diesen Link öffnen, um Ihre E-Mail-Adresse zu verifizieren.
+"</string>
+
+    <!-- Fuzzy -->
+    <string name="cancel_pick_at_home_description">"Der generierte pick@home Schlüssel wird gelöscht und deaktiviert und das Schliessfach wird wieder geöffnet."</string>
+    <string name="cancel_pick_at_home_text">"Sie müssen sich in der Nähe des Schliessfachs befinden, um die pick@home Aktion abzubrechen."</string>
+    <string name="call_us">"Rufen Sie uns an"</string>
+    <string name="email_us">"Senden Sie E-Mailen an uns"</string>
+    <string name="smartboxbasel_support">"SmartBoxBasel Support"</string>
+    <string name="need_help_call_us_email">"Brauchen Sie Hilfe? Rufen Sie uns an oder senden Sie eine E-Mail"</string>
+    <string name="workdays_smartboxbase">"(werktags 8-12 und 14-17h)"</string>
+
+    <!-- Fuzzy -->
+    <string name="cplflexilocker_support">"CPL Flexilocker-Unterstützung"</string>
+    <string name="terms_and_conditions_cpl_flexilocker_gen_link_1">"Standorte"</string>
+    <string name="terms_and_conditions_cpl_flexilocker_gen_link_2">"Benutzermanual"</string>
+    <string name="terms_and_conditions_cpl_flexilocker_gen_link_3">"Registrierungsportal"</string>
+    <string name="terms_and_conditions_cpl_flexilocker_gen_link_4">"Standorte"</string>
+
+    <!-- Fuzzy -->
+    <string name="not_in_proximity_of_locker">"Sie befinden sich nicht in der Nähe des Schrankes."</string>
+
+    <!-- Fuzzy -->
+    <string name="app_generic_no_access_for_device">"Sie haben derzeit keinen Zugang für diesen Schließfach."</string>
+
+    <!-- Fuzzy -->
+    <string name="app_generic_selected_locker">"Ausgewählter Schließfach"</string>
+
+    <!-- Fuzzy -->
+    <string name="app_generic_select_locker">"Schließfach auswählen"</string>
+    <string name="no_deliveris_to_locker_possible">"Es sind keine Lieferungen möglich, bis Sie Ihre Verifizierungs-PIN eingeben!"</string>
+
+    <!-- Fuzzy -->
+    <string name="app_generic_request_access">"Zuerst müssen Sie den Zugang für dieses Schließfach beantragen."</string>
+
+    <!-- Fuzzy -->
+    <string name="admin_approve_request_access">"Bitte warten Sie, während der Admin Ihren Zugang für dieses Schließfach freigibt."</string>
+
+    <!-- Fuzzy -->
+    <string name="app_generic_date_created">"Datum: %s"</string>
+    <string name="user_identification_QR_code">"Benutzeridentifikation QR-Code"</string>
+    <string name="collect_QR_code">"QR-Code sammeln"</string>
+    <string name="collect_QR_code_description">"Bitte halten Sie den QR-Code in einem Abstand von 10-15 cm vor den Barcode Scanner oder geben Sie Ihre Abholnummer ein: %s"</string>
+    <string name="collect_master_QR_code_description">"Bitte halten Sie den QR-Code im Abstand von 10-15 cm vor den Barcode Scanner."</string>
+    <string name="cancel_pick_at_home_description_linux">"Um Pick@home abzubrechen, holen Sie Ihr Paket bitte mit der PIN %s ab."</string>
+</resources>

@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/thmLoginBackground">
+
+
+<!--    <com.google.android.material.appbar.AppBarLayout-->
+<!--        android:id="@+id/appBarLayout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="?attr/thmToolbarBackgroundColor"-->
+<!--        android:fitsSystemWindows="true"-->
+<!--        app:elevation="0dp"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+
+<!--        <RelativeLayout-->
+<!--            android:id="@+id/rlTopLayout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
+
+<!--            <androidx.appcompat.widget.Toolbar-->
+<!--                android:id="@+id/toolbar"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="?attr/actionBarSize"-->
+<!--                app:contentInsetEnd="0dp"-->
+<!--                app:contentInsetLeft="0dp"-->
+<!--                app:contentInsetStartWithNavigation="0dp" />-->
+
+<!--            <ImageView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_centerInParent="true"-->
+<!--                android:src="?attr/thmToolbarHeader" />-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/ivSupportImage"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignParentRight="true"-->
+<!--                android:layout_centerVertical="true"-->
+<!--                android:layout_marginRight="20dp"-->
+<!--                android:src="?attr/thmToolbarHeaderSupportImage" />-->
+
+<!--        </RelativeLayout>-->
+
+<!--    </com.google.android.material.appbar.AppBarLayout>-->
+
+<!--    <myappbox.font.view.font.TextViewWithFont-->
+<!--        android:id="@+id/tvSendParcelTitle"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:gravity="center"-->
+<!--        android:paddingLeft="15dp"-->
+<!--        android:paddingRight="15dp"-->
+<!--        android:letterSpacing="?attr/thmTitleLetterSpacing"-->
+<!--        android:textAllCaps="true"-->
+<!--        android:textSize="?attr/thmTitleTextSize"-->
+<!--        android:text="@string/app_generic_key_sharing"-->
+<!--        android:textColor="?attr/thmTitleTextColor"-->
+<!--        app:font_name="?attr/thmMainFontName"-->
+<!--        app:font_type="?attr/thmMainFontTypeMedium"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"/>-->
+
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/rlEmail"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_marginLeft="20dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:layout_marginRight="20dp"-->
+<!--        android:paddingTop="10dp"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/tvSendParcelTitle">-->
+
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:id="@+id/email"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColorHint="?attr/thmEdittextHintColor"-->
+<!--            app:errorEnabled="true"-->
+<!--            app:errorTextAppearance="?attr/thmErrorEdittextTheme">-->
+
+<!--            <myappbox.font.EdittextWithFont-->
+<!--                android:id="@+id/emailEditText"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="?attr/thmLoggedInBottomLineEditTextColor"-->
+
+<!--                android:hint="@string/app_generic_email"-->
+<!--                android:inputType="text"-->
+<!--                android:maxLines="1"-->
+<!--                android:paddingTop="5dp"-->
+<!--                android:paddingRight="60dp"-->
+
+<!--                android:letterSpacing="?attr/thmEdittextTextLetterSpacing"-->
+<!--                android:textSize="?attr/thmEdittextTextSize"-->
+<!--                android:paddingLeft="?attr/thmEdittextLeftPadding"-->
+
+<!--                android:singleLine="true"-->
+<!--                android:textColor="?attr/thmEdittextColor"-->
+<!--                android:textColorHint="@color/colorBlack"-->
+<!--                app:font_name="?attr/thmMainFontName"-->
+<!--                app:font_type="?attr/thmMainFontTypeRegular" />-->
+
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
+
+<!--        <ImageView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentRight="true"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:layout_marginRight="2dp"-->
+<!--            app:srcCompat="?attr/thmRegisterEmail" />-->
+
+<!--    </RelativeLayout>-->
+
+<!--    <myappbox.font.view.font.TextViewWithFont-->
+<!--        android:id="@+id/wrongEmail"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/rlEmail"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        android:text=""-->
+<!--        android:textSize="16sp"-->
+<!--        android:textColor="?attr/thmErrorTextColor"-->
+<!--        app:font_name="?attr/thmMainFontName"-->
+<!--        app:font_type="?attr/thmMainFontTypeRegular"-->
+<!--        android:layout_marginLeft="20dp"-->
+<!--        android:layout_marginRight="20dp"-->
+<!--        android:visibility="gone"/>-->
+
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:id="@+id/clContacts"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/wrongEmail"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:layout_marginLeft="23dp"-->
+<!--        android:layout_marginRight="10dp">-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/addressBook"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:src="?attr/thmASAddressFromPhone"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"/>-->
+
+<!--        <myappbox.font.view.font.TextViewWithFont-->
+<!--            android:id="@+id/selectEmailFromContact"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintLeft_toRightOf="@+id/addressBook"-->
+<!--            android:textColor="?attr/thmTitleTextColor"-->
+<!--            android:text="@string/access_sharing_new_user_selection"-->
+<!--            android:textSize="13.5sp"-->
+<!--            app:font_name="?attr/thmMainFontName"-->
+<!--            app:font_type="?attr/thmMainFontTypeRegular"-->
+<!--            android:layout_marginLeft="10dp"/>-->
+
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:id="@+id/clUserRole"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/clContacts"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:layout_marginLeft="20dp"-->
+<!--        android:layout_marginRight="20dp"-->
+<!--        android:paddingTop="1dp"-->
+<!--        android:background="?attr/thmLoggedInBottomLineEditTextColor">-->
+
+
+<!--        <myappbox.font.view.font.TextViewWithFont-->
+<!--            android:id="@+id/roleType"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            android:textColor="?attr/thmTitleTextColor"-->
+<!--            android:text="@string/access_sharing_new_user_access_details"-->
+<!--            app:font_name="?attr/thmMainFontName"-->
+<!--            app:font_type="?attr/thmMainFontTypeRegular" />-->
+
+<!--        <androidx.appcompat.widget.AppCompatSpinner-->
+<!--            android:id="@+id/roleTypeSpinner"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+
+<!--            app:layout_constraintTop_toBottomOf="@+id/roleType"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+
+<!--            android:spinnerMode="dropdown"-->
+<!--            android:background="@drawable/spinner_background_color"-->
+<!--            android:popupBackground="@color/colorWhite" />-->
+
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
+<!--    <ProgressBar-->
+<!--        android:id="@+id/progressBar"-->
+<!--        android:layout_width="40dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:indeterminateDrawable="?attr/thmSplashProgressBar"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/clUserRole"-->
+<!--        android:visibility="gone"/>-->
+
+
+<!--    <myappbox.font.ButtonWithFont-->
+<!--        android:id="@+id/btnGrantAccess"-->
+<!--        android:layout_width="250dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:layout_marginTop="50dp"-->
+<!--        android:background="?attr/thmMainButtonBackgroundColor"-->
+<!--        android:text="@string/access_sharing_new_user_allow"-->
+<!--        android:textSize="?attr/thmButtonTextSize"-->
+<!--        android:letterSpacing="?attr/thmButtonLetterSpacing"-->
+<!--        android:textColor="?attr/thmLoginButtonTextColor"-->
+<!--        app:font_name="?attr/thmMainFontName"-->
+<!--        app:font_type="?attr/thmMainFontTypeMedium"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/progressBar"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent" />-->
+
+
+<!--    <FrameLayout-->
+<!--        android:id="@+id/no_ble_layout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:alpha="0.8"-->
+<!--        android:background="?attr/thmNoBluebtooth"-->
+<!--        android:clickable="true"-->
+<!--        android:visibility="gone">-->
+
+<!--        <myappbox.font.view.font.TextViewWithFont-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginBottom="50dp"-->
+<!--            android:gravity="center"-->
+<!--            android:text="@string/app_generic_no_ble"-->
+<!--            android:textColor="?attr/thmSubTitleTextColor"-->
+<!--            android:textSize="20sp"-->
+<!--            android:textStyle="bold"-->
+<!--            app:font_name="?attr/thmMainFontName"-->
+<!--            app:font_type="?attr/thmMainFontTypeMedium" />-->
+
+<!--    </FrameLayout>-->
+
+<!--    <FrameLayout-->
+<!--        android:id="@+id/no_internet_layout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:alpha="0.8"-->
+<!--        android:background="?attr/thmNoInternet"-->
+<!--        android:clickable="true"-->
+<!--        android:visibility="gone">-->
+
+<!--        <myappbox.font.view.font.TextViewWithFont-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginBottom="50dp"-->
+<!--            android:gravity="center"-->
+<!--            android:text="@string/app_generic_no_network"-->
+<!--            android:textColor="?attr/thmSubTitleTextColor"-->
+<!--            android:textSize="20sp"-->
+<!--            android:textStyle="bold"-->
+<!--            app:font_name="?attr/thmMainFontName"-->
+<!--            app:font_type="?attr/thmMainFontTypeMedium" />-->
+
+<!--    </FrameLayout>-->
+
+<!--    <FrameLayout-->
+<!--        android:id="@+id/no_location_gps_layout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:alpha="0.8"-->
+<!--        android:background="?attr/thmNoLocationBackgroundColor"-->
+<!--        android:clickable="true"-->
+<!--        android:visibility="gone">-->
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/ivNoLocationImage"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="70dp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:srcCompat="?attr/thmNoLocationGPSImage" />-->
+
+<!--            <myappbox.font.view.font.TextViewWithFont-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:gravity="center"-->
+<!--                android:textAllCaps="true"-->
+<!--                android:text="@string/no_location_services"-->
+<!--                android:textColor="?attr/thmDescriptionTextColor"-->
+<!--                android:textSize="20sp"-->
+<!--                android:textStyle="bold"-->
+
+<!--                app:font_name="?attr/thmMainFontName"-->
+<!--                app:font_type="?attr/thmMainFontTypeMedium"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/ivNoLocationImage" />-->
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--    </FrameLayout>-->
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

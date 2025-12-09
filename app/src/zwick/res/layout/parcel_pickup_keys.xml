@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="10dp"
+    android:layout_marginTop="3dp"
+    android:layout_marginBottom="3dp"
+    android:id="@+id/clMainLayout">
+
+
+    <myappbox.fonts.view.fonts.TextViewWithFont
+        android:id="@+id/keySharingItemDetails"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintHorizontal_weight="0.83"
+        app:layout_constraintEnd_toStartOf="@+id/buttonShareDeleteKey"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text=""
+        android:textColor="?attr/thmShareKeyAdapterTextColor"
+        app:font_name="?attr/thmMainFontName"
+        app:font_type="?attr/thmMainFontTypeRegular"  />
+
+    <ImageButton
+        android:id="@+id/buttonShareDeleteKey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintHorizontal_weight="0.15"
+        app:layout_constraintStart_toEndOf="@+id/keySharingItemDetails"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="?attr/thmCPDeleteFriendKey"
+        android:background="@color/transparentColor"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

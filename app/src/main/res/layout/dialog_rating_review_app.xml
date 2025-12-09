@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?attr/thmSettingsLogoutDialog"
+    android:orientation="vertical">
+
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"  />
+
+    <hr.sil.android.myappbox.fonts.view.fonts.TextViewWithFont
+        android:id="@+id/tvRateApp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:gravity="center"
+        android:text="@string/rate_this_application"
+        app:font_name="?attr/thmMainFontName"
+        app:font_type="?attr/thmMainFontTypeRegular"
+        android:textColor="?attr/thmDescriptionTextColor"
+        android:textSize="23sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ratingBar1"
+
+
+        android:layout_alignParentTop="true"/>
+
+    <RatingBar
+        android:id="@+id/ratingBar1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:numStars="5"
+        android:rating="0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="20dp"
+
+        android:stepSize="1.0"
+
+        android:layout_below="@+id/tvRateApp"/>
+
+    <hr.sil.android.myappbox.fonts.EdittextWithFont
+        android:id="@+id/etRatingApp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/thmLoggedInBottomLineEditTextColor"
+
+        android:hint="@string/comment_tell_us_more"
+        android:maxLines="12"
+        android:paddingTop="5dp"
+        android:paddingStart="?attr/thmEdittextLeftPadding"
+
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+
+        android:letterSpacing="?attr/thmEdittextTextLetterSpacing"
+        android:textSize="?attr/thmEdittextTextSize"
+
+        android:singleLine="false"
+        android:textColor="?attr/thmEdittextColor"
+        android:textColorHint="?attr/thmEdittextColor"
+        app:font_name="?attr/thmMainFontName"
+        app:font_type="?attr/thmMainFontTypeRegular"
+
+        android:layout_below="@+id/ratingBar1"/>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/llButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/etRatingApp"
+        android:layout_marginTop="20dp">
+
+
+        <hr.sil.android.myappbox.fonts.ButtonWithFont
+            android:id="@+id/btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="?attr/thmMainButtonBackgroundColor"
+            android:text="@string/next_time"
+            android:textSize="?attr/thmButtonTextSizeInsideDialog"
+            android:textColor="?attr/thmLoginButtonTextColor"
+            app:font_name="?attr/thmMainFontName"
+            app:font_type="?attr/thmMainFontTypeMedium"
+            app:layout_constraintEnd_toStartOf="@id/btnSelect"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <hr.sil.android.myappbox.fonts.ButtonWithFont
+            android:id="@+id/btnSelect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="?attr/thmMainButtonBackgroundColor"
+            android:text="@string/submit"
+            android:textSize="?attr/thmButtonTextSizeInsideDialog"
+            android:textColor="?attr/thmLoginButtonTextColor"
+            app:font_name="?attr/thmMainFontName"
+            app:font_type="?attr/thmMainFontTypeMedium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@id/btnCancel"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone"/>
+
+
+        <ProgressBar
+            android:id="@+id/progressBarRating"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@id/btnCancel"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+
+        android:layout_below="@+id/llButtons" />
+
+
+</RelativeLayout>

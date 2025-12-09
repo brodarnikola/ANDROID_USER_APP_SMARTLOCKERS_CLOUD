@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/thmLoginBackground"
+    tools:context="hr.sil.android.myappbox.view.ui.activities.PasswordRecoveryActivity">
+
+
+<!--    <com.google.android.material.appbar.AppBarLayout-->
+<!--        android:id="@+id/appBarLayout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        android:fitsSystemWindows="true"-->
+<!--        app:elevation="0dp"-->
+<!--        android:background="?attr/thmToolbarBackgroundColor">-->
+
+<!--        <RelativeLayout-->
+<!--            android:id="@+id/rlTopLayout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content" >-->
+
+<!--            <androidx.appcompat.widget.Toolbar-->
+<!--                android:id="@+id/toolbar"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="?attr/actionBarSize"-->
+<!--                app:contentInsetEnd="0dp"-->
+<!--                app:contentInsetLeft="0dp"-->
+<!--                app:contentInsetStartWithNavigation="0dp" />-->
+
+<!--            <ImageView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_centerInParent="true"-->
+<!--                android:src="?attr/thmToolbarHeader" />-->
+
+<!--        </RelativeLayout>-->
+
+<!--    </com.google.android.material.appbar.AppBarLayout>-->
+
+<!--    <hr.sil.android.myappbox.font.view.font.TextViewWithFont-->
+<!--        android:id="@+id/tvTermsTitle"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        android:gravity="center"-->
+<!--        android:paddingLeft="15dp"-->
+<!--        android:paddingRight="15dp"-->
+<!--        android:letterSpacing="?attr/thmTitleLetterSpacing"-->
+<!--        android:textSize="20sp"-->
+<!--        android:textAllCaps="true"-->
+<!--        android:text="@string/terms_and_condtions_title"-->
+<!--        android:textColor="?attr/thmLoginDescriptionTextColor"-->
+<!--        app:font_name="?attr/thmMainFontName"-->
+<!--        app:font_type="?attr/thmMainFontTypeMedium"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/appBarLayout" />-->
+
+<!--    <ScrollView-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:layout_marginBottom="10dp"-->
+<!--        android:layout_marginLeft="10dp"-->
+<!--        android:layout_marginRight="10dp" -->
+<!--        app:layout_constraintTop_toBottomOf="@+id/tvTermsTitle"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent">-->
+
+<!--        <hr.sil.android.myappbox.font.view.font.TextViewWithFont-->
+<!--            android:id="@+id/tvShowPasswords"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="?attr/thmTermsConditionsDescription"-->
+<!--            android:textColor="?attr/thmLoginDescriptionTextColor"-->
+<!--            app:font_name="?attr/thmMainFontName"-->
+<!--            app:font_type="?attr/thmMainFontTypeMedium"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/clPassword" />-->
+
+<!--    </ScrollView>-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+

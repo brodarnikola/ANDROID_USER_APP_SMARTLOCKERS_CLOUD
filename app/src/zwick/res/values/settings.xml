@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <bool name="dipslay_version_splash_screen">false</bool>
+
+    <bool name="dipslay_onboarding_screen">false</bool>
+    <bool name="scan_all_devices_mpl_spl_plus_tablet">true</bool>
+
+    <!-- CPL BASEL PARAMETERS -->
+    <bool name="scan_advertise_only_tablet">false</bool>
+    <bool name="has_email_verification">false</bool>
+    <bool name="send_parcel_with_reduced_mobility">false</bool>
+    <bool name="has_online_help">false</bool>
+    <!--  -->
+
+    <!-- retail locker parameters -->
+    <bool name="scan_advertise_only_mpl">false</bool>
+    <!-- -->
+
+
+    <bool name="has_android_link">true</bool>
+    <bool name="has_ios_link">true</bool>
+    <bool name="has_web_portal_link">false</bool>
+
+
+    <bool name="has_terms_conditions_cpl_basel_with_web_pages_link">false</bool>
+    <bool name="has_terms_conditions_cpl_flexilocker_with_web_pages_link">false</bool>
+
+    <bool name="has_only_enabled_en_de_languages">false</bool>
+
+    <bool name="has_mobile_support_for_calls">false</bool>
+
+    <bool name="has_mobile_and_email_support">false</bool>
+
+</resources>

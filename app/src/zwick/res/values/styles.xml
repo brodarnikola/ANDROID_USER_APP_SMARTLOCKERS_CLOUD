@@ -1,0 +1,253 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <!-- ZWICK -->
+    <style name="ZwickTheme" parent="Theme.AppCompat.Light">
+        <!--BASE-->
+<!--        <item name="colorPrimary">@color/colorPrimary</item>-->
+<!--        <item name="colorPrimaryDark">@color/colorPrimaryDarkZwick</item>-->
+<!--        <item name="colorAccent">@color/colorPrimaryDarkZwick</item>-->
+<!--        <item name="colorButtonNormal">@color/colorPrimary</item>-->
+
+        <!--THEMED-->
+        <item name="thmSplashLogo">@drawable/logo_splash</item>
+        <item name="thmSplashBackground">@drawable/splash_screen</item>
+        <item name="thmSplashProgressBar">@drawable/custom_progressbar_zwick</item>
+
+        <item name="thmTitleLetterSpacing">@dimen/letter_spacing</item>
+
+        <item name="thmTitleTextColor">@color/colorBlackText</item>
+        <item name="thmSubTitleTextColor">@color/colorBlackText</item>
+        <item name="thmDescriptionTextColor">@color/colorBlackText</item>
+        <item name="thmDescriptionTextSize">@dimen/description_text_size</item>
+        <item name="thmErrorTextColor">@color/colorError</item>
+        <item name="thmShareKeyAdapterTextColor">@color/colorWhite</item>
+
+        <item name="thmIntroductionButtonBackgroundColor">@drawable/rounded_button</item>
+        <item name="thmMainButtonBackgroundColor">@drawable/rounded_button</item>
+
+        <item name="thmTitleTextSize">@dimen/title_text_size</item>
+        <item name="thmSubTitleTextSize">@dimen/subtitle_text_size</item>
+
+        <item name="thmListTitleTextSize">@dimen/list_title_text_size</item>
+        <item name="thmListSubTitleTextSize">@dimen/list_subtitle_text_size</item>
+        <item name="thmListDescriptionTextSize">@dimen/list_description_text_size</item>
+        <item name="thmDialogDescriptionTextSize">@dimen/dialog_description_text_size</item>
+
+        <item name="thmNoBluebtooth">@drawable/rectangle_transparent_dark</item>
+        <item name="thmNoInternet">@drawable/rectangle_transparent_dark</item>
+        <item name="thmNoLocationBackgroundColor">@drawable/rectangle_transparent_dark</item>
+        <item name="thmNoBluebtoothImage">@drawable/ic_bluetooth_on</item>
+        <item name="thmNoInternetImage">@drawable/ic_wifi</item>
+        <item name="thmNoLocationGPSImage">@drawable/ic_no_location_services</item>
+
+        <item name="thmErrorEdittextTheme">@style/ZwickTheme.ErrorEdittext</item>
+        <item name="thmEdittextColor">@color/colorBlackText</item>
+        <item name="thmEdittextBottomLineColor">@color/colorBlackText</item>
+        <item name="thmEdittextHintColor">@color/colorBlackText</item>
+        <item name="thmLoggedInBottomLineEditTextColor">@drawable/edittext_bottom_line_color</item>
+
+        <item name="thmEdittextInputLetterSpacing">@dimen/edittext_hint_letter_spacing</item>
+
+        <item name="thmEdittextLeftPadding">@dimen/edittext_leftpadding</item>
+        <item name="thmEdittextTextSize">@dimen/edittext_text_size</item>
+        <item name="thmEdittextTextLetterSpacing">@dimen/edittext_text_letter_spacing</item>
+        <item name="thmEdittextMarginRight">@dimen/edittext_margin_right</item>
+
+        <item name="thmToolbarBackgroundColor">@color/transparentColor</item>
+        <item name="thmToolbarHeader">@drawable/logo_header_zwick</item>
+        <item name="thmToolbarHeaderSupportImage">@color/transparentColor</item>
+        <item name="thmLoginBackground">@drawable/bg_home_zwick</item>
+        <item name="thmLoginButtonTextColor">@color/colorWhite</item>
+        <item name="thmTransparentButtonTextColor">@color/colorBlackText</item>
+
+
+        <item name="thmButtonTextSize">@dimen/buttonTextSize</item>
+        <item name="thmButtonLetterSpacing">@dimen/button_letter_spacing</item>
+        <item name="thmButtonTextSizeInsideDialog">@dimen/buttonTextSize_inside_dialog</item>
+        <item name="thmLoginEmail">@drawable/ic_email</item>
+        <item name="thmLoginPassword">@drawable/ic_password_zwick</item>
+        <item name="thmLoginDescriptionTextColor">@color/colorBlack60PercentZwick</item>
+
+        <item name="thmRegisterGroupNameBackgroundColor">@drawable/rounded_pin_layout</item>
+        <item name="thmRegisterGroupNameErrorTextColor">@color/colorError</item>
+        <item name="thmRegisterGroupNameCorrectTextColor">@color/colorBlack60PercentZwick</item>
+        <item name="thmRegisterName">@drawable/ic_register_name</item>
+        <item name="thmRegisterPhone">@drawable/ic_register_phone</item>
+        <item name="thmRegisterAddress">@drawable/ic_register_address</item>
+        <item name="thmRegisterEmail">@drawable/ic_email</item>
+        <item name="thmRegisterPassword">@drawable/ic_password_zwick</item>
+
+        <item name="thmMainBadgeTextColor">@color/colorWhite</item>
+        <item name="thmMainBadgeBackgroundColor">@color/colorRedBadgeNumber</item>
+        <item name="thmMainCollectParcel">@drawable/ic_collect_parcel</item>
+        <item name="thmMainDisableCollectParcel">@drawable/ic_collect_parcel_disabled</item>
+        <item name="thmMainSendParcel">@drawable/ic_send_parcel</item>
+        <item name="thmMainShareAccess">@drawable/ic_key_sharing</item>
+        <item name="thmMainSettings">@drawable/ic_configure</item>
+
+        <item name="thmSplImage">@drawable/ic_spl</item>
+        <item name="thmMplImage">@drawable/ic_mpl</item>
+        <item name="thmTabletImage">@drawable/ic_mpl_tablet</item>
+
+        <item name="thmMPLSPLNotInProximity">@drawable/rounded_button_gray</item>
+        <item name="thmMPLRequestAccess">@drawable/rounded_button_transparent</item>
+        <item name="thmMPLRequestAccessAlreadySend">@drawable/rounded_button_transparent</item>
+
+        <item name="thmDeliveryImage">@drawable/ic_parcel</item>
+
+        <item name="thmEditSplImage">@drawable/ic_edit</item>
+        <item name="thmSendParcelImage">@drawable/ic_parcel_sent</item>
+        <item name="thmSPRegisteredOddBackgroundColor">@color/colorPrimary40Percent</item>
+        <item name="thmSPRegisteredEvenBackgroundColor">@color/colorPrimary40Percent</item>
+
+        <item name="thmSPRegisteredBackgroundColor">@color/colorPrimary40Percent</item>
+        <item name="thmSPRegisteredButUnavailableaBackgroundColor">@color/colorMainBlue20PercentOpacity</item>
+        <item name="thmSPNotInProximityBackgroundColor">@color/colorBlack10Percent</item>
+        <item name="thmSPUnavailableBackgroundColor">@color/colorRed10Percent</item>
+
+        <item name="thmSPBtnLockerSize">@drawable/btn_parcel_size</item>
+        <item name="thmSPBtnLockerDimensions">@drawable/ic_dimensions</item>
+        <item name="thmSPLockerAvailable">@drawable/btn_parcel_size</item>
+        <item name="thmSPLockerDisabled">@drawable/btn_parcel_size_disabled</item>
+        <item name="thmSPPinDialogRoundCorners">@drawable/pin_dialog</item>
+        <item name="thmSPDeliveryFontSize">@dimen/sendParcelDeliveryTextCallback</item>
+
+        <item name="thmPinManagmentPinTextColor">@color/colorBlack</item>
+        <item name="thmPinManagmentEdittextTextColor">@color/colorPrimaryDarkZwick</item>
+        <item name="thmPinManagmentNewPinBackgroundColor">@drawable/rounded_pin_managment_layout</item>
+        <item name="thmPinManagmentTransparentColor">@color/transparentColor</item>
+        <item name="thmPinManagmentOpenImage">@drawable/group_2</item>
+        <item name="thmPinManagmentAddImage">@drawable/check_circle</item>
+        <item name="thmPinManagmentDeleteImage">@drawable/ic_cancel_access</item>
+        <item name="thmPinManagmentSelectedOddBackgroundColor">@drawable/rounded_pin_selected_odd_layout</item>
+        <item name="thmPinManagmentSelectedEvenBackgroundColor">@drawable/rounded_pin_selected_even_layout</item>
+        <item name="thmPinManagmentUnselectedOddBackgroundColor">@color/colorGray40Percent</item>
+        <item name="thmPinManagmentUnselectedEvenBackgroundColor">@color/colorPrimary40Percent</item>
+
+        <item name="thmXImage">@drawable/btn_x</item>
+
+        <item name="thmCPLockedDisabled">@drawable/ic_locked</item>
+        <item name="thmCPLockedEnabled">@drawable/ic_unlocked</item>
+        <item name="thmCPLockedNotInProximity">@drawable/ic_locked_disabled</item>
+        <item name="thmCPDeleteFriendKey">@drawable/ic_cancel_access</item>
+        <item name="thmCPShareFriendKey">@drawable/ic_share</item>
+        <item name="thmCPSharePickedFriendKeyBC">@color/colorWhite</item>
+        <item name="thmCPShareKeyOddBC">@color/colorGray40Percent</item>
+        <item name="thmCPShareKeyEvenBC">@color/colorGray40Percent</item>
+        <item name="thmCPTelemetryBackgroundColor">@color/colorPrimary40Percent</item>
+
+        <item name="thmASSubHeaderBC">@color/accessSharingItemBackgroundColor</item>
+        <item name="thmASChildOddBC">@color/colorPrimary40Percent</item>
+        <item name="thmASChildEvenBC">@color/colorPrimary80Percent</item>
+
+        <item name="thmASUsersSubHeaderTextColor">@color/colorWhite</item>
+        <item name="thmASAddNewUser">@drawable/ic_add_group</item>
+        <item name="thmASAdminInGroupSubHeader">@drawable/ic_admin_white</item>
+        <item name="thmASAdminInGroupChild">@drawable/ic_admin</item>
+        <item name="thmASRemoveUser">@drawable/ic_remove</item>
+        <item name="thmASAddNewUserBC">@drawable/settings_input_background_original</item>
+        <item name="thmASAddressFromPhone">@drawable/ic_adressbook</item>
+        <item name="thmASAddNewUserBC2">@drawable/sharring_dropdown_background</item>
+        <item name="thmASAddNewUserTextColor">@color/colorBlackText</item>
+
+        <item name="thmEditSplNameImage">@drawable/ic_spl</item>
+
+        <item name="thmHumidityImage">@drawable/ic_humidity</item>
+        <item name="thmTemperatureImage">@drawable/ic_temperature</item>
+        <item name="thmAirPressureImage">@drawable/ic_air_pressure</item>
+        <item name="thmSignalStrengthImage">@drawable/ic_signal_strength</item>
+
+        <item name="thmTermsConditionsDescription">@string/terms_and_condtions_zwick</item>
+        <item name="thmPrivacyPolicyDescription">@string/privacy_policy_zwick</item>
+
+        <item name="thmGenericLink">@string/app_generic_help_link</item>
+        <item name="thmGenericSupportMail">@string/app_generic_support_email</item>
+
+        <item name="thmSmallQrCodeImage">@drawable/qr_code</item>
+        <item name="thmSettingsGroupNameBackgroundColor">@drawable/rounded_pin_layout_settings</item>
+        <item name="thmSettingsArrowNext">@drawable/ic_chevron_right_black</item>
+        <item name="thmSettingsOnlineHelp">@drawable/ic_chevron_right_black</item>
+        <item name="thmSettingsFirstSubtitle">@string/nav_settings_title</item>
+        <item name="thmSettingsAccount">@string/settings_account_title</item>
+        <item name="thmSettingsSupport">@string/settings_support</item>
+        <item name="thmSettingsNotifications">@drawable/ic_notifications</item>
+        <item name="thmSettingsLanguage">@drawable/ic_language</item>
+        <item name="thmSettingsMyDetails">@drawable/ic_settings_account</item>
+        <item name="thmSettingsChangePassword">@drawable/ic_password_zwick</item>
+        <item name="thmSettingsZwickFirstBackground">@drawable/rounded_button_primary</item>
+        <item name="thmSettingsZwickSecondBackground">@drawable/rounded_button_primary</item>
+        <item name="thmSettingsZwickThirdBackground">@drawable/rounded_button_primary</item>
+        <item name="thmSettingsZwickFourthBackground">@drawable/rounded_button_primary</item>
+        <item name="thmSettingsZwickFifthBackground">@drawable/rounded_button_primary</item>
+        <item name="thmSettingsZwickSixthBackground">@drawable/rounded_button_primary</item>
+        <item name="thmSettingsZwickSeventhBackground">@drawable/rounded_button_primary</item>
+        <item name="thmSettingsZwickEightBackground">@drawable/rounded_button_primary</item>
+        <item name="thmSettingsLogoutDialog">@drawable/round_dialog</item>
+        <item name="thmSettingsSwitchTheme">@style/ZwickTheme.SwitchTheme</item>
+        <item name="thmSettingsEdittextBackgroundColor">@color/colorWhite</item>
+        <item name="thmSettingsHelpSendParcel">@drawable/ic_help_sending</item>
+        <item name="thmSettingsHelpCollectParcel">@drawable/ic_help_collecting</item>
+        <item name="thmSettingsHelpAccessSharing">@drawable/ic_help_access_sharing</item>
+
+
+        <item name="thmInviteUserText">@string/access_sharing_share_app_text_zwick</item>
+
+        <item name="thmMainFontName">metropolis</item>
+        <item name="thmMainFontTypeRegular">regular</item>
+        <item name="thmMainFontTypeMedium">medium</item>
+        <item name="thmMainFontTypeBold">bold</item>
+
+        <!--CUSTOM-->
+    </style>
+    <style name="ZwickTheme.NoActionBar" parent="ZwickTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
+
+    <style name="ZwickTheme.LoginRegister" parent="ZwickTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="ZwickTheme.MainTheme" parent="ZwickTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="ZwickTheme.ErrorEdittext" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@color/colorError</item>
+    </style>
+
+    <style name="ZwickTheme.SwitchTheme" parent="Theme.AppCompat.Light">
+        <!-- active thumb & track color (30% transparency) -->
+        <item name="colorControlActivated">@color/colorAccentZwick</item>
+
+        <!-- inactive thumb color -->
+        <item name="colorSwitchThumbNormal">@color/colorWhite</item>
+
+        <!-- inactive track color -->
+        <item name="android:colorForeground">@color/colorPrimaryDarkZwick</item>
+    </style>
+
+    <style name="CheckBoxTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorControlNormal">@color/colorWhite</item>
+        <item name="colorControlActivated">@color/colorWhite</item>
+    </style>
+
+    <style name="Theme.Github.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" >
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+    </style>
+
+    <style name="DrawerArrowStyle" parent="@style/Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">@color/colorPrimary</item>
+    </style>
+
+    <style name="Theme.Github.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+
+</resources>

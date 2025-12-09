@@ -1,0 +1,691 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/thmLoginBackground"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
+
+    <include
+        android:id="@+id/mainLayout"
+        layout="@layout/activity_main_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!--<ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <myappboxuser.fonts.view.fonts.TextViewWithFont
+                android:id="@+id/tvWelcomeText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="@string/selected_city_parcel_locker"
+                android:textAllCaps="true"
+                android:textColor="?attr/thmTitleTextColor"
+                android:textSize="?attr/thmTitleTextSize"
+                app:font_name="?attr/thmMainFontName"
+                app:font_type="?attr/thmMainFontTypeRegular"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/llChooseCityLockerAndGoogleMaps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="18dp"
+                app:layout_constraintTop_toBottomOf="@+id/tvWelcomeText"
+                android:weightSum="1">
+
+                <LinearLayout
+                    android:id="@+id/llChooseCityLocker"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_weight="0.91"
+                    android:weightSum="1"
+                    android:background="@drawable/rounded_button_primary"
+                    android:layout_marginRight="10dp">
+
+                    <myappboxuser.fonts.view.fonts.TextViewWithFont
+                        android:id="@+id/tvChoosenCityLocker"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:ellipsize="end"
+                        android:gravity="left|center_vertical"
+                        android:maxLines="1"
+
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="-"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="?attr/thmTitleTextSize"
+                        app:font_name="?attr/thmMainFontName"
+                        app:font_type="?attr/thmMainFontTypeRegular"
+
+                        android:layout_weight="0.9"/>
+
+                    <ImageView
+                        android:id="@+id/ivArrowDown"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+
+                        android:layout_marginBottom="5dp"
+                        android:paddingRight="5dp"
+                        android:src="@drawable/ic_chevron_right"
+                        android:layout_weight="0.1"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/ivGoogleMaps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.11"
+
+                    android:layout_gravity="center"
+
+                    android:src="@drawable/ic_map"  />
+
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clAddressAndUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="18dp"
+                app:layout_constraintTop_toBottomOf="@+id/llChooseCityLockerAndGoogleMaps">
+
+                <LinearLayout
+                    android:id="@+id/clLockerDetails"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/ivCopyCliboard"
+                    app:layout_constraintHorizontal_weight="9.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+
+                    <myappboxuser.fonts.view.fonts.TextViewWithFont
+                        android:id="@+id/tvUniqueUserNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:ellipsize="end"
+                        android:gravity="left"
+                        android:maxLines="2"
+                        android:text=""
+                        android:textColor="?attr/thmTitleTextColor"
+                        android:textSize="?attr/thmTitleTextSize"
+                        app:font_name="?attr/thmMainFontName"
+                        app:font_type="?attr/thmMainFontTypeRegular"
+                        app:layout_constraintTop_toBottomOf="@+id/clChooseCityLocker" />
+
+                    <myappboxuser.fonts.view.fonts.TextViewWithFont
+                        android:id="@+id/tvAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:ellipsize="end"
+                        android:gravity="left"
+                        android:maxLines="2"
+                        android:text=""
+                        android:textColor="?attr/thmTitleTextColor"
+                        android:textSize="?attr/thmTitleTextSize"
+                        app:font_name="?attr/thmMainFontName"
+                        app:font_type="?attr/thmMainFontTypeRegular"
+                        app:layout_constraintTop_toBottomOf="@+id/tvUniqueUserNumber" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/ivCopyCliboard"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+
+                    android:src="@drawable/ic_copy_address"
+                    app:layout_constraintVertical_bias="0.25"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_chainStyle="spread"
+                    app:layout_constraintHorizontal_weight="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/clLockerDetails" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayoutFirst"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/clAddressAndUsername">
+
+                <RelativeLayout
+                    android:id="@+id/rlFirstLeft"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toStartOf="@+id/rlFirstRight"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_chainStyle="spread"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/ivCollectParcel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_centerHorizontal="true"
+
+                        android:alpha="0.2"
+                        app:layout_constraintHorizontal_chainStyle="spread"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="?attr/thmMainCollectParcel" />
+
+
+                    <myappboxuser.view.ui.custom_controls.BadgeNumbers
+                        android:id="@+id/tvDeliveryKeys"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        android:layout_marginLeft="105dp"
+                        android:gravity="center"
+                        android:text=""
+                        android:textColor="?attr/thmMainBadgeTextColor"
+                        android:textSize="25sp"
+                        android:visibility="gone"
+                        app:circle_fill_color="?attr/thmMainBadgeBackgroundColor"
+                        app:font_name="?attr/thmMainFontName"
+                        app:font_type="?attr/thmMainFontTypeRegular"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <myappboxuser.fonts.view.fonts.TextViewWithFont
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/ivCollectParcel"
+                        android:layout_centerHorizontal="true"
+
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:maxLines="2"
+
+                        android:text="@string/app_generic_pickup_parcel"
+                        android:textColor="?attr/thmDescriptionTextColor"
+                        android:textSize="?attr/thmTitleTextSize"
+                        app:font_name="?attr/thmMainFontName"
+                        app:font_type="?attr/thmMainFontTypeRegular" />
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/rlFirstRight"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/rlFirstLeft"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/ivSendParcel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        app:srcCompat="?attr/thmMainSendParcel"
+
+                        android:alpha="0.2"/>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clCancelPickAtHome"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:paddingLeft="7dp"
+                        android:paddingRight="7dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_marginLeft="105dp"
+                        android:background="@drawable/rounded_button_red"
+                        android:visibility="gone" >
+
+                        <ImageView
+                            android:id="@+id/ivHome"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:src="@drawable/ic_pick_at_home"/>
+
+                        <myappboxuser.fonts.view.fonts.TextViewWithFont
+                            android:id="@+id/tvCancelPHomeKeysNumber"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="2dp"
+                            android:gravity="center"
+                            android:text=""
+                            android:textColor="?attr/thmMainBadgeTextColor"
+                            android:textSize="25sp"
+                            app:font_name="?attr/thmMainFontName"
+                            app:font_type="?attr/thmMainFontTypeRegular"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toRightOf="@+id/ivHome"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <myappboxuser.fonts.view.fonts.TextViewWithFont
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/ivSendParcel"
+                        android:layout_centerHorizontal="true"
+
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:maxLines="2"
+
+                        android:text="@string/app_generic_send_parcel"
+                        android:textColor="?attr/thmDescriptionTextColor"
+                        android:textSize="?attr/thmTitleTextSize"
+                        app:font_name="?attr/thmMainFontName"
+                        app:font_type="?attr/thmMainFontTypeRegular" />
+
+                </RelativeLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayoutSecond"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayoutFirst">
+
+
+                <LinearLayout
+                    android:id="@+id/rlSecondLeft"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toStartOf="@+id/rlSecondRight"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_chainStyle="spread"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/ivShareAccess"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_gravity="center"
+                        app:layout_constraintHorizontal_chainStyle="spread"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="?attr/thmMainShareAccess"
+
+                        android:alpha="0.2"/>
+
+                    <myappboxuser.fonts.view.fonts.TextViewWithFont
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:ellipsize="end"
+
+                        android:gravity="center"
+                        android:maxLines="2"
+
+                        android:text="@string/app_generic_key_sharing"
+                        android:textColor="?attr/thmDescriptionTextColor"
+                        android:textSize="?attr/thmTitleTextSize"
+                        app:font_name="?attr/thmMainFontName"
+                        app:font_type="?attr/thmMainFontTypeRegular" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/rlSecondRight"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/rlSecondLeft"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/ivConfiguration"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        app:srcCompat="?attr/thmMainSettings" />
+
+                    <myappboxuser.fonts.view.fonts.TextViewWithFont
+                        android:id="@+id/tvSettings"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_gravity="center"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:text="@string/app_generic_my_configuration"
+
+                        android:textColor="?attr/thmDescriptionTextColor"
+                        android:textSize="?attr/thmTitleTextSize"
+                        app:font_name="?attr/thmMainFontName"
+                        app:font_type="?attr/thmMainFontTypeRegular" />
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/clLockerTelemetry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:paddingLeft="40dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayoutSecond"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:weightSum="1">
+
+                <LinearLayout
+                    android:id="@+id/llHumidity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_weight="0.25">
+
+                    <ImageView
+                        android:id="@+id/ivHumidity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="?attr/thmHumidityImage" />
+
+                    <myappboxuser.fonts.view.fonts.TextViewWithFont
+                        android:id="@+id/tvHumidity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:maxLines="1"
+                        android:paddingBottom="2dp"
+                        android:textColor="?attr/thmDescriptionTextColor"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        app:font_name="?attr/thmMainFontName"
+                        app:font_type="?attr/thmMainFontTypeMedium"
+                        app:layout_constraintTop_toTopOf="@+id/tvLockerName" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llTemperature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_weight="0.25">
+
+                    <ImageView
+                        android:id="@+id/ivTemperature"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="?attr/thmTemperatureImage" />
+
+                    <myappboxuser.fonts.view.fonts.TextViewWithFont
+                        android:id="@+id/tvTemperature"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:maxLines="1"
+                        android:paddingBottom="2dp"
+                        android:textColor="?attr/thmDescriptionTextColor"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        app:font_name="?attr/thmMainFontName"
+                        app:font_type="?attr/thmMainFontTypeMedium"
+                        app:layout_constraintTop_toTopOf="@+id/tvLockerName" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llPresure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_weight="0.25">
+
+                    <ImageView
+                        android:id="@+id/ivAirPressure"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="?attr/thmAirPressureImage" />
+
+                    <myappboxuser.fonts.view.fonts.TextViewWithFont
+                        android:id="@+id/tvAirPressure"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:maxLines="1"
+                        android:paddingBottom="2dp"
+                        android:textColor="?attr/thmDescriptionTextColor"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        app:font_name="?attr/thmMainFontName"
+                        app:font_type="?attr/thmMainFontTypeMedium"
+                        app:layout_constraintTop_toTopOf="@+id/tvLockerName" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>-->
+
+    <FrameLayout
+        android:id="@+id/no_ble_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.8"
+        android:background="?attr/thmNoBluebtooth"
+        android:clickable="true"
+        android:visibility="gone">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/ivNoBluebtootImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="70dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="?attr/thmNoBluebtoothImage" />
+
+            <myappbox.fonts.view.fonts.TextViewWithFont
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="50dp"
+                android:gravity="center"
+                android:text="@string/app_generic_no_ble"
+                android:textColor="?attr/thmLoginButtonTextColor"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:font_name="?attr/thmMainFontName"
+                app:font_type="?attr/thmMainFontTypeMedium"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivNoBluebtootImage" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/no_internet_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.8"
+        android:background="?attr/thmNoInternet"
+        android:clickable="true"
+        android:visibility="gone">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/ivNoInternetImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="70dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="?attr/thmNoInternetImage" />
+
+            <myappbox.fonts.view.fonts.TextViewWithFont
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="@string/app_generic_no_network"
+                android:textAllCaps="true"
+                android:textColor="?attr/thmLoginButtonTextColor"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:font_name="?attr/thmMainFontName"
+                app:font_type="?attr/thmMainFontTypeMedium"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivNoInternetImage" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/no_location_gps_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.8"
+        android:visibility="gone"
+        android:background="?attr/thmNoLocationBackgroundColor"
+        android:clickable="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/ivNoLocationImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="70dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="?attr/thmNoLocationGPSImage" />
+
+            <myappbox.fonts.view.fonts.TextViewWithFont
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="@string/no_location_services"
+                android:textAllCaps="true"
+                android:textColor="?attr/thmLoginButtonTextColor"
+                android:textSize="20sp"
+                android:textStyle="bold"
+
+                app:font_name="?attr/thmMainFontName"
+                app:font_type="?attr/thmMainFontTypeMedium"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivNoLocationImage" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/colorPrimaryDark"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header_main"
+        app:itemIconTint="@color/colorWhite"
+        app:itemTextColor="@color/colorWhite"
+        app:menu="@menu/activity_main_drawer" />
+
+</androidx.drawerlayout.widget.DrawerLayout>
+

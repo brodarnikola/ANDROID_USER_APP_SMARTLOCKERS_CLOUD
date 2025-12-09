@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/pickupParcelActivity"
+            android:title="@string/app_generic_pickup_parcel"
+            app:itemTextColor="@color/colorWhite"/>
+        <item
+            android:id="@+id/sendParcelActivity"
+            android:title="@string/app_generic_send_parcel"
+            app:itemTextColor="@color/colorWhite"/>
+
+        <item
+            android:id="@+id/listOfDeliveriesActivity"
+            android:title="@string/list_of_deliveries_cpl"
+            app:itemTextColor="@color/colorWhite"
+            app:actionViewClass="hr.sil.android.myappbox.customControl.DrawerBadge"/>
+        <item
+            android:id="@+id/pahKeysActivity"
+            android:title="@string/locker_pick_home_keys"
+            app:itemTextColor="@color/colorWhite"
+            app:actionViewClass="hr.sil.android.myappbox.customControl.DrawerBadge"/>
+
+        <item
+            android:id="@+id/shareAccessActivity"
+            android:title="@string/app_generic_key_sharing"
+            app:itemTextColor="@color/colorWhite"/>
+
+
+        <item
+            android:id="@+id/settingsActivity"
+            android:title="@string/app_generic_my_configuration"
+            app:itemTextColor="@color/colorWhite"/>
+
+    </group>
+</menu>

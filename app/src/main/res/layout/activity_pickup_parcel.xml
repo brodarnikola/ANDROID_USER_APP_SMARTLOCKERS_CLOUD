@@ -1,0 +1,582 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="?attr/thmLoginBackground" >
+</LinearLayout>
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    tools:context="myappbox.view.ui.activities.collectparcel.PickupParcelActivity"-->
+<!--    android:background="?attr/thmLoginBackground">-->
+
+
+<!--    <com.google.android.material.appbar.AppBarLayout-->
+<!--        android:id="@+id/appBarLayout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        app:layout_constraintHeight_percent="0.1"-->
+<!--        app:layout_constraintHeight_default="percent"-->
+<!--        android:minHeight="?attr/actionBarSize"-->
+<!--        android:background="?attr/thmToolbarBackgroundColor"-->
+<!--        android:fitsSystemWindows="true"-->
+<!--        app:elevation="0dp"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+
+<!--        <RelativeLayout-->
+<!--            android:id="@+id/rlTopLayout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
+
+<!--            <androidx.appcompat.widget.Toolbar-->
+<!--                android:id="@+id/toolbar"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="?attr/actionBarSize"-->
+<!--                app:contentInsetEnd="0dp"-->
+<!--                app:contentInsetLeft="0dp"-->
+<!--                app:contentInsetStartWithNavigation="0dp" />-->
+
+<!--            <ImageView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_centerInParent="true"-->
+<!--                android:src="?attr/thmToolbarHeader" />-->
+
+<!--        </RelativeLayout>-->
+
+<!--    </com.google.android.material.appbar.AppBarLayout>-->
+
+<!--    <myappbox.font.view.font.TextViewWithFont-->
+<!--        android:id="@+id/pickupParcelTitle"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        app:layout_constraintHeight_percent="0.05"-->
+<!--        app:layout_constraintHeight_default="percent"-->
+<!--        android:gravity="center"-->
+<!--        android:letterSpacing="?attr/thmTitleLetterSpacing"-->
+<!--        android:text="@string/nav_pickup_parcel_lock"-->
+<!--        android:textColor="?attr/thmTitleTextColor"-->
+<!--        app:font_name="?attr/thmMainFontName"-->
+<!--        app:font_type="?attr/thmMainFontTypeBold"-->
+<!--        android:textSize="?attr/thmTitleTextSize"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textAllCaps="true"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"-->
+<!--        android:paddingLeft="8dp"-->
+<!--        android:paddingRight="8dp" />-->
+
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:id="@+id/clInProximity"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        app:layout_constraintHeight_percent="0.85"-->
+<!--        app:layout_constraintHeight_default="percent"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/pickupParcelTitle" >-->
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:id="@+id/clOpenPickuParcel"-->
+<!--            app:layout_constraintHeight_percent="0.35"-->
+<!--            app:layout_constraintHeight_default="percent"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp">-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/ivCirclePickupParcel"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:adjustViewBounds="true"-->
+<!--                android:src="@drawable/progress_stopped"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/ivLock"-->
+<!--                android:layout_width="79dp"-->
+<!--                android:layout_height="90dp"-->
+<!--                android:layout_marginBottom="30dp"-->
+<!--                android:adjustViewBounds="true"-->
+<!--                android:src="@drawable/ic_padlock_top"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/ivLockBase"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="46dp"-->
+<!--                android:src="@drawable/ic_padlock_base"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--        <myappbox.font.view.font.TextViewWithFont-->
+<!--            android:id="@+id/statusText"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            app:layout_constraintHeight_percent="0.1"-->
+<!--            app:layout_constraintHeight_default="percent"-->
+<!--            android:gravity="center"-->
+<!--            android:text="@string/nav_pickup_parcel_content_lock"-->
+<!--            android:textColor="?attr/thmDescriptionTextColor"-->
+<!--            app:font_name="?attr/thmMainFontName"-->
+<!--            app:font_type="?attr/thmMainFontTypeRegular"-->
+<!--            android:textSize="?attr/thmSubTitleTextSize"-->
+<!--            android:ellipsize="end"-->
+<!--            android:maxLines="3"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/clOpenPickuParcel"-->
+<!--            android:paddingLeft="8dp"-->
+<!--            android:paddingRight="8dp" />-->
+
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/keysList"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            app:layout_constraintHeight_percent="0.47"-->
+<!--            app:layout_constraintHeight_default="percent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/statusText"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            android:paddingTop="10dp">-->
+
+<!--        </androidx.recyclerview.widget.RecyclerView>-->
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:id="@+id/clLockerTelemetry"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            app:layout_constraintHeight_percent="0.08"-->
+<!--            app:layout_constraintHeight_default="percent"-->
+<!--            android:orientation="horizontal"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/keysList"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            android:paddingBottom="10dp"  >-->
+
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:orientation="vertical"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintHorizontal_weight="1"-->
+<!--                android:background="?attr/thmCPTelemetryBackgroundColor"-->
+<!--                android:paddingLeft="10dp">-->
+
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/llHumidity"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    app:layout_constraintHorizontal_weight="3.3"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintEnd_toStartOf="@+id/llTemperature"-->
+
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    android:gravity="center_vertical">-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:src="?attr/thmHumidityImage"-->
+<!--                        />-->
+
+<!--                    <myappbox.font.view.font.TextViewWithFont-->
+<!--                        android:id="@+id/tvHumidity"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:maxLines="1"-->
+<!--                        android:layout_marginLeft="5dp"-->
+<!--                        android:paddingBottom="2dp"-->
+<!--                        android:textColor="?attr/thmDescriptionTextColor"-->
+<!--                        app:font_name="?attr/thmMainFontName"-->
+<!--                        app:font_type="?attr/thmMainFontTypeBold"-->
+<!--                        android:textSize="13sp"-->
+<!--                        app:layout_constraintTop_toTopOf="@+id/tvLockerName" />-->
+
+<!--                </LinearLayout>-->
+
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/llTemperature"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    app:layout_constraintHorizontal_weight="2.8"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/llHumidity"-->
+<!--                    app:layout_constraintEnd_toStartOf="@+id/llPresure"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    android:gravity="center_vertical">-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:src="?attr/thmTemperatureImage" />-->
+
+<!--                    <myappbox.font.view.font.TextViewWithFont-->
+<!--                        android:id="@+id/tvTemperature"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:maxLines="1"-->
+<!--                        android:paddingBottom="2dp"-->
+<!--                        android:layout_marginLeft="5dp"-->
+<!--                        android:textColor="?attr/thmDescriptionTextColor"-->
+<!--                        app:font_name="?attr/thmMainFontName"-->
+<!--                        app:font_type="?attr/thmMainFontTypeBold"-->
+<!--                        android:textSize="13sp"-->
+<!--                        app:layout_constraintTop_toTopOf="@+id/tvLockerName" />-->
+
+<!--                </LinearLayout>-->
+
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/llPresure"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    app:layout_constraintHorizontal_weight="3.8"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/llTemperature"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    android:gravity="center_vertical">-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:src="?attr/thmAirPressureImage"-->
+<!--                        />-->
+
+<!--                    <myappbox.font.view.font.TextViewWithFont-->
+<!--                        android:id="@+id/tvAirPressure"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:maxLines="1"-->
+<!--                        android:paddingBottom="2dp"-->
+<!--                        android:layout_marginLeft="5dp"-->
+<!--                        android:textColor="?attr/thmDescriptionTextColor"-->
+<!--                        app:font_name="?attr/thmMainFontName"-->
+<!--                        app:font_type="?attr/thmMainFontTypeBold"-->
+<!--                        android:textSize="13sp"-->
+<!--                        app:layout_constraintTop_toTopOf="@+id/tvLockerName" />-->
+
+<!--                </LinearLayout>-->
+
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--        <myappbox.font.ButtonWithFont-->
+<!--            android:id="@+id/forceOpen"-->
+<!--            android:layout_width="250dp"-->
+<!--            android:layout_height="0dp"-->
+<!--            app:layout_constraintHeight_percent="0.08"-->
+<!--            app:layout_constraintHeight_default="percent"-->
+<!--            android:text="@string/app_generic_force_open"-->
+<!--            android:textSize="?attr/thmButtonTextSize"-->
+<!--            android:letterSpacing="?attr/thmButtonLetterSpacing"-->
+<!--            android:textColor="?attr/thmLoginButtonTextColor"-->
+<!--            app:font_name="?attr/thmMainFontName"-->
+<!--            app:font_type="?attr/thmMainFontTypeMedium"-->
+<!--            android:background="?attr/thmMainButtonBackgroundColor"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/pickupParcelFinish"-->
+<!--            android:layout_marginBottom="20dp"-->
+<!--            android:visibility="gone" />-->
+
+<!--        <myappbox.font.ButtonWithFont-->
+<!--            android:id="@+id/pickupParcelFinish"-->
+<!--            android:layout_width="250dp"-->
+<!--            android:layout_height="0dp"-->
+<!--            app:layout_constraintHeight_percent="0.08"-->
+<!--            app:layout_constraintHeight_default="percent"-->
+<!--            android:text="@string/app_generic_confirm"-->
+<!--            android:textSize="?attr/thmButtonTextSize"-->
+<!--            android:letterSpacing="?attr/thmButtonLetterSpacing"-->
+<!--            android:textColor="?attr/thmLoginButtonTextColor"-->
+<!--            app:font_name="?attr/thmMainFontName"-->
+<!--            app:font_type="?attr/thmMainFontTypeMedium"-->
+<!--            android:background="?attr/thmMainButtonBackgroundColor"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            android:layout_marginBottom="140dp"-->
+<!--            android:visibility="gone" />-->
+
+<!--        <LinearLayout-->
+<!--            android:id="@+id/llClean"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/pickupParcelFinish"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintVertical_bias="0.1"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:layout_marginLeft="20dp"-->
+<!--            android:layout_marginRight="10dp"-->
+<!--            android:gravity="center"-->
+<!--            android:visibility="gone" >-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/ivClean"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:src="@drawable/ic_needs_cleaning"/>-->
+
+<!--            <myappbox.font.CheckBoxWithFont-->
+<!--                android:id="@+id/lockerCleaningCheckBox"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textAllCaps="true"-->
+<!--                android:text="@string/locker_needs_cleaning"-->
+<!--                android:textColor="?attr/thmDescriptionTextColor"-->
+<!--                android:theme="@style/CheckBoxTheme"-->
+<!--                app:font_name="?attr/thmMainFontName"-->
+<!--                app:font_type="?attr/thmMainFontTypeRegular"-->
+<!--                android:layout_marginLeft="15dp"  />-->
+
+<!--        </LinearLayout>-->
+
+<!--        <ProgressBar-->
+<!--            android:id="@+id/progressBarLockerCleaning"-->
+<!--            android:layout_width="40dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:indeterminateDrawable="?attr/thmSplashProgressBar"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/llClean"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            android:visibility="gone"/>-->
+
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:id="@+id/clNotInProximity"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+
+<!--        android:visibility="gone"-->
+
+<!--        android:paddingTop="10dp"-->
+
+<!--        android:paddingBottom="10dp"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/pickupParcelTitle"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent">-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/ivNotInProximity"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginBottom="100dp"-->
+<!--            android:adjustViewBounds="true"-->
+<!--            android:src="@drawable/ic_not_in_proximity"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--        <myappbox.font.view.font.TextViewWithFont-->
+<!--            android:id="@+id/statusTextNotInProximity"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:ellipsize="end"-->
+<!--            android:gravity="center"-->
+<!--            android:maxLines="3"-->
+<!--            android:paddingLeft="20dp"-->
+<!--            android:paddingRight="20dp"-->
+<!--            android:text="@string/not_in_proximity_first_description"-->
+<!--            android:textColor="?attr/thmDescriptionTextColor"-->
+<!--            android:textSize="20sp"-->
+<!--            app:font_name="?attr/thmMainFontName"-->
+<!--            app:font_type="?attr/thmMainFontTypeRegular"-->
+
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/ivNotInProximity" />-->
+
+<!--        <myappbox.font.view.font.TextViewWithFont-->
+<!--            android:id="@+id/notInProximityLocker"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="30dp"-->
+<!--            android:ellipsize="end"-->
+<!--            android:gravity="center"-->
+<!--            android:maxLines="3"-->
+<!--            android:paddingLeft="20dp"-->
+<!--            android:paddingRight="20dp"-->
+<!--            android:text="@string/not_in_proximity_first_description"-->
+<!--            android:textColor="?attr/thmDescriptionTextColor"-->
+<!--            android:textSize="20sp"-->
+<!--            app:font_name="?attr/thmMainFontName"-->
+<!--            app:font_type="?attr/thmMainFontTypeRegular"-->
+
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/statusTextNotInProximity" />-->
+
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
+<!--    <FrameLayout-->
+<!--        android:id="@+id/no_ble_layout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:alpha="0.8"-->
+<!--        android:background="?attr/thmNoBluebtooth"-->
+<!--        android:clickable="true"-->
+<!--        android:visibility="gone">-->
+
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/ivNoBluebtootImage"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="70dp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:srcCompat="?attr/thmNoBluebtoothImage" />-->
+
+<!--            <myappbox.font.view.font.TextViewWithFont-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_marginBottom="50dp"-->
+<!--                android:gravity="center"-->
+<!--                android:text="@string/app_generic_no_ble"-->
+<!--                android:textColor="?attr/thmLoginButtonTextColor"-->
+<!--                android:textSize="20sp"-->
+<!--                android:textStyle="bold"-->
+<!--                app:font_name="?attr/thmMainFontName"-->
+<!--                app:font_type="?attr/thmMainFontTypeMedium"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/ivNoBluebtootImage" />-->
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--    </FrameLayout>-->
+
+<!--    <FrameLayout-->
+<!--        android:id="@+id/no_internet_layout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:alpha="0.8"-->
+<!--        android:background="?attr/thmNoInternet"-->
+<!--        android:clickable="true"-->
+<!--        android:visibility="gone">-->
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/ivNoInternetImage"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="70dp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:srcCompat="?attr/thmNoInternetImage" />-->
+
+<!--            <myappbox.font.view.font.TextViewWithFont-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:gravity="center"-->
+<!--                android:text="@string/app_generic_no_network"-->
+<!--                android:textAllCaps="true"-->
+<!--                android:textColor="?attr/thmLoginButtonTextColor"-->
+<!--                android:textSize="20sp"-->
+<!--                android:textStyle="bold"-->
+<!--                app:font_name="?attr/thmMainFontName"-->
+<!--                app:font_type="?attr/thmMainFontTypeMedium"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/ivNoInternetImage" />-->
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--    </FrameLayout>-->
+
+<!--    <FrameLayout-->
+<!--        android:id="@+id/no_location_gps_layout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:alpha="0.8"-->
+<!--        android:background="?attr/thmNoLocationBackgroundColor"-->
+<!--        android:clickable="true"-->
+<!--        android:visibility="gone">-->
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/ivNoLocationImage"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="70dp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:srcCompat="?attr/thmNoLocationGPSImage" />-->
+
+<!--            <myappbox.font.view.font.TextViewWithFont-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:gravity="center"-->
+<!--                android:text="@string/no_location_services"-->
+<!--                android:textAllCaps="true"-->
+<!--                android:textColor="?attr/thmLoginButtonTextColor"-->
+<!--                android:textSize="20sp"-->
+<!--                android:textStyle="bold"-->
+
+<!--                app:font_name="?attr/thmMainFontName"-->
+<!--                app:font_type="?attr/thmMainFontTypeMedium"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/ivNoLocationImage" />-->
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--    </FrameLayout>-->
+
+<!--</androidx.constraintlayout.widget.ConstraintLayout>-->

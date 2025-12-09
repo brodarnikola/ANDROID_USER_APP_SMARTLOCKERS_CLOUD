@@ -1,0 +1,444 @@
+package hr.sil.android.myappbox.compose.main_activity
+
+import android.os.Build
+import androidx.annotation.RequiresApi
+import androidx.compose.material3.Badge
+import androidx.compose.material3.BadgedBox
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import hr.sil.android.myappbox.R
+import hr.sil.android.myappbox.compose.home_screen.NavHomeScreen
+import hr.sil.android.myappbox.compose.settings.SettingsScreen
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@RequiresApi(Build.VERSION_CODES.S)
+@Composable
+fun MainComposeApp(appState: MainAppState, navBackStackEntry: State<NavBackStackEntry?>) {
+    NavHost(
+        navController = appState.navController,
+        startDestination = MainDestinations.HOME,
+        //modifier = Modifier.padding(paddingValues)
+    ) {
+        mainNavGraph(
+            navBackStackEntry = navBackStackEntry,
+            navController = appState.navController,
+            goToPickup = { route, macAddress ->
+                appState.goToPickup(route = route, macAddress)
+            },
+            goToDeviceDetails = { route, deviceId, nameOfDevice ->
+                appState.navigateToDeviceDetails(
+                    route = route,
+                    deviceId = deviceId,
+                    nameOfDevice = nameOfDevice
+                )
+            },
+            goToHelp = {
+                appState.goToHelp(it)
+            },
+            goToHelpContent = {
+                appState.goToHelpContent(it)
+            },
+            goToAccessSharing = { route, macAddress, nameOfDevice ->
+                appState.goToAccessSharing(
+                    route = route,
+                    macAddress = macAddress,
+                    nameOfDevice = nameOfDevice
+                )
+            },
+            goToAccessSharingAddUser = { route, macAddress, nameOfDevice ->
+                appState.goToAccessSharingAddUser(
+                    route = route,
+                    macAddress = macAddress,
+                    nameOfDevice = nameOfDevice
+                )
+            },
+            goToAccessSharingForgetPreviousScreen = { route, macAddress, nameOfDevice ->
+                appState.goToAccessSharingForgetPreviousScreen(
+                    route = route,
+                    macAddress = macAddress,
+                    nameOfDevice = nameOfDevice
+                )
+            },
+            goToSelectParcelSize = { route, macAddress ->
+                appState.goToSelectParcelSize(route, macAddress)
+            },
+            goToSendParcelOverview = { route, macAddress ->
+                appState.goToSendParcelOverview(route, macAddress)
+            },
+            goToSendParcelSize = { route, macAddress, pin, size ->
+                appState.goToSendParcelSize(route, macAddress, pin, size)
+            },
+            navigateUp = {
+                appState.upPress()
+            }
+        )
+    }
+}
+
+fun NavGraphBuilder.mainNavGraph(
+    navBackStackEntry: State<NavBackStackEntry?>,
+    navController: NavHostController,
+    goToDeviceDetails: (route: String, deviceId: String, nameOfDevice: String) -> Unit,
+    goToPickup: (route: String, macAddress: String) -> Unit,
+    goToHelp: (route: String) -> Unit,
+    goToHelpContent: (route: String) -> Unit,
+    goToAccessSharing: (route: String, macAddress: String, nameOfDevice: String) -> Unit,
+    goToAccessSharingAddUser: (route: String, macAddress: String, nameOfDevice: String) -> Unit,
+    goToAccessSharingForgetPreviousScreen: (route: String, macAddress: String, nameOfDevice: String) -> Unit,
+    goToSelectParcelSize: (route: String, macAddress: String) -> Unit,
+    goToSendParcelSize: (route: String, macAddress: String, pin: Int, size: String) -> Unit,
+    goToSendParcelOverview: (route: String, macAddress: String) -> Unit,
+    navigateUp: () -> Unit
+) {
+    composable(MainDestinations.HOME) {
+        NavHomeScreen(
+            viewModel = viewModel(), // viewModel,
+            nextScreen = { route ->
+                if (navBackStackEntry.value?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
+                    navController.navigate(route) {
+                        launchSingleTop = true
+                        restoreState = true
+                    }
+                }
+            }
+//            onDeviceClick = { deviceId, nameOfDevice ->
+//                if (navBackStackEntry.value?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
+//                    goToDeviceDetails(MainDestinations.DEVICE_DETAILS, deviceId, nameOfDevice)
+//                }
+//            }
+        )
+    }
+
+    composable(MainDestinations.SETTINGS) {
+        SettingsScreen(
+            viewModel = viewModel(), // viewModel,
+//            onDeviceClick = { deviceId, nameOfDevice ->
+//                if (navBackStackEntry.value?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
+//                    goToDeviceDetails(MainDestinations.DEVICE_DETAILS, deviceId, nameOfDevice)
+//                }
+//            }
+        )
+    }
+
+//    composable(MainDestinations.SETTINGS) {
+//        SettingsScreen(
+//            viewModel = viewModel()
+//        )
+//    }
+//
+//    composable(MainDestinations.TERMS_AND_CONDITION_SCREEN) {
+//        TccScreen(
+//            viewModel = viewModel()
+//        )
+//    }
+//
+//    composable(
+//        "${MainDestinations.SELECT_PARCEL_OVERVIEW}/{${NavArguments.MAC_ADDRESS}}",
+//        arguments = listOf(
+//            navArgument(NavArguments.MAC_ADDRESS) {
+//                NavArgumentBuilder.type = NavType.StringType
+//            }
+//        )
+//    ) {
+//        SendParcelsOverviewScreen(
+//            macAddress = it.arguments?.getString(NavArguments.MAC_ADDRESS) ?: "",
+//            viewModel = viewModel(),
+//            onNavigateToSelectParcelSize = { macAddress ->
+//                goToSelectParcelSize(MainDestinations.SELECT_PARCEL_SIZE, macAddress)
+//            },
+//            onNavigateToDelivery = { macAddress, pin, size ->
+//                goToSendParcelSize(
+//                    MainDestinations.SEND_PARCEL_SIZE,
+//                    macAddress,
+//                    pin,
+//                    size
+//                )
+//            }
+//        )
+//    }
+//
+//    composable(
+//        "${MainDestinations.DEVICE_DETAILS}/{${NavArguments.DEVICE_ID}}/{${NavArguments.NAME_OF_DEVICE}}",
+//        arguments = listOf(
+//            navArgument(NavArguments.DEVICE_ID) {
+//                NavArgumentBuilder.type = NavType.StringType
+//            },
+//            navArgument(NavArguments.NAME_OF_DEVICE) {
+//                NavArgumentBuilder.type = NavType.StringType
+//            }
+//        )
+//    ) {
+//        DeviceDetailsScreen(
+//            macAddress = it.arguments?.getString(NavArguments.DEVICE_ID) ?: "",
+//            nameOfDevice = it.arguments?.getString(NavArguments.NAME_OF_DEVICE) ?: "",
+//            viewModel = viewModel(),
+//            onNavigateToPickup = { macAddress ->
+//                goToPickup(MainDestinations.PARCEL_PICKUP, macAddress)
+//            },
+//            onNavigateToHelp = {
+//                goToHelp(MainDestinations.HELP_SCREEN)
+//            },
+//            onNavigateToSelectParcelSize = { macAddress ->
+//                goToSelectParcelSize(MainDestinations.SELECT_PARCEL_SIZE, macAddress)
+//            },
+//            onNavigateToSendParcelsOverviewActivity = { macAddress ->
+//                goToSendParcelOverview(MainDestinations.SELECT_PARCEL_OVERVIEW, macAddress)
+//            },
+//            onNavigateToAccessSharing = { macAddress, nameOfDevice ->
+//                goToAccessSharing(MainDestinations.ACCESS_SHARING_SCREEN, macAddress, nameOfDevice)
+//            }
+//        )
+//    }
+//
+//    composable(
+//        "${MainDestinations.SELECT_PARCEL_SIZE}/{${NavArguments.MAC_ADDRESS}}",
+//        arguments = listOf(navArgument(NavArguments.MAC_ADDRESS) {
+//            NavArgumentBuilder.type = NavType.StringType
+//        })
+//    ) {
+//        SelectParcelSizeScreen(
+//            macAddress = it.arguments?.getString(NavArguments.MAC_ADDRESS) ?: "",
+//            viewModel = viewModel(),
+//            onNavigateToDelivery = { macAddress, pin, size ->
+//                goToSendParcelSize(
+//                    MainDestinations.SEND_PARCEL_SIZE,
+//                    macAddress,
+//                    pin,
+//                    size
+//                )
+//            }
+//        )
+//    }
+//
+//    composable(
+//        "${MainDestinations.SEND_PARCEL_SIZE}/{${NavArguments.MAC_ADDRESS}}/{${NavArguments.PIN_OF_DEVICE}}/{${NavArguments.SIZE_OF_DEVICE}}",
+//        arguments = listOf(
+//            navArgument(NavArguments.MAC_ADDRESS) {
+//                NavArgumentBuilder.type = NavType.StringType
+//            },
+//            navArgument(NavArguments.PIN_OF_DEVICE) {
+//                NavArgumentBuilder.type = NavType.IntType
+//            },
+//            navArgument(NavArguments.SIZE_OF_DEVICE) {
+//                NavArgumentBuilder.type = NavType.StringType
+//            }
+//        )
+//    ) {
+//        SendParcelDeliveryScreen(
+//            macAddress = it.arguments?.getString(NavArguments.MAC_ADDRESS) ?: "",
+//            pin = it.arguments?.getInt(NavArguments.PIN_OF_DEVICE) ?: 0,
+//            size = it.arguments?.getString(NavArguments.SIZE_OF_DEVICE) ?: "",
+//            viewModel = viewModel()
+//        )
+//    }
+//
+//    composable(
+//        "${MainDestinations.PARCEL_PICKUP}/{${NavArguments.MAC_ADDRESS}}",
+//        arguments = listOf(navArgument(NavArguments.MAC_ADDRESS) {
+//            NavArgumentBuilder.type = NavType.StringType
+//        })
+//    ) {
+//        PickupParcelScreen(
+//            macAddress = it.arguments?.getString(NavArguments.MAC_ADDRESS) ?: "",
+//            viewModel = viewModel(),
+//            onFinish = {
+//                navigateUp()
+//            }
+//        )
+//    }
+//
+//    composable(
+//        "${MainDestinations.ACCESS_SHARING_SCREEN}/{${NavArguments.MAC_ADDRESS}}/{${NavArguments.NAME_OF_DEVICE}}",
+//        arguments = listOf(
+//            navArgument(NavArguments.MAC_ADDRESS) {
+//                NavArgumentBuilder.type = NavType.StringType
+//            },
+//            navArgument(NavArguments.NAME_OF_DEVICE) {
+//                NavArgumentBuilder.type = NavType.StringType
+//            }
+//        )
+//    ) {
+//        AccessSharingScreen(
+//            macAddress = it.arguments?.getString(NavArguments.MAC_ADDRESS) ?: "",
+//            nameOfDevice = it.arguments?.getString(NavArguments.NAME_OF_DEVICE) ?: "CHANGE_THIS",
+//            viewModel = viewModel(),
+//            onNavigateToAddUser = { macAddress, nameOfDevice ->
+//                goToAccessSharingAddUser(
+//                    MainDestinations.ACCESS_SHARING_ADD_USER_SCREEN,
+//                    macAddress,
+//                    nameOfDevice
+//                )
+//            }
+//        )
+//    }
+//
+//    composable(
+//        "${MainDestinations.ACCESS_SHARING_ADD_USER_SCREEN}/{${NavArguments.MAC_ADDRESS}}/{${NavArguments.NAME_OF_DEVICE}}",
+//        arguments = listOf(
+//            navArgument(NavArguments.MAC_ADDRESS) {
+//                NavArgumentBuilder.type = NavType.StringType
+//            },
+//            navArgument(NavArguments.NAME_OF_DEVICE) {
+//                NavArgumentBuilder.type = NavType.StringType
+//            }
+//        )
+//    ) {
+//        AccessSharingAddUserScreen(
+//            macAddress = it.arguments?.getString(NavArguments.MAC_ADDRESS) ?: "",
+//            nameOfDevice = it.arguments?.getString(NavArguments.NAME_OF_DEVICE) ?: "CHANGE_THIS",
+//            viewModel = viewModel(),
+//            navigateToAccessSharingActivity = { macAddress, nameOfDevice ->
+//                goToAccessSharingForgetPreviousScreen(
+//                    MainDestinations.ACCESS_SHARING_SCREEN,
+//                    macAddress,
+//                    nameOfDevice
+//                )
+//            }
+//        )
+//    }
+//
+//    composable(
+//        MainDestinations.HELP_SCREEN
+//    ) {
+//        HelpScreen(
+//            viewModel = viewModel(),
+//            onNavigateToHelpContent = { titleResId, contentResId, picturePosition ->
+//                goToHelpContent("${MainDestinations.HELP_CONTENT_SCREEN}/$titleResId/$contentResId/$picturePosition")
+//            }
+//        )
+//    }
+//
+//    composable(
+//        "${MainDestinations.HELP_CONTENT_SCREEN}/{${NavArguments.TITLE_HELP}}/{${NavArguments.CONTENT_HELP}}/{${NavArguments.PICTURE_POSITION}}",
+//        arguments = listOf(navArgument(NavArguments.TITLE_HELP) {
+//            NavArgumentBuilder.type = NavType.IntType
+//        }, navArgument(NavArguments.CONTENT_HELP) {
+//            NavArgumentBuilder.type = NavType.IntType
+//        }, navArgument(NavArguments.PICTURE_POSITION) {
+//            NavArgumentBuilder.type = NavType.IntType
+//        }
+//        )
+//    ) {
+//        val titleResId = it.arguments?.getInt(NavArguments.TITLE_HELP) ?: 0
+//        val contentResId = it.arguments?.getInt(NavArguments.CONTENT_HELP) ?: 0
+//        val picturePosition = it.arguments?.getInt(NavArguments.PICTURE_POSITION) ?: 0
+//
+//        HelpContentScreen(
+//            titleResId,
+//            contentResId,
+//            picturePosition,
+//            viewModel = viewModel()
+//        )
+//    }
+
+//
+//    composable(MainDestinations.SETTINGS) {
+//        SettingsScreen(viewModel = hiltViewModel())
+//    }
+
+//    composable(
+//        MainDestinations.ANIMATED_CARD
+//    ) {
+//        AnimatedCard( )
+//    }
+
+}
+
+
+// ----------------------------------------
+// This is a wrapper view that allows us to easily and cleanly
+// reuse this component in any future project
+// ----------------------------------------
+// This is a wrapper view that allows us to easily and cleanly
+// reuse this component in any future project
+@Composable
+fun TabView(
+    tabBarItems: List<BottomNavigationBarItem>,
+    navBackStackEntry: State<NavBackStackEntry?>,
+    goToNextScreen: (route: String) -> Unit
+) {
+
+    NavigationBar(
+        containerColor = colorResource(R.color.colorWhite)
+    ) {
+        // looping over each tab to generate the views and navigation for each item
+        tabBarItems.forEachIndexed { _, tabBarItem ->
+            NavigationBarItem(
+                selected = tabBarItem.route == navBackStackEntry.value?.destination?.route, // selectedTabIndex == index,
+                onClick = {
+                    goToNextScreen(tabBarItem.route)
+                },
+                icon = {
+                    TabBarIconView(
+                        isSelected = tabBarItem.route == navBackStackEntry.value?.destination?.route, // selectedTabIndex == index,
+                        icon = tabBarItem.icon,
+                        title = tabBarItem.route,
+                        badgeAmount = tabBarItem.badgeAmount
+                    )
+                },
+                colors = NavigationBarItemDefaults.colors(
+                    selectedIconColor = colorResource(R.color.colorPrimary),
+                    unselectedIconColor = colorResource(R.color.colorGrayLight),
+                    indicatorColor = colorResource(R.color.colorPrimary).copy(alpha = 0.1f)
+                )
+            )
+        }
+    }
+}
+
+// This component helps to clean up the API call from our TabView above,
+// but could just as easily be added inside the TabView without creating this custom component
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TabBarIconView(
+    isSelected: Boolean,
+    icon: Int,
+    title: String,
+    badgeAmount: Int? = null
+) {
+    BadgedBox(badge = {
+        TabBarBadgeView(badgeAmount)
+    }) {
+        Icon(
+            painter = painterResource(id = icon),
+            contentDescription = title,
+            tint = if (isSelected) {
+                colorResource(R.color.colorPrimary)
+            } else {
+                colorResource(R.color.colorGrayLight)
+            }
+        )
+    }
+}
+
+// This component helps to clean up the API call from our TabBarIconView above,
+// but could just as easily be added inside the TabBarIconView without creating this custom component
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+fun TabBarBadgeView(count: Int? = null) {
+    if (count != null) {
+        Badge {
+            Text(count.toString())
+        }
+    }
+}
+// end of the reusable components that can be copied over to any new projects
+// ----------------------------------------
+
+

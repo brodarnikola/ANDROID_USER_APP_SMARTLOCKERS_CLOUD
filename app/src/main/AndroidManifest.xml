@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" >
+
+    <!-- Notifications -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> 
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <application
+        android:name="hr.sil.android.myappbox.App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/ZwickTheme">
+        <activity
+            android:name="hr.sil.android.myappbox.compose.SignUpOnboardingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ZwickTheme.NoActionBar"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".compose.main_activity.MainActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:exported="false">
+            <intent-filter>
+                <action android:name=".MainActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="hr.sil.android.myappbox.view.ui.activities.intro.IntroductionSlidePagerActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:exported="true"
+            android:theme="@style/ZwickTheme.LoginRegister" />
+        <activity
+            android:name="hr.sil.android.myappbox.view.ui.activities.LoginActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="fullSensor"
+            android:exported="true"
+            android:theme="@style/ZwickTheme.LoginRegister" />
+        <activity
+            android:name="hr.sil.android.myappbox.view.ui.activities.PasswordUpdateActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:exported="true"
+            android:theme="@style/ZwickTheme.LoginRegister" />
+        <activity
+            android:name="hr.sil.android.myappbox.view.ui.activities.PasswordRecoveryActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:exported="true"
+            android:theme="@style/ZwickTheme.LoginRegister" />
+
+        <activity
+            android:name="hr.sil.android.myappbox.view.ui.activities.OnboardingTermsConditionsActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:theme="@style/ZwickTheme.LoginRegister" />
+
+        <activity
+            android:name="hr.sil.android.myappbox.view.ui.activities.TtcActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:theme="@style/ZwickTheme.LoginRegister" />
+        <activity
+            android:name="hr.sil.android.myappbox.view.ui.activities.TCInvitedUserActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:theme="@style/ZwickTheme.LoginRegister" />
+        <activity
+            android:name="hr.sil.android.myappbox.view.ui.activities.InviteUserActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:theme="@style/ZwickTheme.LoginRegister" />
+        <activity
+            android:name="hr.sil.android.myappbox.view.ui.activities.settings.SettingsActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:exported="true"
+            android:theme="@style/ZwickTheme.MainTheme" />
+        <activity
+            android:name="hr.sil.android.myappbox.view.ui.activities.settings.SettingsNotificationActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:exported="true"
+            android:theme="@style/ZwickTheme.MainTheme" />
+        <activity
+            android:name="hr.sil.android.myappbox.view.ui.activities.settings.SettingsLanguageActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:exported="true"
+            android:theme="@style/ZwickTheme.MainTheme" />
+
+
+        <activity
+            android:name="hr.sil.android.myappbox.view.ui.activities.settings.SettingsChangePasswordActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:exported="true"
+            android:theme="@style/ZwickTheme.MainTheme" />
+        <activity
+            android:name="hr.sil.android.myappbox.view.ui.activities.settings.SettingsHelpActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:exported="true"
+            android:theme="@style/ZwickTheme.MainTheme" />
+        <activity
+            android:name="hr.sil.android.myappbox.view.ui.activities.settings.SettingsTermsActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:exported="true"
+            android:theme="@style/ZwickTheme.MainTheme" />
+        <activity
+            android:name="hr.sil.android.myappbox.view.ui.activities.settings.SettingsPrivacyPolicyActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:exported="true"
+            android:theme="@style/ZwickTheme.MainTheme" />
+        <activity
+            android:name="hr.sil.android.myappbox.view.ui.activities.sendparcel.EditSplActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:exported="true"
+            android:theme="@style/ZwickTheme.MainTheme" />
+        <activity
+            android:name="hr.sil.android.myappbox.view.ui.activities.sendparcel.SelectParcelSizeActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:exported="true"
+            android:theme="@style/ZwickTheme.MainTheme" />
+
+        <activity
+            android:name="hr.sil.android.myappbox.view.ui.activities.sendparcel.SendParcelsOverviewActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:exported="true"
+            android:theme="@style/ZwickTheme.MainTheme" />
+
+        <activity
+            android:name="hr.sil.android.myappbox.view.ui.activities.access_sharing.AccessSharingListActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:exported="true"
+            android:theme="@style/ZwickTheme.MainTheme" />
+        <activity
+            android:name="hr.sil.android.myappbox.view.ui.activities.access_sharing.AccessSharingActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:exported="true"
+            android:theme="@style/ZwickTheme.MainTheme" />
+
+        <activity
+            android:name="hr.sil.android.myappbox.view.ui.activities.DisplayQrCodeActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:exported="true"
+            android:theme="@style/ZwickTheme.MainTheme" />
+
+        <activity
+            android:name="hr.sil.android.myappbox.view.ui.activities.google_maps_locker_location.GoogleMapsLockerLocationsActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:exported="true"
+            android:theme="@style/ZwickTheme.MainTheme" />
+
+        <service android:name="hr.sil.android.myappbox.fcm.MPLFireBaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+<!--        <service android:name="myappboxuser.fcm.NotificationJobService"-->
+<!--            android:exported="false"/>-->
+
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.1" />
+
+        <receiver
+            android:name="hr.sil.android.myappbox.listeners.InstallListener"
+            android:exported="true"
+            tools:ignore="ExportedReceiver">
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAtqao5w0ysn8Bgjbt7f_bvt1Epd_SCvjI" />
+
+    </application>
+
+</manifest>

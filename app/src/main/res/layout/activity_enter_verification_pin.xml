@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="?attr/thmLoginBackground" >
+</LinearLayout>
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:background="?attr/thmLoginBackground"-->
+<!--    tools:context="hr.sil.android.flexilockerapp.view.ui.activities.notification.NotificationActivity">-->
+
+
+<!--    <com.google.android.material.appbar.AppBarLayout-->
+<!--        android:id="@+id/appBarLayout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="?attr/thmToolbarBackgroundColor"-->
+<!--        android:fitsSystemWindows="true"-->
+<!--        app:elevation="0dp">-->
+
+<!--        <RelativeLayout-->
+<!--            android:id="@+id/rlTopLayout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
+
+<!--            <androidx.appcompat.widget.Toolbar-->
+<!--                android:id="@+id/toolbar"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="?attr/actionBarSize"-->
+<!--                app:contentInsetEnd="0dp"-->
+<!--                app:contentInsetLeft="0dp"-->
+<!--                app:contentInsetStartWithNavigation="0dp">-->
+
+
+<!--            </androidx.appcompat.widget.Toolbar>-->
+
+<!--            <ImageView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_centerInParent="true"-->
+<!--                android:src="?attr/thmToolbarHeader" />-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/ivSupportImage"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignParentRight="true"-->
+<!--                android:layout_centerVertical="true"-->
+<!--                android:layout_marginRight="20dp"-->
+<!--                android:src="?attr/thmToolbarHeaderSupportImage" />-->
+
+<!--        </RelativeLayout>-->
+
+<!--    </com.google.android.material.appbar.AppBarLayout>-->
+
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_marginTop="?attr/actionBarSize"-->
+<!--        android:orientation="vertical"-->
+<!--        android:weightSum="1">-->
+
+
+<!--        <myappbox.font.view.font.TextViewWithFont-->
+<!--            android:id="@+id/tvEnterVerificationPin"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_weight="0.1"-->
+<!--            android:gravity="center"-->
+<!--            android:letterSpacing="?attr/thmTitleLetterSpacing"-->
+<!--            android:paddingLeft="15dp"-->
+<!--            android:paddingRight="15dp"-->
+<!--            android:text="@string/enter_verification_pin"-->
+<!--            android:textAllCaps="true"-->
+<!--            android:textColor="?attr/thmTitleTextColor"-->
+<!--            android:textSize="?attr/thmTitleTextSize"-->
+<!--            app:font_name="?attr/thmMainFontName"-->
+<!--            app:font_type="?attr/thmMainFontTypeMedium" />-->
+
+
+<!--        <myappbox.font.view.font.TextViewWithFont-->
+<!--            android:id="@+id/tvDescription"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_weight="0.20"-->
+<!--            android:gravity="center_horizontal|top"-->
+<!--            android:letterSpacing="0.01"-->
+<!--            android:paddingLeft="20dp"-->
+<!--            android:paddingTop="20dp"-->
+<!--            android:paddingRight="20dp"-->
+<!--            android:text="@string/please_enter_verification_pin"-->
+<!--            android:textColor="?attr/thmTitleTextColor"-->
+<!--            android:textSize="21sp"-->
+<!--            app:font_name="?attr/thmMainFontName"-->
+<!--            app:font_type="?attr/thmMainFontTypeRegular" />-->
+
+<!--        <RelativeLayout-->
+<!--            android:id="@+id/rlEtPin"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_marginLeft="50dp"-->
+<!--            android:layout_marginRight="50dp"-->
+<!--            android:layout_weight="0.1"-->
+<!--            android:background="?attr/thmSPPinDialogRoundCorners"-->
+<!--            android:paddingLeft="30dp"-->
+<!--            android:paddingRight="40dp">-->
+
+<!--            <myappbox.font.EdittextWithFont-->
+<!--                android:id="@+id/etPin"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:background="@drawable/edittext_without_bottom_line"-->
+<!--                android:gravity="center"-->
+<!--                android:inputType="number"-->
+
+<!--                android:letterSpacing="0.5"-->
+<!--                android:maxLength="5"-->
+<!--                android:paddingLeft="?attr/thmEdittextLeftPadding"-->
+<!--                android:singleLine="true"-->
+<!--                android:textColor="?attr/thmDescriptionTextColor"-->
+<!--                android:textSize="30sp"-->
+
+<!--                app:font_name="?attr/thmMainFontName"-->
+<!--                app:font_type="?attr/thmMainFontTypeRegular" />-->
+
+<!--        </RelativeLayout>-->
+
+
+<!--        <myappbox.font.view.font.TextViewWithFont-->
+<!--            android:id="@+id/tvEmptyPinError"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_weight="0.05"-->
+<!--            android:gravity="center_horizontal|bottom"-->
+<!--            android:letterSpacing="0.01"-->
+<!--            android:paddingLeft="25dp"-->
+<!--            android:paddingTop="10dp"-->
+<!--            android:paddingRight="25dp"-->
+<!--            android:text="@string/still_have_not_received_pin"-->
+<!--            android:textColor="?attr/thmErrorTextColor"-->
+<!--            android:textSize="16sp"-->
+<!--            android:visibility="invisible"-->
+<!--            app:font_name="?attr/thmMainFontName"-->
+<!--            app:font_type="?attr/thmMainFontTypeRegular" />-->
+
+
+<!--        <myappbox.font.view.font.TextViewWithFont-->
+<!--            android:id="@+id/tvPinNotYetReceived"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_weight="0.2"-->
+<!--            android:gravity="center_horizontal|bottom"-->
+<!--            android:letterSpacing="0.01"-->
+<!--            android:paddingLeft="25dp"-->
+<!--            android:paddingRight="25dp"-->
+<!--            android:text="@string/still_have_not_received_pin"-->
+<!--            android:textColor="?attr/thmTitleTextColor"-->
+<!--            android:textSize="21sp"-->
+<!--            app:font_name="?attr/thmMainFontName"-->
+<!--            app:font_type="?attr/thmMainFontTypeRegular" />-->
+
+<!--        <RelativeLayout-->
+<!--            android:id="@+id/rlRequestNewVerificationPin"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_weight="0.1" >-->
+
+<!--            <ProgressBar-->
+<!--                android:id="@+id/progressBarRequestNew"-->
+<!--                android:layout_width="40dp"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:layout_centerInParent="true"-->
+<!--                android:indeterminateDrawable="?attr/thmSplashProgressBar"-->
+<!--                android:visibility="invisible" />-->
+
+<!--            <myappbox.font.ButtonWithFont-->
+<!--                android:id="@+id/btnRequestNewVerificationPin"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:layout_centerInParent="true"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:background="@drawable/request_new_verification_pin"-->
+<!--                android:paddingLeft="10dp"-->
+<!--                android:paddingRight="10dp"-->
+<!--                android:text="@string/request_new_verification_pin"-->
+<!--                android:textAllCaps="true"-->
+<!--                android:textColor="@color/colorPrimary"-->
+<!--                android:textSize="16sp"-->
+<!--                app:font_name="?attr/thmMainFontName"-->
+<!--                app:font_type="?attr/thmMainFontTypeMedium" />-->
+
+<!--        </RelativeLayout>-->
+
+<!--        <RelativeLayout-->
+<!--            android:id="@+id/rlBottomLayout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_weight="0.25"-->
+<!--            android:gravity="center">-->
+
+<!--            <ProgressBar-->
+<!--                android:id="@+id/progressBar"-->
+<!--                android:layout_width="40dp"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:layout_centerInParent="true"-->
+<!--                android:gravity="center"-->
+<!--                android:indeterminateDrawable="?attr/thmSplashProgressBar" />-->
+
+<!--            <myappbox.font.ButtonWithFont-->
+<!--                android:id="@+id/btnSendVerificationPin"-->
+<!--                android:layout_width="210dp"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:layout_centerInParent="true"-->
+<!--                android:background="?attr/thmMainButtonBackgroundColor"-->
+<!--                android:letterSpacing="?attr/thmButtonLetterSpacing"-->
+<!--                android:text="@string/app_generic_continue"-->
+<!--                android:textColor="?attr/thmLoginButtonTextColor"-->
+<!--                android:textSize="?attr/thmButtonTextSize"-->
+<!--                app:font_name="?attr/thmMainFontName"-->
+<!--                app:font_type="?attr/thmMainFontTypeMedium" />-->
+
+<!--        </RelativeLayout>-->
+
+<!--    </LinearLayout>-->
+
+
+<!--</androidx.coordinatorlayout.widget.CoordinatorLayout>-->

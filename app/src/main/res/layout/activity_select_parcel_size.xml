@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="?attr/thmLoginBackground" >
+</LinearLayout>
+<!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    tools:context="myappbox.view.ui.activities.sendparcel.SelectParcelSizeActivity"-->
+<!--    android:background="?attr/thmLoginBackground">-->
+
+<!--    <com.google.android.material.appbar.AppBarLayout-->
+<!--        android:id="@+id/appBarLayout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="?attr/thmToolbarBackgroundColor"-->
+<!--        android:fitsSystemWindows="true"-->
+<!--        app:elevation="0dp"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+
+<!--        <RelativeLayout-->
+<!--            android:id="@+id/rlTopLayout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
+
+<!--            <androidx.appcompat.widget.Toolbar-->
+<!--                android:id="@+id/toolbar"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="?attr/actionBarSize"-->
+<!--                app:contentInsetEnd="0dp"-->
+<!--                app:contentInsetLeft="0dp"-->
+<!--                app:contentInsetStartWithNavigation="0dp" />-->
+
+<!--            <ImageView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_centerInParent="true"-->
+<!--                android:src="?attr/thmToolbarHeader" />-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/ivSupportImage"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignParentRight="true"-->
+<!--                android:layout_centerVertical="true"-->
+<!--                android:layout_marginRight="20dp"-->
+<!--                android:src="?attr/thmToolbarHeaderSupportImage" />-->
+
+<!--        </RelativeLayout>-->
+
+<!--    </com.google.android.material.appbar.AppBarLayout>-->
+
+<!--    <myappbox.font.view.font.TextViewWithFont-->
+<!--        android:id="@+id/tvSendParcelTitle"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        app:layout_constraintHeight_percent="0.05"-->
+<!--        app:layout_constraintHeight_default="percent"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:gravity="center"-->
+<!--        android:paddingLeft="15dp"-->
+<!--        android:paddingRight="15dp"-->
+<!--        android:letterSpacing="?attr/thmTitleLetterSpacing"-->
+<!--        android:textAllCaps="true"-->
+<!--        android:textSize="?attr/thmTitleTextSize"-->
+<!--        android:text="@string/app_generic_send_parcel"-->
+<!--        android:textColor="?attr/thmTitleTextColor"-->
+<!--        app:font_name="?attr/thmMainFontName"-->
+<!--        app:font_type="?attr/thmMainFontTypeMedium"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"/>-->
+
+<!--    <ProgressBar-->
+<!--        android:id="@+id/progressBar"-->
+<!--        android:layout_width="40dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:indeterminateDrawable="?attr/thmSplashProgressBar"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent" />-->
+
+<!--    <ScrollView-->
+<!--        android:id="@+id/scrollView"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/tvSendParcelTitle"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        android:visibility="invisible">-->
+
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
+
+<!--            <myappbox.font.view.font.TextViewWithFont-->
+<!--                android:id="@+id/tvSendParcelDescription"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:gravity="center"-->
+<!--                android:layout_marginLeft="15dp"-->
+<!--                android:layout_marginRight="15dp"-->
+<!--                android:textSize="?attr/thmSubTitleTextSize"-->
+<!--                android:text="@string/send_parcel_description"-->
+<!--                android:textColor="?attr/thmDescriptionTextColor"-->
+<!--                app:font_name="?attr/thmMainFontName"-->
+<!--                app:font_type="?attr/thmMainFontTypeRegular"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:id="@+id/constraintLayoutFirst"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/tvSendParcelDescription">-->
+
+
+<!--                <RelativeLayout-->
+<!--                    android:id="@+id/rlLockerXS"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:layout_constraintEnd_toStartOf="@+id/rlLockerS"-->
+<!--                    app:layout_constraintHorizontal_bias="0.5"-->
+<!--                    app:layout_constraintHorizontal_chainStyle="spread"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent">-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/xsImage"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_centerHorizontal="true"-->
+<!--                        android:src="?attr/thmSPBtnLockerSize" />-->
+
+<!--                    <myappbox.font.view.font.TextViewWithFont-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_centerHorizontal="true"-->
+<!--                        android:layout_marginTop="25dp"-->
+<!--                        android:text="XS"-->
+<!--                        android:textColor="?attr/thmSubTitleTextColor"-->
+<!--                        app:font_name="?attr/thmMainFontName"-->
+<!--                        app:font_type="?attr/thmMainFontTypeRegular"-->
+<!--                        android:textSize="40sp" />-->
+
+<!--                    <myappbox.font.view.font.TextViewWithFont-->
+<!--                        android:id="@+id/xsAvailableText"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_centerHorizontal="true"-->
+<!--                        android:layout_marginTop="90dp"-->
+<!--                        android:textColor="?attr/thmSubTitleTextColor"-->
+<!--                        app:font_name="?attr/thmMainFontName"-->
+<!--                        app:font_type="?attr/thmMainFontTypeRegular" />-->
+<!--                </RelativeLayout>-->
+
+
+<!--                <RelativeLayout-->
+<!--                    android:id="@+id/rlLockerS"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintHorizontal_bias="0.5"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/rlLockerXS"-->
+<!--                    app:layout_constraintTop_toTopOf="parent">-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/sImage"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_centerHorizontal="true"-->
+<!--                        android:src="?attr/thmSPBtnLockerSize" />-->
+
+<!--                    <myappbox.font.view.font.TextViewWithFont-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_centerHorizontal="true"-->
+<!--                        android:layout_marginTop="30dp"-->
+<!--                        android:text="S"-->
+<!--                        android:textColor="?attr/thmSubTitleTextColor"-->
+<!--                        app:font_name="?attr/thmMainFontName"-->
+<!--                        app:font_type="?attr/thmMainFontTypeRegular"-->
+<!--                        android:textSize="40sp" />-->
+
+<!--                    <myappbox.font.view.font.TextViewWithFont-->
+<!--                        android:id="@+id/sAvailableText"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_centerHorizontal="true"-->
+<!--                        android:layout_marginTop="90dp"-->
+<!--                        android:textColor="?attr/thmSubTitleTextColor"-->
+<!--                        app:font_name="?attr/thmMainFontName"-->
+<!--                        app:font_type="?attr/thmMainFontTypeRegular" />-->
+
+<!--                </RelativeLayout>-->
+
+
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:id="@+id/constraintLayoutSecond"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/constraintLayoutFirst">-->
+
+
+<!--                <RelativeLayout-->
+<!--                    android:id="@+id/rlLockerM"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:layout_constraintEnd_toStartOf="@+id/rlLockerL"-->
+<!--                    app:layout_constraintHorizontal_bias="0.5"-->
+<!--                    app:layout_constraintHorizontal_chainStyle="spread"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent">-->
+
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/mImage"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_centerHorizontal="true"-->
+<!--                        android:src="?attr/thmSPBtnLockerSize"  />-->
+
+<!--                    <myappbox.font.view.font.TextViewWithFont-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_centerHorizontal="true"-->
+<!--                        android:layout_marginTop="30dp"-->
+<!--                        android:text="M"-->
+<!--                        android:textColor="?attr/thmSubTitleTextColor"-->
+<!--                        app:font_name="?attr/thmMainFontName"-->
+<!--                        app:font_type="?attr/thmMainFontTypeRegular"-->
+<!--                        android:textSize="40sp" />-->
+
+<!--                    <myappbox.font.view.font.TextViewWithFont-->
+<!--                        android:id="@+id/mAvailableText"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_centerHorizontal="true"-->
+<!--                        android:layout_marginTop="90dp"-->
+<!--                        android:textColor="?attr/thmSubTitleTextColor"-->
+<!--                        app:font_name="?attr/thmMainFontName"-->
+<!--                        app:font_type="?attr/thmMainFontTypeRegular" />-->
+
+<!--                </RelativeLayout>-->
+
+
+<!--                <RelativeLayout-->
+<!--                    android:id="@+id/rlLockerL"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintHorizontal_bias="0.5"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/rlLockerM"-->
+<!--                    app:layout_constraintTop_toTopOf="parent">-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/lImage"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_centerHorizontal="true"-->
+<!--                        android:src="?attr/thmSPBtnLockerSize" />-->
+
+<!--                    <myappbox.font.view.font.TextViewWithFont-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_centerHorizontal="true"-->
+<!--                        android:layout_marginTop="30dp"-->
+<!--                        android:text="L"-->
+<!--                        android:textColor="?attr/thmSubTitleTextColor"-->
+<!--                        app:font_name="?attr/thmMainFontName"-->
+<!--                        app:font_type="?attr/thmMainFontTypeRegular"-->
+<!--                        android:textSize="40sp" />-->
+
+<!--                    <myappbox.font.view.font.TextViewWithFont-->
+<!--                        android:id="@+id/lAvailableText"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_centerHorizontal="true"-->
+<!--                        android:layout_marginTop="90dp"-->
+<!--                        android:textColor="?attr/thmSubTitleTextColor"-->
+<!--                        app:font_name="?attr/thmMainFontName"-->
+<!--                        app:font_type="?attr/thmMainFontTypeRegular" />-->
+
+<!--                </RelativeLayout>-->
+
+
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:id="@+id/constraintLayoutThird"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/constraintLayoutSecond">-->
+
+
+<!--                <RelativeLayout-->
+<!--                    android:id="@+id/rlLockerXL"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:layout_constraintEnd_toStartOf="@+id/rlLockerDIMENSIONS"-->
+<!--                    app:layout_constraintHorizontal_bias="0.5"-->
+<!--                    app:layout_constraintHorizontal_chainStyle="spread"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent">-->
+
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/xlImage"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_centerHorizontal="true"-->
+<!--                        android:src="?attr/thmSPBtnLockerSize"  />-->
+
+<!--                    <myappbox.font.view.font.TextViewWithFont-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_centerHorizontal="true"-->
+<!--                        android:layout_marginTop="30dp"-->
+<!--                        android:text="XL"-->
+<!--                        android:textColor="?attr/thmSubTitleTextColor"-->
+<!--                        app:font_name="?attr/thmMainFontName"-->
+<!--                        app:font_type="?attr/thmMainFontTypeRegular"-->
+<!--                        android:textSize="40sp" />-->
+
+<!--                    <myappbox.font.view.font.TextViewWithFont-->
+<!--                        android:id="@+id/xlAvailableText"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_centerHorizontal="true"-->
+<!--                        android:layout_marginTop="90dp"-->
+<!--                        android:textColor="?attr/thmSubTitleTextColor"-->
+<!--                        app:font_name="?attr/thmMainFontName"-->
+<!--                        app:font_type="?attr/thmMainFontTypeRegular" />-->
+<!--                </RelativeLayout>-->
+
+
+<!--                <RelativeLayout-->
+<!--                    android:id="@+id/rlLockerDIMENSIONS"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintHorizontal_bias="0.5"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/rlLockerXL"-->
+<!--                    app:layout_constraintTop_toTopOf="parent">-->
+
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/ivDimensions"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_centerHorizontal="true"-->
+<!--                        android:layout_centerInParent="true"-->
+<!--                        android:src="@drawable/btn_parcel_size"-->
+<!--                        android:visibility="invisible" />-->
+
+
+<!--                </RelativeLayout>-->
+
+
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--    </ScrollView>-->
+
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:id="@+id/clNotInProximity"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+
+<!--        android:visibility="gone"-->
+
+<!--        app:layout_constraintHeight_percent="0.86"-->
+<!--        app:layout_constraintHeight_default="percent"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/tvSendParcelTitle"-->
+<!--        android:paddingBottom="10dp"-->
+<!--        android:paddingTop="10dp">-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/ivCirclePickupParcel"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            android:layout_marginBottom="100dp"-->
+<!--            android:adjustViewBounds="true"-->
+<!--            android:src="@drawable/ic_not_in_proximity" />-->
+
+<!--        <myappbox.font.view.font.TextViewWithFont-->
+<!--            android:id="@+id/statusText"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="center"-->
+<!--            android:text="@string/not_in_proximity_first_description"-->
+<!--            android:textColor="?attr/thmDescriptionTextColor"-->
+<!--            app:font_name="?attr/thmMainFontName"-->
+<!--            app:font_type="?attr/thmMainFontTypeRegular"-->
+<!--            android:textSize="20sp"-->
+<!--            android:ellipsize="end"-->
+<!--            android:maxLines="3"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/ivCirclePickupParcel"-->
+
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:paddingLeft="15dp"-->
+<!--            android:paddingRight="15dp" />-->
+
+<!--        <myappbox.font.view.font.TextViewWithFont-->
+<!--            android:id="@+id/notInProximityLocker"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="center"-->
+<!--            android:text="@string/nav_pickup_parcel_content_lock"-->
+<!--            android:textColor="?attr/thmDescriptionTextColor"-->
+<!--            app:font_name="?attr/thmMainFontName"-->
+<!--            app:font_type="?attr/thmMainFontTypeRegular"-->
+<!--            android:textSize="20sp"-->
+<!--            android:ellipsize="end"-->
+<!--            android:maxLines="3"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/statusText"-->
+
+<!--            android:layout_marginTop="30dp"-->
+<!--            android:paddingLeft="15dp"-->
+<!--            android:paddingRight="15dp" />-->
+
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--    <FrameLayout-->
+<!--        android:id="@+id/no_ble_layout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:alpha="0.8"-->
+<!--        android:background="?attr/thmNoBluebtooth"-->
+<!--        android:clickable="true"-->
+<!--        android:visibility="gone">-->
+
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/ivNoBluebtootImage"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="70dp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:srcCompat="?attr/thmNoBluebtoothImage" />-->
+
+<!--            <myappbox.font.view.font.TextViewWithFont-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_marginBottom="50dp"-->
+<!--                android:gravity="center"-->
+<!--                android:text="@string/app_generic_no_ble"-->
+<!--                android:textColor="?attr/thmLoginButtonTextColor"-->
+<!--                android:textSize="20sp"-->
+<!--                android:textStyle="bold"-->
+<!--                app:font_name="?attr/thmMainFontName"-->
+<!--                app:font_type="?attr/thmMainFontTypeMedium"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/ivNoBluebtootImage" />-->
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--    </FrameLayout>-->
+
+<!--    <FrameLayout-->
+<!--        android:id="@+id/no_internet_layout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:alpha="0.8"-->
+<!--        android:background="?attr/thmNoInternet"-->
+<!--        android:clickable="true"-->
+<!--        android:visibility="gone">-->
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/ivNoInternetImage"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="70dp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:srcCompat="?attr/thmNoInternetImage" />-->
+
+<!--            <myappbox.font.view.font.TextViewWithFont-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:gravity="center"-->
+<!--                android:text="@string/app_generic_no_network"-->
+<!--                android:textAllCaps="true"-->
+<!--                android:textColor="?attr/thmLoginButtonTextColor"-->
+<!--                android:textSize="20sp"-->
+<!--                android:textStyle="bold"-->
+<!--                app:font_name="?attr/thmMainFontName"-->
+<!--                app:font_type="?attr/thmMainFontTypeMedium"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/ivNoInternetImage" />-->
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--    </FrameLayout>-->
+
+<!--    <FrameLayout-->
+<!--        android:id="@+id/no_location_gps_layout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:alpha="0.8"-->
+<!--        android:background="?attr/thmNoLocationBackgroundColor"-->
+<!--        android:clickable="true"-->
+<!--        android:visibility="gone">-->
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/ivNoLocationImage"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="70dp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:srcCompat="?attr/thmNoLocationGPSImage" />-->
+
+<!--            <myappbox.font.view.font.TextViewWithFont-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:gravity="center"-->
+<!--                android:text="@string/no_location_services"-->
+<!--                android:textAllCaps="true"-->
+<!--                android:textColor="?attr/thmLoginButtonTextColor"-->
+<!--                android:textSize="20sp"-->
+<!--                android:textStyle="bold"-->
+
+<!--                app:font_name="?attr/thmMainFontName"-->
+<!--                app:font_type="?attr/thmMainFontTypeMedium"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/ivNoLocationImage" />-->
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--    </FrameLayout>-->
+
+<!--</androidx.constraintlayout.widget.ConstraintLayout>-->

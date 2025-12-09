@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?attr/thmOnboardingScreenBackgroundColor">
+
+    <RelativeLayout
+        android:id="@+id/llTopLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/thmOnboardingScreenPickupImage"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical">
+
+        <hr.sil.android.myappbox.fonts.view.fonts.TextViewWithFont
+            android:id="@+id/tvOnlineHelp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="7dp"
+            android:letterSpacing="?attr/thmEdittextTextLetterSpacing"
+            android:text="@string/online_help"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="?attr/thmTitleTextSize"
+            app:font_name="?attr/thmMainFontName"
+            app:font_type="?attr/thmMainFontTypeRegular" />
+
+        <hr.sil.android.myappbox.fonts.view.fonts.TextViewWithFont
+            android:id="@+id/tvSkip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="right"
+            android:layout_marginTop="7dp"
+            android:layout_marginRight="20dp"
+            android:gravity="right"
+            android:letterSpacing="?attr/thmEdittextTextLetterSpacing"
+            android:text="@string/skip_onboarding_screen"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="?attr/thmTitleTextSize"
+            app:font_name="?attr/thmMainFontName"
+            app:font_type="?attr/thmMainFontTypeRegular" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/llTopLayout"
+        android:layout_marginTop="10dp" 
+        android:orientation="vertical">
+
+        <hr.sil.android.myappbox.fonts.view.fonts.TextViewWithFont
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="@string/intro_pickup_slide_title"
+            android:textColor="?attr/thmLoginButtonTextColor"
+            app:font_name="?attr/thmMainFontName"
+            app:font_type="?attr/thmMainFontTypeBold" />
+
+        <hr.sil.android.myappbox.fonts.view.fonts.TextViewWithFont
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:layout_margin="16dp"
+            android:gravity="center"
+            android:text="?attr/thmOnboardingPickupParcelText"
+            android:textColor="?attr/thmLoginButtonTextColor"
+            app:font_name="?attr/thmMainFontName"
+            app:font_type="?attr/thmMainFontTypeRegular"  />
+
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/thmOnboardingScreenBackgroundColor">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/llTopLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="-20dp"
+                android:background="?attr/thmOnboardingScreenIntroImage"
+                android:orientation="vertical"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <hr.sil.android.myappbox.fonts.view.fonts.TextViewWithFont
+                    android:id="@+id/tvOnlineHelp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginLeft="20dp"
+                    android:letterSpacing="?attr/thmEdittextTextLetterSpacing"
+                    android:text="@string/online_help"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="?attr/thmTitleTextSize"
+                    app:font_name="?attr/thmMainFontName"
+                    app:font_type="?attr/thmMainFontTypeRegular" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <hr.sil.android.myappbox.fonts.view.fonts.TextViewWithFont
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="@string/intro_start_title"
+                    android:textColor="?attr/thmLoginButtonTextColor"
+                    android:textSize="30sp"
+                    app:font_name="?attr/thmMainFontName"
+                    app:font_type="?attr/thmMainFontTypeBold" />
+
+                <hr.sil.android.myappbox.fonts.ButtonWithFont
+                    android:id="@+id/introTermsAndConditions"
+                    android:layout_width="300dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:paddingHorizontal="5dp"
+                    android:background="?attr/thmIntroductionButtonBackgroundColor"
+                    android:letterSpacing="?attr/thmButtonLetterSpacing"
+                    android:text="@string/app_generic_privacy_policy"
+                    android:textColor="?attr/thmLoginButtonTextColor"
+                    android:textSize="?attr/thmButtonTextSize"
+                    app:font_name="?attr/thmMainFontName"
+                    app:font_type="?attr/thmMainFontTypeRegular" />
+
+                <hr.sil.android.myappbox.fonts.ButtonWithFont
+                    android:id="@+id/introRegisterYourAccount"
+                    android:layout_width="300dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:paddingHorizontal="5dp"
+                    android:background="?attr/thmIntroductionButtonBackgroundColor"
+                    android:letterSpacing="?attr/thmButtonLetterSpacing"
+                    android:text="@string/register_submit_title"
+                    android:textColor="?attr/thmLoginButtonTextColor"
+                    android:textSize="?attr/thmButtonTextSize"
+                    app:font_name="?attr/thmMainFontName"
+                    app:font_type="?attr/thmMainFontTypeRegular" />
+
+                <hr.sil.android.myappbox.fonts.ButtonWithFont
+                    android:id="@+id/introStartSignIn"
+                    android:layout_width="300dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:paddingHorizontal="5dp"
+                    android:background="?attr/thmIntroductionButtonBackgroundColor"
+                    android:letterSpacing="?attr/thmButtonLetterSpacing"
+                    android:text="@string/app_generic_sign_in"
+                    android:textColor="?attr/thmLoginButtonTextColor"
+                    android:textSize="?attr/thmButtonTextSize"
+                    app:font_name="?attr/thmMainFontName"
+                    app:font_type="?attr/thmMainFontTypeRegular" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

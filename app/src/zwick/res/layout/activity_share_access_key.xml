@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/thmLoginBackground"
+    tools:context="myappbox.view.ui.activities.PasswordRecoveryActivity">
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/thmToolbarBackgroundColor"
+        android:fitsSystemWindows="true"
+        app:elevation="0dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:id="@+id/rlTopLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:contentInsetEnd="0dp"
+                app:contentInsetLeft="0dp"
+                app:contentInsetStartWithNavigation="0dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="?attr/thmToolbarHeader" />
+
+            <ImageView
+                android:id="@+id/ivSupportImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:src="?attr/thmToolbarHeaderSupportImage" />
+
+        </RelativeLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <myappbox.fonts.view.fonts.TextViewWithFont
+        android:id="@+id/tvShareAccessKey"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:letterSpacing="?attr/thmTitleLetterSpacing"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="@string/share_parcel_acess"
+        android:textAllCaps="true"
+        android:textColor="?attr/thmTitleTextColor"
+        android:textSize="?attr/thmTitleTextSize"
+        app:font_name="?attr/thmMainFontName"
+        app:font_type="?attr/thmMainFontTypeMedium"
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout" />
+
+
+    <myappbox.fonts.view.fonts.TextViewWithFont
+        android:id="@+id/tvDescriptionShareAccessKey"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="@string/enter_email_to_share_access"
+        android:textColor="?attr/thmDescriptionTextColor"
+        android:textSize="22sp"
+        app:font_name="?attr/thmMainFontName"
+        app:font_type="?attr/thmMainFontTypeRegular"
+
+        app:layout_constraintBottom_toTopOf="@id/clPassword"
+        app:layout_constraintTop_toBottomOf="@id/tvShareAccessKey"
+        app:layout_constraintVertical_chainStyle="spread"
+        app:layout_constraintVertical_weight="1.5" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clPassword"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+
+        app:layout_constraintBottom_toTopOf="@id/tvPersonCollectParcel"
+        app:layout_constraintTop_toBottomOf="@id/tvDescriptionShareAccessKey"
+        app:layout_constraintVertical_chainStyle="spread"
+        app:layout_constraintVertical_weight="1.5">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="?attr/thmEdittextHintColor"
+            app:errorEnabled="true"
+            app:errorTextAppearance="?attr/thmErrorEdittextTheme"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <myappbox.fonts.EdittextWithFont
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/thmLoggedInBottomLineEditTextColor"
+                android:hint="@string/app_generic_email"
+                android:letterSpacing="?attr/thmEdittextTextLetterSpacing"
+                android:paddingLeft="?attr/thmEdittextLeftPadding"
+
+                android:singleLine="true"
+                android:textColor="?attr/thmEdittextColor"
+                android:textSize="?attr/thmEdittextTextSize"
+
+                app:font_name="?attr/thmMainFontName"
+                app:font_type="?attr/thmMainFontTypeRegular" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/ivPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:src="?attr/thmLoginEmail"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <myappbox.fonts.view.fonts.TextViewWithFont
+        android:id="@+id/tvPersonCollectParcel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:text="@string/person_to_collect_parcel"
+        android:textColor="?attr/thmDescriptionTextColor"
+        android:textSize="20sp"
+        app:font_name="?attr/thmMainFontName"
+        app:font_type="?attr/thmMainFontTypeRegular"
+
+        app:layout_constraintBottom_toTopOf="@id/clBottomLayout"
+        app:layout_constraintTop_toBottomOf="@id/clPassword"
+        app:layout_constraintVertical_chainStyle="spread"
+        app:layout_constraintVertical_weight="2.5" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clBottomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPersonCollectParcel"
+        app:layout_constraintVertical_chainStyle="spread"
+        app:layout_constraintVertical_weight="2.5">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="80dp"
+            android:indeterminateDrawable="?attr/thmSplashProgressBar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+
+        <myappbox.fonts.ButtonWithFont
+            android:id="@+id/btnPasswordRecovery"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="80dp"
+            android:background="?attr/thmMainButtonBackgroundColor"
+            android:letterSpacing="?attr/thmButtonLetterSpacing"
+            android:text="@string/forgot_password_send"
+            android:textColor="?attr/thmLoginButtonTextColor"
+            android:textSize="?attr/thmButtonTextSize"
+            app:font_name="?attr/thmMainFontName"
+            app:font_type="?attr/thmMainFontTypeMedium"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+

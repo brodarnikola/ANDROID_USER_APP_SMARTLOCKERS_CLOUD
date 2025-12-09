@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:paddingLeft="18dp"
+    android:paddingRight="10dp"
+    android:layout_marginBottom="5dp"
+    android:background="?attr/thmASSubHeaderBC">
+
+    <hr.sil.android.myappbox.fonts.view.fonts.TextViewWithFont
+        android:id="@+id/subHeaderTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="?attr/thmASUsersSubHeaderTextColor"
+        android:textSize="?attr/thmListSubTitleTextSize"
+        app:font_name="?attr/thmMainFontName"
+        app:font_type="?attr/thmMainFontTypeMedium"
+
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintHorizontal_weight="8.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/adminInGroup"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/adminInGroup"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:visibility="invisible"
+        android:src="?attr/thmASAdminInGroupSubHeader"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintHorizontal_weight="1.0"
+        app:layout_constraintStart_toEndOf="@+id/subHeaderTitle"
+        app:layout_constraintEnd_toStartOf="@+id/addUser"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/addUser"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:src="?attr/thmASAddNewUser"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintHorizontal_weight="1.0"
+        app:layout_constraintStart_toEndOf="@+id/adminInGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginBottom="5dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="10dp"
+    android:id="@+id/clMainLayout">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/userDetails"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintHorizontal_weight="8.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/adminInGroup"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <hr.sil.android.myappbox.fonts.view.fonts.TextViewWithFont
+            android:id="@+id/userName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/thmDescriptionTextColor"
+            android:textSize="?attr/thmListSubTitleTextSize"
+            app:font_name="?attr/thmMainFontName"
+            app:font_type="?attr/thmMainFontTypeRegular"
+            app:layout_constraintTop_toTopOf="parent"
+            android:lines="1"
+            android:ellipsize="end"/>
+
+        <hr.sil.android.myappbox.fonts.view.fonts.TextViewWithFont
+            android:id="@+id/userEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/thmDescriptionTextColor"
+            android:textSize="?attr/thmListSubTitleTextSize"
+            app:font_name="?attr/thmMainFontName"
+            app:font_type="?attr/thmMainFontTypeRegular"
+            app:layout_constraintTop_toBottomOf="@+id/userName"
+            android:lines="1"
+            android:ellipsize="end"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <ImageView
+        android:id="@+id/adminInGroup"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:src="?attr/thmASAdminInGroupChild"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintHorizontal_weight="1.0"
+        app:layout_constraintStart_toEndOf="@+id/userDetails"
+        app:layout_constraintEnd_toStartOf="@+id/removeFromGroup"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ImageView
+        android:id="@+id/removeFromGroup"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:src="?attr/thmASRemoveUser"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintHorizontal_weight="1.0"
+        app:layout_constraintStart_toEndOf="@+id/adminInGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

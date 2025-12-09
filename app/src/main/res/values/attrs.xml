@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--FONTS-->
+    <attr name="font_name" format="enum">
+        <enum name="metropolis" value="1" />
+        <enum name="rajdhani" value="2" />
+        <enum name="barlow" value="3" />
+    </attr>
+    <attr name="font_type" format="enum">
+        <enum name="regular" value="1" />
+        <enum name="medium" value="2" />
+        <enum name="bold" value="3" />
+    </attr>
+
+    <declare-styleable name="TextViewWithFont">
+        <attr name="font_name" />
+        <attr name="font_type" />
+    </declare-styleable>
+
+    <declare-styleable name="ButtonWithFont">
+        <attr name="font_name" />
+        <attr name="font_type" />
+    </declare-styleable>
+
+    <declare-styleable name="EdittextWithFont">
+        <attr name="font_name" />
+        <attr name="font_type" />
+    </declare-styleable>
+
+    <declare-styleable name="CheckBoxWithFont">
+        <attr name="font_name" />
+        <attr name="font_type" />
+    </declare-styleable>
+
+
+    <attr name="circle_fill_color" format="enum">
+        <enum name="circle_color" value="1" />
+    </attr>
+    <declare-styleable name="BadgeNumbersDesign">
+        <attr name="font_name" />
+        <attr name="font_type" />
+        <attr name="circle_fill_color" />
+    </declare-styleable>
+
+    <!-- left here for example, how to combine btn_font_name with btn_font_type -->
+    <declare-styleable name="EpaperTextEditor">
+        <attr name="btn_font_name" format="enum">
+            <enum name="metropolis" value="1" />
+            <enum name="rajdhani" value="2" />
+            <enum name="barlow" value="3" />
+        </attr>
+        <attr name="btn_font_type" format="enum">
+            <enum name="regular" value="1" />
+            <enum name="medium" value="2" />
+            <enum name="bold" value="3" />
+        </attr>
+        <attr name="btn_color" format="color" />
+    </declare-styleable>
+    <!-- left here for example, how to combine btn_font_name with btn_font_type -->
+
+
+    <!--THEMED references-->
+    <attr name="thmSplashLogo" format="reference" />
+    <attr name="thmSplashBackground" format="reference" />
+    <attr name="thmSplashProgressBar" format="reference" />
+
+    <attr name="thmOnboardingWelcomeScreenText" format="reference" />
+    <attr name="thmOnboardingPickupParcelText" format="reference" />
+
+    <attr name="thmOnboardingScreenBackgroundColor" format="reference" />
+    <attr name="thmOnboardingScreenWelcomeImage" format="reference" />
+    <attr name="thmOnboardingScreenPickupImage" format="reference" />
+    <attr name="thmOnboardingScreenSendImage" format="reference" />
+    <attr name="thmOnboardingScreenAccessSharingImage" format="reference" />
+    <attr name="thmOnboardingScreenIntroImage" format="reference" />
+
+    <attr name="thmErrorEdittextTheme" format="reference" />
+    <attr name="thmEdittextColor" format="reference" />
+    <attr name="thmEdittextBottomLineColor" format="reference" />
+    <attr name="thmEdittextHintColor" format="reference" />
+    <attr name="thmLoggedInBottomLineEditTextColor" format="reference" />
+    <attr name="thmTextErrorColor" format="reference" />
+
+    <attr name="thmEdittextInputLetterSpacing" format="reference" />
+
+    <attr name="thmEdittextLeftPadding" format="reference" />
+    <attr name="thmEdittextTextSize" format="reference" />
+    <attr name="thmEdittextTextLetterSpacing" format="reference" />
+    <attr name="thmEdittextMarginRight" format="reference" />
+
+    <attr name="thmToolbarHeader" format="reference" />
+    <attr name="thmToolbarBackgroundColor" format="reference" />
+    <attr name="thmToolbarHeaderSupportImage" format="reference" />
+    <attr name="thmLoginTitle" format="reference" />
+    <attr name="thmLoginButtonTextColor" format="reference" />
+    <attr name="thmTransparentButtonTextColor" format="reference" />
+
+    <attr name="thmButtonTextSize" format="reference" />
+    <attr name="thmButtonLetterSpacing" format="reference" />
+    <attr name="thmButtonTextSizeInsideDialog" format="reference" />
+    <attr name="thmLoginBackground" format="reference" />
+    <attr name="thmLoginEmail" format="reference" />
+    <attr name="thmLoginPassword" format="reference" />
+    <attr name="thmLoginDescriptionTextColor" format="reference" />
+
+    <attr name="thmSupportEmailDialogTitleText" format="reference" />
+
+    <attr name="thmRegisterGroupNameBackgroundColor" format="reference" />
+    <attr name="thmRegisterGroupNameErrorTextColor" format="reference" />
+    <attr name="thmRegisterGroupNameCorrectTextColor" format="reference" />
+    <attr name="thmRegisterName" format="reference" />
+    <attr name="thmRegisterPhone" format="reference" />
+    <attr name="thmRegisterAddress" format="reference" />
+    <attr name="thmRegisterEmail" format="reference" />
+    <attr name="thmRegisterPassword" format="reference" />
+
+    <attr name="thmTitleLetterSpacing" format="reference" />
+
+    <attr name="thmTitleTextColor" format="reference" />
+    <attr name="thmSubTitleTextColor" format="reference" />
+    <attr name="thmDescriptionTextColor" format="reference" />
+    <attr name="thmDescriptionTextSize" format="reference" />
+    <attr name="thmErrorTextColor" format="reference" />
+    <attr name="thmShareKeyAdapterTextColor" format="reference" />
+
+    <attr name="thmIntroductionButtonBackgroundColor" format="reference" />
+    <attr name="thmMainButtonBackgroundColor" format="reference" />
+    <attr name="thmButtonRegisterBackgroundColorDecline" format="reference" />
+    <attr name="thmButtonRegisterTextColorDecline" format="reference" />
+
+    <attr name="thmTitleTextSize" format="reference" />
+    <attr name="thmSubTitleTextSize" format="reference" />
+
+    <attr name="thmListTitleTextSize" format="reference" />
+    <attr name="thmListSubTitleTextSize" format="reference" />
+    <attr name="thmListDescriptionTextSize" format="reference" />
+    <attr name="thmDialogDescriptionTextSize" format="reference" />
+
+    <attr name="thmNoBluebtooth" format="reference" />
+    <attr name="thmNoInternet" format="reference" />
+    <attr name="thmNoLocationBackgroundColor" format="reference" />
+    <attr name="thmNoBluebtoothImage" format="reference" />
+    <attr name="thmNoInternetImage" format="reference" />
+    <attr name="thmNoLocationGPSImage" format="reference" />
+
+
+    <attr name="thmMainBadgeTextColor" format="reference" />
+    <attr name="thmMainBadgeBackgroundColor" format="reference" />
+    <attr name="thmMainCollectParcel" format="reference" />
+    <attr name="thmMainDisableCollectParcel" format="reference" />
+    <attr name="thmMainSendParcel" format="reference" />
+    <attr name="thmMainShareAccess" format="reference" />
+    <attr name="thmMainSettings" format="reference" />
+
+    <attr name="thmSplImage" format="reference"/>
+    <attr name="thmMplImage" format="reference"/>
+    <attr name="thmTabletImage" format="reference"/>
+
+
+    <attr name="thmMPLSPLNotInProximity" format="reference"/>
+    <attr name="thmMPLRequestAccess" format="reference"/>
+    <attr name="thmMPLRequestAccessAlreadySend" format="reference"/>
+
+    <attr name="thmDeliveryImage" format="reference"/>
+
+    <attr name="thmEditSplImage" format="reference"/>
+    <attr name="thmSendParcelImage" format="reference"/>
+    <attr name="thmSPRegisteredBackgroundColor" format="reference"/>
+    <attr name="thmSPRegisteredOddBackgroundColor" format="reference"/>
+    <attr name="thmSPRegisteredEvenBackgroundColor" format="reference"/>
+    <attr name="thmSPRegisteredButUnavailableaBackgroundColor" format="reference"/>
+    <attr name="thmSPNotInProximityBackgroundColor" format="reference"/>
+    <attr name="thmSPUnavailableBackgroundColor" format="reference"/>
+
+    <attr name="thmSPRegisteredBackgroundDrawable" format="reference"/>
+    <attr name="thmSPRegisteredButUnavailableaDrawable" format="reference"/>
+    <attr name="thmSPNotInProximityDrawable" format="reference"/>
+    <attr name="thmSPUnavailableDrawable" format="reference"/>
+
+    <attr name="thmSPBtnLockerSize" format="reference"/>
+    <attr name="thmSPBtnLockerDimensions" format="reference"/>
+    <attr name="thmSPLockerAvailable" format="reference"/>
+    <attr name="thmSPLockerDisabled" format="reference"/>
+    <attr name="thmSPPinDialogRoundCorners" format="reference"/>
+    <attr name="thmSPDeliveryFontSize" format="reference"/>
+
+    <attr name="thmPinManagmentPinTextColor" format="reference"/>
+    <attr name="thmPinManagmentEdittextTextColor" format="reference"/>
+    <attr name="thmPinManagmentNewPinBackgroundColor" format="reference"/>
+    <attr name="thmPinManagmentTransparentColor" format="reference"/>
+    <attr name="thmPinManagmentOpenImage" format="reference"/>
+    <attr name="thmPinManagmentAddImage" format="reference"/>
+    <attr name="thmPinManagmentDeleteImage" format="reference"/>
+    <attr name="thmPinManagmentSelectedOddBackgroundColor" format="reference"/>
+    <attr name="thmPinManagmentSelectedEvenBackgroundColor" format="reference"/>
+    <attr name="thmPinManagmentUnselectedOddBackgroundColor" format="reference"/>
+    <attr name="thmPinManagmentUnselectedEvenBackgroundColor" format="reference"/>
+
+    <attr name="thmXImage" format="reference"/>
+
+    <attr name="thmCPLockedDisabled" format="reference"/>
+    <attr name="thmCPLockedEnabled" format="reference"/>
+    <attr name="thmCPLockedNotInProximity" format="reference"/>
+    <attr name="thmCPShareFriendKey" format="reference"/>
+    <attr name="thmCPDeleteFriendKey" format="reference"/>
+    <attr name="thmCPSharePickedFriendKeyBC" format="reference"/>
+    <attr name="thmCPShareKeyOddBC" format="reference"/>
+    <attr name="thmCPShareKeyEvenBC" format="reference"/>
+    <attr name="thmCPTelemetryBackgroundColor" format="reference"/>
+
+    <attr name="thmASSubHeaderBC" format="reference"/>
+    <attr name="thmASChildOddBC" format="reference"/>
+    <attr name="thmASChildEvenBC" format="reference"/>
+    <attr name="thmASUsersSubHeaderTextColor" format="reference"/>
+    <attr name="thmASAddNewUser" format="reference"/>
+    <attr name="thmASAdminInGroupSubHeader" format="reference"/>
+    <attr name="thmASAdminInGroupChild" format="reference"/>
+    <attr name="thmASRemoveUser" format="reference"/>
+    <attr name="thmASAddNewUserBC" format="reference"/>
+    <attr name="thmASAddressFromPhone" format="reference"/>
+    <attr name="thmASAddNewUserBC2" format="reference"/>
+    <attr name="thmASAddNewUserTextColor" format="reference"/>
+
+    <attr name="thmEditSplNameImage" format="reference"/>
+
+    <attr name="thmHumidityImage" format="reference"/>
+    <attr name="thmTemperatureImage" format="reference"/>
+    <attr name="thmAirPressureImage" format="reference"/>
+    <attr name="thmSignalStrengthImage" format="reference"/>
+
+    <attr name="thmTermsConditionsDescription" format="reference"/>
+    <attr name="thmPrivacyPolicyDescription" format="reference"/>
+
+    <attr name="thmGenericLink" format="reference"/>
+    <attr name="thmGenericSupportMail" format="reference"/>
+
+    <attr name="thmParcelCollectedByCourier" format="reference" />
+    <attr name="thmParcelCollectedByAdmin" format="reference" />
+    <attr name="thmParcelDelivered" format="reference" />
+    <attr name="thmParcelDeliveryAttemptyFailed" format="reference" />
+    <attr name="thmParcelCollected" format="reference" />
+    <attr name="thmParcelCollectedBySharedKey" format="reference" />
+    <attr name="thmExpiredParcelCollected" format="reference" />
+    <attr name="thmDefaultErrorAlert" format="reference" />
+    <attr name="thmNotificationParcelArrowUp" format="reference" />
+    <attr name="thmNotificationParcelArrowDown" format="reference" />
+
+    <attr name="thmSmallQrCodeImage" format="reference" />
+    <attr name="thmSettingsGroupNameBackgroundColor" format="reference" />
+    <attr name="thmSettingsArrowNext" format="reference"/>
+    <attr name="thmSettingsOnlineHelp" format="reference"/>
+    <attr name="thmSettingsFirstSubtitle" format="reference"/>
+    <attr name="thmSettingsAccount" format="reference"/>
+    <attr name="thmSettingsSupport" format="reference"/>
+    <attr name="thmSettingsNotifications" format="reference"/>
+    <attr name="thmSettingsLanguage" format="reference"/>
+    <attr name="thmSettingsMyDetails" format="reference"/>
+    <attr name="thmSettingsChangePassword" format="reference"/>
+    <attr name="thmSettingsZwickFirstBackground" format="reference"/>
+    <attr name="thmSettingsZwickSecondBackground" format="reference"/>
+    <attr name="thmSettingsZwickThirdBackground" format="reference"/>
+    <attr name="thmSettingsZwickFourthBackground" format="reference"/>
+    <attr name="thmSettingsZwickFifthBackground" format="reference"/>
+    <attr name="thmSettingsZwickSixthBackground" format="reference"/>
+    <attr name="thmSettingsZwickSeventhBackground" format="reference"/>
+    <attr name="thmSettingsZwickEightBackground" format="reference"/>
+    <attr name="thmSettingsLogoutDialog" format="reference"/>
+    <attr name="thmSettingsSwitchTheme" format="reference"/>
+    <attr name="thmSettingsEdittextBackgroundColor" format="reference"/>
+    <attr name="thmSettingsHelpSendParcel" format="reference"/>
+    <attr name="thmSettingsHelpCollectParcel" format="reference"/>
+    <attr name="thmSettingsHelpAccessSharing" format="reference"/>
+
+    <attr name="thmInviteUserText" format="reference"/>
+
+    <attr name="thmMainFontName" format="string" />
+    <attr name="thmMainFontTypeRegular" format="string" />
+    <attr name="thmMainFontTypeMedium" format="string" />
+    <attr name="thmMainFontTypeBold" format="string" />
+
+    <!-- left here for example, just to see how to add listItemForegroundDefault -->
+    <attr name="thmListItemForegroundDefault" format="reference" />
+    <attr name="thmListItemForegroundAlternate" format="reference" />
+    <attr name="thmListItemForegroundSelected" format="reference" />
+    <attr name="thmListItemBackgroundDefault" format="reference" />
+    <attr name="thmListItemBackgroundAlternate" format="reference" />
+    <attr name="thmListItemBackgroundSelected" format="reference" />
+    <attr name="thmTextColorProgress" format="reference" />
+    <attr name="thmTextColorScanning" format="reference" />
+    <!-- left here for example, just to see how to add listItemForegroundDefault -->
+</resources>

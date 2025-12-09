@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/clMainLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="5dp"
+    android:background="?attr/thmSPRegisteredOddBackgroundColor"
+    android:paddingVertical="12dp"
+    android:paddingHorizontal="8dp">
+
+
+<!--    <ImageView-->
+<!--        android:id="@+id/ivLockerPicture"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+
+<!--        app:layout_constraintBottom_toBottomOf="@+id/lnLockerNameAddress"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/lnLockerNameAddress"-->
+<!--        app:layout_constraintHorizontal_chainStyle="spread"-->
+<!--        app:layout_constraintHorizontal_weight="1.5"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+
+<!--        app:layout_constraintVertical_bias="0.662" />-->
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/lnLockerNameAddress"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+
+<!--        android:orientation="vertical"-->
+<!--        android:paddingLeft="10dp"-->
+<!--        android:paddingRight="10dp"-->
+
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_weight="8.5"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/ivLockerPicture"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+
+<!--        <hr.sil.android.myappbox.font.view.font.TextViewWithFont-->
+<!--            android:id="@+id/tvLockerName"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:ellipsize="end"-->
+<!--            android:maxLines="2"-->
+<!--            android:paddingBottom="2dp"-->
+<!--            android:text=""-->
+<!--            android:textColor="?attr/thmDescriptionTextColor"-->
+<!--            android:textSize="18sp"-->
+<!--            app:font_name="?attr/thmMainFontName"-->
+<!--            app:font_type="?attr/thmMainFontTypeMedium" />-->
+
+<!--        <hr.sil.android.myappbox.font.view.font.TextViewWithFont-->
+<!--            android:id="@+id/tvLockerAddress"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:ellipsize="end"-->
+<!--            android:maxLines="2"-->
+<!--            android:paddingBottom="2dp"-->
+<!--            android:textColor="?attr/thmDescriptionTextColor"-->
+<!--            android:textSize="18sp"-->
+<!--            app:font_name="?attr/thmMainFontName"-->
+<!--            app:font_type="?attr/thmMainFontTypeMedium" />-->
+
+<!--    </LinearLayout>-->
+
+
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:id="@+id/clDeliveryData"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:paddingLeft="10dp"-->
+<!--        android:paddingRight="20dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/lnLockerNameAddress"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/lnLockerNameAddress">-->
+
+<!--        <hr.sil.android.myappbox.font.view.font.TextViewWithFont-->
+<!--            android:id="@+id/tvLockerPin"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:ellipsize="end"-->
+<!--            android:maxLines="1"-->
+<!--            android:paddingBottom="2dp"-->
+<!--            android:textColor="?attr/thmDescriptionTextColor"-->
+<!--            app:font_name="?attr/thmMainFontName"-->
+<!--            app:font_type="?attr/thmMainFontTypeRegular"-->
+<!--            android:textSize="14sp"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent" />-->
+
+<!--        <hr.sil.android.myappbox.font.view.font.TextViewWithFont-->
+<!--            android:id="@+id/tvLockerDateCreated"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:ellipsize="end"-->
+<!--            android:maxLines="1"-->
+<!--            android:paddingBottom="2dp"-->
+<!--            android:textColor="?attr/thmDescriptionTextColor"-->
+<!--            android:text=""-->
+<!--            app:font_name="?attr/thmMainFontName"-->
+<!--            app:font_type="?attr/thmMainFontTypeRegular"-->
+<!--            android:textSize="?attr/thmListDescriptionTextSize"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/tvLockerPin"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/tvLockerSize"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"/>-->
+
+<!--        <hr.sil.android.myappbox.font.view.font.TextViewWithFont-->
+<!--            android:id="@+id/tvLockerSize"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:ellipsize="end"-->
+<!--            android:maxLines="1"-->
+<!--            android:paddingBottom="2dp"-->
+<!--            android:text=""-->
+<!--            android:textColor="?attr/thmDescriptionTextColor"-->
+<!--            app:font_name="?attr/thmMainFontName"-->
+<!--            app:font_type="?attr/thmMainFontTypeRegular"-->
+<!--            android:textSize="?attr/thmListDescriptionTextSize"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/tvLockerDateCreated"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent" />-->
+
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/rlLeftLayout"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="bottom"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/rlRightLayout"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/clDeliveryData">-->
+
+<!--        <hr.sil.android.myappbox.font.ButtonWithFont-->
+<!--            android:id="@+id/btnShareData"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_centerInParent="true"-->
+<!--            android:layout_marginHorizontal="10dp"-->
+<!--            android:background="?attr/thmMainButtonBackgroundColor"-->
+<!--            android:gravity="center"-->
+<!--            android:letterSpacing="?attr/thmButtonLetterSpacing"-->
+<!--            android:paddingHorizontal="7dp"-->
+
+<!--            android:paddingVertical="3dp"-->
+<!--            android:text="@string/app_generic_key_sharing"-->
+<!--            android:textColor="?attr/thmLoginButtonTextColor"-->
+<!--            android:textSize="14sp"-->
+<!--            app:font_name="?attr/thmMainFontName"-->
+<!--            app:font_type="?attr/thmMainFontTypeMedium" />-->
+
+<!--    </RelativeLayout>-->
+
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/rlRightLayout"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="bottom"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/rlLeftLayout"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/clDeliveryData">-->
+
+<!--        <hr.sil.android.myappbox.font.ButtonWithFont-->
+<!--            android:id="@+id/btnCancel"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:letterSpacing="?attr/thmButtonLetterSpacing"-->
+<!--            android:layout_centerInParent="true"-->
+<!--            android:background="?attr/thmMainButtonBackgroundColor"-->
+<!--            android:gravity="center"-->
+<!--            android:ellipsize="end"-->
+<!--            android:maxLines="1"-->
+<!--            android:paddingHorizontal="7dp"-->
+<!--            android:paddingVertical="3dp"-->
+<!--            android:layout_marginHorizontal="10dp"-->
+<!--            android:text="@string/cancel_pick_home"-->
+<!--            android:textColor="?attr/thmLoginButtonTextColor"-->
+<!--            android:textSize="14sp"-->
+<!--            android:visibility="invisible"-->
+<!--            app:font_name="?attr/thmMainFontName"-->
+<!--            app:font_type="?attr/thmMainFontTypeMedium" />-->
+
+<!--        <ProgressBar-->
+<!--            android:id="@+id/progressCancelKey"-->
+<!--            android:layout_width="30dp"-->
+<!--            android:layout_height="30dp"-->
+<!--            android:layout_centerInParent="true"-->
+<!--            android:indeterminateDrawable="?attr/thmSplashProgressBar" />-->
+
+<!--    </RelativeLayout>-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

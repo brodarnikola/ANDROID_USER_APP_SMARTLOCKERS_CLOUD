@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" >
+
+
+    <application
+        android:usesCleartextTraffic="true">
+
+        <activity
+            android:name="hr.sil.android.myappbox.activities.RegistrationActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:exported="true"
+            android:theme="@style/${appTheme}.LoginRegister" >
+
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </activity>
+
+        <!-- WE DON'T NEED THAT HERE, LEFT JUST FOR ANY CASE,
+        IT WILL REMOVE OLD PASSWORD_RECOVERY_ACTIVITY FROM MAIN FOLDER
+        <activity
+            tools:node="remove"
+            android:name=".view.ui.activities.PasswordRecoveryActivity"/>-->
+
+        <activity-alias
+            tools:replace="android:targetActivity"
+            android:name="${applicationId}.aliasRegistration"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:targetActivity="myappbox.view.ui.activities.TCInvitedUserActivity" />
+
+
+        <activity
+            android:name="hr.sil.android.myappbox.activities.MainActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/${appTheme}.MainTheme" />
+
+        <activity-alias
+            android:name="${applicationId}.aliasMainActivity"
+            android:targetActivity="hr.sil.android.myappbox.activities.MainActivity"
+            tools:replace="android:targetActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/${appTheme}.MainTheme" />
+
+
+        <activity-alias
+            android:name="${applicationId}.aliasFinishDelivery"
+            android:targetActivity="hr.sil.android.myappbox.activities.MainActivity"
+            tools:replace="android:targetActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/${appTheme}.MainTheme" />
+
+        <activity-alias
+            android:name="${applicationId}.aliasFinishSelectParcelSize"
+            android:targetActivity="hr.sil.android.myappbox.activities.MainActivity"
+            tools:replace="android:targetActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/${appTheme}.MainTheme" />
+
+        <activity-alias
+            android:name="${applicationId}.aliasFinishAccessSharing"
+            android:targetActivity="hr.sil.android.myappbox.activities.MainActivity"
+            tools:replace="android:targetActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/${appTheme}.MainTheme" />
+
+        <activity-alias
+            android:name="${applicationId}.aliasFinishPickupParcel"
+            android:targetActivity="hr.sil.android.myappbox.activities.MainActivity"
+            tools:replace="android:targetActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/${appTheme}.MainTheme" />
+
+
+        <activity
+            android:name="hr.sil.android.myappbox.activities.access_sharing.AccessSharingAddUserActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/${appTheme}.MainTheme"  />
+        <activity-alias
+            tools:replace="android:targetActivity"
+            android:name="${applicationId}.aliasAccessSharingAddUser"
+            android:targetActivity="hr.sil.android.myappbox.activities.access_sharing.AccessSharingAddUserActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/${appTheme}.MainTheme" />
+
+
+        <activity
+            android:name="hr.sil.android.myappbox.activities.collect_parcel.PickupParcelActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/${appTheme}.MainTheme"  />
+
+        <activity-alias
+            tools:replace="android:targetActivity"
+            android:name="${applicationId}.aliasPickupParcelActivity"
+            android:targetActivity="hr.sil.android.myappbox.activities.collect_parcel.PickupParcelActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/${appTheme}.MainTheme"/>
+
+        <activity
+            android:name="hr.sil.android.myappbox.activities.collect_parcel.ListOfDeliveriesActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/${appTheme}.MainTheme" />
+
+        <activity
+            android:name="hr.sil.android.myappbox.activities.ShareAccessKeyActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/${appTheme}.MainTheme" />
+
+        <activity android:name="hr.sil.android.myappbox.activities.SelectLockerActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/${appTheme}.MainTheme"
+            />
+
+        <activity
+            android:name="hr.sil.android.myappbox.activities.send_parcel.SelectParcelSizeActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/${appTheme}.MainTheme" />
+
+        <activity
+            android:name="hr.sil.android.myappbox.activities.settings.SettingsUserDetailsActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/${appTheme}.MainTheme" />
+
+        <activity-alias
+            android:name="${applicationId}.aliasSettingsUserDetailsActivity"
+            android:targetActivity="hr.sil.android.myappbox.activities.settings.SettingsUserDetailsActivity"
+            tools:replace="android:targetActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/${appTheme}.MainTheme" />
+
+
+        <activity
+            android:name="hr.sil.android.myappbox.activities.send_parcel.SendParcelDeliveryActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/${appTheme}.MainTheme" />
+
+        <activity-alias
+            android:name="${applicationId}.aliastStartSendParcelDelivery"
+            android:targetActivity="hr.sil.android.myappbox.activities.send_parcel.SendParcelDeliveryActivity"
+            tools:replace="android:targetActivity"  />
+
+        <activity-alias
+            android:name="${applicationId}.aliasStartInvitationThroughtEmail"
+            android:targetActivity="hr.sil.android.myappbox.activities.RegistrationActivity"
+            tools:replace="android:targetActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/${appTheme}.LoginRegister"  />
+
+        <activity
+            android:name="hr.sil.android.myappbox.activities.EnterVerificationPinActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/${appTheme}.MainTheme" />
+
+
+
+    </application>
+
+</manifest>

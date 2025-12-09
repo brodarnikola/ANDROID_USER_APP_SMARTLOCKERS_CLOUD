@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "hr.sil.android.myappbox",
+  "variantName": "zwickDebug",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "versionCode": 30200,
+      "versionName": "3.2.0-rc5.debug",
+      "outputFile": "app-zwick-debug.apk"
+    }
+  ]
+}

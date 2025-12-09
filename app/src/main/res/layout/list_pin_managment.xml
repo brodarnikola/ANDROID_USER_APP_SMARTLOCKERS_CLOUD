@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/clMainLayout"
+    android:padding="7dp" >
+
+
+    <RelativeLayout
+        android:id="@+id/rlTopLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="10dp"  >
+
+        <hr.sil.android.myappbox.fonts.view.fonts.TextViewWithFont
+            android:id="@+id/tvPinManagmentNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/thmPinManagmentPinTextColor"
+            app:font_name="?attr/thmMainFontName"
+            app:font_type="?attr/thmMainFontTypeRegular"
+
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <RelativeLayout
+            android:id="@+id/rlPinManagmentNewLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+
+            android:layout_below="@+id/tvPinManagmentNumber"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:visibility="gone"
+            android:background="?attr/thmPinManagmentNewPinBackgroundColor">
+
+            <hr.sil.android.myappbox.fonts.EdittextWithFont
+                android:id="@+id/etPinNewName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="40dp"
+                android:maxLines="1"
+
+                android:hint="@string/pin_managment_input_edittext"
+                android:textColor="?attr/thmPinManagmentEdittextTextColor"
+                android:textColorHint="@color/colorBlack"
+                app:font_name="?attr/thmMainFontName"
+                app:font_type="?attr/thmMainFontTypeRegular"
+                />
+
+            <ImageButton
+                android:id="@+id/ivSavePin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="8dp"
+                android:src="?attr/thmPinManagmentAddImage"
+                android:background="?attr/thmPinManagmentTransparentColor"/>
+
+
+        </RelativeLayout>
+
+        <hr.sil.android.myappbox.fonts.view.fonts.TextViewWithFont
+            android:id="@+id/tvPinManagmentName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/thmPinManagmentPinTextColor"
+            app:font_name="?attr/thmMainFontName"
+            app:font_type="?attr/thmMainFontTypeRegular"
+
+            android:layout_below="@+id/tvPinManagmentNumber"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:paddingRight="40dp"
+            android:ellipsize="end"/>
+
+        <ImageButton
+            android:id="@+id/ivDeletePin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:src="?attr/thmPinManagmentDeleteImage"
+            android:background="?attr/thmPinManagmentTransparentColor"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlDeleteLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/rlTopLayout"
+
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="-2dp"
+        android:visibility="gone">
+
+        <hr.sil.android.myappbox.fonts.view.fonts.TextViewWithFont
+            android:id="@+id/tvAreYouSure"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="@string/app_generic_are_you_sure"
+            android:textColor="?attr/thmPinManagmentPinTextColor"
+            app:font_name="?attr/thmMainFontName"
+            app:font_type="?attr/thmMainFontTypeRegular"
+
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true" />
+
+        <hr.sil.android.myappbox.fonts.ButtonWithFont
+            android:id="@+id/btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="@string/app_generic_cancel"
+            android:textColor="?attr/thmLoginButtonTextColor"
+            app:font_name="?attr/thmMainFontName"
+            app:font_type="?attr/thmMainFontTypeRegular"
+            android:background="?attr/thmMainButtonBackgroundColor"
+            android:layout_below="@+id/tvAreYouSure"
+            android:layout_toLeftOf="@+id/btnDelete"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="3dp"/>
+
+        <hr.sil.android.myappbox.fonts.ButtonWithFont
+            android:id="@+id/btnDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="@string/pin_managment_delete_pin"
+            android:textColor="?attr/thmLoginButtonTextColor"
+            app:font_name="?attr/thmMainFontName"
+            app:font_type="?attr/thmMainFontTypeRegular"
+            android:background="?attr/thmMainButtonBackgroundColor"
+            android:layout_below="@+id/tvAreYouSure"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="3dp"
+            android:layout_marginRight="4dp"/>
+
+    </RelativeLayout>
+
+    <View
+        app:layout_constraintTop_toBottomOf="@+id/rlDeleteLayout"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- COMMON COLORS -->
+    <color name="colorWhite">#ffffff</color>
+    <color name="transparentColor">#00ffffff</color>
+    <color name="colorBlack">#000000</color>
+
+    <color name="colorPrimary">#33caaf8b</color>
+    <color name="colorPrimaryTransparentZwick">#d3c18c</color>
+
+    <color name="colorPrimaryDarkZwick">#4c4372</color>
+    <color name="colorPrimaryDark">#4c4372</color>
+    <color name="colorAccentZwick">#009ee2</color>
+
+    <color name="colorBlueBorderInSendParcel">#009ee2</color>
+
+    <color name="colorGradientStart">#fbf5ed</color>
+    <color name="colorGradientFinish">#f7ecdd</color>
+    <color name="colorBlackText">#2b2a29</color>
+    <color name="colorPrimaryWhite35Percent">#59ffffff</color>
+
+    <color name="colorPrimary35Percent">#59D3C18C</color>
+    <color name="colorDarkerBlack80Percent">#CCD3C18C</color>
+    <color name="colorPrimary80Percent">#CCD3C18C</color>
+    <color name="colorMainBlue20PercentOpacity">#3300ADEE</color>
+    <color name="colorPrimary40Percent">#66D3C18C</color>
+    <color name="colorBlack60PercentZwick">#666666</color>
+    <color name="colorRed10Percent">#1AFF0000</color>
+    <color name="colorBlack10Percent">#1A000000</color>
+    <color name="colorGrayLight">#33333234</color>
+    <color name="colorDarkGray">#979797</color>
+
+
+    <color name="colorYellow">#ffd300</color>
+
+    <color name="colorError">#ca0000</color>
+    <color name="colorRedBadgeNumber">#c1271b</color>
+
+    <color name="colorGray40Percent">#664a4a4a</color>
+    <color name="accessSharingItemBackgroundColor">#4a4a4a</color>
+    <color name="buttonTextColor">#717171</color>
+
+
+    <!-- this colors are used in Configuration, Settings activity.
+    Number are going from top to bottom -->
+    <color name="colorSettings1">#4879B8B7</color>
+    <color name="colorSettings2">#4886B9B1</color>
+    <color name="colorSettings3">#4892BAAC</color>
+    <color name="colorSettings4">#48A9BCA2</color>
+    <color name="colorSettings5">#48B4BE9C</color>
+    <color name="colorSettings6">#48BFBF97</color>
+    <color name="colorSettings7">#48C9C092</color>
+    <color name="colorSettings8">#48D3C18C</color>
+
+
+    <color name="colorSelectedLockerInGoogleMaps">#ab0f0f</color>
+
+
+</resources>

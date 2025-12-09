@@ -1,0 +1,554 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="?attr/thmLoginBackground" >
+</LinearLayout>
+<!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:layout_weight="1"-->
+<!--    android:background="?attr/thmLoginBackground"-->
+<!--    app:layout_constraintVertical_weight="1"-->
+<!--    tools:context="myappbox.view.ui.activities.settings.SettingsUserDetailsActivity">-->
+
+
+<!--    <com.google.android.material.appbar.AppBarLayout-->
+<!--        android:id="@+id/appBarLayout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="?attr/actionBarSize"-->
+<!--        android:background="?attr/thmToolbarBackgroundColor"-->
+<!--        android:fitsSystemWindows="true"-->
+<!--        app:elevation="0dp"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+
+<!--        <RelativeLayout-->
+<!--            android:id="@+id/rlTopLayout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
+
+<!--            <androidx.appcompat.widget.Toolbar-->
+<!--                android:id="@+id/toolbar"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="?attr/actionBarSize"-->
+<!--                app:contentInsetEnd="0dp"-->
+<!--                app:contentInsetLeft="0dp"-->
+<!--                app:contentInsetStartWithNavigation="0dp" />-->
+
+<!--            <ImageView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_centerInParent="true"-->
+<!--                android:src="?attr/thmToolbarHeader" />-->
+
+<!--        </RelativeLayout>-->
+
+<!--    </com.google.android.material.appbar.AppBarLayout>-->
+
+<!--    <ScrollView-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:fillViewport="true"-->
+<!--        android:fitsSystemWindows="true"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">-->
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:fillViewport="true"-->
+<!--            android:fitsSystemWindows="true"-->
+<!--            android:paddingBottom="10dp">-->
+
+
+<!--            <myappbox.font.view.font.TextViewWithFont-->
+<!--                android:id="@+id/tvSettingsTitle"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:gravity="center_horizontal"-->
+<!--                android:letterSpacing="?attr/thmTitleLetterSpacing"-->
+<!--                android:paddingLeft="15dp"-->
+<!--                android:paddingRight="15dp"-->
+<!--                android:text="@string/settings_account_title"-->
+<!--                android:textAllCaps="true"-->
+<!--                android:textColor="?attr/thmTitleTextColor"-->
+<!--                android:textSize="?attr/thmTitleTextSize"-->
+<!--                app:font_name="?attr/thmMainFontName"-->
+<!--                app:font_type="?attr/thmMainFontTypeMedium"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--            <myappbox.font.view.font.TextViewWithFont-->
+<!--                android:id="@+id/tvSettings"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="22dp"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:layout_marginRight="22dp"-->
+<!--                android:gravity="left"-->
+<!--                android:text="@string/settings_account_details"-->
+<!--                android:textAllCaps="true"-->
+<!--                android:textColor="?attr/thmSubTitleTextColor"-->
+<!--                android:textSize="?attr/thmSubTitleTextSize"-->
+<!--                app:font_name="?attr/thmMainFontName"-->
+<!--                app:font_type="?attr/thmMainFontTypeMedium"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/tvSettingsTitle" />-->
+
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:id="@+id/scroollView"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/tvSettings">-->
+
+<!--                <RelativeLayout-->
+<!--                    android:id="@+id/rlName"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="50dp"-->
+<!--                    android:layout_marginLeft="20dp"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:layout_marginRight="20dp"-->
+<!--                    android:paddingTop="10dp"-->
+<!--                    app:layout_constraintTop_toTopOf="parent">-->
+
+<!--                    <com.google.android.material.textfield.TextInputLayout-->
+<!--                        android:id="@+id/name"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:textColorHint="?attr/thmEdittextHintColor"-->
+<!--                        app:errorEnabled="true"-->
+<!--                        app:errorTextAppearance="?attr/thmErrorEdittextTheme">-->
+
+<!--                        <myappbox.font.EdittextWithFont-->
+<!--                            android:id="@+id/nameEditText"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:background="?attr/thmLoggedInBottomLineEditTextColor"-->
+
+<!--                            android:hint="@string/app_generic_name"-->
+<!--                            android:inputType="text"-->
+<!--                            android:maxLines="1"-->
+
+<!--                            android:letterSpacing="?attr/thmEdittextTextLetterSpacing"-->
+<!--                            android:textSize="?attr/thmEdittextTextSize"-->
+
+<!--                            android:paddingLeft="?attr/thmEdittextLeftPadding"-->
+<!--                            android:paddingTop="5dp"-->
+<!--                            android:paddingRight="60dp"-->
+<!--                            android:singleLine="true"-->
+<!--                            android:textColor="?attr/thmEdittextColor"-->
+<!--                            android:textColorHint="@color/colorBlack"-->
+<!--                            app:font_name="?attr/thmMainFontName"-->
+<!--                            app:font_type="?attr/thmMainFontTypeRegular" />-->
+
+<!--                    </com.google.android.material.textfield.TextInputLayout>-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_alignParentRight="true"-->
+<!--                        android:layout_centerVertical="true"-->
+<!--                        android:layout_marginRight="5dp"-->
+<!--                        app:srcCompat="?attr/thmRegisterName" />-->
+
+<!--                </RelativeLayout>-->
+
+<!--                <myappbox.font.view.font.TextViewWithFont-->
+<!--                    android:id="@+id/tvName"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="32dp"-->
+<!--                    android:layout_marginRight="20dp"-->
+<!--                    android:text=""-->
+<!--                    android:textColor="?attr/thmErrorTextColor"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:visibility="gone"-->
+<!--                    app:font_name="?attr/thmMainFontName"-->
+<!--                    app:font_type="?attr/thmMainFontTypeRegular"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintRight_toRightOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/rlName" />-->
+
+<!--                <myappbox.font.view.font.TextViewWithFont-->
+<!--                    android:id="@+id/groupNameTitle"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="@string/registration_group_name"-->
+<!--                    android:textAllCaps="true"-->
+<!--                    android:textColor="?attr/thmLoginDescriptionTextColor"-->
+<!--                    app:font_name="?attr/thmMainFontName"-->
+<!--                    app:font_type="?attr/thmMainFontTypeMedium"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/tvName"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    android:paddingLeft="20dp"-->
+<!--                    android:paddingRight="20dp"-->
+<!--                    android:layout_marginTop="10dp"/>-->
+
+<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                    android:id="@+id/register_layout_group_name"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:background="?attr/thmRegisterGroupNameBackgroundColor"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/groupNameTitle"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:layout_marginLeft="20dp"-->
+<!--                    android:layout_marginRight="20dp"-->
+<!--                    android:paddingLeft="5dp"-->
+<!--                    android:paddingRight="5dp"-->
+<!--                    android:paddingBottom="10dp">-->
+
+<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                        android:id="@+id/main_bottom_header_id"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingTop="10dp"-->
+<!--                        app:layout_constraintTop_toTopOf="parent"-->
+<!--                        app:layout_constraintLeft_toLeftOf="parent" >-->
+
+<!--                        <myappbox.font.EdittextWithFont-->
+<!--                            android:id="@+id/groupNameFirstRow"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:background="?attr/thmLoggedInBottomLineEditTextColor"-->
+<!--                            android:inputType="text"-->
+<!--                            android:singleLine="true"-->
+<!--                            android:textColor="?attr/thmEdittextColor"-->
+
+<!--                            android:letterSpacing="?attr/thmEdittextTextLetterSpacing"-->
+<!--                            android:textSize="?attr/thmEdittextTextSize"-->
+
+<!--                            android:paddingLeft="?attr/thmEdittextLeftPadding"-->
+<!--                            app:font_name="?attr/thmMainFontName"-->
+<!--                            app:font_type="?attr/thmMainFontTypeRegular"-->
+<!--                            android:paddingTop="10dp"-->
+<!--                            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent"-->
+<!--                            android:maxLength="16"/>-->
+
+<!--                        <myappbox.font.view.font.TextViewWithFont-->
+<!--                            android:id="@+id/firstRowCharacterLength"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:textSize="13sp"-->
+<!--                            android:textColor="?attr/thmLoginDescriptionTextColor"-->
+<!--                            app:font_name="?attr/thmMainFontName"-->
+<!--                            app:font_type="?attr/thmMainFontTypeMedium"-->
+<!--                            android:text="0/15"-->
+<!--                            android:layout_marginRight="10dp"-->
+<!--                            app:layout_constraintRight_toRightOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent"  />-->
+
+<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                        android:id="@+id/main_button_id"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        app:layout_constraintTop_toBottomOf="@+id/main_bottom_header_id"-->
+<!--                        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                        android:layout_marginTop="10dp">-->
+
+<!--                        <myappbox.font.EdittextWithFont-->
+<!--                            android:id="@+id/groupNameSecondRow"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:background="?attr/thmLoggedInBottomLineEditTextColor"-->
+<!--                            android:inputType="text"-->
+<!--                            android:singleLine="true"-->
+<!--                            android:textColor="?attr/thmEdittextColor"-->
+
+<!--                            android:letterSpacing="?attr/thmEdittextTextLetterSpacing"-->
+<!--                            android:textSize="?attr/thmEdittextTextSize"-->
+
+<!--                            android:paddingLeft="?attr/thmEdittextLeftPadding"-->
+<!--                            app:font_name="?attr/thmMainFontName"-->
+<!--                            app:font_type="?attr/thmMainFontTypeRegular"-->
+<!--                            android:paddingTop="10dp"-->
+<!--                            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent"-->
+<!--                            android:maxLength="15"/>-->
+
+<!--                        <myappbox.font.view.font.TextViewWithFont-->
+<!--                            android:id="@+id/secondRowCharacterLength"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:textSize="13sp"-->
+<!--                            android:text="0/15"-->
+<!--                            android:textColor="?attr/thmLoginDescriptionTextColor"-->
+<!--                            app:font_name="?attr/thmMainFontName"-->
+<!--                            app:font_type="?attr/thmMainFontTypeMedium"-->
+<!--                            android:layout_marginRight="10dp"-->
+<!--                            app:layout_constraintRight_toRightOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent"  />-->
+
+<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--                <myappbox.font.view.font.TextViewWithFont-->
+<!--                    android:id="@+id/groupNameWrong"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+
+<!--                    app:layout_constraintTop_toBottomOf="@+id/register_layout_group_name"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    android:textColor="?attr/thmErrorTextColor"-->
+<!--                    app:font_name="?attr/thmMainFontName"-->
+<!--                    app:font_type="?attr/thmMainFontTypeMedium"-->
+
+<!--                    android:paddingLeft="20dp"-->
+<!--                    android:paddingRight="20dp"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:text=""-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:visibility="gone"/>-->
+
+
+<!--                <RelativeLayout-->
+<!--                    android:id="@+id/rlEmail"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="50dp"-->
+<!--                    android:layout_marginLeft="20dp"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:layout_marginRight="20dp"-->
+<!--                    android:paddingTop="10dp"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/groupNameWrong">-->
+
+<!--                    <com.google.android.material.textfield.TextInputLayout-->
+<!--                        android:id="@+id/email"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:textColorHint="?attr/thmEdittextHintColor"-->
+<!--                        app:errorEnabled="true"-->
+<!--                        app:errorTextAppearance="?attr/thmErrorEdittextTheme">-->
+
+<!--                        <myappbox.font.EdittextWithFont-->
+<!--                            android:id="@+id/emailEditText"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:alpha="0.6"-->
+
+<!--                            android:background="?attr/thmLoggedInBottomLineEditTextColor"-->
+<!--                            android:enabled="false"-->
+<!--                            android:hint="@string/edit_user_notification_setting_email"-->
+<!--                            android:inputType="text"-->
+<!--                            android:maxLines="1"-->
+<!--                            android:letterSpacing="?attr/thmEdittextTextLetterSpacing"-->
+<!--                            android:textSize="?attr/thmEdittextTextSize"-->
+
+<!--                            android:paddingLeft="?attr/thmEdittextLeftPadding"-->
+<!--                            android:paddingTop="5dp"-->
+<!--                            android:paddingRight="60dp"-->
+<!--                            android:singleLine="true"-->
+<!--                            android:textColor="?attr/thmEdittextColor"-->
+<!--                            android:textColorHint="@color/colorBlack"-->
+<!--                            app:font_name="?attr/thmMainFontName"-->
+<!--                            app:font_type="?attr/thmMainFontTypeRegular" />-->
+
+<!--                    </com.google.android.material.textfield.TextInputLayout>-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_alignParentRight="true"-->
+<!--                        android:layout_centerVertical="true"-->
+<!--                        android:layout_marginRight="5dp"-->
+<!--                        app:srcCompat="?attr/thmRegisterEmail" />-->
+
+<!--                </RelativeLayout>-->
+
+<!--                <RelativeLayout-->
+<!--                    android:id="@+id/rlAddress"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="50dp"-->
+<!--                    android:layout_marginLeft="20dp"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:layout_marginRight="20dp"-->
+<!--                    android:paddingTop="10dp"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/rlEmail">-->
+
+<!--                    <com.google.android.material.textfield.TextInputLayout-->
+<!--                        android:id="@+id/address"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:textColorHint="?attr/thmEdittextHintColor"-->
+<!--                        app:errorEnabled="true"-->
+<!--                        app:errorTextAppearance="?attr/thmErrorEdittextTheme">-->
+
+<!--                        <myappbox.font.EdittextWithFont-->
+<!--                            android:id="@+id/addressEditText"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:background="?attr/thmLoggedInBottomLineEditTextColor"-->
+
+<!--                            android:hint="@string/app_generic_address"-->
+<!--                            android:inputType="text"-->
+<!--                            android:maxLines="1"-->
+<!--                            android:letterSpacing="?attr/thmEdittextTextLetterSpacing"-->
+<!--                            android:textSize="?attr/thmEdittextTextSize"-->
+
+<!--                            android:paddingLeft="?attr/thmEdittextLeftPadding"-->
+<!--                            android:paddingTop="5dp"-->
+<!--                            android:paddingRight="60dp"-->
+<!--                            android:singleLine="true"-->
+<!--                            android:textColor="?attr/thmEdittextColor"-->
+<!--                            android:textColorHint="@color/colorBlack"-->
+<!--                            app:font_name="?attr/thmMainFontName"-->
+<!--                            app:font_type="?attr/thmMainFontTypeRegular" />-->
+
+<!--                    </com.google.android.material.textfield.TextInputLayout>-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_alignParentRight="true"-->
+<!--                        android:layout_centerVertical="true"-->
+<!--                        android:layout_marginRight="5dp"-->
+<!--                        app:srcCompat="?attr/thmRegisterAddress" />-->
+
+<!--                </RelativeLayout>-->
+
+<!--                <myappbox.font.view.font.TextViewWithFont-->
+<!--                    android:id="@+id/tvAddress"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="32dp"-->
+<!--                    android:layout_marginRight="20dp"-->
+<!--                    android:text=""-->
+<!--                    android:textColor="?attr/thmErrorTextColor"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:visibility="gone"-->
+<!--                    app:font_name="?attr/thmMainFontName"-->
+<!--                    app:font_type="?attr/thmMainFontTypeRegular"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintRight_toRightOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/rlAddress" />-->
+
+<!--                <RelativeLayout-->
+<!--                    android:id="@+id/rlPhone"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="50dp"-->
+<!--                    android:layout_marginLeft="20dp"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:layout_marginRight="20dp"-->
+<!--                    android:paddingTop="10dp"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/tvAddress">-->
+
+<!--                    <com.google.android.material.textfield.TextInputLayout-->
+<!--                        android:id="@+id/phone"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:textColorHint="?attr/thmEdittextHintColor"-->
+<!--                        app:errorEnabled="true"-->
+<!--                        app:errorTextAppearance="?attr/thmErrorEdittextTheme">-->
+
+<!--                        <myappbox.font.EdittextWithFont-->
+<!--                            android:id="@+id/phoneEditText"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:background="?attr/thmLoggedInBottomLineEditTextColor"-->
+
+<!--                            android:hint="@string/app_generic_phone"-->
+<!--                            android:inputType="phone"-->
+<!--                            android:maxLines="1"-->
+<!--                            android:letterSpacing="?attr/thmEdittextTextLetterSpacing"-->
+<!--                            android:textSize="?attr/thmEdittextTextSize"-->
+
+<!--                            android:paddingLeft="?attr/thmEdittextLeftPadding"-->
+<!--                            android:paddingTop="5dp"-->
+<!--                            android:paddingRight="60dp"-->
+<!--                            android:singleLine="true"-->
+<!--                            android:textColor="?attr/thmEdittextColor"-->
+<!--                            android:textColorHint="@color/colorBlack"-->
+<!--                            app:font_name="?attr/thmMainFontName"-->
+<!--                            app:font_type="?attr/thmMainFontTypeRegular" />-->
+
+<!--                    </com.google.android.material.textfield.TextInputLayout>-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_alignParentRight="true"-->
+<!--                        android:layout_centerVertical="true"-->
+<!--                        android:layout_marginRight="5dp"-->
+<!--                        app:srcCompat="?attr/thmRegisterPhone" />-->
+
+<!--                </RelativeLayout>-->
+
+<!--                <ProgressBar-->
+<!--                    android:id="@+id/progressBar"-->
+<!--                    android:layout_width="40dp"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:indeterminateDrawable="?attr/thmSplashProgressBar"-->
+<!--                    android:visibility="invisible"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintRight_toRightOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/rlPhone" />-->
+
+<!--                <myappbox.font.ButtonWithFont-->
+<!--                    android:id="@+id/btnUserSettings"-->
+<!--                    android:layout_width="250dp"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:layout_marginTop="20dp"-->
+<!--                    android:background="?attr/thmMainButtonBackgroundColor"-->
+<!--                    android:text="@string/app_generic_apply"-->
+<!--                    android:textSize="?attr/thmButtonTextSize"-->
+<!--                    android:letterSpacing="?attr/thmButtonLetterSpacing"-->
+<!--                    android:textColor="?attr/thmLoginButtonTextColor"-->
+<!--                    app:font_name="?attr/thmMainFontName"-->
+<!--                    app:font_type="?attr/thmMainFontTypeMedium"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintRight_toRightOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/progressBar" />-->
+
+<!--                <View-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="2dp"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/btnUserSettings" />-->
+
+
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--    </ScrollView>-->
+
+
+
+<!--    <FrameLayout-->
+<!--        android:id="@+id/no_internet_layout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:alpha="0.8"-->
+<!--        android:background="?attr/thmNoInternet"-->
+<!--        android:clickable="true"-->
+<!--        android:visibility="gone">-->
+
+<!--        <myappbox.font.view.font.TextViewWithFont-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginBottom="50dp"-->
+<!--            android:gravity="center"-->
+<!--            android:text="@string/app_generic_no_network"-->
+<!--            android:textColor="?attr/thmSubTitleTextColor"-->
+<!--            android:textSize="20sp"-->
+<!--            android:textStyle="bold"-->
+<!--            app:font_name="?attr/thmMainFontName"-->
+<!--            app:font_type="?attr/thmMainFontTypeMedium" />-->
+
+<!--    </FrameLayout>-->
+
+
+<!--</androidx.constraintlayout.widget.ConstraintLayout>-->

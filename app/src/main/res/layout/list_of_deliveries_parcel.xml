@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/clMain"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:layout_marginTop="5dp"
+    android:paddingLeft="10dp"
+    android:paddingBottom="7dp"
+    android:background="?attr/thmSPRegisteredOddBackgroundColor">
+
+
+<!--    <ImageView-->
+<!--        android:id="@+id/ivLockerPicture"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+
+<!--        app:layout_constraintBottom_toBottomOf="@+id/lnLockerNameAddress"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/lnLockerNameAddress"-->
+<!--        app:layout_constraintHorizontal_chainStyle="spread"-->
+<!--        app:layout_constraintHorizontal_weight="1.5"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.662"-->
+
+<!--        android:layout_marginTop="5dp"/>-->
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/lnLockerNameAddress"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+
+<!--        android:layout_marginTop="5dp"-->
+<!--        android:paddingLeft="10dp"-->
+<!--        android:paddingRight="10dp"-->
+
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_weight="8.5"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/ivLockerPicture"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+
+<!--        <myappbox.font.view.font.TextViewWithFont-->
+<!--            android:id="@+id/tvLockerName"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:ellipsize="end"-->
+<!--            android:maxLines="2"-->
+<!--            android:paddingBottom="2dp"-->
+<!--            android:text=""-->
+<!--            android:textColor="?attr/thmDescriptionTextColor"-->
+<!--            android:textSize="18sp"-->
+<!--            app:font_name="?attr/thmMainFontName"-->
+<!--            app:font_type="?attr/thmMainFontTypeBold" />-->
+
+<!--        <myappbox.font.view.font.TextViewWithFont-->
+<!--            android:id="@+id/tvLockerAddress"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:ellipsize="end"-->
+<!--            android:maxLines="2"-->
+<!--            android:paddingBottom="2dp"-->
+<!--            android:textColor="?attr/thmDescriptionTextColor"-->
+<!--            android:textSize="18sp"-->
+<!--            app:font_name="?attr/thmMainFontName"-->
+<!--            app:font_type="?attr/thmMainFontTypeBold" />-->
+
+<!--    </LinearLayout>-->
+
+
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:id="@+id/clDeliveryData"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:paddingLeft="10dp"-->
+<!--        android:paddingRight="20dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/lnLockerNameAddress"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/lnLockerNameAddress">-->
+
+<!--        <myappbox.font.view.font.TextViewWithFont-->
+<!--            android:id="@+id/tvTrackingNumber"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/tracking_number_cpl"-->
+
+<!--            android:textColor="?attr/thmDescriptionTextColor"-->
+<!--            app:font_name="?attr/thmMainFontName"-->
+<!--            app:font_type="?attr/thmMainFontTypeMedium"-->
+
+<!--            app:layout_constraintEnd_toStartOf="@+id/tvTrackingNumberValue"-->
+<!--            app:layout_constraintHorizontal_chainStyle="spread"-->
+<!--            app:layout_constraintHorizontal_weight="4.5"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--        <myappbox.font.view.font.TextViewWithFont-->
+<!--            android:id="@+id/tvTrackingNumberValue"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+
+<!--            android:textColor="?attr/thmDescriptionTextColor"-->
+<!--            app:font_name="?attr/thmMainFontName"-->
+<!--            app:font_type="?attr/thmMainFontTypeMedium"-->
+
+<!--            android:maxLines="1"-->
+<!--            android:ellipsize="end"-->
+
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_chainStyle="spread"-->
+<!--            app:layout_constraintHorizontal_weight="5.5"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/tvTrackingNumber"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--        <myappbox.font.view.font.TextViewWithFont-->
+<!--            android:id="@+id/tvDelivered"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/delivered_cpl"-->
+
+<!--            android:textColor="?attr/thmDescriptionTextColor"-->
+<!--            app:font_name="?attr/thmMainFontName"-->
+<!--            app:font_type="?attr/thmMainFontTypeMedium"-->
+
+<!--            app:layout_constraintEnd_toStartOf="@+id/tvDeliveredValue"-->
+<!--            app:layout_constraintHorizontal_chainStyle="spread"-->
+<!--            app:layout_constraintHorizontal_weight="4.5"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/tvTrackingNumber" />-->
+
+<!--        <myappbox.font.view.font.TextViewWithFont-->
+<!--            android:id="@+id/tvDeliveredValue"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+
+<!--            android:textColor="?attr/thmDescriptionTextColor"-->
+<!--            app:font_name="?attr/thmMainFontName"-->
+<!--            app:font_type="?attr/thmMainFontTypeMedium"-->
+
+<!--            android:maxLines="1"-->
+<!--            android:ellipsize="end"-->
+
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_chainStyle="spread"-->
+<!--            app:layout_constraintHorizontal_weight="5.5"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/tvDelivered"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/tvTrackingNumberValue" />-->
+
+<!--        <myappbox.font.view.font.TextViewWithFont-->
+<!--            android:id="@+id/tvTAN"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/tan_cpl"-->
+
+<!--            android:textColor="?attr/thmDescriptionTextColor"-->
+<!--            app:font_name="?attr/thmMainFontName"-->
+<!--            app:font_type="?attr/thmMainFontTypeMedium"-->
+
+<!--            app:layout_constraintEnd_toStartOf="@+id/tvTANValue"-->
+<!--            app:layout_constraintHorizontal_chainStyle="spread"-->
+<!--            app:layout_constraintHorizontal_weight="4.5"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/tvDelivered" />-->
+
+<!--        <myappbox.font.view.font.TextViewWithFont-->
+<!--            android:id="@+id/tvTANValue"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+
+<!--            android:textColor="?attr/thmDescriptionTextColor"-->
+<!--            app:font_name="?attr/thmMainFontName"-->
+<!--            app:font_type="?attr/thmMainFontTypeMedium"-->
+
+<!--            android:maxLines="1"-->
+<!--            android:ellipsize="end"-->
+
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_chainStyle="spread"-->
+<!--            app:layout_constraintHorizontal_weight="5.5"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/tvTAN"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/tvDeliveredValue" />-->
+
+<!--        <myappbox.font.view.font.TextViewWithFont-->
+<!--            android:id="@+id/tvLockerSize"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/locker_size_cpl"-->
+
+<!--            android:textColor="?attr/thmDescriptionTextColor"-->
+<!--            app:font_name="?attr/thmMainFontName"-->
+<!--            app:font_type="?attr/thmMainFontTypeMedium"-->
+
+<!--            app:layout_constraintEnd_toStartOf="@+id/tvLockerSizeValue"-->
+<!--            app:layout_constraintHorizontal_chainStyle="spread"-->
+<!--            app:layout_constraintHorizontal_weight="4.5"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/tvTAN" />-->
+
+<!--        <myappbox.font.view.font.TextViewWithFont-->
+<!--            android:id="@+id/tvLockerSizeValue"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+
+<!--            android:textColor="?attr/thmDescriptionTextColor"-->
+<!--            app:font_name="?attr/thmMainFontName"-->
+<!--            app:font_type="?attr/thmMainFontTypeMedium"-->
+
+<!--            android:maxLines="1"-->
+<!--            android:ellipsize="end"-->
+
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_chainStyle="spread"-->
+<!--            app:layout_constraintHorizontal_weight="5.5"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/tvLockerSize"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/tvTANValue" />-->
+
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
+<!--    <myappbox.font.view.font.TextViewWithFont-->
+<!--        android:id="@+id/tvSharedWith"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/shared_with"-->
+<!--        android:visibility="gone"-->
+<!--        android:paddingLeft="10dp"-->
+<!--        android:paddingRight="10dp"-->
+
+<!--        android:textColor="?attr/thmDescriptionTextColor"-->
+<!--        app:font_name="?attr/thmMainFontName"-->
+<!--        app:font_type="?attr/thmMainFontTypeMedium"-->
+
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/lnLockerNameAddress"-->
+<!--        app:layout_constraintHorizontal_chainStyle="spread"-->
+<!--        app:layout_constraintHorizontal_weight="4.5"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/clDeliveryData" />-->
+
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/rvShareAccess"-->
+
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        android:paddingLeft="10dp"-->
+<!--        android:orientation="horizontal"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/lnLockerNameAddress"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/tvSharedWith"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/btnShareData"/>-->
+
+<!--    <myappbox.font.ButtonWithFont-->
+<!--        android:id="@+id/btnShareData"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="30dp"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:gravity="center"-->
+<!--        android:paddingTop="2dp"-->
+<!--        android:paddingBottom="4dp"-->
+<!--        android:paddingLeft="10dp"-->
+<!--        android:paddingRight="10dp"-->
+<!--        android:background="?attr/thmMainButtonBackgroundColor"-->
+<!--        android:text="@string/app_generic_key_sharing"-->
+<!--        android:textSize="14sp"-->
+<!--        android:letterSpacing="?attr/thmButtonLetterSpacing"-->
+<!--        android:textColor="?attr/thmLoginButtonTextColor"-->
+<!--        app:font_name="?attr/thmMainFontName"-->
+<!--        app:font_type="?attr/thmMainFontTypeRegular"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/rvShareAccess" />-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,1028 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">"ZWICKbox"</string>
+    <string name="name">"Name"</string>
+    <string name="app_generic_password">"Password"</string>
+    <string name="app_generic_enter_ble">"Not in proximity"</string>
+    <string name="locker_details_no_pikcups">"There is nothing to pick up in your locker at the moment."</string>
+    <string name="app_generic_privacy_policy">"Terms &amp; conditions"</string>
+    <string name="intro_key_sharing_slide_title">"Access grant"</string>
+    <string name="intro_register_your_account">"Register Your Account"</string>
+    <string name="intro_register_show_password">"Show passwords"</string>
+    <string name="key_sharing_content">"You currently didn’t share access to your parcel locker(s) with anyone."</string>
+    <string name="app_generic_key_sharing">"Share access"</string>
+    <string name="help_description_title">"Help"</string>
+    <string name="help_lbl_bottom">"For further questions send an e-mail to:"</string>
+    <string name="help_link">"support@zwick.it"</string>
+    <string name="peripheral_settings_share_access">"Share access to delivery (size: %s, created: %s)"</string>
+    <string name="peripheral_settings_remove_access">"Remove temporary access from %s for Delivery %s (created on: %s)"</string>
+    <string name="peripheral_settings_grant_access">"%s shared you access to delivery (size: %s, created: %s)"</string>
+    <string name="peripheral_settings_remove_access_success">"Successfully deleted access to locker %s"</string>
+    <string name="peripheral_settings_remove_access_error">"Error while deleting access to locker %s"</string>
+    <string name="app_generic_size">"Size: %s"</string>
+    <string name="locker_details_registration_btn">"Request Access"</string>
+    <string name="locker_details_registration_pending_body">"Thank you! Your request was submitted. We’ll notify you once your access has been granted."</string>
+    <string name="nav_pickup_parcel_content_lock">"Tap on the Lock icon to open."</string>
+    <string name="nav_pickup_parcel_content_unlock">"Please take your package and close locker door."</string>
+    <string name="nav_pickup_parcel_unlock">"Unlocked"</string>
+    <string name="nav_pickup_parcel_connecting">"Connecting. Please wait..."</string>
+    <string name="nav_pickup_parcel_lock">"Locked"</string>
+    <string name="nav_pickup_no_delivery_alert">"There is nothing to pick up in your locker at the moment."</string>
+    <string name="nav_send_parcel_content_text">"The locker is now open. Please place your package and close the door."</string>
+    <string name="nav_send_parcel_error_button">"Retry"</string>
+    <string name="nav_settings_title">"General"</string>
+    <string name="nav_settings_user_details">"User details"</string>
+    <string name="nav_settings_language">"Language"</string>
+    <string name="nav_settings_app_language">"App language"</string>
+    <string name="nav_settings_change_password">"Change password"</string>
+    <string name="login_submit_title">"Sign in"</string>
+    <string name="register_submit_title">"Register"</string>
+    <string name="forgot_password_title">"Forgot Your Password?"</string>
+    <string name="forgot_password_description_title">"Please enter your registered e-mail address so that we can send you a recovery PIN."</string>
+    <string name="forgot_password_send">"Send"</string>
+    <string name="access_sharing_new_user_allow">"Allow access"</string>
+    <string name="access_sharing_new_user_selection">"Select an e-mail address from contacts."</string>
+    <string name="access_sharing_new_user_access_details">"Access Details"</string>
+
+    <!-- What does this text mean? -->
+    <string name="access_sharing_admin_role">"Full with sharing permissions"</string>
+    <string name="access_sharing_user_role">"Parcel pickup only"</string>
+    <string name="access_sharing_warning_message">"Are you sure?"</string>
+    <string name="toast_access_sharing_remove_success">"Successfully removed user %s from group!"</string>
+    <string name="toast_access_sharing_remove_error">"Error while removing user access, please try again later!"</string>
+    <string name="key_sharing_delete_key_message">"Are you sure?"</string>
+    <string name="app_generic_confirm">"Confirm"</string>
+    <string name="app_generic_cancel">"Cancel"</string>
+    <string name="app_generic_sign_in">"Sign in"</string>
+    <string name="app_generic_sign_out">"Sign out"</string>
+    <string name="app_generic_name">"Name"</string>
+    <string name="app_generic_phone">"Phone"</string>
+    <string name="app_generic_group">"Group name"</string>
+    <string name="app_generic_address">"Address"</string>
+    <string name="app_generic_email">"E-mail"</string>
+    <string name="app_generic_notifications">"Notifications"</string>
+    <string name="app_generic_push_notifications">"Push notifications"</string>
+    <string name="app_generic_password_recovery">"Forgot Your Password?"</string>
+    <string name="app_generic_pickup_parcel">"Collect parcel"</string>
+    <string name="app_generic_send_parcel">"Deposit parcel"</string>
+    <string name="app_generic_access_sharing">"Access sharing"</string>
+    <string name="app_generic_next">"Next"</string>
+    <string name="app_generic_finish">"Finish"</string>
+    <string name="app_generic_help">"Help"</string>
+    <string name="app_generic_no_ble">"Please turn Bluetooth on."</string>
+    <string name="send_parcel_available">"%s available"</string>
+    <string name="reset_password_title">"Reset Your Password"</string>
+    <string name="reset_password_description_title">"Please enter your new password"</string>
+    <string name="reset_password_new">"New password"</string>
+    <string name="reset_password_pin">"Recovery pin (Send by email)*"</string>
+    <string name="reset_password_confirm">"Confirm password"</string>
+    <string name="reset_password_done">"Done"</string>
+
+    <!-- In App messages -->
+    <string name="toast_access_sharing_add_user_success">"Success"</string>
+    <string name="default_notification_channel_id">"fcm_default_channel"</string>
+    <string name="default_notification_channel_name">"News"</string>
+    <string name="select_locker_description">"Please select a locker you would like to use."</string>
+    <string name="access_sharing_share_choose_sharing">"Choose sharing method"</string>
+
+    <!-- Fuzzy -->
+    <string name="access_sharing_share_app_text_zwick">"You are invited to use ZWICKbox app."</string>
+    <string name="sent_parcel_error_delete">"Error while deleting the key for user %s, please try again!"</string>
+    <string name="app_generic_no_network">"No Internet connection"</string>
+    <string name="error_while_saving_user">"Error while saving user id %s please try again!"</string>
+    <string name="nav_settings_password_update_success">"Password successfully updated!"</string>
+    <string name="ttc_btn">"I accept Terms &amp; Conditions."</string>
+    <string name="error_accept_terms_and_conditions">"Please accept Terms &amp; Conditions."</string>
+    <string name="nav_ttc_title">"Terms &amp; Conditions"</string>
+    <string name="app_generic_password_doesnt_match">"Passwords don't match"</string>
+    <string name="privacy_policy_contact_us_title">"Contact us"</string>
+    <string name="send_parcel_description">"Please select locker size"</string>
+    <string name="edit_user_validation_blank_fields_exist">"Please enter all user information."</string>
+    <string name="edit_user_validation_current_password_invalid">"Current password not correct!"</string>
+    <string name="edit_user_validation_current_user_invalid">"Current user is not valid!"</string>
+    <string name="edit_user_validation_passwords_do_not_match">"Password is incorrect"</string>
+    <string name="edit_user_validation_password_min_6_characters">"Password must be at least 6 characters long"</string>
+    <string name="edit_user_validation_username_min_4_characters">"Username must be at least 4 characters long"</string>
+    <string name="edit_user_validation_terms_and_conditions_not_checked">"Please accept General Terms and Conditions and Privacy Statement."</string>
+    <string name="edit_user_notification_setting_email">"E-mail"</string>
+    <string name="message_email_invalid">"E-mail address not valid!"</string>
+    <string name="nav_login_missing_account">"Don't have an account yet?"</string>
+    <string name="login_register_text">"Don’t have an account yet? Register"</string>
+    <string name="login_register_link">"Register"</string>
+    <string name="access_sharing_pop_up_title">"Share your key"</string>
+    <string name="access_sharing_group_selection">"Group"</string>
+    <string name="app_generic_error">"Error"</string>
+    <string name="email_error">"You don't have e-mail account setup"</string>
+    <string name="register_error">"Error while registering the user"</string>
+    <string name="register_error_data">"Please check entered data"</string>
+    <string name="register_error_empty">"Please fill in all required fields"</string>
+    <string name="login_error_title">"Invalid username and/or password"</string>
+    <string name="login_error_incorrect">"Not valid username or password!"</string>
+    <string name="forgot_password_error">"Please enter your e-mail address"</string>
+    <string name="reset_password_error">"Entered PIN is invalid"</string>
+    <string name="reset_password_succes">"Your password has been reset successfully"</string>
+    <string name="reset_password_resend_alert">"Mail sent. Please check your inbox"</string>
+    <string name="reset_password_error_empty">"Please fill in all the fields"</string>
+    <string name="reset_password_match_error">"Entered passwords do not match"</string>
+    <string name="pickup_parcel_fetch_error">"Failure while fetching pick at friend keys"</string>
+    <string name="locker_details_request_error">"Error while requesting access"</string>
+    <string name="pickup_parcel_cancel_error">"Failure while canceling pick at friend key"</string>
+    <string name="pickup_parcel_create_error">"User already has access"</string>
+    <string name="pickup_parcel_email_error">"E-mail is not valid"</string>
+    <string name="pickup_parcel_door_error">"Error while openning door"</string>
+    <string name="app_generic_enter_email">"Enter e-mail address"</string>
+    <string name="app_generic_success">"Success"</string>
+    <string name="send_parcel_error_select">"Please select size"</string>
+    <string name="send_parcel_error_pin">"Please enter correct PIN"</string>
+    <string name="access_sharing_error_delete">"Error when deleting member"</string>
+    <string name="grant_access_error">"User not found. Click OK if you want to share the app"</string>
+    <string name="settings_update_error">"User profile update failed"</string>
+    <string name="settings_update_success">"All changes are saved"</string>
+    <string name="nav_settings_logout_description">"Are you sure?"</string>
+    <string name="app_generic_time_created">"Created: %s"</string>
+
+    <!-- App version %s -->
+    <string name="nav_settings_app_version">"App version %s"</string>
+    <string name="app_generic_help_link">"&lt;a href=\"mailto:support@zwick.it\"&gt;support@zwick.it&lt;/a&gt;"</string>
+
+    <!-- Activate -->
+    <string name="locker_details_activate_btn">"Activate"</string>
+
+    <!-- support@huber-ag.ch -->
+    <string name="app_generic_support_email">"support@zwick.it"</string>
+    <string name="grant_access_error_exists">"User already has access"</string>
+    <string name="grant_acces_empty_email">"Please enter e-mail address"</string>
+    <string name="access_sharing_my_group">"MY GROUP"</string>
+    <string name="access_sharing_other_group">"OTHER"</string>
+    <string name="locker_details_deactivation_hint">"Are you sure you want to deactivate this locker?"</string>
+    <string name="locker_datails_deactivate">"Deactivate locker"</string>
+    <string name="locker_details_header">"Edit locker details"</string>
+    <string name="app_generic_access_forbidden">"Access forbidden"</string>
+    <string name="app_generic_not_activated">"Not activated"</string>
+    <string name="locker_datails_save">"SAVE"</string>
+
+    <!-- Registration -->
+    <string name="registration_name">"Name &amp; Surname*"</string>
+
+    <!-- Registration -->
+    <string name="registration_address">"Address*"</string>
+
+    <!-- Registration -->
+    <string name="registration_email">"E-mail*"</string>
+
+    <!-- Registration -->
+    <string name="registration_password">"Password*"</string>
+
+    <!-- Registration -->
+    <string name="registration_repeat_password">"Repeat password*"</string>
+
+    <!-- Force open -->
+    <string name="app_generic_force_open">"Force open"</string>
+    <string name="locker_details_deactivation_key_error">"SPL can't be deactivated because of the active key."</string>
+    <string name="peripheral_settings_share_access_spl">"Share access to delivery (created: %s)"</string>
+    <string name="peripheral_settings_remove_access_spl">"Remove access to delivery (created: %s) given to %s"</string>
+    <string name="peripheral_settings_grant_access_spl">"%s shared you access to delivery (created: %s)"</string>
+
+    <!-- Delete p@f key created for [userName] -->
+    <string name="parcel_pickup_delete_key_title">"Delete p@f key created for %s"</string>
+
+    <!-- Are you sure you want to delete this key? -->
+    <string name="pickup_parcel_delete_content">"Are you sure you want to delete this key?"</string>
+    <string name="forgot_password_email_error">"E-mail doesn't exist in the system."</string>
+
+    <!-- new terms for zwick app.. terms above are taken, are the same like in huber app -->
+    <string name="home_hi">"Hi"</string>
+    <string name="home_question">"What would you like to do today?"</string>
+    <string name="locker_inactive">"INACTIVE"</string>
+    <string name="locker_no_access">"NO ACCESS"</string>
+    <string name="locker_request_send">"REQUEST SENT"</string>
+    <string name="locker_pick_home_keys">"Pick@home keys"</string>
+    <string name="locker_home_keys_proximity">"You have to be in the proximity of the locker to cancel pick@home"</string>
+    <string name="locker_pin_title">"Please Type in Your PIN"</string>
+    <string name="locker_pin_4_digits">"Your PIN = last 4 digits of your tracking number."</string>
+    <string name="locker_pin_confirm_title">"Please Repeat Your PIN"</string>
+    <string name="locker_pin_confirm_description">"To be sure there was no mistake please repeat your PIN"</string>
+    <string name="locker_pin_confirm_error">"PIN doesn't match previous PIN"</string>
+    <string name="settings_title">"SETTINGS"</string>
+    <string name="settings_account_details">"My details"</string>
+    <string name="settings_privacy_policy">"Privacy policy"</string>
+    <string name="settings_language_eng">"English"</string>
+    <string name="settings_language_de">"German"</string>
+    <string name="settings_language_it">"Italian"</string>
+    <string name="settings_language_fr">"French"</string>
+    <string name="settings_account_title">"ACCOUNT"</string>
+    <string name="settings_support">"SUPPORT"</string>
+    <string name="app_generic_apply">"Apply"</string>
+    <string name="current_password">"CURRENT PASSWORD"</string>
+    <string name="new_password">"NEW PASSWORD"</string>
+    <string name="retype_password">"RETYPE NEW PASSWORD"</string>
+    <string name="collect_parcel_title">"COLLECTING PARCELS"</string>
+    <string name="sending_parcels_title">"SENDING PARCELS"</string>
+    <string name="logout_question">"Are you sure you want to sign out?"</string>
+    <string name="logout_again">"You can sign in again at any time."</string>
+    <string name="something_went_wrong">"Something went wrong, please try again."</string>
+    <string name="cancel_pick_home">"CANCEL PICK@HOME"</string>
+    <string name="not_in_proximity_description">"Seems that you are not near your locker. Get into proximity of locker %s to unlock it."</string>
+    <string name="privacy_policy_title">"Privacy Policy"</string>
+
+    <!-- Fuzzy -->
+    <string name="privacy_policy_zwick">"Last updated: June 2019
+
+
+ZWICK (referred to as \"we\", \"us\" or \"our\") is committed to safeguarding your privacy and ensuring that you trust ZWICK with your personal data. When you (referred to as \"Visitor\") interact with us with regards to requiring additional information about our services or subscribing to our newsletter, you may share personal data with us which allows identification of you as an individual (e.g. name, last name, e-mail address and company name). In this notice, we elaborate how we use that data and what are your rights while interacting with us on this website/app.
+
+
+1. Introduction
+This Privacy Notice applies to the personal data that we collect about you for the purposes of providing you with our products and services we offer. By using our website/app, or by giving us your personal data, you accept the practices described in this Privacy Notice. If you do not agree to this Privacy Notice, please do not use our site or give us any personal data. ZWICK reserves the right to make changes to this Privacy Notice at any time. We encourage you to regularly review this Privacy Notice to make sure you are aware of any changes and how your personal data may be used.
+
+
+2. Data collected by this website/app
+Personal Data which this we website/app collects include Usage Data, first and last name, e-mail information and company name. Name, e-mail and company name is freely provided by the 
+Providing personal data is not mandatory on this website/app, and failure to provide it will not make it impossible for the website/app to provide its services. In case of Usage Data, we use cookies which are automatically collected while visiting the website/app.
+
+2.1. Cookies
+Cookies are files with small amount of data that is commonly used an anonymous unique identifier. These are sent to your browser from the website/app that you visit and are stored on your computer's hard drive. Our website/app uses these \"cookies\" to collection information and to improve our Service. You have the option to either accept or refuse these cookies, and know when a cookie is being sent to your computer.
+
+
+2.2. Children's personal data
+ZWICK does not knowingly solicit or collect personal data from children below the age of 13. If we discover that we have accidentally collected personal data from a child below 13, we will remove that child's personal data from its records as soon as reasonably possible. However, we may collect personal data about children below the age of 13 years of age from the parent or custodian directly and therefore with their explicit consent.
+
+
+3. Your rights
+
+3.1. Right to opt-out of newsletter communication
+You have the right to opt-out of receiving newsletters from ZWICK. You can do so directly from your e-mail by clicking \"unsubscribe\". If you didn't keep any of previous newsletters you can unsubscribe by sending an e-mail to support@zwick.it requesting to be removed from newsletter list.
+
+3.2. Access and rectification
+You have a right to request access to your personal data. You may send us a request, at any time, in order to consult us to learn about your Personal Data contents and origin, to verify data accuracy or to ask for data to be supplemented, cancelled, updated or corrected. Requests should be send to us at the contact information set out above, and will be answered in no more than 30 days.
+
+3.3. Retention
+ZWICK will only retain your personal data for as long as it is necessary for the stated purpose (receiving pdf information requested through form or receiving occasional newsletters), taking into account also our need to answer queries or resolve problems, provide improved and new services, and comply with legal requirements under applicable laws. This means that we may retain your personal data for a reasonable period after your last interaction with us. When the personal data that we collect is no longer required in this way, we destroy or delete it in a secure manner.
+
+
+4. Contact us
+ZWICK acts as \"data controller\" for the personal data it processes in the framework of this Privacy Notice. If you have any questions or comments regarding this Privacy Notice or ZWICK's personal data collection practices, please contact us via e-mail support@zwick.it or in writing to ZWICK SRL, Zona Produttiva 25, I-39028 Silandro (BZ). We will respond to your inquiry in no longer than 30 days."</string>
+    <string name="terms_and_condtions_title">"Terms &amp; Conditions"</string>
+
+    <!-- Fuzzy -->
+    <string name="terms_and_condtions_zwick">"Last updated: June 2019
+
+
+- Acceptance of Terms:
+Welcome to ZWICKbox Smart Locker owned and operated by ZWICK. ZWICK provides tools and technology to make it easier than ever to send and receive packages on your schedule. ZWICK uses website, mobile application, a connected parcel locker, software, processes and services to allow users to accept and send packages (collectively the \"Services\").
+
+By using the Services, you agree to comply with and be legally bound by these Terms &amp; Conditions (\"Terms\"), whether or not you become a registered user of the Services. These Terms govern your access to and use of the Services and constitute a binding legal agreement between you and ZWICK. In these Terms, \"you\", \"your\" and \"User\" refer to the individual or entity that uses the Services. \"We\", \"us\", or \"our\" refer to ZWICK. If you are entering into these Terms on behalf of a company or other legal entity, you represent that you have the authority to bind such entity, its Users, its Administrators, and its affiliates to these Terms. 
+
+Please read carefully these Terms and our Privacy Policy (which are incorporated herein and may found at www.ZWICK.it).
+
+You acknowledge and agree that, by accessing or using the services, you are indicating that you have read, and that you understand and agree to be bound by these terms, whether or not you have registered. If you do not agree to these terms, then you should not register as a user and you have no right to access or use the services.
+
+
+
+- Modification:
+ZWICK reserves the right to modify or discontinue, temporarily or permanently, any aspect of the Services at any time and without prior notice. ZWICK may also modify these Terms at any time. By continuing to access or use the Services after we have posted a modification or have provided you with notice of a modification of these Terms, you are indicating that you agree to be bound by the modified Terms. If the modified Terms are not acceptable to you, your only recourse is to cancel your account and stop using the Services.
+
+
+
+- Eligibility; Digital Signature:
+The Services are intended solely for persons who are 18 or older who are fully able and competent to enter into the terms, conditions, obligations, affirmations, representations, and warranties set forth in these Terms, and to abide by and comply with these Terms. 
+
+By registering for a free User Account, or by clicking to accept these Terms, you are deemed to have executed these Terms electronically, effective on the date you register your Account. Your creating of a User account constitutes an acknowledgement that you are able to electronically receive, download, and print these Terms, and any amendments.
+
+
+
+- How the Services Work:
+
+The Services consist of tools, technology and services available via a platform by which Users with a current and valid User Account can accept and send packages.
+
+To access and use the Services, you must register an account (\"User Account\") and become a User. You agree to provide accurate, current and complete information during registration and to update such information to keep it accurate, current and complete. You agree that you will safeguard your password and that you are solely responsible for any activities or actions under your User-Account, whether or not you have authorized such activities or actions. You will immediately notify us of any unauthorized use of your User Account. ZWICK assumes no responsibility for User Account information.
+
+To use the Services, you also must be registered with a ZWICKbox Smart Locker. You will receive push notification via the ZWICK app regarding when any package is delivered to your Locker or picked-up from your Locker for delivery. If you experience any technical or other difficulty in retrieving your package from your box, please contact us at support@zwick.it.
+
+ZWICK's role is solely to facilitate the availability of the Services, including Lockers, and to provide support related thereto. ZWICK is not a courier and is not involved in the transportation of packages.
+
+
+
+- User Representations and Warranties:
+By submitting the User registration form, you represent, warrant and agree to the following:
+
+o You are at least 18 years of age, are authorized to create a User Account, and have full power and authorization to enter into these Terms.
+
+o You accept and agree that we have no responsibility or liability for the storage or transmission of packages, and that all aspects of package shipping and delivery remains controlled in all respects by the relationship between you, any delivery service which uses your Locker, and any company sending packages to you. Your Locker is in your control and you are responsible for your packages as if you engaged personally with the delivery service.
+
+
+
+- Ownership:
+All trademarks, service marks, logos, trade names and any other proprietary designations of ZWICK used herein are trademarks or registered trademarks of ZWICK. Any other trademarks, service marks, logos, trade names and any other proprietary designations are the trademarks or registered trademarks of their respective parties.
+
+
+
+- License to Services and ZWICK Content:
+Subject to your compliance with these Terms, ZWICK grants you a limited, non-exclusive, revocable, non-transferable license to access and view any ZWICK Content to which you are permitted access, solely for your personal purposes. 
+
+You will not use, copy, adapt, modify, prepare derivative works based upon, distribute, license, sell, transfer, publicly display, publicly perform, transmit, broadcast or otherwise exploit the Services or ZWICK Content, except as expressly permitted in these Terms. No licenses or rights are granted to you by implication or otherwise under any intellectual property rights owned or controlled by ZWICK or its licensors, except for the licenses and rights expressly granted in these Terms.
+
+
+
+- Termination and User Account Deactivation:
+These Terms will continue in full effect unless and until your account or these Terms are terminated as described herein. You have the right to deactivate your account at any time by using the account deactivation interface provided in the ZWICK app. Only Owners have the ability to deactivate and delete team accounts. All accrued rights to payment and rights granted to ZWICK, as well as the terms below, shall survive termination of these Terms.
+
+
+
+- Disclaimers:
+If you choose to use the services, you do so at your sole risk. The services and content are provided \"as is\", without warranty of any kind, either express or implied. Without limiting the foregoing, ZWICK explicitly disclaims any warranties of merchantability, fitness for a particular purpose, quiet enjoyment or non-infringement, and any warranties arising out of course of dealing or usage of trade. ZWICK makes no warranty that the website, application, services, or content will meet your requirements or be available on an uninterrupted, secure, or error-free basis. We further disclaim any guarantee that the boxes or items deposited in them will not be subject to theft, fire, water damage, inclement weather, vandalims or loss or damage generally.
+
+You are solely responsible for all packages sent or received by you until a delivery service takes legal possession according to the terms and conditions of that delivery service. At no time is ZWICK in possession of or in any way responsible for any package, including when it is contained within your box. You acknowledge and agree to indemnify and hold ZWICK harmless in connection with any claim and any damages or expenses arising from your use of the services.
+
+
+
+- Limitation of Liability
+You acknowledge and agree that, to the maximum extent permitted by law, the entire risk arising out of your access to and use of the services remains with you. Neither ZWICK nor any other party involved in creating, producing or delivering the services or content will be liable for any incidental, special, exemplary or consequential damages, including lost profits, loss of data or loss of goodwill, service interruption, computer damage or system failure or the cost of substitute products or services, or for any damages for personal or bodily injury or emotional distress arising our of or in connection with these terms, or from the use of or inability to use the services or content, whether based on warranty, contract, tort (including negligence), product liability or any other legal theory, and whether or not ZWICK has been informed of the possibility of such damage, even if a limited remedy set forth herein is found to have failed of its essential purpose.
+
+
+
+- Indemnification:
+You agree to release, defend, indemnify, and hold ZWICK and its affiliates and subsidiaries, and their officers, directors, employees and agents, harmless from and against any claims, liabilities, damages, losses, and expenses, including, without limitation, reasonable legal fees, arising out of or in any way connected with (a) your access to or use of the Services; (b) your violation of these Terms; (c) your User Content; (c) your reliance on any information exchanged via the Services; (d) your violation of any third party right, including without limitation any copyright, property, or privacy right; or (e) any claim that you or your User Content caused damage to a third party. ZWICK shall have the right to control all defense and settlement activities.
+
+
+
+- Assignment:
+You may not assign or transfer these Terms, by operation of law or otherwise, without ZWICK's prior written consent. Any attempt by you to assign or transfer these Terms, without such consent, will be null and of no effect. ZWICK may assign or transfer these Terms, at its sole discretion, without restriction. Subject to the foregoing, these Terms will bind and inure to the benefit of the parties, their successors and permitted assigns.
+
+
+
+- Notices:
+Unless otherwise specified herein, any notices or other communications permitted or required hereunder, including those regarding modifications to these Terms, will be in writing and given by ZWICK (i) via e-mail to the e-mail address on your account or (ii) by posting to the website or via the application. For notices made by e-mail, the date of receipt will be deemed the date on which such notice is transmitted. You may provide notice to us by e-mail at support@zwick.it
+
+
+
+- Applicable Law and Place of Jurisdiction:
+The courts of ZWICK's registered office and principal place of business shall have exclusive jurisdiction and venue. However, ZWICK is also free to appeal to the court of competent jurisdiction at the registered office and principal place of business or domicile of the customer. All legal relations between the customer and ZWICK shall be subject to the substantive law. The Vienna Convention on the International Sale of Goods shall not apply."</string>
+    <string name="main_title">"Hi %s!"</string>
+    <string name="main_subtitle">"What would you like to do today?"</string>
+    <string name="locker_selection_description">"Please select locker you would like to use"</string>
+    <string name="locker_selection_title">"SELECT LOCKER"</string>
+    <string name="locker_registrated_label">"REGISTERED"</string>
+    <string name="locker_not_in_proximity_label">"NOT IN PROXIMITY"</string>
+    <string name="locker_inactive_label">"INACTIVE"</string>
+    <string name="locker_activate_btn">"ACTIVATE"</string>
+    <string name="locker_request_access_btn">"REQUEST ACCESS"</string>
+    <string name="locker_request_sent_label">"REQUEST SENT"</string>
+    <string name="locker_request_no_access">"NO ACCESS"</string>
+    <string name="locker_request_access_success">"Thank you! Your request was submitted.
+
+We’ll notify you once your access has been granted."</string>
+    <string name="collect_parcel_help_text">"With our app you can easily collect parcels delivered to you at any convenient time.
+
+ You need to make sure you have a stable internet connection, bluetooth turned on and are in a proximity of the locker.
+
+ If all above mentioned prerequisites are met you can proceed with parcel pickup.
+
+Scenario one: Lock icon is grey = you are not meeting above mentioned prerequisites. Please check if your internet connection is stable, bluetooth is enabled and you are in proximity of the locker.
+
+Scenario two: Lock icon is red = you are meeting all the prerequisites and are ready to pickup your parcel. Just press the red lock icon and locker will open immediately.
+
+Scenario three: Lock icon is green = your locker doors opened, you picked up your parcel. In this step you need to close the door and push “CONFIRM” button within the App."</string>
+    <string name="collect_parcel_help_text_first_subtitle">"Scenario one:"</string>
+    <string name="collect_parcel_help_text_second_subtitle">"Scenario two:"</string>
+    <string name="collect_parcel_help_text_third_subtitle">"Scenario three:"</string>
+    <string name="send_parcel_help_text">"With our app you can easily send parcels using single or multiple parcel lockers that you own / have access to.
+
+You need to make sure you have a stable internet connection, bluetooth turned on and are in a proximity of  the locker.
+
+In the first step you need to choose size of your parcel (MPL users only).
+
+Secondly, you enter last four digits of tracking number granted by your service provider. Those four numbers make your PIN which will later on be used by courier to pickup your parcel.
+
+Final step includes placing package in the open locker, closing the door and pushing “FINISH” button within the App.
+
+"</string>
+    <string name="sharing_help_text">"With our app you can share access to your locker to a trusted person - third parties authorised to use your locker.
+
+You can choose from the list of available users (predefined group) for a one-tap action of granting/removing access.
+
+Another option is manual entry where you are required to fill in name, e-mail address (can also be selected from contacts) and define access details. You can choose to “Grant full access” with sharing permissions (meaning that your trusted person has an option to share access to other trusted persons) or “Parcel pickup only”.
+
+Trusted person also needs to be an App user. If they are not, they should be prompted to install the App in order to use this service."</string>
+    <string name="access_sharing_parcel_locker">"Parcel Locker"</string>
+    <string name="app_generic_my_configuration">"My configuration"</string>
+    <string name="pickup_parcel_empty">"Empty"</string>
+    <string name="key_locker">"Locker: %s"</string>
+    <string name="key_locker_size">"Locker size: %s"</string>
+    <string name="send_parcel_full">"No free lockers"</string>
+    <string name="send_parcel_not_available">"Not available"</string>
+    <string name="settings_account">"ACCOUNT"</string>
+    <string name="settings_contact">"Contact"</string>
+    <string name="locker_not_empty">"LOCKER NOT EMPTY"</string>
+    <string name="share_access_group_members_empty">"Nobody from your group members has access to this locker. Press the + icon to add a new member to your access sharing group."</string>
+    <string name="share_access_group_membership_empty">"You are currently not a member of anyone's access sharing group."</string>
+    <string name="no_access_sharing_rights">"There are no lockers (MPL or SPL) that could be shared. You need to be owner of SPL or in some group of MPL."</string>
+    <string name="group_name_correct_start">"Group name can not start with empty space."</string>
+    <string name="generated_pin_title">"We have generated a new PIN for your delivery:"</string>
+    <string name="generated_pin_description">"Please do not forget to send this PIN to the recipient of this parcel. If the packet should be picked up by the Swiss Post please make \"Pick at Home\" process directly with Post service and write this PIN in the pick-up explanation text."</string>
+    <string name="app_generic_parcel_pin">"Parcel PIN: %s"</string>
+    <string name="no_lockers_to_select">"There aren't any lockers to select."</string>
+    <string name="terms_and_condtions_flexi">"Last updated: February 2020
+
+Acceptance of Terms
+Welcome to Flexilocker app owned and operated by Smart Locker Technologies AG (collectively, \"Smart Locker Technologies\", \"we\", \"us\" or \"our\"), a Swiss company. Smart Locker Technologies provides tools and technology to make it easier than ever to send and receive packages on your schedule. Smart Locker Technologies uses website, mobile application, a connected parcel locker, software, processes and services to allow users to accept and send packages (collectively the \"Services\").
+
+By using the Services, you agree to comply with and be legally bound by these Terms &amp; Conditions (\"Terms\"), whether or not you become a registered user of the Services. These Terms govern your access to and use of the Services and constitute a binding legal agreement between you and Smart Locker Technologies. In these Terms, \"you\", \"your\" and \"User\" refer to the individual or entity that uses the Services. \"We\", \"us\", or \"our\" refer to Swiss Inno Lab AG. If you are entering into these Terms on behalf of a company or other legal entity, you represent that you have the authority to bind such entity, its Users, its Administrators, and its affiliates to these Terms.
+
+Please read carefully these Terms and our Privacy Policy (which are incorporated herein and may be found at www.smartlockertec.com).
+
+YOU ACKNOWLEDGE AND AGREE THAT, BY ACCESSING OR USING THE SERVICES, YOU ARE INDICATING THAT YOU HAVE READ, AND THAT YOU UNDERSTAND AND AGREE TO BE BOUND BY THESE TERMS, WHETHER OR NOT YOU HAVE REGISTERED. IF YOU DO NOT AGREE TO THESE TERMS, THEN YOU SHOULD NOT REGISTER AS A USER AND YOU HAVE NO RIGHT TO ACCESS OR USE THE SERVICES.
+
+Modification
+Smart Locker Technologies reserves the right to modify or discontinue, temporarily or permanently, any aspect of the Services at any time and without prior notice. Smart Locker Technologies may also modify these Terms at any time. By continuing to access or use the Services after we have posted a modification or have provided you with notice of a modification of these Terms, you are indicating that you agree to be bound by the modified Terms. If the modified Terms are not acceptable to you, your only recourse is to cancel your account and stop using the Services.
+
+Eligibility; Digital Signature
+The Services are intended solely for persons who are 18 or older who are fully able and competent to enter into the terms, conditions, obligations, affirmations, representations, and warranties set forth in these Terms, and to abide by and comply with these Terms. The Services are not intended for children under 13; if you are under 13 years of age, then please do not use the Service.
+
+By registering for a free User Account, or by clicking to accept these Terms, you are deemed to have executed these Terms electronically, effective on the date you register your Account. Your creating of a User account constitutes an acknowledgement that you are able to electronically receive, download, and print these Terms, and any amendments.
+
+How the Services Work
+The Services consist of tools, technology and services available via a platform by which Users with a current and valid User Account can accept and send packages.
+
+To access and use the Services, you must register an account (\"User Account\") and become a User. You agree to provide accurate, current and complete information during registration and to update such information to keep it accurate, current and complete. You agree that you will safeguard your password and that you are solely responsible for any activities or actions under your User Account, whether or not you have authorized such activities or actions. You will immediately notify us of any unauthorized use of your User Account. Smart Locker Technologies assumes no responsibility for User Account information.
+
+To use the Services, you also must be registered with Smart Locker Technologies. You will receive push notification via the Flexilocker app regarding when any package is delivered to your Locker or picked-up from your Locker for delivery. If you experience any technical or other difficulty in retrieving your package from your box, please contact us at info@smartlockertec.com.
+
+Smart Locker Technologies' role is solely to facilitate the availability of the Services, including Lockers, and to provide support related thereto. Smart Locker Technologies is not a courier and is not involved in the transportation of packages.
+
+User Representations and Warranties
+By submitting the User registration form, you represent, warrant and agree to the following:
+
+You are at least 18 years of age, are authorized to create a User Account, and have full power and authorization to enter into these Terms.
+You accept and agree that we have no responsibility or liability for the storage or transmission of packages, and that all aspects of package shipping and delivery remains controlled in all respects by the relationship between you, any delivery service which uses your Locker, and any company sending packages to you.
+Your Locker is in your control and you are responsible for your packages as if you engaged personally with the delivery service.
+Ownership
+All trademarks, service marks, logos, trade names and any other proprietary designations of Smart Locker Technologies used herein are trademarks or registered trademarks of Smart Locker Technologies. Any other trademarks, service marks, logos, trade names and any other proprietary designations are the trademarks or registered trademarks of their respective parties.
+
+License to Services and Smart Locker Technologies Content
+Subject to your compliance with these Terms, Smart Locker Technologies grants you a limited, non-exclusive, revocable, non-transferable license to access and view any Flexilocker content to which you are permitted access, solely for your personal purposes.
+
+You will not use, copy, adapt, modify, prepare derivative works based upon, distribute, license, sell, transfer, publicly display, publicly perform, transmit, broadcast or otherwise exploit the Services or Flexilocker Content, except as expressly permitted in these Terms. No licenses or rights are granted to you by implication or otherwise under any intellectual property rights owned or controlled by Smart Locker Technologies or its licensors, except for the licenses and rights expressly granted in these Terms.
+
+Termination and User Account Deactivation
+These Terms will continue in full effect unless and until your account or these Terms are terminated as described herein. You have the right to deactivate your account at any time by using the account deactivation interface provided in the Flexilocker app. Only Owners have the ability to deactivate and delete team accounts. All accrued rights to payment and rights granted to Smart Locker Technologies, as well as the terms below, shall survive termination of these Terms.
+
+Disclaimers
+IF YOU CHOOSE TO USE THE SERVICES, YOU DO SO AT YOUR SOLE RISK. THE SERVICES AND CONTENT ARE PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED. WITHOUT LIMITING THE FOREGOING, SWISS INNO LAB EXPLICITLY DISCLAIMS ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT OR NON-INFRINGEMENT, AND ANY WARRANTIES ARISING OUT OF COURSE OF DEALING OR USAGE OF TRADE. SWISS INNO LAB MAKES NO WARRANTY THAT THE WEBSITE, APPLICATION, SERVICES, OR CONTENT WILL MEET YOUR REQUIREMENTS OR BE AVAILABLE ON AN UNINTERRUPTED, SECURE, OR ERROR-FREE BASIS. WE FURTHER DISCLAIM ANY GUARANTEE THAT THE BOXES OR ITEMS DEPOSITED IN THEM WILL NOT BE SUBJECT TO THEFT, FIRE, WATER DAMAGE, INCLEMENT WEATHER, VANDALISM OR LOSS OR DAMAGE GENERALLY..
+
+YOU ARE SOLELY RESPONSIBLE FOR ALL PACKAGES SENT OR RECEIVED BY YOU UNTIL A DELIVERY SERVICE TAKES LEGAL POSSESSION ACCORDING TO THE TERMS AND CONDITIONS OF THAT DELIVERY SERVICE. AT NO TIME IS SWISS INNO LAB IN POSSESSION OF OR IN ANY WAY RESPONSIBLE FOR ANY PACKAGE, INCLUDING WHEN IT IS CONTAINED WITHIN YOUR BOX. YOU ACKNOWLEDGE AND AGREE TO INDEMNIFY AND HOLD SWISS INNO LAB HARMLESS IN CONNECTION WITH ANY CLAIM AND ANY DAMAGES OR EXPENSES ARISING FROM YOUR USE OF THE SERVICES.
+
+Limitation of Liability
+YOU ACKNOWLEDGE AND AGREE THAT, TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE ENTIRE RISK ARISING OUT OF YOUR ACCESS TO AND USE OF THE SERVICES REMAINS WITH YOU. NEITHER SWISS INNO LAB NOR ANY OTHER PARTY INVOLVED IN CREATING, PRODUCING OR DELIVERING THE SERVICES OR CONTENT WILL BE LIABLE FOR ANY INCIDENTAL, SPECIAL, EXEMPLARY OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS, LOSS OF DATA OR LOSS OF GOODWILL, SERVICE INTERRUPTION, COMPUTER DAMAGE OR SYSTEM FAILURE OR THE COST OF SUBSTITUTE PRODUCTS OR SERVICES, OR FOR ANY DAMAGES FOR PERSONAL OR BODILY INJURY OR EMOTIONAL DISTRESS ARISING OUR OF OR IN CONNECTION WITH THESE TERMS, OR FROM THE USE OF OR INABILITY TO USE THE SERVICES OR CONTENT, WHETHER BASED ON WARRANTY, CONTRACT, TORT (INCLUDING NEGLIGENCE), PRODUCT LIABILITY OR ANY OTHER LEGAL THEORY, AND WHETHER OR NOT SWISS INNO LAB HAS BEEN INFORMED OF THE POSSIBILITY OF SUCH DAMAGE, EVEN IF A LIMITED REMEDY SET FORTH HEREIN IS FOUND TO HAVE FAILED OF ITS ESSENTIAL PURPOSE.
+
+Indemnification
+You agree to release, defend, indemnify, and hold Smart Locker Technologies and its affiliates and subsidiaries, and their officers, directors, employees and agents, harmless from and against any claims, liabilities, damages, losses, and expenses, including, without limitation, reasonable legal fees, arising out of or in any way connected with (a) your access to or use of the Services; (b) your violation of these Terms; (c) your User Content; (c) your reliance on any information exchanged via the Services; (d) your violation of any third party right, including without limitation any copyright, property, or privacy right; or (e) any claim that you or your User Content caused damage to a third party. Smart Locker Technologies shall have the right to control all defense and settlement activities.
+
+Assignment
+You may not assign or transfer these Terms, by operation of law or otherwise, without Smart Locker Technologies’s prior written consent. Any attempt by you to assign or transfer these Terms, without such consent, will be null and of no effect. Smart Locker Technologies may assign or transfer these Terms, at its sole discretion, without restriction. Subject to the foregoing, these Terms will bind and inure to the benefit of the parties, their successors and permitted assigns.
+
+Notices
+Unless otherwise specified herein, any notices or other communications permitted or required hereunder, including those regarding modifications to these Terms, will be in writing and given by Smart Locker Technologies via e-mail to the e-mail address on your account or (ii) by posting to the website or via the application. For notices made by E-mail, the date of receipt will be deemed the date on which such notice is transmitted. You may provide notice to us by E-mail at info@smartlockertec.com.
+
+Applicable Law and Place of Jurisdiction
+All legal relations between the customer and Smart Locker Technologies shall be subject to Swiss substantive law. The Vienna Convention on the International Sale of Goods shall not apply.  The courts of Smart Locker Technologies' registered office and principal place of business shall have exclusive jurisdiction and venue. However, Smart Locker Technologies is also free to appeal to the court of competent jurisdiction at the registered office and principal place of business or domicile of the customer."</string>
+    <string name="privacy_policy_flexi">"Last updated: February 2020
+
+Smart Locker Technologies AG, as well as any affiliated or related company (collectively, \"Smart Locker Technologies\", \"we\", \"us\" or \"our\"), recognizes the importance of your privacy. This privacy policy tells you what personal information we collect and how we use it. Smart Locker Technologies may change this privacy policy from time to time, in its sole discretion, and any such changes will become effective when we post the revised privacy policy online.
+
+By using any Smart Locker Technologies equipment, website or application, or visiting any Smart Locker Technologies website or application product, software, data, content, and/or service (collectively, the \"Services\"), you are declaring that you understand and agree to the terms of this policy.
+
+1. What Information Do We Collect?
+a. Personally-Identifiable Information: We may collect personally identifiable information when you specifically and knowingly provide it to us, for example when you access the Services and provide User Content (as defined in the Flexilocker Terms of Service), or when you contact us with your name, address, or E-mail address. Smart Locker Technologies does not consider personal Information to include information that has been anonymized so that it does not allow a third party to easily identify a specific individual. We collect and use personally-identifiable information to operate and improve our Services, to allow you to provide third parties or other Users access to your User Content, to provide customer service, to communicate with you when requested, and to perform research and analysis aimed at improving our products, services and technologies.
+
+You may always choose not to provide personal information, but if you so choose, the Services will not be available to you. Note that personally identifiable information we collect and your User Content may be stored and processed outside of your country.
+
+b. Non-Personally-Identifiable Information: We may collect and aggregate non-personally identifiable information, such hardware types, geographic location, and access times and durations.
+
+c. Website Use and Technologies: When you use the Services, Smart Locker Technologies, or third parties on our behalf, may collect non-personally identifiable information via the use of pixels, programs, cookies and other similar technologies. Cookies, for example, are pieces of information that are transferred to an individual's hard drive for record-keeping purposes. They are used to assist you in using site information and content by saving your user preferences which allows us to identify registered users and save you time by eliminating the need to repeatedly enter the same information. They are also used to collect aggregate information about users on an anonymous basis. In addition to cookies, we may use other technologies, including single-pixel gifs (also known as web beacons) on our websites and in promotional e-mail messages or newsletters. These electronic images assist us in determining how many users have visited certain pages or opened messages or newsletters. We do not use these single-pixel gifs to collect personal information. You have the ability to accept or decline cookies.
+
+Most browsers automatically accept cookies, but you can modify your browser setting to decline cookies or to request your permission each time a service attempts to set a cookie. Please be aware that the site is optimally designed to operate with cookies enabled in your internet browser. If you choose to decline cookies, you may not be able to sign in or use other interactive features of the Services that depend on cookies.
+
+2. What Do We Do With The Information That We Collect?
+Except as disclosed in this privacy policy, Smart Locker Technologies does not share your personal information with any outside parties.
+
+a. Smart Locker Technologies will use the personally identifiable information directly submitted by you and your User Content solely for the purpose for which you have provided it, such as providing a third-party access to your User Content, or request information from us. We may share this as your agent and attorney-in-fact with the third-parties which you have selected to perform services on your behalf, or service providers who perform services on our behalf such as providing data storage, data transmission, etc. Those companies will be permitted to obtain only the personal information they need to provide the Services, will be required to maintain the confidentiality of the information, and will be prohibited from using it for any other purpose. Also, if we go through a corporate sale, merger, reorganization, dissolution or similar event, data we gather from you may be part of the assets transferred or shared in connection with due diligence for any such transaction. Any acquirer or successor company may continue to use the data we collect from you as described in this notice.
+
+b. Smart Locker Technologies, third-parties you authorize, or our third-party partners may use non-personally-identifiable information to track and analyze usage and volume statistical information from our users to administer content and to provide the Services. We may also perform statistical analysis of user behavior in order to measure interest in our online products and services for product development purposes.
+
+c. Disclosure: As a general rule, Smart Locker Technologies will not disclose any of your personally identifiable information or your User Content except under one of the following circumstances: we have your permission or it is legally required. Smart Locker Technologies may share the non-personally identifiable information that Smart Locker Technologies gathers, in aggregate form only, with advertisers and other partners.
+
+3. How Does A User Change Or Update Information?
+If you have any questions or concerns about this privacy policy or would like the personally identifiable information that you have provided to be removed from our files, please contact Smart Locker Technologies via e-mail at info@smartlockertec.com
+
+4. Security and Encryption
+We follow generally accepted industry standards to help protect your personal information. No method of transmission over the internet, mobile technology, or method of electronic storage, is completely secure. Therefore, while we endeavor to maintain physical, electronic, and procedural safeguards to protect the confidentiality of the information that we collect online, we cannot guarantee its absolute security.
+
+5. Changes to This Policy
+We reserve the right to change the terms of this privacy policy at any time. When we make changes, we will revise the \"last updated\" date at the top of the policy. If there are material changes to this statement or in how we will use your personal information, we will notify you by prominently posting a notice of such changes here or on our home page, or by sending you an e-mail. We encourage you to review this policy whenever you visit one of our sites."</string>
+    <string name="app_generic_help_link_flexi">"&lt;a href=\"mailto:support@flexilocker.com\"&gt;support@flexilocker.com&lt;/a&gt;"</string>
+    <string name="app_generic_support_email_flexi">"support@flexilocker.com"</string>
+    <string name="list_of_deliveries_cpl">"List of deliveries"</string>
+    <string name="tracking_number_cpl">"Tracking number:"</string>
+    <string name="delivered_cpl">"Delivered:"</string>
+    <string name="collect_deadline_cpl">"Collect deadline:"</string>
+    <string name="tan_cpl">"TAN:"</string>
+    <string name="courier_cpl">"Courier:"</string>
+    <string name="locker_size_cpl">"Locker size:"</string>
+    <string name="return_to_sender_cpl">"RETURN TO SENDER"</string>
+    <string name="deliveries_not_collected_cpl">"Deliveries not collected until deadline will be returned to the sender!"</string>
+    <string name="intro_welcome_slide_title">"Welcome"</string>
+    <string name="intro_welcome_slide_content">"Great that you have decided to use our Smart Locker. Please check out the most important features of the App!"</string>
+    <string name="intro_pickup_slide_title">"Pickup"</string>
+    <string name="intro_send_parcel_slide_title">"Deposit Parcel"</string>
+    <string name="intro_pickup_slide_content">"With our app you can easily pick up parcels delivered to you at any convenient time."</string>
+    <string name="intro_send_parcel_slide_content">"Sending a parcel has never been easier and more convenient."</string>
+    <string name="intro_key_sharing_slide_content">"You are away from your locker but need to send/pickup a parcel? Just share a permanent or temporary key to a friend or family member and provide access to your locker."</string>
+    <string name="intro_start_slide_content">"Already have an account?"</string>
+    <string name="intro_start_title">"Let's start!"</string>
+    <string name="registration_last_name">"Last name"</string>
+    <string name="registration_street">"Street*"</string>
+    <string name="registration_house_number">"House number*"</string>
+    <string name="registration_postcode">"Postcode*"</string>
+    <string name="registration_town">"Town*"</string>
+    <string name="registration_phone">"Phone"</string>
+    <string name="registration_reduced_mobility">"Reduced mobility"</string>
+    <string name="name_or_company_error_255_characters">"Name or company can not have more than 255 letters."</string>
+    <string name="last_name_error_255_characters">"Last name can not have more than 255 letters."</string>
+    <string name="street_error_255_characters">"Street can not have more than 255 letters."</string>
+    <string name="house_number_error_8_characters">"House number can not have more than 8 numbers."</string>
+    <string name="postcode_error_10_characters">"Postcode can not have more than 10 letters."</string>
+    <string name="town_error_30_characters">"Town can not have more than 30 letters."</string>
+
+    <!-- Fuzzy -->
+    <string name="accept_terms_and_conditions">"Accept T&amp;C"</string>
+    <string name="select_city_parcel_locker">"Select city parcel locker"</string>
+    <string name="registered_lockers_in_proximity">"Registered lockers in proximity"</string>
+    <string name="registered_lockers_not_in_proximity">"Registered lockers not in proximity"</string>
+    <string name="unregistered_lockers">"Unregistered lockers"</string>
+    <string name="register_account_as">"Register an accout as"</string>
+    <string name="register_account_person">"Person"</string>
+    <string name="register_account_company">"Company"</string>
+    <string name="app_generic_continue">"Continue"</string>
+    <string name="register_almost_there">"Almost there!"</string>
+    <string name="register_confirmation_mail">"Please check your e-mail to activate  account and then sign in to use the app."</string>
+    <string name="register_first_name">"First name*"</string>
+    <string name="register_company_name">"Company name*"</string>
+    <string name="register_reduced_mobility">"Person with reduced mobility"</string>
+    <string name="settings_name_or_company">"NAME / COMPANY"</string>
+    <string name="settings_username">"User name"</string>
+    <string name="locker_selected_title">"Selected locker"</string>
+    <string name="invite_user_title">"Your account details"</string>
+    <string name="invite_user_confirm_registration">"Confirm registration"</string>
+    <string name="password_need_to_be_different">"Password needs to be different then previous. Later you can change it again."</string>
+    <string name="you_are_new">"You are a new:"</string>
+    <string name="buyer">"buyer"</string>
+    <string name="retailer">"retailer"</string>
+    <string name="register_buyer_account">"Register buyer account"</string>
+    <string name="register_retailer_account">"Register retailer account"</string>
+    <string name="store_name">"Store name"</string>
+    <string name="shop">"Shop"</string>
+    <string name="invalid_address">"All fields street, house number, postcode and town needs to be filled correctly."</string>
+    <string name="email_already_exists">"This e-mail already exist in the system."</string>
+    <string name="please_check_email">"Please check your e-mail to activate account."</string>
+    <string name="resend_button_email">"Press Resend button to send new activation link to your e-mail."</string>
+    <string name="resend_button_text">"Resend"</string>
+    <string name="account_not_activated">"Account not activated"</string>
+    <string name="no_location_services">"No location services"</string>
+    <string name="app_name_flexi">"FlexiLocker"</string>
+    <string name="app_name_zwick">"ZWICKbox"</string>
+    <string name="app_name_cpl">"SmartBoxBasel"</string>
+    <string name="app_name_retail">"FlexiLocker RPL"</string>
+    <string name="app_name_flexilockercpl">"FlexiLocker CPL"</string>
+    <string name="nav_send_parcel_failed">"The opening of the locker was unsuccessful, please try again!"</string>
+    <string name="toast_pickup_parcel_error">"Error while connecting the device please check device proximity and user id %s"</string>
+    <string name="registration_group_name">"Group name*"</string>
+    <string name="edit_user_validation_group_name_min_4_characters">"Group name must be at least 4 characters long."</string>
+    <string name="pin_managment_title">"Select a PIN from the list or use the one we have generated for you."</string>
+    <string name="pin_managment_description">"Please do not forget to send this PIN to the recipient of this parcel. If the packet should be picked up by the Swiss Post please make \"Pick at Home\" process directly with Post service and write this PIN in the pick-up explanation text."</string>
+    <string name="pin_managment_generate">"(generated)"</string>
+    <string name="pin_managment_input_edittext">"Enter pin name"</string>
+    <string name="pin_managment_name_not_empty">"Pin name can not be empty."</string>
+    <string name="pin_managment_delete_pin">"DELETE"</string>
+    <string name="app_generic_are_you_sure">"Are you sure?"</string>
+    <string name="nav_ttc_subtitle">"Before proceeding, please read our T &amp; C:"</string>
+    <string name="ttc_btn_accept">"I accept terms &amp; conditions"</string>
+    <string name="ttc_main_conditions">"We are committed to protecting your privacy and take the security of our clients information very seriously.
+
+Cookies Policy. Information and Use of Cookies.
+What are Cookies?
+Cookies are small amounts of information which some websites store on your computer to make it easier for you to log on to and use them during future visits. In reality, a cookie is a small text file which is stored by the user’s browser and contains data, not code, so it can’t contain a virus or spyware. This doesn’t mean that all cookies are harmless in intent, but they can only ever store information.
+
+How we use your information
+
+We ‘analytical’ cookies on this site to allow us to monitor website traffic and analyse how visitors use it via Google Analytics. This service tracks information about how visitors interact with the site, including the number of visitors to our website, where visitors have come to the website from and the pages they visit. We use this information to help us improve our website.
+
+Such information will not identify you personally it is statistical data about our visitors and their use of our website. This statistical data is completely anonymous and does not identify any personal details whatsoever.
+
+All computers have the ability to decline cookies. You can configure your web browser to refuse cookies, or to be informed if a cookie is set. You can find out how to do this by clicking help on your browser menu. By using our website, you agree that we can place these types of cookies on your device."</string>
+    <string name="spl_locker_occupied">"Locker is already occupied"</string>
+    <string name="selected_city_parcel_locker">"Selected city parcel locker"</string>
+    <string name="no_selected_locker">"This operation is locked until you select a locker."</string>
+    <string name="no_deliveries_to_pickup">"This operation is locked because selected locker has no deliveries to pickup."</string>
+    <string name="shared_with">"Shared with:"</string>
+    <string name="enter_email_to_share_access">"Please enter the e-mail address of the person you want to share access with."</string>
+    <string name="person_to_collect_parcel">"This person will be able to collect your parcel."</string>
+    <string name="share_parcel_acess">"Share parcel access"</string>
+    <string name="not_in_proximity_first_description">"Seems that you are not near your locker."</string>
+    <string name="not_in_proximity_second_description">"Get into proximity of locker %s to unlock it."</string>
+    <string name="address_check_not_available">"Your address cannot be verified at the moment. Please try again later."</string>
+    <string name="chosse_a_way_of_delivery">"Choose a way of delivery"</string>
+    <string name="delivery_description">"You can create delivery with inserting e-mail or with scanning QR-code."</string>
+    <string name="delivery_with_qrcode">"QR-code scanning"</string>
+
+    <!-- Fuzzy -->
+    <string name="firstname">"Firstname"</string>
+
+    <!-- Fuzzy -->
+    <string name="lastname">"Lastname"</string>
+
+    <!-- Fuzzy -->
+    <string name="something_went_wrong_qrcode_scanning">"Please try again to scan QR-code or create new QR-code."</string>
+    <string name="qrcode_wrong_format">"QR-code is in wrong format. It needs to be for example: email@gmail.com;firstname;lastname"</string>
+    <string name="delivery_parcel">"Delivery parcel"</string>
+    <string name="selected_retail_locker">"Selected retail locker"</string>
+    <string name="despatch_items">"Despatch items"</string>
+    <string name="collect_items">"Collect items"</string>
+    <string name="open_again">"Open again"</string>
+    <string name="online_help">"Online help"</string>
+    <string name="skip_onboarding_screen">"Skip"</string>
+
+    <!-- Fuzzy -->
+    <string name="not_in_proximity_description_generic">"Seems that you are not near your locker. Get into proximity of lockers to unlock it."</string>
+    <string name="intro_pickup_slide_content_cpl_flexi">"With Flexilocker CPL you can easily pick up parcels delivered to you at any convenient time."</string>
+    <string name="intro_welcome_slide_content_1_cpl_flexi">"Thank you for choosing Flexilocker City Parcel Lockers."</string>
+    <string name="intro_pickup_slide_content_cpl_basel">"With SmartBoxBasel you can easily pick up parcels delivered to you at any convenient time."</string>
+    <string name="intro_welcome_slide_content_1_cpl_basel">"Thank you for choosing SmartBoxBasel City Parcel Lockers."</string>
+    <string name="intro_welcome_slide_content_2">"Please check out the most important features of the App!"</string>
+    <string name="download_androdi_app">"Download android app: "</string>
+    <string name="download_ios_app">"Download iOS app: "</string>
+    <string name="delivery_keys_title">"Delivery keys"</string>
+    <string name="delivery_keys_description">"You have to be in the proximity of the locker to cancel delivery."</string>
+    <string name="email_suggestion_no_access">"You don't have access to this device. Please contact the support or send email."</string>
+    <string name="access_sharing_share_app_cpl_basel">"You are invited to use SmartBoxBasel System."</string>
+    <string name="access_sharing_share_app_cpl_flexi">"You are invited to use Flexilocker CPL System from Smart Locker Technologies."</string>
+    <string name="access_sharing_share_app_retail">"You are invited to use Flexilocker RPL System from Smart Locker Technologies."</string>
+    <string name="access_sharing_share_app_flexilocker_casual">"You are invited to use Flexilocker System from Smart Locker Technologies."</string>
+
+    <!-- Edit -->
+    <!-- Fuzzy -->
+    <string name="app_generic_edit">"Edit"</string>
+
+    <!-- Fuzzy -->
+    <string name="locker_name">"Locker name"</string>
+
+    <!-- Fuzzy -->
+    <string name="alert_deactivation_modem_queue">"Device can't be deactivated right now, it is still trying to communicate with the Internet, if possible open the door to increase the reception or try again later."</string>
+
+    <!-- Fuzzy -->
+    <string name="alert_consume_keys">"Please, empty your lockers before deactivating the device."</string>
+    <string name="locker_needs_cleaning">"This locker needs to be cleaned."</string>
+    <string name="locker_cleaning_started">"Report has been successfully send."</string>
+    <string name="locker_cleaning_failed">"Report has not been successfully send."</string>
+    <string name="terms_and_conditions_cpl_basel">"Vertrag / Nutzungsvereinbarung / Bedingungen für SmartBoxBasel
+
+    1. Vertrag / Geltungsbereich
+
+Die Huber AG, Betreiberin und Inhaberin der SmartBoxBasel ist eine rechtlich als Aktiengesellschaft statuierte juristische Person des schweizerischen Obligationenrechts. Kunden resp. Nutzer (nachstehend Kunde genannt) im Sinne dieser Vereinbarung sind natürliche Personen, welche individuell für sich und/oder als Mitarbeitende eines Unternehmens für dieses die Dienstleistung der SmartBoxBasel benutzen und/oder verwenden. Inhalt dieser Vereinbarung ist die Regelung der Rechte und Pflichten betreffend Nutzung der SmartBoxBasel. 
+
+Mit der Annahme (online / übereinstimmende Willensäusserung) der Allgemeinen Geschäftsbedingungen für die SmartBoxBasel schliesst der Kunde einen Vertrag für die Nutzung der vorliegenden Dienstleistung ab. Spätestens mit der Nutzung des Dienstes durch den Kunden gelten der Vertrag sowie die Anwendung der Allgemeinen Geschäftsbedingungen (nachfolgend AGB genannt) für die SmartBoxBasel als abgeschlossen und angenommen. 
+
+1.2 Geltungsbereich und Vertragsbestandteile 
+Diese AGB regeln die Nutzungsmöglichkeiten der SmartBoxBasel-Dienstleistungen der Huber AG und / oder ihrer Drittpartner (nachfolgend Partner genannt) durch den Kunden.
+
+    2. Rechte und Pflichten
+
+Die Huber AG verpflichtet sich ihre Leistungen entsprechend dem Stand der Technik zu erfüllen oder erfüllen zu lassen. Sie ist dazu berechtigt, qualifizierte Dritte resp. Partner beizuziehen; zieht sie Dritte bei, so wählt sie diese sorgfältig aus, instruiert und überwacht diese.
+
+Die Huber AG bietet keinerlei Gewähr für andere Kunden, Gesellschaften oder Dritte.
+
+Der Kunde garantiert die Richtigkeit seiner persönlichen Daten (Name, Adresse usw.) bei der Registrierung für die SmartBoxBasel-Dienste.
+
+Die Huber AG ist berechtigt, vom Nutzer die Personendaten (Namen, Vornamen, Telefonnummern und E-mail-Adressen), Logindaten sowie die für die Nutzung bei SmartBoxBasel weiteren Daten (namentlich UserID, IP-Addresse etc.) notwendig sind zu speichern und auszuwerten.
+
+Die Huber AG ist berechtigt auf Nachweis auf ein berechtigtes Interesse oder bei Verdacht auf Missbrauch oder bei Hinweisen bezüglich unsachgemässer oder vertragswidriger Nutzung der SmartBoxBasel entsprechende Informationen zum Kunden an Dritte weiterzugeben.
+
+Die Huber AG kann den Zugriff auf die SmartBoxBasel einschränken oder aufheben, wenn dies aus Gründen der Sicherheit, der Serverintegrität oder für technische Massnahmen erforderlich ist.
+
+Wer sich mit seinem Login bei der SmartBoxBasel authentisiert hat, gilt gegenüber der Huber AG als entsprechend legitimiert. Dies gilt auch dann, wenn es sich bei der betreffenden Person nicht um den tatsächlich berechtigten Nutzer handeln sollte.
+
+    3. SmartBoxBasel-Standorte und zugehörige AGB
+
+3.1 Standort-Verzeichnis 
+
+Das aktuelle Standortverzeichnis aller SmartBoxBasel -Standorte ist im Internet unter smartboxbasel.ch verfügbar. 
+
+    4. SmartBoxBasel-Dienst 
+
+4.1 Benutzerhandbuch 
+
+Das SmartBoxBasel-Benutzerhandbuch ist im Internet unter guide.smartboxbasel.ch verfügbar und bildet einen integralen Bestandteil der Vereinbarung mit Huber AG und Partner.
+
+4.2 Registrierung 
+
+Um die SmartBoxBasel-Dienste nutzen zu können, ist es erforderlich, sich unter www.smartboxbasel.ch oder über die SmartBoxBasel User App zu registrieren. Während der Registrierung erhält der Kunde einen Bestätigungslink per E-Mail, der bestätigt werden muss, um die Registrierung abzuschließen. 
+
+Die Nutzung dieses Dienstes als alternative Lieferadresse erfordert eine Registrierung und eine E-Mail-Adresse. Jede Nutzung der Dienste muss einer natürlichen Person zugeordnet werden können.
+
+Durch die Registrierung erteilt der Kunde allen Kurier-, Express- und Paketdienstleistern eine generelle Abstellgenehmigung, um Pakete ohne Empfangsbestätigung an die SmartBoxBasel-Standorte zu liefern. Die Abstellgenehmigung gilt für alle angebotene Services von den jeweiligen Dienstleistern.
+
+4.3 Auswählen eines Standorts 
+
+Der Kunde hat jederzeit die Möglichkeit, seinen SmartBoxBasel-Standort frei zu wählen. Für die Zustellung ist die SmartBoxBasel-Adresse auf der Sendung relevant.
+
+4.4 Adressierung 
+
+Jede Sendung, die über einen SmartBoxBasel-Standort zugestellt werden soll, muss wie im spezifischen Standortverzeichnis angegeben und wie folgt adressiert sein:
+
+Name Vorname
+SmartBoxBasel – “6-Stelliger Code“
+Strasse Nr, PLZ Stadt
+
+Der “6-Stellige Code“ wird bei der Registrierung automatisch vom System generiert und darf bei der Angabe der Lieferadresse nicht fehlen. Die Strasse Nr, PLZ Stadt bezieht sich auf den spezifischen Standort der SmartBoxBasel. 
+ 
+4.5 Definition einer SmartBoxBasel-Sendung 
+
+Sofern für einen bestimmten SmartBoxBasel-Standort nicht anders definiert, können Pakete bis zu 30 kg, mit einer von einem Lieferdienst offiziell generierten Sendungsnummer, an eine SmartBoxBasel  adressiert und von dort abgeholt werden. 
+
+4.6 Abholung einer Sendung 
+
+Für jede abzuholende Sendung wird der Kunde per E-Mail und/oder Push-Benachrichtigung auf seiner Smartphone App benachrichtigt. Mit dem darin enthaltenen Abholcode (Abholpin oder QR-Code) und/oder über die SmartBoxBasel-Benutzeranwendung kann die Sendung innerhalb der in der Email angegebenen Frist (Standard sind 72 Stunden) aus der spezifischen SmartBoxBasel freigegeben werden.  Es liegt in der Verantwortung des Kunden, sicherzustellen, dass der erhaltene Abholcode nicht für unerwünschte Dritte zugänglich ist. 
+
+Im Falle nicht verfügbarer Schließfachgrößen oder Störungen am Terminal wird die Sendung nicht zugestellt. Eine Lieferung an den gewünschten SmartBoxBasel-Standort kann nicht garantiert werden.
+
+Im Falle der Nichtabholung der Sendung innerhalb der angegebenen Frist wird dem Kunden eine E-Mail-Nachricht zugestellt.  Der Zugang zu dem spezifischen Schließfach wird dann dem Administrator gewährt, der die Sendung herausholt und lagert. Der Administrator setzt sich folglich mit dem Kunden in Verbindung. Es wird entweder eine Abholung am Lagerungsort oder eine persönliche Heimlieferung durch den Administrator organisiert. Sollte sich der Empfänger nach 5 Werktagen ab Lagerung nicht zurückmelden, wird der Auftraggeber der Sendung durch den Administrator kontaktiert. Der Auftraggeber entscheidet folglich über das weitere Vorgehen der Sendung.
+
+4.7. Versenden einer Sendung
+
+Für jede Sendung generiert die SmartBoxBasel einen PIN. Die Rücksendung muss beim jeweiligen Paketdienstleister online vom Kunden gemeldet werden. Nach der Abholung der Sendung durch den Paketdienstleister erhält der Kunde auf seiner Smartphone App eine E-Mail und/oder Push-Benachrichtigung mit der Abholungsbestätigung.
+
+    5. Haftung 
+
+Das Unternehmen haftet höchstens bis zu einem Betrag von CHF 500pro Haftungsfall. Diese Haftungsbeschränkung gilt für jegliche Haftung des Unternehmens unter allen Titeln, soweit eine Haftungsbeschränkung rechtlich zulässig ist und sofern die Haftung gemäss nachfolgenden Ausführungen nicht gänzlich ausgeschlossen ist.
+
+Huber AG und Partner haften nicht für Schäden, die durch falsche Angaben des Kunden entstehen. Die Huber AG und Partner übernehmen insbesondere keine Haftung für unzustellbare SMS, Push-Notizen oder E-Mails infolge einer falschen Mobiltelefonnummer oder E-Mail-Adresse. Kunden werden über unzustellbare Benachrichtigungen nicht informiert. Die Huber AG und Partner übernehmen keine Haftung für die an einen Anbieter zur Weiterleitung gesandten SMS, Push-Notizen und/oder E-Mails, wenn diese dem Kunden vom Anbieter nicht zugestellt werden konnten. Die Huber AG übernimmt keine Haftung für die vom Partner erbrachten Dienstleistungen. Die Huber AG haftet insbesondere nicht für höhere Gewalt, Folgeschäden und entgangenen Gewinn. 
+Sendungen, welche Flüssigkeiten und temperaturempfindliche Waren enthalten, dürfen nicht an Paketboxen bestellt und adressiert werden. Die Huber AG übernimmt keine Haftung für solche Sendungen. 
+
+Wenn Sie sich für die Nutzung der Dienste entscheiden, tun Sie dies auf Ihr eigenes Risiko. Die Huber AG übernimmt keine Gewähr dafür, dass die Website, Anwendungen, Dienste oder Inhalte Ihren Anforderungen entsprechen oder ununterbrochen, sicher oder fehlerfrei zur Verfügung stehen. Wir lehnen ferner jede Garantie ab, dass die in den Boxen deponierten Gegenstände uneingeschränkt geschützt sind vor Diebstahl, Feuer, Wasser, Witterung, Vandalismus, Verlust oder Beschädigung.
+
+Sie sind allein verantwortlich für alle Pakete, die von Ihnen versandt oder empfangen werden, bis ein Lieferdienst gemäss den Geschäftsbedingungen dieses Lieferdienstes in den Rechtsbesitz gelangt. Zu keinem Zeitpunkt ist die Huber AG im Besitz oder in irgendeiner Weise verantwortlich für ein Paket, auch wenn es in Ihrer Box enthalten ist. Sie erkennen an und erklären sich damit einverstanden, die Huber AG im Zusammenhang mit jeglichen Ansprüchen und Schäden oder Kosten, die sich aus ihrer Nutzung der Dienste ergeben, schadlos zu halten.
+
+Im Übrigen schliesst die Huber AG jegliche gesetzlich mögliche und zulässige Haftung für sich und Dritte vollumfänglich aus. Der Kunde haftet persönlich für die von ihm verursachten Schäden gegenüber anderen Personen, Kunden oder der Huber AG.
+
+    6. Datenschutz
+
+Die Huber AG sowie die Kunden verpflichten sich, alle ihnen im Rahmen dieser Vereinbarung übergebenen und bekanntwerdenden Informationen – auch über ein allfälliges Vertragsende hinaus – nach den Massgaben des geltenden Datenschutzgesetzes zu bearbeiten. Sie verpflichten sich ausserdem, die gesetzlich vorgeschriebenen organisatorischen und technischen Massnahmen zur Wahrung des Datenschutzes zu treffen und dafür zu sorgen, dass alle Mitarbeitende und beigezogene Dritte, welche Zugang zu solchen Daten erhalten, in geeigneter und nachprüfbarer Weise über die Pflichten zur Wahrung des Datenschutzes unterrichtet werden.
+
+Der Kunde nimmt ausdrücklich zur Kenntnis und ist damit einverstanden, dass die Zugangsdaten (insbesondere Username, Name, Vorname, Telefonnummern, Email) gespeichert und von der Huber AG bearbeitet werden.
+
+    7. Beendigung / Sperre des Zuganges
+
+Sofern für einen bestimmten SmartBoxBasel-Standort nicht anders definiert, hat die Huber AG die Möglichkeit, die SmartBoxBasel-Dienste für den Kunden innerhalb von 30 Tagen zum Monatsende per Mail zu stornieren. 
+
+Die Huber AG ist zudem berechtigt, bei Gesetzesverstössen, Missbrauch oder Verletzung von Rechten Dritter jederzeit, nicht aber verpflichtet, den Zugang des Nutzers ohne jegliche Entschädigungspflicht sofort zu sperren. Wird der Zugang gesperrt, so teilt sie das dem Kunden unverzüglich mit. Damit ist der Vertrag mit dem Kunden per sofort beendet.
+
+    8. Änderungen des Vertrages / der Bedingungen
+
+Die Huber AG kann den vorliegenden Vertrag sowie diese Bedingungen jederzeit revidieren. Die Revisionen werden dem Kunden schriftlich oder in einer anderen geeigneten Form mitgeteilt. Die Änderungen gelten als akzeptiert, wenn der Kunde die Dienstleistung trotz dieser Änderungen weiterhin nutzt oder wenn er nicht innerhalb eines Monats schriftlich widerspricht.
+
+    9. Anwendbares Recht und Gerichtsstand
+
+Die Rechtsbeziehungen zwischen dem Kunden, der die SmartBoxBasel nutzt, und Huber AG sowie deren Partner unterliegen ausschliesslich dem Schweizer Recht. Der Gerichtsstand ist Basel.
+
+    10.  Kontakt 
+
+Die Kontaktperson für eine bestimmte SmartBoxBasel finden Sie im Internet unter smartboxbasel.ch, indem Sie auf den Link Kontakt für die jeweilige CPL-Stelle klicken."</string>
+
+    <!-- Fuzzy -->
+    <string name="terms_and_conditions_cpl_flexilocker">"General Terms and Conditions for Flexilocker CPL 
+
+    1. Area of validity and description of service 
+
+1.1 Acceptance of the General Terms and Conditions for Flexilocker CPL
+The General Terms and Conditions for Flexilocker CPL (hereinafter “GTC”) shall be deemed as accepted no later than with the use of the service by the Customer. 
+
+1.2 Scope of application and contract components 
+These GTC regulate the options for use of the Flexilocker CPL services provided by Smart Locker Technologies AG (hereinafter referred to as SLT) and / or its third party partners (hereinafter referred to as Partner) by the customers (hereinafter referred to as the Customer) for a specific Flexilocker CPL point. 
+
+    2. Flexilocker CPL points and related GTC
+
+2.1 Location directory 
+The current location directory of all Flexilocker CPL points is available on the Internet at link1_gen. 
+
+    3. Flexilocker CPL Service 
+
+3.1 User Manual 
+The Flexilocker CPL user manual is available on the Internet at link2_gen and forms an integral component of the agreement with SLT and Partner.
+
+3.2 Registration 
+In order to be able to use the Flexilocker CPL services, it is necessary to register at link3_gen or via the Flexilocker CPL User App. During the registration, the Customer will receive an email confirmation link which needs to be confirmed in order to finish registration.
+
+The use of this service as an alternative delivery address requires registration and an email address. Every use of the services must be able to be assigned to a natural person. By registering, the customer grants all courier, express and parcel service providers a general permit to deliver parcels to the Flexilocker locations without confirmation of receipt. The permit applies to all services offered by the respective service providers.
+
+3.3 Selecting a location 
+The Customer has the option of freely selecting his Flexilocker CPL point at any time. The Flexilocker CPL address on the consignment is relevant for the delivery.
+
+3.4 Addressing 
+Any item to be delivered to a Flexilocker CPL point needs to be as specified in the directory and addressed as follows:
+
+Name/First name
+CPL-6-digits code
+Street, number, zip code, town
+
+The \\"6-digit code\\" is automatically generated by the system during registration and needs to be included when entering the delivery address. The street, number, zip code, city refers to the specific location of the Flexilocker-CPL.
+
+3.5 Definition of a Flexilocker CPL consignment 
+Packages up to 30 kg, with a tracking number officially generated by a delivery service, can be addressed to and collected from a Flexilocker CPL, unless otherwise defined.
+
+3.6 Collecting a consignment 
+For each consignment to be collected, the Customer is notified by e-mail and/or push notification. With the collection code contained in this and/or via the Flexilocker CPL User App, the consignment can be released from the specific Flexilocker CPL within the specified time limit (default is 72 hours).  It is the responsibility of the Customer to ensure that the collection code received is not accessible to unwanted third parties. 
+
+In the event of unavailable locker sizes or faults on the terminal, the consignment will not be delivered. A delivery to the requested Flexilocker CPL location cannot be guaranteed. 
+
+An email message will be sent to the Customer in case of non-collection of the consignment within the specified time limit.  Access to the specific locker will then be provided to Partner who will collect and store the consignment. 
+
+4. Guarantee 
+The Customer guarantees the correctness of his personal details (name, address etc.) with the registration for the Flexilocker CPL services.
+
+5. Liability 
+SLT and Partners are not liable for damage resulting from incorrect details from the Customer. SLT and Partner in particular accepts no liability for undeliverable SMS messages, push-notifications or e-mails as a result of an incorrect mobile phone number or e-mail address. Customers are not informed about undeliverable notifications. SLT and Partner assumes no liability for the SMS messages, push-notifications and/or e-mails sent to a provider for forwarding if it could not be delivered to the Customer by the provider. 
+SLT accepts no liability for the services provided by Partner. 
+SLT is, in particular, not liable for force majeure, consequential damage and lost earnings.
+
+6. Information to third parties
+SLT and Partner can provide third parties with the Customer’s name and domicile address, provided said party can prove a legitimate interest therein.
+
+7. Cancellation
+Unless otherwise defined for a specific Flexilocker CPL point, SLT has the option of cancelling the Flexilocker CPL services for the Customer in writing within 30 days to the month-end.  SLT is authorized to block the selected service at any time with immediate effect, if it is suspected that the range of services have been misused.
+
+8 Amendments to the Terms and Conditions
+SLT can revise these Terms and Conditions at any time. The revisions will be communicated to the Customer in writing or in another appropriate form. Changes will be deemed to have been accepted if the Customer uses the service despite these changes or if he does not object in writing within one month.
+
+9. Applicable law and place of jurisdiction
+The legal relationships between the Customer using the Flexilocker CPL and SLT and Partner are exclusively governed by Swiss law. The place of jurisdiction is Berne.
+
+10. Contact 
+The contact for a specific CPL point is available on the Internet at link4_gen by clicking the Contact link for the specific CPL point."</string>
+    <string name="unique_user_number">"Unique user number"</string>
+
+    <!-- Fuzzy -->
+    <string name="wrong_password_format">"Password must be at least 6 characters long and contain no spaces. It must have at least one digit, one lower case letter, one uppercase letter and one special character (@#$%^&amp;amp;+=\-_!)."</string>
+
+    <!-- Fuzzy -->
+    <string name="link_cpl_flexilokcer_register">"https://flexilockercpl.swissinnolab.com/"</string>
+
+    <!-- Fuzzy -->
+    <string name="link_cpl_flexilokcer_locations">"https://smartlockertec.com/en/flexilocker-cpl-locations/"</string>
+
+    <!-- Fuzzy -->
+    <string name="link_cpl_flexilokcer_manual">"https://smartlockertec.com/flexilocker-cpl-guide/en"</string>
+
+    <!-- Fuzzy -->
+    <string name="link_cpl_basel_locations">"https://smartlockertec.com/en/smartboxbasel-locations/"</string>
+
+    <!-- Fuzzy -->
+    <string name="link_cpl_basel_registration">"https://my.smartboxbasel.ch/"</string>
+
+    <!-- Fuzzy -->
+    <string name="link_cpl_basel_manual">"https://guide.smartboxbasel.ch/en"</string>
+    <string name="alert_home_address_copied">"Address has been copied to clipboard"</string>
+    <string name="rate_this_application">"Please rate the quality of our service."</string>
+
+    <!-- Fuzzy -->
+    <string name="comment_tell_us_more">"You want to tell us more?"</string>
+    <string name="successfully_sended_report">"You have successfully sended your report."</string>
+
+    <!-- Fuzzy -->
+    <string name="terms_and_conditions_cpl_basel_gen_link_1">"smartboxbasel.ch"</string>
+    <string name="terms_and_conditions_cpl_basel_gen_link_2">"guide.smartboxbasel.ch"</string>
+    <string name="terms_and_conditions_cpl_basel_gen_link_3">"www.smartboxbasel.ch"</string>
+    <string name="terms_and_conditions_cpl_basel_gen_link_4">"smartboxbasel.ch"</string>
+    <string name="next_time">"Next time"</string>
+    <string name="submit">"Submit"</string>
+
+    <!-- Fuzzy -->
+    <string name="open_navigation_drawer">"open"</string>
+
+    <!-- Fuzzy -->
+    <string name="close_navigation_drawer">"close"</string>
+
+    <!-- Fuzzy -->
+    <string name="notifications_title">"Notifications"</string>
+    <string name="parcel_delivered">"Parcel delivered"</string>
+    <string name="parcel_collected">"Parcel collected"</string>
+    <string name="parcel_collected_by_courier">"Parcel collected by courier"</string>
+    <string name="parcel_collected_by_admin">"Parcel collected by admin"</string>
+    <string name="delivery_failed_all_lockers_occupied">"Delivery attempt failed"</string>
+    <string name="expired_parcel_collected">"Expired parcel collected"</string>
+    <string name="web_portal">"WEB portal:"</string>
+
+    <!-- Fuzzy -->
+    <string name="parcel_collected_using_shared_key">"Parcel collected using shared key"</string>
+
+    <!-- Fuzzy -->
+    <string name="default_error_alert">"Default alert"</string>
+    <string name="login_error">"Email and password don't match, or your account has been disabled."</string>
+    <string name="notification_list_empty">"Currently you don't have any notifications."</string>
+    <string name="no_deliveris_to_cpl_possible">"No deliveries to CPL are possible until you enter your verification pin!"</string>
+    <string name="enter_verification_pin">"Enter verification pin"</string>
+
+    <!-- Fuzzy -->
+    <string name="please_enter_verification_pin">"Please enter your verification PIN from a letter we have sent to your home address."</string>
+    <string name="still_have_not_received_pin">"You still haven't received a letter with verification PIN?"</string>
+    <string name="request_new_verification_pin">"Request new verification PIN"</string>
+
+    <!-- Fuzzy -->
+    <string name="verification_pin_description">"In a few days you should receive a verification PIN in a letter that was sent to the address you've provided. Also you should confirm link in your email ( %s )"</string>
+
+    <!-- Fuzzy -->
+    <string name="still_not_passed_registration_request">"48 hours or 2 days have not yet passed since your registration request. Please try again later!"</string>
+
+    <!-- Fuzzy -->
+    <string name="last_date_and_time_of_sended_pin">"Last date and time of sending verification pin: %s"</string>
+
+    <!-- Fuzzy -->
+    <string name="expired_deliveries_description">"Expired deliveries will be collected by the appropriate collector company and you’ll be informed of the next steps."</string>
+    <string name="select_locker_to_copy_address">"You need to select locker to be able to copy address."</string>
+
+    <!-- Fuzzy -->
+    <string name="main_locker_ble_connection_error">"Error while connecting the device"</string>
+    <string name="accept_terms_and_conditions_text">"Accept terms and conditions"</string>
+    <string name="next_create_user_account">"Next: Create user account"</string>
+    <string name="decline">"Decline"</string>
+    <string name="register_account">"Register account"</string>
+    <string name="wrong_phone_format">"Wrong phone format. It needs to have at least 8 numbers and maximum 20 numbers."</string>
+    <string name="next_enter_user_details">"Next: Enter user details"</string>
+    <string name="create_user_account">"Create user account"</string>
+    <string name="enter_user_details">"Enter user details"</string>
+    <string name="next_verify_your_address">"Next: Verify your address"</string>
+    <string name="verify_email_address">"Verify mailing address"</string>
+    <string name="next_wait_for_verification_letter">"Next: Wait for verification letter"</string>
+    <string name="letter_with_verification_code">"In 1-2 workdays you should get a letter with verification code by post."</string>
+    <string name="enter_verification_code">"You will have to enter this verification code inside the App."</string>
+    <string name="verificiation_letter_will_be_sent_to">"Verification letter will be sent to: \n %s %s \n %s %s \n %s %s"</string>
+    <string name="app_generic_back">"Back"</string>
+    <string name="app_generic_proceed">"Proceed"</string>
+    <string name="thank_you">"Thank you!"</string>
+    <string name="you_will_be_able_to_use_mail_confirmation">"You will be able to use all of the app’s features once you enter validation code from the letter and your mailing address becomes validated."</string>
+    <string name="you_will_be_able_to_use_none_confirmation">"You will be able to use all of the app’s features once you confirm you link inside e-mail address."</string>
+    <string name="share_access_pin">"Share access pin"</string>
+    <string name="share_pin_device_name">"Device name: %s"</string>
+    <string name="share_pin_device_address">"Device address: %s"</string>
+    <string name="share_pin_device_locker_size">"Locker size: %s"</string>
+    <string name="share_pin_device_pin">"Pin: %s"</string>
+    <string name="email_verification_link">"An e-mail with verification link will be sent to your e-mail address. You’ll have to open that link to verify your e-mail address."</string>
+
+    <!-- Fuzzy -->
+    <string name="cancel_pick_at_home_description">"Generated pick@home key will be deleted and deactivated and locker will open again."</string>
+    <string name="cancel_pick_at_home_text">"You have to be in proximity of the locker to cancel pick@home key."</string>
+    <string name="call_us">"Call us"</string>
+    <string name="email_us">"Email us"</string>
+    <string name="smartboxbasel_support">"SmartBoxBasel Support"</string>
+    <string name="need_help_call_us_email">"Need help? Call us or send an e-mail"</string>
+    <string name="workdays_smartboxbase">"(workdays 8-12 and 14-17h)"</string>
+
+    <!-- Fuzzy -->
+    <string name="cplflexilocker_support">"CPL Flexilocker Support"</string>
+    <string name="terms_and_conditions_cpl_flexilocker_gen_link_1">"locations"</string>
+    <string name="terms_and_conditions_cpl_flexilocker_gen_link_2">"user manual"</string>
+    <string name="terms_and_conditions_cpl_flexilocker_gen_link_3">"registration portal"</string>
+    <string name="terms_and_conditions_cpl_flexilocker_gen_link_4">"locations"</string>
+
+    <!-- Fuzzy -->
+    <string name="not_in_proximity_of_locker">"You are not in proximity of locker."</string>
+
+    <!-- Fuzzy -->
+    <string name="app_generic_no_access_for_device">"You currently don't have access for this locker."</string>
+
+    <!-- Fuzzy -->
+    <string name="app_generic_selected_locker">"Selected locker"</string>
+
+    <!-- Fuzzy -->
+    <string name="app_generic_select_locker">"Select locker"</string>
+    <string name="no_deliveris_to_locker_possible">"No deliveries to locker are possible until you enter your verification pin!"</string>
+
+    <!-- Fuzzy -->
+    <string name="app_generic_request_access">"First you need to request access for this locker."</string>
+
+    <!-- Fuzzy -->
+    <string name="admin_approve_request_access">"Please wait, while admin approve your access, for this locker."</string>
+
+    <!-- Fuzzy -->
+    <string name="app_generic_date_created">"Date: %s"</string>
+
+    <!-- Fuzzy -->
+    <string name="user_identification_QR_code">"User identification QR code"</string>
+
+    <!-- Fuzzy -->
+    <string name="collect_QR_code">"Collect QR code"</string>
+
+    <!-- Fuzzy -->
+    <string name="collect_QR_code_description">"Please put the QR code in front of the Locker scanner at the 10-15cm distance for pick up operation or enter your pick up pin: %s"</string>
+    <string name="collect_master_QR_code_description">"Please put the QR code in front of the Locker scanner at the 10-15cm distance for pick up operation."</string>
+    <string name="cancel_pick_at_home_description_linux">"To cancel Pick@home, please collect your parcel using PIN %s"</string>
+</resources>

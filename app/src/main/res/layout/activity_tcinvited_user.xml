@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/thmLoginBackground" >
+
+<!--    <com.google.android.material.appbar.AppBarLayout-->
+<!--        android:id="@+id/appBarLayout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        android:fitsSystemWindows="true"-->
+<!--        app:elevation="0dp"-->
+<!--        android:background="?attr/thmToolbarBackgroundColor">-->
+
+<!--        <RelativeLayout-->
+<!--            android:id="@+id/rlTopLayout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content" >-->
+
+<!--            <androidx.appcompat.widget.Toolbar-->
+<!--                android:id="@+id/toolbar"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="?attr/actionBarSize"-->
+<!--                app:contentInsetEnd="0dp"-->
+<!--                app:contentInsetLeft="0dp"-->
+<!--                app:contentInsetStartWithNavigation="0dp">-->
+
+
+<!--            </androidx.appcompat.widget.Toolbar>-->
+
+
+<!--            <ImageView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_centerInParent="true"-->
+<!--                android:src="?attr/thmToolbarHeader" />-->
+
+<!--        </RelativeLayout>-->
+
+<!--    </com.google.android.material.appbar.AppBarLayout>-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_marginTop="?attr/actionBarSize"-->
+<!--        android:orientation="vertical"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">-->
+
+<!--        <hr.sil.android.myappbox.font.view.font.TextViewWithFont-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_weight="0.6"-->
+<!--            android:textAllCaps="true"-->
+<!--            android:text="@string/app_generic_privacy_policy"-->
+<!--            android:textColor="?attr/thmDescriptionTextColor"-->
+<!--            android:textSize="?attr/thmTitleTextSize"-->
+<!--            app:font_name="?attr/thmMainFontName"-->
+<!--            app:font_type="?attr/thmMainFontTypeBold"-->
+<!--            android:gravity="center"-->
+<!--            android:layout_centerInParent="true" />-->
+
+<!--        <RelativeLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_weight="0.9"-->
+<!--            android:orientation="vertical">-->
+
+<!--            <hr.sil.android.myappbox.font.view.font.TextViewWithFont-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/nav_ttc_subtitle"-->
+<!--                android:textColor="?attr/thmTitleTextColor"-->
+<!--                android:textSize="?attr/thmSubTitleTextSize"-->
+<!--                app:font_name="?attr/thmMainFontName"-->
+<!--                app:font_type="?attr/thmMainFontTypeBold"-->
+<!--                android:gravity="center"-->
+<!--                android:layout_centerInParent="true" />-->
+
+<!--            <View-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="1dp"-->
+<!--                android:layout_alignParentBottom="true"-->
+<!--                android:background="@color/colorBlack" />-->
+
+<!--        </RelativeLayout>-->
+
+<!--        <ScrollView-->
+<!--            android:id="@+id/scrollViewTerms"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_weight="7.2">-->
+
+<!--            <LinearLayout-->
+<!--                android:id="@+id/llTermsAndConditions"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content">-->
+
+<!--                <hr.sil.android.myappbox.font.view.font.TextViewWithFont-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textSize="?attr/thmDescriptionTextSize"-->
+<!--                    android:text="@string/ttc_main_conditions"-->
+<!--                    android:textColor="?attr/thmDescriptionTextColor"-->
+<!--                    app:font_name="?attr/thmMainFontName"-->
+<!--                    app:font_type="?attr/thmMainFontTypeRegular"-->
+<!--                    android:paddingRight="10dp"-->
+<!--                    android:paddingLeft="10dp"-->
+<!--                    android:paddingTop="5dp"/>-->
+
+<!--            </LinearLayout>-->
+
+<!--        </ScrollView>-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_weight="1.3"-->
+<!--            android:gravity="center">-->
+
+<!--            <hr.sil.android.myappbox.font.ButtonWithFont-->
+<!--                android:id="@+id/btnAcceptTermsConditions"-->
+<!--                android:layout_width="250dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:alpha="0.6"-->
+<!--                android:clickable="false"-->
+<!--                android:text="@string/accept_terms_and_conditions"-->
+<!--                app:font_name="?attr/thmMainFontName"-->
+<!--                app:font_type="?attr/thmMainFontTypeMedium"-->
+<!--                android:background="?attr/thmMainButtonBackgroundColor"-->
+<!--                android:textSize="?attr/thmButtonTextSize"-->
+<!--                android:letterSpacing="?attr/thmButtonLetterSpacing"-->
+<!--                android:textColor="?attr/thmLoginButtonTextColor" />-->
+
+<!--        </LinearLayout>-->
+
+<!--    </LinearLayout>-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>
