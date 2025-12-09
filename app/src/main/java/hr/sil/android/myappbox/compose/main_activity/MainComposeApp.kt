@@ -23,6 +23,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import hr.sil.android.myappbox.R
 import hr.sil.android.myappbox.compose.home_screen.NavHomeScreen
+import hr.sil.android.myappbox.compose.settings.SettingsNotificationsScreen
 import hr.sil.android.myappbox.compose.settings.SettingsScreen
 
 
@@ -128,11 +129,22 @@ fun NavGraphBuilder.mainNavGraph(
     composable(MainDestinations.SETTINGS) {
         SettingsScreen(
             viewModel = viewModel(), // viewModel,
+            nextScreen = { route ->
+                if (navBackStackEntry.value?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
+                    navController.navigate(route)
+                }
+            }
 //            onDeviceClick = { deviceId, nameOfDevice ->
 //                if (navBackStackEntry.value?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
 //                    goToDeviceDetails(MainDestinations.DEVICE_DETAILS, deviceId, nameOfDevice)
 //                }
 //            }
+        )
+    }
+
+    composable(MainDestinations.SETTINGS_NOFITICATIONS) {
+        SettingsNotificationsScreen(
+            viewModel = viewModel(),
         )
     }
 

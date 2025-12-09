@@ -21,6 +21,7 @@ object MainDestinations {
     const val ACCESS_SHARING_ADD_USER_SCREEN = "AccessSharingAddUserScreen"
     const val HELP_CONTENT_SCREEN = "HelpContentScreen"
     const val SETTINGS = "Settings"
+    const val SETTINGS_NOFITICATIONS = "SettingsNotifications"
     const val DEVICE_DETAILS = "DeviceDetails"
     const val PARCEL_PICKUP = "ParcelPickup"
 }

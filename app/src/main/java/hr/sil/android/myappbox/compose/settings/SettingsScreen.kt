@@ -51,6 +51,7 @@ import hr.sil.android.myappbox.compose.components.ThmTitleLetterSpacing
 import hr.sil.android.myappbox.compose.components.ThmTitleTextColor
 import hr.sil.android.myappbox.compose.components.ThmTitleTextSize
 import hr.sil.android.myappbox.compose.components.ThmToolbarBackgroundColor
+import hr.sil.android.myappbox.compose.main_activity.MainDestinations
 import hr.sil.android.myappbox.core.util.logger
 import kotlin.collections.forEach
 import kotlin.jvm.java
@@ -87,23 +88,6 @@ fun SettingsScreen(
             appVersion = "Version: Unknown"
             log.info("collecting events: appVersion 22 $appVersion")
         }
-       // log.info("collecting events: start ${viewModel.uiEvents}")
-//        viewModel.uiEvents.collect { event ->
-//            log.info("collecting event: ${event}")
-//            when (event) {
-//                is SettingsScreenUiEvent.NavigateBack -> {
-//                    navigateUp()
-//                }
-//
-//                is SettingsScreenUiEvent.NavigateToScreen -> {
-//                    nextScreen(event.route)
-//                }
-//
-//                is UiEvent.ShowToast -> {
-//                    Toast.makeText(context, event.message, event.toastLength).show()
-//                }
-//            }
-//        }
     }
 
         ConstraintLayout(
@@ -155,6 +139,7 @@ fun SettingsScreen(
                     modifier = Modifier
                         .fillMaxWidth(),
                     onClick = {
+                        nextScreen(MainDestinations.SETTINGS_NOFITICATIONS)
                         //viewModel.onEvent(SettingsScreenEvent.OnNotificationToggle(it))
                     },
                     startIcon = R.drawable.ic_notifications,
