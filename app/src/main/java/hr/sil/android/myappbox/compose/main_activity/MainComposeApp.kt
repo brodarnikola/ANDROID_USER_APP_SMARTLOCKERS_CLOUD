@@ -23,8 +23,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import hr.sil.android.myappbox.R
 import hr.sil.android.myappbox.compose.home_screen.NavHomeScreen
+import hr.sil.android.myappbox.compose.settings.HelpHorizontalPager
 import hr.sil.android.myappbox.compose.settings.LanguageScreen
+import hr.sil.android.myappbox.compose.settings.MainTermsConditionsScreen
 import hr.sil.android.myappbox.compose.settings.NotificationsScreen
+import hr.sil.android.myappbox.compose.settings.PrivacyPolicyScreen
 import hr.sil.android.myappbox.compose.settings.SettingsScreen
 
 
@@ -129,7 +132,6 @@ fun NavGraphBuilder.mainNavGraph(
 
     composable(MainDestinations.SETTINGS) {
         SettingsScreen(
-            viewModel = viewModel(), // viewModel,
             nextScreen = { route ->
                 if (navBackStackEntry.value?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
                     navController.navigate(route)
@@ -148,6 +150,18 @@ fun NavGraphBuilder.mainNavGraph(
         LanguageScreen(
             viewModel = viewModel(),
         )
+    }
+
+    composable(MainDestinations.SETTINGS_PRIVACY_POLICY) {
+        PrivacyPolicyScreen( )
+    }
+
+    composable(MainDestinations.SETTINGS_TERMS_AND_CONDITIONS) {
+        MainTermsConditionsScreen( )
+    }
+
+    composable(MainDestinations.SETTINGS_HELP) {
+        HelpHorizontalPager( )
     }
 
 //    composable(MainDestinations.SETTINGS) {

@@ -62,10 +62,7 @@ import kotlin.text.uppercase
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SettingsScreen(
-    modifier: Modifier = Modifier,
-    viewModel: SettingsViewModel,
-    nextScreen: (route: String) -> Unit = {},
-    navigateUp: () -> Unit = {}
+    nextScreen: (route: String) -> Unit = {}
 ) {
 
     //val state = viewModel.state.collectAsStateWithLifecycle().value
@@ -235,7 +232,7 @@ fun SettingsScreen(
                         .fillMaxWidth()
                         .padding(top = 5.dp),
                     onClick = {
-                        //viewModel.onEvent(SettingsScreenEvent.OnLanguageClick)
+                        nextScreen(MainDestinations.SETTINGS_HELP)
                     },
                     startIcon = R.drawable.ic_help,
                     text = R.string.app_generic_help,
@@ -247,7 +244,7 @@ fun SettingsScreen(
                         .fillMaxWidth()
                         .padding(top = 5.dp),
                     onClick = {
-                        //viewModel.onEvent(SettingsScreenEvent.OnLanguageClick)
+                        nextScreen(MainDestinations.SETTINGS_TERMS_AND_CONDITIONS)
                     },
                     startIcon = R.drawable.ic_terms,
                     text = R.string.nav_ttc_title,
@@ -259,7 +256,7 @@ fun SettingsScreen(
                         .fillMaxWidth()
                         .padding(top = 5.dp),
                     onClick = {
-                        //viewModel.onEvent(SettingsScreenEvent.OnLanguageClick)
+                        nextScreen(MainDestinations.SETTINGS_PRIVACY_POLICY)
                     },
                     startIcon = R.drawable.ic_privacy,
                     text = R.string.settings_privacy_policy,
@@ -348,12 +345,5 @@ fun SettingsItem(
                     tint = Color.Unspecified
                 )
         }
-//        Switch(
-//            checked = isChecked,
-//            onCheckedChange = {
-//                isChecked = it
-//                onCheckedChange(it)
-//            }
-//        )
     }
 }
