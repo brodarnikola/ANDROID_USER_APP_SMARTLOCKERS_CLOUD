@@ -27,6 +27,8 @@ object MainDestinations {
     const val SETTINGS_HELP = "SettingsHelp"
     const val SETTINGS_LANGUAGE = "SettingsLanguages"
     const val SETTINGS_QR_CODE = "SettingsQrCode"
+    const val SETTINGS_CHANGE_PASSWORD = "SettingsChangePassword"
+    const val SETTINGS_MY_DETAILS = "SettingsMyDetails"
     const val DEVICE_DETAILS = "DeviceDetails"
     const val PARCEL_PICKUP = "ParcelPickup"
 }

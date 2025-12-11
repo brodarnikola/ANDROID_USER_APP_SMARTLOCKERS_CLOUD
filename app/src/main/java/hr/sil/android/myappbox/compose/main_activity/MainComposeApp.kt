@@ -25,6 +25,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import hr.sil.android.myappbox.R
 import hr.sil.android.myappbox.compose.home_screen.NavHomeScreen
+import hr.sil.android.myappbox.compose.settings.ChangePasswordScreen
 import hr.sil.android.myappbox.compose.settings.DisplayQrCodeScreen
 import hr.sil.android.myappbox.compose.settings.DisplayQrCodeScreenWrapper
 import hr.sil.android.myappbox.compose.settings.HelpHorizontalPager
@@ -173,6 +174,13 @@ fun NavGraphBuilder.mainNavGraph(
         HelpHorizontalPager( )
     }
 
+    composable(MainDestinations.SETTINGS_CHANGE_PASSWORD) {
+        ChangePasswordScreen( )
+    }
+
+    composable(MainDestinations.SETTINGS_MY_DETAILS) {
+        HelpHorizontalPager( )
+    }
 
     composable("${MainDestinations.SETTINGS_QR_CODE}/{${NavArguments.RETURN_TO_SCREEN}}/{${NavArguments.MAC_ADDRESS}}",
         arguments = listOf(
