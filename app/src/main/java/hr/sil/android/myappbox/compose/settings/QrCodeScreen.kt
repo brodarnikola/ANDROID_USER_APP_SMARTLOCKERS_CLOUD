@@ -48,13 +48,18 @@ import com.google.zxing.common.BitMatrix
 import kotlin.text.get
 
 import android.graphics.Color
+import hr.sil.android.myappbox.compose.home_screen.HomeScreenUiEvent
+import hr.sil.android.myappbox.compose.main_activity.MainDestinations
+
+val GO_TO_HOME_SCREEN = 1
+val GO_TO_SETTINGS_SCREEN = 2
+val GO_TO_PICKUP_PARCEL_SCREEN = 3
 
 @Composable
 fun DisplayQrCodeScreen(
     returnToScreen: Int,
     macAddress: String = "",
-    qrCodeData: String?,
-    onBackClick: () -> Unit
+    qrCodeData: String?
 ) {
     var isLoading by remember { mutableStateOf(true) }
     var qrBitmap by remember { mutableStateOf<Bitmap?>(null) }
@@ -241,7 +246,7 @@ fun generateQrCodeBitmap(data: String?): Bitmap? {
 fun DisplayQrCodeScreenWrapper(
     returnToScreen: Int,
     macAddress: String,
-    onNavigateBack: (Int, String) -> Unit
+    nextScreen: (route: String) -> Unit
 ) {
     // Get user QR code data from your UserUtil or ViewModel
     val qrCodeData = remember { UserUtil.user?.identificationQrCode }
@@ -256,15 +261,15 @@ fun DisplayQrCodeScreenWrapper(
         val qrScannedSubscriber = object {
             @Subscribe(threadMode = ThreadMode.BACKGROUND)
             fun onQrScanned(event: QrCodeScannedEvent) {
-                // Navigate to main activity
-                val intent = Intent().apply {
-                    component = ComponentName(
-                        context.packageName,
-                        "${context.packageName}.aliasMainActivity"
-                    )
+                if( returnToScreen == GO_TO_PICKUP_PARCEL_SCREEN ) {
+                    nextScreen(MainDestinations.PARCEL_PICKUP)
                 }
-                context.startActivity(intent)
-                (context as? Activity)?.finish()
+                else if ( returnToScreen == GO_TO_SETTINGS_SCREEN ) {
+                    nextScreen(MainDestinations.SETTINGS)
+                }
+                else if( returnToScreen == GO_TO_HOME_SCREEN ) {
+                    nextScreen(MainDestinations.HOME)
+                }
             }
 
             @Subscribe(threadMode = ThreadMode.MAIN)
@@ -291,7 +296,8 @@ fun DisplayQrCodeScreenWrapper(
     DisplayQrCodeScreen(
         returnToScreen = returnToScreen,
         macAddress = macAddress,
-        qrCodeData = qrCodeData,
-        onBackClick = { onNavigateBack(returnToScreen, macAddress) }
+        qrCodeData = qrCodeData
+        //,
+        //onBackClick = { onNavigateBack(returnToScreen, macAddress) }
     )
 }

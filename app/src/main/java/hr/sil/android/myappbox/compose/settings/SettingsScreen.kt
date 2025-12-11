@@ -63,7 +63,8 @@ import kotlin.text.uppercase
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SettingsScreen(
-    nextScreen: (route: String) -> Unit = {}
+    nextScreen: (route: String) -> Unit = {},
+    nextScreenQrCode: (route: String, returnToScreen: Int, macAddress: String) -> Unit
 ) {
 
     //val state = viewModel.state.collectAsStateWithLifecycle().value
@@ -204,8 +205,8 @@ fun SettingsScreen(
                     .fillMaxWidth()
                     .padding(top = 5.dp),
                 onClick = {
-                    nextScreen(MainDestinations.SETTINGS_QR_CODE)
-                    //viewModel.onEvent(SettingsScreenEvent.OnLanguageClick)
+                    //goToDeviceDetails(MainDestinations.DEVICE_DETAILS, deviceId, nameOfDevice)
+                    nextScreenQrCode(MainDestinations.SETTINGS_QR_CODE, 2, "")
                 },
                 startIcon = R.drawable.qr_code,
                 text = R.string.user_identification_QR_code,

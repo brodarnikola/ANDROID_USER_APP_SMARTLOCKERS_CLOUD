@@ -19,8 +19,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import hr.sil.android.myappbox.R
 import hr.sil.android.myappbox.compose.home_screen.NavHomeScreen
 import hr.sil.android.myappbox.compose.settings.DisplayQrCodeScreen
@@ -138,6 +140,11 @@ fun NavGraphBuilder.mainNavGraph(
                 if (navBackStackEntry.value?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
                     navController.navigate(route)
                 }
+            },
+            nextScreenQrCode = { route, returnToScreen, macAddress ->
+                if (navBackStackEntry.value?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
+                    navController.navigate("$route/$returnToScreen/$macAddress")
+                }
             }
         )
     }
@@ -166,13 +173,23 @@ fun NavGraphBuilder.mainNavGraph(
         HelpHorizontalPager( )
     }
 
-    composable(MainDestinations.SETTINGS_QR_CODE) {
+
+    composable("${MainDestinations.SETTINGS_QR_CODE}/{${NavArguments.RETURN_TO_SCREEN}}/{${NavArguments.MAC_ADDRESS}}",
+        arguments = listOf(
+            navArgument(NavArguments.RETURN_TO_SCREEN) {
+                type = NavType.IntType
+            },
+            navArgument(NavArguments.MAC_ADDRESS) {
+                type = NavType.StringType
+            }
+        )
+    ) {
         DisplayQrCodeScreenWrapper(
-            returnToScreen = 0,
-            macAddress = "",
-            onNavigateBack = { returnToScreen, macAddress ->
+            returnToScreen = it.arguments?.getInt(NavArguments.RETURN_TO_SCREEN) ?: 1,
+            macAddress = it.arguments?.getString(NavArguments.MAC_ADDRESS) ?: "",
+            nextScreen = { route ->
                 if (navBackStackEntry.value?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
-                    navController.navigate(returnToScreen)
+                    navController.navigate(route)
                 }
             }
         )

@@ -34,6 +34,7 @@ object MainDestinations {
 object NavArguments {
     const val DEVICE_ID = "deviceId"
     const val MAC_ADDRESS = "macAddress"
+    const val RETURN_TO_SCREEN = "returnToScreen"
     const val NAME_OF_DEVICE = "nameOfDevice"
     const val PIN_OF_DEVICE = "pinOfDevice"
     const val SIZE_OF_DEVICE = "sizeOfDevice"
