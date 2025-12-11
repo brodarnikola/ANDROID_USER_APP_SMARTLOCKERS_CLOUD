@@ -1,35 +1,34 @@
-package hr.sil.android.myappbox.view.ui.activities
-
-
-import android.content.ComponentName
-import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.Color
-import android.os.Bundle
-import android.view.MenuItem
-import android.view.View
-import androidx.lifecycle.lifecycleScope
-import hr.sil.android.myappbox.App
-import hr.sil.android.myappbox.R
-import hr.sil.android.myappbox.core.util.logger
-import hr.sil.android.myappbox.events.QrCodeScannedEvent
-import hr.sil.android.myappbox.events.UnauthorizedUserEvent
-import hr.sil.android.myappbox.util.backend.UserUtil
-import hr.sil.android.myappbox.view.ui.BaseActivity
-import hr.sil.android.myappbox.view.ui.activities.settings.SettingsActivity
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
-import java.util.*
-
-
-
-class DisplayQrCodeActivity
-    //: BaseActivity(R.id.no_ble_layout, R.id.no_internet_layout, R.id.no_location_gps_layout)
-{
-
+//package hr.sil.android.myappbox.view.ui.activities
+//
+//
+//import android.content.ComponentName
+//import android.content.Intent
+//import android.graphics.Bitmap
+//import android.graphics.Color
+//import android.os.Bundle
+//import android.view.MenuItem
+//import android.view.View
+//import androidx.lifecycle.lifecycleScope
+//import hr.sil.android.myappbox.App
+//import hr.sil.android.myappbox.R
+//import hr.sil.android.myappbox.core.util.logger
+//import hr.sil.android.myappbox.events.QrCodeScannedEvent
+//import hr.sil.android.myappbox.events.UnauthorizedUserEvent
+//import hr.sil.android.myappbox.util.backend.UserUtil
+//import hr.sil.android.myappbox.view.ui.BaseActivity
+//import hr.sil.android.myappbox.view.ui.activities.settings.SettingsActivity
+//import kotlinx.coroutines.Dispatchers
+//import kotlinx.coroutines.launch
+//import kotlinx.coroutines.withContext
+//import org.greenrobot.eventbus.Subscribe
+//import org.greenrobot.eventbus.ThreadMode
+//import java.util.*
+//
+//
+//
+//class DisplayQrCodeActivity
+//{
+//
 //    private lateinit var binding: ActivityDisplayQrcodeBinding
 //
 //    val log = logger()
@@ -317,6 +316,6 @@ class DisplayQrCodeActivity
 //        }
 //        super.onBackPressed()
 //    }
-
-
-}
+//
+//
+//}

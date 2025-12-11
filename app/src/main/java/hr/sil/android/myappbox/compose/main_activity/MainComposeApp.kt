@@ -23,6 +23,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import hr.sil.android.myappbox.R
 import hr.sil.android.myappbox.compose.home_screen.NavHomeScreen
+import hr.sil.android.myappbox.compose.settings.DisplayQrCodeScreen
+import hr.sil.android.myappbox.compose.settings.DisplayQrCodeScreenWrapper
 import hr.sil.android.myappbox.compose.settings.HelpHorizontalPager
 import hr.sil.android.myappbox.compose.settings.LanguageScreen
 import hr.sil.android.myappbox.compose.settings.MainTermsConditionsScreen
@@ -162,6 +164,18 @@ fun NavGraphBuilder.mainNavGraph(
 
     composable(MainDestinations.SETTINGS_HELP) {
         HelpHorizontalPager( )
+    }
+
+    composable(MainDestinations.SETTINGS_QR_CODE) {
+        DisplayQrCodeScreenWrapper(
+            returnToScreen = 0,
+            macAddress = "",
+            onNavigateBack = { returnToScreen, macAddress ->
+                if (navBackStackEntry.value?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
+                    navController.navigate(returnToScreen)
+                }
+            }
+        )
     }
 
 //    composable(MainDestinations.SETTINGS) {

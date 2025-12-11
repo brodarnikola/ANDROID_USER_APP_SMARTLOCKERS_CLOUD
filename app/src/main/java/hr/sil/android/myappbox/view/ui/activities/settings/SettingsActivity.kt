@@ -8,7 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import hr.sil.android.myappbox.util.SettingsHelper
 import hr.sil.android.myappbox.view.ui.BaseActivity
-import hr.sil.android.myappbox.view.ui.activities.DisplayQrCodeActivity
+//import hr.sil.android.myappbox.view.ui.activities.DisplayQrCodeActivity
 import hr.sil.android.myappbox.view.ui.activities.dialogs.SupportEmailPhoneDialog
 
 class SettingsActivity : BaseActivity(0, 0) {

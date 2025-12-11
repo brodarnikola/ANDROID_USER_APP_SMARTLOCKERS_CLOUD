@@ -204,6 +204,7 @@ fun SettingsScreen(
                     .fillMaxWidth()
                     .padding(top = 5.dp),
                 onClick = {
+                    nextScreen(MainDestinations.SETTINGS_QR_CODE)
                     //viewModel.onEvent(SettingsScreenEvent.OnLanguageClick)
                 },
                 startIcon = R.drawable.qr_code,

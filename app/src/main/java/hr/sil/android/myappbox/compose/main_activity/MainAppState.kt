@@ -26,6 +26,7 @@ object MainDestinations {
     const val SETTINGS_TERMS_AND_CONDITIONS = "SettingsTermsAndCondition"
     const val SETTINGS_HELP = "SettingsHelp"
     const val SETTINGS_LANGUAGE = "SettingsLanguages"
+    const val SETTINGS_QR_CODE = "SettingsQrCode"
     const val DEVICE_DETAILS = "DeviceDetails"
     const val PARCEL_PICKUP = "ParcelPickup"
 }
