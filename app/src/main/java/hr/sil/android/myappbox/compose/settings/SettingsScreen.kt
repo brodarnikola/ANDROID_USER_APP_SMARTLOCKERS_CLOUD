@@ -39,8 +39,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import androidx.lifecycle.viewmodel.compose.viewModel
 import hr.sil.android.myappbox.BuildConfig
 import hr.sil.android.myappbox.R
+import hr.sil.android.myappbox.compose.SignUpOnboardingActivity
 import hr.sil.android.myappbox.compose.components.GradientBackground
 import hr.sil.android.myappbox.compose.components.SettingsRoundedBackground
 import hr.sil.android.myappbox.compose.components.TextViewWithFont
@@ -54,6 +56,11 @@ import hr.sil.android.myappbox.compose.components.ThmToolbarBackgroundColor
 import hr.sil.android.myappbox.compose.dialog.LogoutDialog
 import hr.sil.android.myappbox.compose.main_activity.MainDestinations
 import hr.sil.android.myappbox.core.util.logger
+import hr.sil.android.myappbox.util.backend.UserUtil
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.collections.forEach
 import kotlin.jvm.java
 import kotlin.text.isEmpty
@@ -63,6 +70,7 @@ import kotlin.text.uppercase
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SettingsScreen(
+    viewModel: SettingsViewModel = viewModel(),
     nextScreen: (route: String) -> Unit = {},
     nextScreenQrCode: (route: String, returnToScreen: Int, macAddress: String) -> Unit
 ) {
@@ -80,17 +88,52 @@ fun SettingsScreen(
         mutableStateOf(false)
     }
 
+    val scope = rememberCoroutineScope()
+
     if (displayLogoutDialog) {
         LogoutDialog(
             onCancel = {
                 displayLogoutDialog = false
             },
-            onDismiss =
-                {
-                    displayLogoutDialog = false
-                },
+            onDismiss = {
+                displayLogoutDialog = false
+            },
             onConfirm = {
-                activity.finish()
+//                viewModel.logout(
+//                    onSuccess = {
+//                        displayLogoutDialog = false
+//                        val intent = Intent(context, SignUpOnboardingActivity::class.java)
+//                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+//                        context.startActivity(intent)
+//                        activity.finish()
+//                    },
+//                    onError = {
+//                        displayLogoutDialog = false
+//                    }
+//                )
+
+//                displayLogoutDialog = false
+//                scope.launch {
+//                    withContext(Dispatchers.IO) {
+//                        UserUtil.logout()
+//                    }
+//                    val intent = Intent(context, LoginActivity::class.java)
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+//                    context.startActivity(intent)
+//                    activity.finish()
+//                }
+
+                displayLogoutDialog = false
+                CoroutineScope(Dispatchers.IO).launch {
+                    UserUtil.logout()
+                    withContext(Dispatchers.Main) {
+                        val intent = Intent(context, SignUpOnboardingActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        context.startActivity(intent)
+                        activity.finish()
+                    }
+                }
             }
         )
     }
