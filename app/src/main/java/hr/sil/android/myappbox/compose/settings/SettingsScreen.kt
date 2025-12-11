@@ -51,6 +51,7 @@ import hr.sil.android.myappbox.compose.components.ThmTitleLetterSpacing
 import hr.sil.android.myappbox.compose.components.ThmTitleTextColor
 import hr.sil.android.myappbox.compose.components.ThmTitleTextSize
 import hr.sil.android.myappbox.compose.components.ThmToolbarBackgroundColor
+import hr.sil.android.myappbox.compose.dialog.LogoutDialog
 import hr.sil.android.myappbox.compose.main_activity.MainDestinations
 import hr.sil.android.myappbox.core.util.logger
 import kotlin.collections.forEach
@@ -74,6 +75,25 @@ fun SettingsScreen(
         mutableStateOf("")
     }
 
+    var displayLogoutDialog by remember {
+        mutableStateOf(false)
+    }
+
+    if (displayLogoutDialog) {
+        LogoutDialog(
+            onCancel = {
+                displayLogoutDialog = false
+            },
+            onDismiss =
+                {
+                    displayLogoutDialog = false
+                },
+            onConfirm = {
+                activity.finish()
+            }
+        )
+    }
+
     LaunchedEffect(key1 = Unit) {
         val log = logger()
 
@@ -87,213 +107,213 @@ fun SettingsScreen(
         }
     }
 
-        ConstraintLayout(
-            modifier = Modifier.fillMaxSize()
-        ) {
-            val (tvSettingsTitle, scrollContent) = createRefs()
+    ConstraintLayout(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        val (tvSettingsTitle, scrollContent) = createRefs()
 
-            // 2. Title Text (tvSettingsTitle)
+        // 2. Title Text (tvSettingsTitle)
+        TextViewWithFont(
+            text = stringResource(id = R.string.app_generic_my_configuration).uppercase(),
+            color = ThmTitleTextColor,
+            fontSize = ThmTitleTextSize,
+            fontWeight = FontWeight.Medium,
+            textAlign = TextAlign.Center,
+            letterSpacing = ThmTitleLetterSpacing,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 10.dp, start = 15.dp, end = 15.dp)
+                .constrainAs(tvSettingsTitle) {
+                    top.linkTo(parent.top)
+                }
+        )
+
+        // 3. ScrollView with content
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .verticalScroll(rememberScrollState())
+                .padding(top = 10.dp)
+                .constrainAs(scrollContent) {
+                    top.linkTo(tvSettingsTitle.bottom)
+                    bottom.linkTo(parent.bottom)
+                    height = Dimension.fillToConstraints
+                }
+        ) {
+            // SETTINGS Section
             TextViewWithFont(
-                text = stringResource(id = R.string.app_generic_my_configuration).uppercase(),
-                color = ThmTitleTextColor,
-                fontSize = ThmTitleTextSize,
-                fontWeight = FontWeight.Medium,
-                textAlign = TextAlign.Center,
-                letterSpacing = ThmTitleLetterSpacing,
+                text = stringResource(id = R.string.nav_settings_title).uppercase(),
+                color = ThmSubTitleTextColor,
+                fontSize = ThmSubTitleTextSize,
+                fontWeight = FontWeight.Normal,
+                textAlign = TextAlign.Start,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 10.dp, start = 15.dp, end = 15.dp)
-                    .constrainAs(tvSettingsTitle) {
-                        top.linkTo(parent.top)
-                    }
+                    .padding(top = 10.dp, start = 20.dp, end = 20.dp)
             )
 
-            // 3. ScrollView with content
-            Column(
+            SettingsItem(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                onClick = {
+                    nextScreen(MainDestinations.SETTINGS_NOFITICATIONS)
+                },
+                startIcon = R.drawable.ic_notifications,
+                text = R.string.notifications_title,
+                endIcon = R.drawable.ic_chevron_right_black
+            )
+
+            SettingsItem(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .verticalScroll(rememberScrollState())
-                    .padding(top = 10.dp)
-                    .constrainAs(scrollContent) {
-                        top.linkTo(tvSettingsTitle.bottom)
-                        bottom.linkTo(parent.bottom)
-                        height = Dimension.fillToConstraints
-                    }
-            ) {
-                // SETTINGS Section
-                TextViewWithFont(
-                    text = stringResource(id = R.string.nav_settings_title).uppercase(),
-                    color = ThmSubTitleTextColor,
-                    fontSize = ThmSubTitleTextSize,
-                    fontWeight = FontWeight.Normal,
-                    textAlign = TextAlign.Start,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 10.dp, start = 20.dp, end = 20.dp)
-                )
+                    .padding(top = 5.dp),
+                onClick = {
+                    nextScreen(MainDestinations.SETTINGS_LANGUAGE)
+                },
+                startIcon = R.drawable.ic_language,
+                text = R.string.nav_settings_language,
+                endIcon = R.drawable.ic_chevron_right_black
+            )
 
-                SettingsItem(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    onClick = {
-                        nextScreen(MainDestinations.SETTINGS_NOFITICATIONS)
-                    },
-                    startIcon = R.drawable.ic_notifications,
-                    text = R.string.notifications_title,
-                    endIcon = R.drawable.ic_chevron_right_black
-                )
+            // ACCOUNT Section
+            TextViewWithFont(
+                text = stringResource(id = R.string.settings_account_title).uppercase(),
+                color = ThmSubTitleTextColor,
+                fontSize = ThmSubTitleTextSize,
+                fontWeight = FontWeight.Normal,
+                textAlign = TextAlign.Start,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 20.dp, start = 20.dp, end = 20.dp)
+            )
 
-                SettingsItem(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 5.dp),
-                    onClick = {
-                        nextScreen(MainDestinations.SETTINGS_LANGUAGE)
-                    },
-                    startIcon = R.drawable.ic_language,
-                    text = R.string.nav_settings_language,
-                    endIcon = R.drawable.ic_chevron_right_black
-                )
+            SettingsItem(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 5.dp),
+                onClick = {
+                    //viewModel.onEvent(SettingsScreenEvent.OnLanguageClick)
+                },
+                startIcon = R.drawable.ic_settings_account,
+                text = R.string.settings_account_details,
+                endIcon = R.drawable.ic_chevron_right_black
+            )
 
-                // ACCOUNT Section
-                TextViewWithFont(
-                    text = stringResource(id = R.string.settings_account_title).uppercase(),
-                    color = ThmSubTitleTextColor,
-                    fontSize = ThmSubTitleTextSize,
-                    fontWeight = FontWeight.Normal,
-                    textAlign = TextAlign.Start,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 20.dp, start = 20.dp, end = 20.dp)
-                )
+            SettingsItem(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 5.dp),
+                onClick = {
+                    //viewModel.onEvent(SettingsScreenEvent.OnLanguageClick)
+                },
+                startIcon = R.drawable.qr_code,
+                text = R.string.user_identification_QR_code,
+                endIcon = R.drawable.ic_chevron_right_black
+            )
 
-                SettingsItem(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 5.dp),
-                    onClick = {
-                        //viewModel.onEvent(SettingsScreenEvent.OnLanguageClick)
-                    },
-                    startIcon = R.drawable.ic_settings_account,
-                    text = R.string.settings_account_details,
-                    endIcon = R.drawable.ic_chevron_right_black
-                )
+            SettingsItem(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 5.dp),
+                onClick = {
+                    //viewModel.onEvent(SettingsScreenEvent.OnLanguageClick)
+                },
+                startIcon = R.drawable.ic_password_zwick,
+                text = R.string.nav_settings_change_password,
+                endIcon = R.drawable.ic_chevron_right_black
+            )
 
-                SettingsItem(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 5.dp),
-                    onClick = {
-                        //viewModel.onEvent(SettingsScreenEvent.OnLanguageClick)
-                    },
-                    startIcon = R.drawable.qr_code,
-                    text = R.string.user_identification_QR_code,
-                    endIcon = R.drawable.ic_chevron_right_black
-                )
+            SettingsItem(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 5.dp),
+                onClick = {
+                    displayLogoutDialog = true
+                },
+                startIcon = R.drawable.ic_settings_sign_out,
+                text = R.string.app_generic_sign_out,
+                endIcon = R.drawable.ic_chevron_right_black
+            )
 
-                SettingsItem(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 5.dp),
-                    onClick = {
-                        //viewModel.onEvent(SettingsScreenEvent.OnLanguageClick)
-                    },
-                    startIcon = R.drawable.ic_password_zwick,
-                    text = R.string.nav_settings_change_password,
-                    endIcon = R.drawable.ic_chevron_right_black
-                )
+            // SUPPORT Section
+            TextViewWithFont(
+                text = stringResource(id = R.string.settings_support).uppercase(),
+                color = ThmSubTitleTextColor,
+                fontSize = ThmSubTitleTextSize,
+                fontWeight = FontWeight.Normal,
+                textAlign = TextAlign.Start,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 20.dp, start = 20.dp, end = 20.dp)
+            )
 
-                SettingsItem(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 5.dp),
-                    onClick = {
-                        //viewModel.onEvent(SettingsScreenEvent.OnLanguageClick)
-                    },
-                    startIcon = R.drawable.ic_settings_sign_out,
-                    text = R.string.app_generic_sign_out,
-                    endIcon = R.drawable.ic_chevron_right_black
-                )
+            SettingsItem(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 5.dp),
+                onClick = {
+                    nextScreen(MainDestinations.SETTINGS_HELP)
+                },
+                startIcon = R.drawable.ic_help,
+                text = R.string.app_generic_help,
+                endIcon = R.drawable.ic_chevron_right_black
+            )
 
-                // SUPPORT Section
-                TextViewWithFont(
-                    text = stringResource(id = R.string.settings_support).uppercase(),
-                    color = ThmSubTitleTextColor,
-                    fontSize = ThmSubTitleTextSize,
-                    fontWeight = FontWeight.Normal,
-                    textAlign = TextAlign.Start,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 20.dp, start = 20.dp, end = 20.dp)
-                )
+            SettingsItem(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 5.dp),
+                onClick = {
+                    nextScreen(MainDestinations.SETTINGS_TERMS_AND_CONDITIONS)
+                },
+                startIcon = R.drawable.ic_terms,
+                text = R.string.nav_ttc_title,
+                endIcon = R.drawable.ic_chevron_right_black
+            )
 
-                SettingsItem(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 5.dp),
-                    onClick = {
-                        nextScreen(MainDestinations.SETTINGS_HELP)
-                    },
-                    startIcon = R.drawable.ic_help,
-                    text = R.string.app_generic_help,
-                    endIcon = R.drawable.ic_chevron_right_black
-                )
+            SettingsItem(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 5.dp),
+                onClick = {
+                    nextScreen(MainDestinations.SETTINGS_PRIVACY_POLICY)
+                },
+                startIcon = R.drawable.ic_privacy,
+                text = R.string.settings_privacy_policy,
+                endIcon = R.drawable.ic_chevron_right_black
+            )
 
-                SettingsItem(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 5.dp),
-                    onClick = {
-                        nextScreen(MainDestinations.SETTINGS_TERMS_AND_CONDITIONS)
-                    },
-                    startIcon = R.drawable.ic_terms,
-                    text = R.string.nav_ttc_title,
-                    endIcon = R.drawable.ic_chevron_right_black
-                )
+            SettingsItem(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 5.dp),
+                onClick = {
+                    val emailIntent = Intent(
+                        Intent.ACTION_SENDTO,
+                        Uri.parse("mailto:${BuildConfig.APP_BASE_EMAIL}")
+                    )
+                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, "")
+                    context.startActivity(Intent.createChooser(emailIntent, ""))
+                },
+                startIcon = R.drawable.ic_email,
+                text = R.string.email_us,
+                endIcon = R.drawable.ic_chevron_right_black,
+                hasEndIcon = false
+            )
 
-                SettingsItem(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 5.dp),
-                    onClick = {
-                        nextScreen(MainDestinations.SETTINGS_PRIVACY_POLICY)
-                    },
-                    startIcon = R.drawable.ic_privacy,
-                    text = R.string.settings_privacy_policy,
-                    endIcon = R.drawable.ic_chevron_right_black
-                )
-
-                SettingsItem(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 5.dp),
-                    onClick = {
-                        val emailIntent = Intent(
-                            Intent.ACTION_SENDTO,
-                            Uri.parse("mailto:${BuildConfig.APP_BASE_EMAIL}")
-                        )
-                        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "")
-                        context.startActivity(Intent.createChooser(emailIntent, ""))
-                    },
-                    startIcon = R.drawable.ic_email,
-                    text = R.string.email_us,
-                    endIcon = R.drawable.ic_chevron_right_black,
-                    hasEndIcon = false
-                )
-
-                // Version
-                TextViewWithFont(
-                    text = appVersion, //state.currentVersion,
-                    color = ThmDescriptionTextColor,
-                    fontSize = ThmSubTitleTextSize,
-                    fontWeight = FontWeight.Normal,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 10.dp, bottom = 20.dp)
-                )
-            }
+            // Version
+            TextViewWithFont(
+                text = appVersion, //state.currentVersion,
+                color = ThmDescriptionTextColor,
+                fontSize = ThmSubTitleTextSize,
+                fontWeight = FontWeight.Normal,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 10.dp, bottom = 20.dp)
+            )
         }
+    }
 }
 
 // Individual Settings Items as Composables
@@ -310,9 +330,9 @@ fun SettingsItem(
         modifier = modifier
             .fillMaxWidth()
             .clickable(onClick = onClick)
-            //.padding(top = 5.dp) // matches XML top/bottom padding
+        //.padding(top = 5.dp) // matches XML top/bottom padding
     ) {
-        val paddingStart = if( hasEndIcon ) 10.dp else 5.dp
+        val paddingStart = if (hasEndIcon) 10.dp else 5.dp
         Row(
             modifier = Modifier
                 .padding(vertical = 8.dp)
@@ -337,7 +357,7 @@ fun SettingsItem(
                 maxLines = 1
             )
 
-            if( hasEndIcon )
+            if (hasEndIcon)
                 Icon(
                     painter = painterResource(id = endIcon),
                     contentDescription = null,

@@ -26,6 +26,8 @@ val ThmLoginButtonTextColor = Color(0xFFFFFFFF) // ?attr/thmLoginButtonTextColor
 val ThmButtonTextSize = 18.sp // ?attr/thmButtonTextSize
 val ThmButtonLetterSpacing = 0.05.sp // ?attr/thmButtonLetterSpacing
 val ThmMainFontTypeMedium = FontWeight.Medium
+
+val ThmButtonTextSizeInsideDialog = 16.sp
 // -----------------------------------------------------------------------------------------
 
 @Composable
