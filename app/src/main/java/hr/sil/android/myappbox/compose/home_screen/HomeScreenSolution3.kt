@@ -65,7 +65,7 @@ fun NavHomeScreenSolution3(
     val uiState by viewModel.uiState.collectAsState()
 
     LaunchedEffect(Unit) {
-        viewModel.loadDevices(context)
+        //viewModel.loadDevices(context)
     }
 
     // Handle unauthorized event

@@ -24,6 +24,7 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 import hr.sil.android.myappbox.store.MPLDeviceStore
+import hr.sil.android.myappbox.util.SettingsHelper
 
 class NavHomeViewModel : BaseViewModel<NavHomeUiState, HomeScreenEvent>() {
 
@@ -35,6 +36,10 @@ class NavHomeViewModel : BaseViewModel<NavHomeUiState, HomeScreenEvent>() {
     init {
         App.ref.eventBus.register(this)
         loadUserInfo()
+
+        val selectedMasterDevice = MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]
+        val displayNameOrAddress = selectedMasterDevice?.name?.ifEmpty { selectedMasterDevice.address } 
+        _uiState.value = _uiState.value.copy(selectedLocker = displayNameOrAddress ?: "")
     }
 
     private fun loadUserInfo() {
@@ -44,35 +49,6 @@ class NavHomeViewModel : BaseViewModel<NavHomeUiState, HomeScreenEvent>() {
         )
     }
 
-    fun loadDevices(context: Context) {
-        viewModelScope.launch {
-            val items = getItemsForRecyclerView(context)
-            _uiState.value = _uiState.value.copy(devices = items)
-        }
-    }
-
-    private fun getItemsForRecyclerView(context: Context?): List<ItemHomeScreen> {
-        val items = mutableListOf<ItemHomeScreen>()
-
-//        val (splList, mplList) = MPLDeviceStore.uniqueDevices.values
-//            .filter {
-//                val isThisDeviceAvailable = when {
-//                    UserUtil.user?.testUser == true -> true
-//                    else -> it.isProductionReady == true
-//                }
-//                isThisDeviceAvailable
-//            }
-
-
-
-        return items
-    }
-
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMplDeviceNotify(event: MPLDevicesUpdatedEvent) {
-        loadDevices(context = App.ref.applicationContext)
-    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onUnauthorizedUser(event: UnauthorizedUserEvent) {
@@ -88,29 +64,15 @@ class NavHomeViewModel : BaseViewModel<NavHomeUiState, HomeScreenEvent>() {
             is HomeScreenEvent.OnForgotPasswordRequest -> {
 
                 }
-
-//                viewModelScope.launch {
-//                    _state.update { it.copy(loading = true) }
-//                    login(email = event.email, password = event.password, context = event.context)
-//                    _state.update { it.copy(loading = false) }
-//                }
         }
     }
 
-    fun getEmailError(email: String, context: Context): String {
-        var emailError = ""
-        if (email.isBlank()) {
-            emailError = context.getString(R.string.forgot_password_error)
-        } else if (!email.isEmailValid()) {
-            emailError = context.getString(R.string.pickup_parcel_email_error)
-        }
-
-        return emailError
-    }
 }
 
 data class NavHomeUiState(
     val loading: Boolean = false,
+
+    val selectedLocker: String = "",
 
     val userName: String = "",
     val address: String = "",
@@ -127,7 +89,6 @@ sealed class HomeScreenEvent {
 }
 
 sealed class HomeScreenUiEvent : UiEvent {
-    data class NavigateToNextScreen(val route: String) : HomeScreenUiEvent()
 
     object NavigateBack : HomeScreenUiEvent()
 }

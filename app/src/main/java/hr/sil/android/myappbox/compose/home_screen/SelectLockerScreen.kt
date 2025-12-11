@@ -1,5 +1,6 @@
 package hr.sil.android.myappbox.compose.home_screen
 
+import android.content.Intent
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
@@ -18,13 +19,14 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,18 +36,21 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import hr.sil.android.myappbox.R
+import hr.sil.android.myappbox.compose.components.ButtonWithFont
 import hr.sil.android.myappbox.compose.components.TextViewWithFont
+import hr.sil.android.myappbox.compose.components.ThmButtonLetterSpacing
+import hr.sil.android.myappbox.compose.components.ThmButtonTextSize
 import hr.sil.android.myappbox.compose.components.ThmDescriptionTextColor
-import hr.sil.android.myappbox.compose.components.ThmLoginBackground
-import hr.sil.android.myappbox.compose.components.ThmSubTitleTextColor
-import hr.sil.android.myappbox.compose.components.ThmSubTitleTextSize
+import hr.sil.android.myappbox.compose.components.ThmLoginButtonTextColor
+import hr.sil.android.myappbox.compose.components.ThmMainButtonBackgroundColor
 import hr.sil.android.myappbox.compose.components.ThmTitleLetterSpacing
 import hr.sil.android.myappbox.compose.components.ThmTitleTextColor
 import hr.sil.android.myappbox.compose.components.ThmTitleTextSize
+import hr.sil.android.myappbox.compose.components.strokeBackground
+import hr.sil.android.myappbox.compose.dialog.MplRequestAccessDialog
 import hr.sil.android.myappbox.core.model.MPLDeviceType
 import hr.sil.android.myappbox.core.remote.model.InstalationType
 import hr.sil.android.myappbox.core.remote.model.RMasterUnitType
@@ -54,11 +59,25 @@ import hr.sil.android.myappbox.core.remote.model.RMasterUnitType
 fun SelectLockerScreen(
     modifier: Modifier = Modifier,
     viewModel: SelectLockerViewModel,
-    onConfirm: () -> Unit = {},
     navigateUp: () -> Unit = {}
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val context = LocalContext.current
+
+    var displayMplRequestAccessDialog by remember {
+        mutableStateOf(false)
+    }
+
+    if (displayMplRequestAccessDialog) {
+        MplRequestAccessDialog (
+            onDismiss = {
+                displayMplRequestAccessDialog = false
+            },
+            onConfirm = {
+                displayMplRequestAccessDialog
+            }
+        )
+    }
 
     Box(
         modifier = modifier
@@ -101,6 +120,8 @@ fun SelectLockerScreen(
                                     onRequestAccess = {
                                         viewModel.requestAccess(item.deviceData.macAddress) { success, message ->
                                             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                                            if( success )
+                                                displayMplRequestAccessDialog = true
                                         }
                                     },
                                     onActivateSPL = {
@@ -122,28 +143,48 @@ fun SelectLockerScreen(
                         .padding(vertical = 16.dp),
                     contentAlignment = Alignment.Center
                 ) {
-                    Button(
+
+                    ButtonWithFont(
+                        text = stringResource(id = R.string.app_generic_confirm).uppercase(),
                         onClick = {
                             viewModel.onConfirm {
-                                onConfirm()
+                                navigateUp()
                             }
                         },
+                        backgroundColor = ThmMainButtonBackgroundColor, // ?attr/thmMainButtonBackgroundColor
+                        textColor = ThmLoginButtonTextColor, // ?attr/thmLoginButtonTextColor
+                        fontSize = ThmButtonTextSize, // ?attr/thmButtonTextSize
+                        fontWeight = FontWeight.Medium, // ?attr/thmMainFontTypeMedium
+                        letterSpacing = ThmButtonLetterSpacing, // ?attr/thmButtonLetterSpacing
                         modifier = Modifier
-                            .width(210.dp)
-                            .height(40.dp),
-                        shape = RoundedCornerShape(4.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = colorResource(id = R.color.colorAccentZwick)
-                        )
-                    ) {
-                        TextViewWithFont(
-                            text = stringResource(id = R.string.app_generic_confirm).uppercase(),
-                            color = Color.White,
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.Medium,
-                            letterSpacing = 1.sp
-                        )
-                    }
+                            .width(250.dp)
+                            .height(40.dp) ,
+                        enabled = true
+                    )
+
+//                    ButtonWithFont(
+//                        text = stringResource(id = R.string.app_generic_apply).uppercase(),
+//                        onClick = {
+//                            viewModel.onConfirm {
+//                                onConfirm()
+//                            }
+//                        },
+//                        modifier = Modifier
+//                            .width(210.dp)
+//                            .height(40.dp),
+//                        shape = RoundedCornerShape(4.dp),
+//                        colors = ButtonDefaults.buttonColors(
+//                            containerColor = colorResource(id = R.color.colorAccentZwick)
+//                        )
+//                    ) {
+//                        TextViewWithFont(
+//                            text = stringResource(id = R.string.app_generic_confirm).uppercase(),
+//                            color = Color.White,
+//                            fontSize = 14.sp,
+//                            fontWeight = FontWeight.Medium,
+//                            letterSpacing = 1.sp
+//                        )
+//                    }
                 }
             }
         }
@@ -206,9 +247,9 @@ private fun LockerDetailItem(
     val isSelected = device.isSelected
 
     val backgroundColor = if (isSelected) {
-        colorResource(id = R.color.colorAccentZwick)
-    } else {
         colorResource(id = R.color.colorPrimaryDarkZwick)
+    } else {
+        colorResource(id = R.color.colorPrimaryTransparentZwick)
     }
 
     val textColor = if (isSelected) Color.White else ThmDescriptionTextColor
@@ -291,10 +332,19 @@ private fun LockerDetailItem(
             Box(
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
-                    .background(
-                        color = if (isSelected) Color.White.copy(alpha = 0.2f) else colorResource(id = R.color.colorAccentZwick).copy(alpha = 0.2f),
-                        shape = RoundedCornerShape(4.dp)
+                    .strokeBackground(
+                        backgroundColor = Color.Transparent,
+                        strokeColor = colorResource(R.color.colorBlackText),
+                        strokeWidth = 1.5.dp,
+                        cornerRadius = 5.dp
                     )
+//                    .background(
+//                        color = if (isSelected)
+//                            Color.White.copy(alpha = 0.2f)
+//                        else
+//                            colorResource(id = R.color.colorBlackText).copy(alpha = 0.2f),
+//                        shape = RoundedCornerShape(4.dp)
+//                    )
                     .clickable(enabled = isClickable) {
                         if (isMPL) {
                             onRequestAccess()

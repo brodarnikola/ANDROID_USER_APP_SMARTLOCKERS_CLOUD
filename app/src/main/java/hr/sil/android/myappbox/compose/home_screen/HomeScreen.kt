@@ -37,8 +37,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -56,9 +59,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 import hr.sil.android.myappbox.R
+import hr.sil.android.myappbox.cache.status.ActionStatusHandler.log
 import hr.sil.android.myappbox.compose.components.ButtonWithFont
 import hr.sil.android.myappbox.compose.components.GradientBackground
 import hr.sil.android.myappbox.compose.components.TextViewWithFont
@@ -70,7 +77,8 @@ import hr.sil.android.myappbox.compose.components.ThmTitleTextColor
 import hr.sil.android.myappbox.compose.components.ThmTitleTextSize
 import hr.sil.android.myappbox.compose.main_activity.MainDestinations
 import hr.sil.android.myappbox.core.util.logger
-import hr.sil.android.myappbox.utils.UiEvent
+import hr.sil.android.myappbox.store.MPLDeviceStore
+import hr.sil.android.myappbox.util.SettingsHelper
 
 // --- 1. MOCK THEME & RESOURCES (Replace with your actual Theme/R values) ---
 
@@ -131,28 +139,39 @@ fun NavHomeScreen(
 
     val state = viewModel.state.collectAsStateWithLifecycle().value
 
-    val activity = LocalContext.current as Activity
-    val context = LocalContext.current
+    val lockerNameOrAddress = rememberSaveable { mutableStateOf("") }
 
-    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-    val scope = rememberCoroutineScope()
+    // Initial load
+    LaunchedEffect(Unit) {
+        lockerNameOrAddress.value =
+            MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]
+                ?.name?.ifEmpty {
+                    MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]?.address ?: "YEAH"
+                } ?: "YEAH 2"
+    }
 
-    LaunchedEffect(key1 = Unit) {
-        val log = logger()
-        log.info("collecting events: start ${viewModel.uiEvents}")
-        viewModel.uiEvents.collect { event ->
-            log.info("collecting event: ${event}")
-            when (event) {
-//                is MainScreenUiEvent.NavigateToScreen -> {
-//                    nextScreen(event.route)
-//                }
+    // Update again on Resume
+    val lifecycleOwner = LocalLifecycleOwner.current
 
-                is UiEvent.ShowToast -> {
-                    Toast.makeText(context, event.message, event.toastLength).show()
-                }
+    DisposableEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME || event == Lifecycle.Event.ON_START) {
+                lockerNameOrAddress.value =
+                    MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]
+                        ?.name?.ifEmpty {
+                            MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]?.address
+                                ?: "YEAH"
+                        } ?: "YEAH 2"
             }
         }
+
+        lifecycleOwner.lifecycle.addObserver(observer)
+
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)
+        }
     }
+
 
 //    ModalNavigationDrawer(
 //        drawerState = drawerState,
@@ -304,7 +323,7 @@ fun NavHomeScreen(
                                         verticalAlignment = Alignment.CenterVertically
                                     ) {
                                         TextViewWithFont(
-                                            text = "AWESOME TEXT", //state.selectedLocker ?: "-",
+                                            text = lockerNameOrAddress.value,
                                             color = colorResource(R.color.colorBlackText),
                                             fontSize = ThmTitleTextSize,
                                             fontWeight = FontWeight.Normal,

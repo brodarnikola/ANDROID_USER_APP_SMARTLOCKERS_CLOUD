@@ -140,6 +140,11 @@ fun NavGraphBuilder.mainNavGraph(
     composable(MainDestinations.SELECT_LOCKER) {
         SelectLockerScreen(
             viewModel = viewModel(),
+            navigateUp = {
+                navController.currentBackStackEntry?.let {
+                    navController.navigateUp()
+                }
+            }
         )
     }
 
