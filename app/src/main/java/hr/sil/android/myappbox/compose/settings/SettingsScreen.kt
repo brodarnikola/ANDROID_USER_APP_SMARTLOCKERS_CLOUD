@@ -193,6 +193,7 @@ fun SettingsScreen(
                     .fillMaxWidth()
                     .padding(top = 5.dp),
                 onClick = {
+                    nextScreen(MainDestinations.SETTINGS_MY_DETAILS)
                     //viewModel.onEvent(SettingsScreenEvent.OnLanguageClick)
                 },
                 startIcon = R.drawable.ic_settings_account,

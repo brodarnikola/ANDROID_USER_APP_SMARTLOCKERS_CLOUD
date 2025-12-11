@@ -34,6 +34,7 @@ import hr.sil.android.myappbox.compose.settings.MainTermsConditionsScreen
 import hr.sil.android.myappbox.compose.settings.NotificationsScreen
 import hr.sil.android.myappbox.compose.settings.PrivacyPolicyScreen
 import hr.sil.android.myappbox.compose.settings.SettingsScreen
+import hr.sil.android.myappbox.compose.settings.UserDetailsSettingsScreen
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -186,7 +187,14 @@ fun NavGraphBuilder.mainNavGraph(
     }
 
     composable(MainDestinations.SETTINGS_MY_DETAILS) {
-        HelpHorizontalPager( )
+        UserDetailsSettingsScreen(
+            viewModel = viewModel(),
+            navigateUp = {
+                navController.currentBackStackEntry?.let {
+                    navController.navigateUp()
+                }
+            }
+        )
     }
 
     composable("${MainDestinations.SETTINGS_QR_CODE}/{${NavArguments.RETURN_TO_SCREEN}}/{${NavArguments.MAC_ADDRESS}}",
