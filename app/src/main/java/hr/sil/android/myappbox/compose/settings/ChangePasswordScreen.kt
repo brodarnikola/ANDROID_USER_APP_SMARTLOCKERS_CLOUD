@@ -1,164 +1,54 @@
 package hr.sil.android.myappbox.compose.settings
 
-import android.app.Activity
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.Dimension
-import hr.sil.android.myappbox.BuildConfig
-import hr.sil.android.myappbox.R
-import hr.sil.android.myappbox.compose.components.GradientBackground
-import hr.sil.android.myappbox.compose.components.SettingsRoundedBackground
-import hr.sil.android.myappbox.compose.components.TextViewWithFont
-import hr.sil.android.myappbox.compose.components.ThmDescriptionTextColor
-import hr.sil.android.myappbox.compose.components.ThmSubTitleTextColor
-import hr.sil.android.myappbox.compose.components.ThmSubTitleTextSize
-import hr.sil.android.myappbox.compose.components.ThmTitleLetterSpacing
-import hr.sil.android.myappbox.compose.components.ThmTitleTextColor
-import hr.sil.android.myappbox.compose.components.ThmTitleTextSize
-import hr.sil.android.myappbox.compose.components.ThmToolbarBackgroundColor
-import hr.sil.android.myappbox.compose.dialog.LogoutDialog
-import hr.sil.android.myappbox.compose.main_activity.MainDestinations
-import hr.sil.android.myappbox.core.util.logger
-import kotlin.collections.forEach
-import kotlin.jvm.java
-import kotlin.text.isEmpty
-import kotlin.text.isNotEmpty
-import kotlin.text.uppercase
-
 
 import android.widget.Toast
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import hr.sil.android.myappbox.compose.SignUpOnboardingSections
-import hr.sil.android.myappbox.compose.components.ButtonWithFont
-import hr.sil.android.myappbox.compose.components.GradientBackground
-import hr.sil.android.myappbox.compose.components.ProgressIndicatorSize
-import hr.sil.android.myappbox.compose.components.RotatingRingIndicator
-import hr.sil.android.myappbox.compose.components.TextViewWithFont
-import hr.sil.android.myappbox.compose.components.ThmButtonTextSize
-import hr.sil.android.myappbox.compose.components.ThmErrorTextColor
-import hr.sil.android.myappbox.compose.components.ThmLoginBackground
-import hr.sil.android.myappbox.compose.components.ThmLoginButtonTextColor
-import hr.sil.android.myappbox.compose.components.ThmLoginDescriptionTextColor
-import hr.sil.android.myappbox.compose.components.ThmMainButtonBackgroundColor
-import hr.sil.android.myappbox.compose.components.ThmToolbarBackgroundColor
-import hr.sil.android.myappbox.compose.main_activity.MainActivity
-import hr.sil.android.myappbox.compose.theme.AppTypography
-import hr.sil.android.myappbox.compose.theme.Black
-import hr.sil.android.myappbox.compose.theme.DarkModeTransparent
-import hr.sil.android.myappbox.core.util.logger
-import hr.sil.android.myappbox.utils.UiEvent
-import hr.sil.android.myappbox.view.ui.activities.TCInvitedUserActivity
-import androidx.compose.material3.MaterialTheme as Material3
-
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
+import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
-import com.google.accompanist.pager.ExperimentalPagerApi
+import hr.sil.android.myappbox.R
+import hr.sil.android.myappbox.compose.components.ButtonWithFont
 import hr.sil.android.myappbox.compose.components.TextViewWithFont
+import hr.sil.android.myappbox.compose.components.ThmButtonLetterSpacing
+import hr.sil.android.myappbox.compose.components.ThmButtonTextSize
 import hr.sil.android.myappbox.compose.components.ThmDescriptionTextColor
 import hr.sil.android.myappbox.compose.components.ThmDescriptionTextSize
+import hr.sil.android.myappbox.compose.components.ThmLoginButtonTextColor
+import hr.sil.android.myappbox.compose.components.ThmMainButtonBackgroundColor
 import hr.sil.android.myappbox.compose.components.ThmTitleTextSize
-import hr.sil.android.myappbox.compose.theme.Black
+import hr.sil.android.myappbox.compose.theme.AppTypography
 
 @Composable
 fun ChangePasswordScreen(
@@ -183,47 +73,40 @@ fun ChangePasswordScreen(
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
-            .systemBarsPadding()
+            //.systemBarsPadding()
     ) {
         val (title, subtitle, currentPasswordField, currentPasswordErrorText,
             newPasswordField, newPasswordErrorText, retypePasswordField,
             confirmPasswordErrorText, showPasswordText, progressBar, applyButton) = createRefs()
 
-        // Settings Account Title
-        Text(
-            text = stringResource(R.string.settings_account_title),
+        TextViewWithFont(
+            text = stringResource(R.string.settings_account_title).uppercase(),
+            color = ThmDescriptionTextColor,
+            fontSize = ThmTitleTextSize,
+            textAlign = TextAlign.Center,
+            fontWeight = FontWeight.Medium,
+            letterSpacing = 0.3.em,
+            maxLines = 3,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 15.dp)
+                .padding(horizontal = 10.dp)
                 .constrainAs(title) {
-                    top.linkTo(parent.top, margin = 56.dp)
-                },
-            textAlign = TextAlign.Center,
-            fontSize = 20.sp,
-            //color = MaterialTheme.colorScheme.onSurface,
-            letterSpacing = 0.1.em,
-            fontWeight = FontWeight.Medium,
-//            style = MaterialTheme.typography.titleLarge.copy(
-//                textTransform = TextTransform.Uppercase
-//            )
+                    top.linkTo(parent.top, margin = 10.dp)
+                }
         )
 
-        // Change Password Subtitle
-        Text(
-            text = stringResource(R.string.nav_settings_change_password),
+        TextViewWithFont(
+            text = stringResource(R.string.nav_settings_change_password).uppercase(),
+            color = ThmDescriptionTextColor,
+            fontSize = ThmDescriptionTextSize,
+            textAlign = TextAlign.Center,
+            fontWeight = FontWeight.Normal,
+            maxLines = 3,
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 22.dp)
+                .padding(horizontal = 30.dp)
                 .constrainAs(subtitle) {
                     top.linkTo(title.bottom, margin = 20.dp)
-                },
-            textAlign = TextAlign.Start,
-            fontSize = 15.sp,
-            //color = MaterialTheme.colorScheme.onSurfaceVariant,
-            fontWeight = FontWeight.Medium,
-//            style = MaterialTheme.typography.titleMedium.copy(
-//                textTransform = TextTransform.Uppercase
-//            )
+                }
         )
 
         // Current Password Field
@@ -463,11 +346,28 @@ fun ChangePasswordScreen(
             )
         }
 
-        // Apply Button
-        Button(
+        ButtonWithFont(
+            text = stringResource(id = R.string.app_generic_apply).uppercase(),
             onClick = {
-                //onChangePassword(currentPassword, newPassword, retypePassword)
+//                viewModel.saveLanguageSettings(
+//                    onSuccess = {
+//                        Toast.makeText(
+//                            context,
+//                            "Language saved successfully",
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//                        navigateUp()
+//                    },
+//                    onError = { errorMessage ->
+//                        Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+//                    }
+//                )
             },
+            backgroundColor = ThmMainButtonBackgroundColor, // ?attr/thmMainButtonBackgroundColor
+            textColor = ThmLoginButtonTextColor, // ?attr/thmLoginButtonTextColor
+            fontSize = ThmButtonTextSize, // ?attr/thmButtonTextSize
+            fontWeight = FontWeight.Medium, // ?attr/thmMainFontTypeMedium
+            letterSpacing = ThmButtonLetterSpacing, // ?attr/thmButtonLetterSpacing
             modifier = Modifier
                 .width(250.dp)
                 .height(40.dp)
@@ -481,16 +381,7 @@ fun ChangePasswordScreen(
                     end.linkTo(parent.end)
                     verticalBias = 0.3f
                 },
-//            colors = ButtonDefaults.buttonColors(
-//                containerColor = MaterialTheme.colorScheme.primary
-//            )
-        ) {
-            Text(
-                text = stringResource(R.string.app_generic_apply),
-                letterSpacing = 0.1.em,
-                //color = MaterialTheme.colorScheme.onPrimary,
-                fontWeight = FontWeight.Medium
-            )
-        }
+            enabled = true
+        )
     }
 }
