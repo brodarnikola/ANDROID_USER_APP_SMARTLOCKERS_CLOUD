@@ -70,7 +70,6 @@ import kotlin.text.uppercase
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SettingsScreen(
-    viewModel: SettingsViewModel = viewModel(),
     nextScreen: (route: String) -> Unit = {},
     nextScreenQrCode: (route: String, returnToScreen: Int, macAddress: String) -> Unit
 ) {
@@ -99,30 +98,6 @@ fun SettingsScreen(
                 displayLogoutDialog = false
             },
             onConfirm = {
-//                viewModel.logout(
-//                    onSuccess = {
-//                        displayLogoutDialog = false
-//                        val intent = Intent(context, SignUpOnboardingActivity::class.java)
-//                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-//                        context.startActivity(intent)
-//                        activity.finish()
-//                    },
-//                    onError = {
-//                        displayLogoutDialog = false
-//                    }
-//                )
-
-//                displayLogoutDialog = false
-//                scope.launch {
-//                    withContext(Dispatchers.IO) {
-//                        UserUtil.logout()
-//                    }
-//                    val intent = Intent(context, LoginActivity::class.java)
-//                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-//                    context.startActivity(intent)
-//                    activity.finish()
-//                }
-
                 displayLogoutDialog = false
                 CoroutineScope(Dispatchers.IO).launch {
                     UserUtil.logout()

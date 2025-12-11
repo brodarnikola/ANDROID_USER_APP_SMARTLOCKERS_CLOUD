@@ -296,6 +296,7 @@ fun NavHomeScreen(
                                                 shape = RoundedCornerShape(4.dp)
                                             )
                                             .clickable {
+                                                nextScreen(MainDestinations.SELECT_LOCKER)
                                                 //viewModel.onEvent(MainScreenEvent.OnChooseCityLockerClick)
                                             }
                                             .padding(horizontal = 10.dp),

@@ -25,6 +25,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import hr.sil.android.myappbox.R
 import hr.sil.android.myappbox.compose.home_screen.NavHomeScreen
+import hr.sil.android.myappbox.compose.home_screen.SelectLockerScreen
 import hr.sil.android.myappbox.compose.settings.ChangePasswordScreen
 import hr.sil.android.myappbox.compose.settings.DisplayQrCodeScreen
 import hr.sil.android.myappbox.compose.settings.DisplayQrCodeScreenWrapper
@@ -133,6 +134,12 @@ fun NavGraphBuilder.mainNavGraph(
 //                    goToDeviceDetails(MainDestinations.DEVICE_DETAILS, deviceId, nameOfDevice)
 //                }
 //            }
+        )
+    }
+
+    composable(MainDestinations.SELECT_LOCKER) {
+        SelectLockerScreen(
+            viewModel = viewModel(),
         )
     }
 

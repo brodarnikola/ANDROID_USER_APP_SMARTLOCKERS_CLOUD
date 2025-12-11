@@ -19,7 +19,8 @@ object MainDestinations {
     const val SELECT_PARCEL_OVERVIEW = "SelectParcelOverview"
     const val ACCESS_SHARING_SCREEN = "AccessSharingScreen"
     const val ACCESS_SHARING_ADD_USER_SCREEN = "AccessSharingAddUserScreen"
-    const val HELP_CONTENT_SCREEN = "HelpContentScreen"
+
+    const val SELECT_LOCKER = "SelectLocker"
     const val SETTINGS = "Settings"
     const val SETTINGS_NOFITICATIONS = "SettingsNotifications"
     const val SETTINGS_PRIVACY_POLICY = "SettingsPrivacyPolicy"

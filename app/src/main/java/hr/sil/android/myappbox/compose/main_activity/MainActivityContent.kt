@@ -303,18 +303,6 @@ fun MainActivityContent(
                 modifier = Modifier.fillMaxSize()
                     .padding(paddingValues)
             ) {
-//            Box(
-//                modifier = Modifier
-//                    .fillMaxSize()
-//                    .padding(paddingValues)
-//            ) {
-
-//            Image(
-//                painter = painterResource(id = R.drawable.bg_bluetooth),
-//                contentDescription = "Background",
-//                modifier = Modifier.fillMaxSize(),
-//                contentScale = ContentScale.Crop
-//            )
 
                 MainComposeApp(appState, navBackStackEntry)
 

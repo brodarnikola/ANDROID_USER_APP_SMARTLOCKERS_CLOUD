@@ -423,62 +423,7 @@ class SelectLockerActivity //  :  BaseActivity(R.id.no_ble_layout, R.id.no_inter
 //        App.ref.eventBus.unregister(this)
 //    }
 //
-//    override fun onBluetoothStateUpdated(available: Boolean) {
-//        super.onBluetoothStateUpdated(available)
-//        bluetoothAvalilable = available
-//        updateUI()
-//    }
-//
-//    override fun onNetworkStateUpdated(available: Boolean) {
-//        super.onNetworkStateUpdated(available)
-//        networkAvailable = available
-//        updateUI()
-//    }
-//
-//    override fun onLocationGPSStateUpdated(available: Boolean) {
-//        super.onLocationGPSStateUpdated(available)
-//        locationGPSAvalilable = available
-//        updateUI()
-//    }
-//
-//    @Subscribe(threadMode = ThreadMode.MAIN)
-//    fun onMplDeviceNotify(event: UnauthorizedUserEvent) {
-//        log.info("Received unauthorized event, user will now be log outed")
-//        val intent = Intent(this, LoginActivity::class.java)
-//        startActivity(intent)
-//        finish()
-//    }
-//
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        when (item.itemId) {
-//            android.R.id.home -> {
-//
-//                val intent = Intent()
-//                val packageName = this@SelectLockerActivity.packageName
-//                val componentName = ComponentName(packageName, packageName + ".aliasMainActivity")
-//                intent.component = componentName
-//
-//                startActivity(intent)
-//                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-//                finish()
-//                return true
-//            }
-//
-//            else -> return super.onOptionsItemSelected(item)
-//        }
-//    }
-//
-//    override fun onBackPressed() {
-//        val intent = Intent()
-//        val packageName = this@SelectLockerActivity.packageName
-//        val componentName = ComponentName(packageName, packageName + ".aliasMainActivity")
-//        intent.component = componentName
-//
-//        startActivity(intent)
-//        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-//        finish()
-//        super.onBackPressed()
-//    }
+
 
 }
 
