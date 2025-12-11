@@ -175,7 +175,14 @@ fun NavGraphBuilder.mainNavGraph(
     }
 
     composable(MainDestinations.SETTINGS_CHANGE_PASSWORD) {
-        ChangePasswordScreen( )
+        ChangePasswordScreen(
+            viewModel = viewModel(),
+            navigateUp = {
+                navController.currentBackStackEntry?.let {
+                    navController.navigateUp()
+                }
+            }
+        )
     }
 
     composable(MainDestinations.SETTINGS_MY_DETAILS) {

@@ -18,13 +18,16 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -38,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.lifecycle.viewmodel.compose.viewModel
 import hr.sil.android.myappbox.R
 import hr.sil.android.myappbox.compose.components.ButtonWithFont
 import hr.sil.android.myappbox.compose.components.TextViewWithFont
@@ -52,11 +56,24 @@ import hr.sil.android.myappbox.compose.theme.AppTypography
 
 @Composable
 fun ChangePasswordScreen(
-    //onChangePassword: (String, String, String) -> Unit
+    viewModel: ChangePasswordViewModel,
+    navigateUp: () -> Unit
 ) {
-    var currentPassword by remember { mutableStateOf("") }
-    var newPassword by remember { mutableStateOf("") }
-    var retypePassword by remember { mutableStateOf("") }
+
+    val uiState by viewModel.uiState.collectAsState()
+
+    val password = rememberSaveable {
+        mutableStateOf("")
+    }
+    val newPassword = rememberSaveable {
+        mutableStateOf("")
+    }
+    val repeatPassword = rememberSaveable {
+        mutableStateOf("")
+    }
+
+    val context = LocalContext.current
+
     var showPasswords by remember { mutableStateOf(false) }
     var isLoading by remember { mutableStateOf(false) }
 
@@ -111,7 +128,7 @@ fun ChangePasswordScreen(
 
         // Current Password Field
         TextField(
-            value = currentPassword,
+            value = password.value,
             placeholder = {
                 Text(
                     text = stringResource(R.string.current_password),
@@ -127,7 +144,7 @@ fun ChangePasswordScreen(
                 backgroundColor = Color.Transparent
             ),
             onValueChange = {
-                currentPassword = it
+                password.value = it
                 currentPasswordError = null
             },
             modifier = Modifier
@@ -171,14 +188,14 @@ fun ChangePasswordScreen(
                         top.linkTo(currentPasswordField.bottom)
                     },
                 fontSize = 16.sp,
-                //color = MaterialTheme.colorScheme.error,
+                color = colorResource(R.color.colorRedBadgeNumber),
                 fontWeight = FontWeight.Normal
             )
         }
 
         // New Password Field
         TextField(
-            value = newPassword,
+            value = newPassword.value,
             placeholder = {
                 Text(
                     text = stringResource(R.string.new_password),
@@ -194,7 +211,7 @@ fun ChangePasswordScreen(
                 backgroundColor = Color.Transparent
             ),
             onValueChange = {
-                newPassword = it
+                newPassword.value = it
                 newPasswordError = null
             },
             modifier = Modifier
@@ -242,14 +259,14 @@ fun ChangePasswordScreen(
                         top.linkTo(newPasswordField.bottom)
                     },
                 fontSize = 16.sp,
-                //color = MaterialTheme.colorScheme.error,
+                color = colorResource(R.color.colorRedBadgeNumber),
                 fontWeight = FontWeight.Normal
             )
         }
 
         // Retype Password Field
         TextField(
-            value = retypePassword,
+            value = repeatPassword.value,
             placeholder = {
                 Text(
                     text = stringResource(R.string.retype_password),
@@ -265,7 +282,7 @@ fun ChangePasswordScreen(
                 backgroundColor = Color.Transparent
             ),
             onValueChange = {
-                retypePassword = it
+                repeatPassword.value = it
                 confirmPasswordError = null
             },
             modifier = Modifier
@@ -313,7 +330,7 @@ fun ChangePasswordScreen(
                         top.linkTo(retypePasswordField.bottom, margin = 5.dp)
                     },
                 fontSize = 16.sp,
-                //color = MaterialTheme.colorScheme.error,
+                color = colorResource(R.color.colorRedBadgeNumber),
                 fontWeight = FontWeight.Normal
             )
         }
@@ -325,7 +342,7 @@ fun ChangePasswordScreen(
                 .fillMaxWidth()
                 .clickable { showPasswords = !showPasswords }
                 .constrainAs(showPasswordText) {
-                    top.linkTo(retypePasswordField.bottom, margin = 20.dp)
+                    top.linkTo(retypePasswordField.bottom, margin = 30.dp)
                 },
             textAlign = TextAlign.Center,
             //color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -346,22 +363,39 @@ fun ChangePasswordScreen(
             )
         }
 
+        val toShortPassword = stringResource(R.string.edit_user_validation_password_min_6_characters)
         ButtonWithFont(
             text = stringResource(id = R.string.app_generic_apply).uppercase(),
             onClick = {
-//                viewModel.saveLanguageSettings(
-//                    onSuccess = {
-//                        Toast.makeText(
-//                            context,
-//                            "Language saved successfully",
-//                            Toast.LENGTH_SHORT
-//                        ).show()
-//                        navigateUp()
-//                    },
-//                    onError = { errorMessage ->
-//                        Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
-//                    }
-//                )
+                if( password.value.isBlank() || newPassword.value.isBlank() ) {
+                    currentPasswordError = "Password can not be empty"
+                    newPasswordError = "Password can not be empty"
+                }
+                else if( password.value.length < 6 || newPassword.value.length < 6 ) {
+                    currentPasswordError = toShortPassword
+                    newPasswordError = toShortPassword
+                }
+                else if( newPassword.value != repeatPassword.value ) {
+                    newPasswordError = "Password needs to be the same"
+                    confirmPasswordError = "Password needs to be the same"
+                }
+                else {
+                    viewModel.saveNewPassword(
+                        oldPassword = password.value,
+                        newPassword = newPassword.value,
+                        onSuccess = {
+                            Toast.makeText(
+                                context,
+                                R.string.nav_settings_password_update_success,
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            navigateUp()
+                        },
+                        onError = { errorMessage ->
+                            Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+                        }
+                    )
+                }
             },
             backgroundColor = ThmMainButtonBackgroundColor, // ?attr/thmMainButtonBackgroundColor
             textColor = ThmLoginButtonTextColor, // ?attr/thmLoginButtonTextColor
