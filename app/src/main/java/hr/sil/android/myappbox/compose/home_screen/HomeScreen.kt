@@ -140,14 +140,19 @@ fun NavHomeScreen(
     val state = viewModel.state.collectAsStateWithLifecycle().value
 
     val lockerNameOrAddress = rememberSaveable { mutableStateOf("") }
+    val finalProductName = rememberSaveable { mutableStateOf("") }
+    val lockerAddress = rememberSaveable { mutableStateOf("") }
+
 
     // Initial load
     LaunchedEffect(Unit) {
         lockerNameOrAddress.value =
             MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]
                 ?.name?.ifEmpty {
-                    MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]?.address ?: "YEAH"
-                } ?: "YEAH 2"
+                    MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]?.address ?: ""
+                } ?: ""
+        finalProductName.value = viewModel.setFinalProductName()
+        lockerAddress.value = viewModel.setLockerAddress()
     }
 
     // Update again on Resume
@@ -160,8 +165,10 @@ fun NavHomeScreen(
                     MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]
                         ?.name?.ifEmpty {
                             MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]?.address
-                                ?: "YEAH"
-                        } ?: "YEAH 2"
+                                ?: ""
+                        } ?: ""
+                finalProductName.value = viewModel.setFinalProductName()
+                lockerAddress.value = viewModel.setLockerAddress()
             }
         }
 
@@ -363,22 +370,22 @@ fun NavHomeScreen(
                                         modifier = Modifier.weight(9f)
                                     ) {
                                         TextViewWithFont(
-                                            text = "AWESOME 2", //state.uniqueUserNumber ?: "",
+                                            text = finalProductName.value, //state.uniqueUserNumber ?: "",
                                             color = ThmTitleTextColor,
                                             fontSize = ThmTitleTextSize,
                                             fontWeight = FontWeight.Normal,
-                                            //maxLines = 2,
+                                            maxLines = 1,
                                             modifier = Modifier
                                                 .fillMaxWidth()
                                                 .padding(top = 5.dp)
                                         )
 
                                         TextViewWithFont(
-                                            text = state.address ?: "",
+                                            text = lockerAddress.value,
                                             color = ThmTitleTextColor,
                                             fontSize = ThmTitleTextSize,
                                             fontWeight = FontWeight.Normal,
-                                            //maxLines = 2,
+                                            maxLines = 1,
                                             modifier = Modifier
                                                 .fillMaxWidth()
                                                 .padding(top = 5.dp)

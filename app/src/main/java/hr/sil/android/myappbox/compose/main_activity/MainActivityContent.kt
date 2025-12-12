@@ -30,6 +30,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -99,13 +100,22 @@ fun MainActivityContent(
         else -> false
     }
 
+    val isHomeScreen = remember(currentRoute) {
+        currentRoute == null || currentRoute.contains(MainDestinations.HOME)
+    }
+
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
+    val screenWidth = LocalConfiguration.current.screenWidthDp.dp
+    val drawerWidth = screenWidth * 0.70f
+
     ModalNavigationDrawer(
         drawerState = drawerState,
+        gesturesEnabled = isHomeScreen,
         drawerContent = {
             ModalDrawerSheet(
+                modifier = Modifier.width(drawerWidth),
                 drawerContainerColor = colorResource(R.color.colorPrimaryDark)
             ) {
                 // Header
@@ -117,6 +127,17 @@ fun MainActivityContent(
                         .windowInsetsPadding(WindowInsets.statusBars)
                 ) {
                     // Add your header content here from nav_header_main
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 50.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.logo_navigation_drawer),
+                            contentDescription = null
+                        )
+                    }
                 }
 
                 Divider(color = colorResource(R.color.colorWhite).copy(alpha = 0.2f))

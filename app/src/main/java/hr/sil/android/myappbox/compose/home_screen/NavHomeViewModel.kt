@@ -2,6 +2,7 @@ package hr.sil.android.myappbox.compose.home_screen
 
 import android.app.Activity
 import android.content.Context
+import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.viewModelScope
 import hr.sil.android.myappbox.App
@@ -38,7 +39,7 @@ class NavHomeViewModel : BaseViewModel<NavHomeUiState, HomeScreenEvent>() {
         loadUserInfo()
 
         val selectedMasterDevice = MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]
-        val displayNameOrAddress = selectedMasterDevice?.name?.ifEmpty { selectedMasterDevice.address } 
+        val displayNameOrAddress = selectedMasterDevice?.name?.ifEmpty { selectedMasterDevice.address }
         _uiState.value = _uiState.value.copy(selectedLocker = displayNameOrAddress ?: "")
     }
 
@@ -47,6 +48,71 @@ class NavHomeViewModel : BaseViewModel<NavHomeUiState, HomeScreenEvent>() {
             userName = UserUtil.user?.name ?: "",
             address = UserUtil.user?.address ?: ""
         )
+    }
+
+    fun setFinalProductName() : String {
+        val selectedMasterDevice = MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]
+
+        if (SettingsHelper.userLastSelectedLocker != "") {
+
+            val productName = when {
+                selectedMasterDevice?.customerProductName != "" -> {
+                    selectedMasterDevice?.customerProductName
+                }
+                else -> ""
+            }
+
+            val uniqueUserNumber = when {
+                UserUtil.user?.uniqueId != null && UserUtil.user?.uniqueId != 0L -> {
+                    UserUtil.user?.uniqueId
+                }
+                else -> 0
+            }
+
+            val finalProductName = if (productName != "" && uniqueUserNumber != 0L)
+                productName + " - " + uniqueUserNumber
+            else if (productName != "" && uniqueUserNumber == 0L)
+                productName
+            else if (productName == "" && uniqueUserNumber != 0L)
+                "" + uniqueUserNumber
+            else ""
+
+            return if ( finalProductName != "") {
+                finalProductName ?: ""
+            } else {
+                ""
+            }
+        } else {
+            val uniqueUserNumber =
+                if (UserUtil.user?.uniqueId != null) UserUtil.user?.uniqueId else 0L
+
+            val productName =
+                if (MPLDeviceStore.uniqueDevices != null && MPLDeviceStore.uniqueDevices.values.isNotEmpty()) MPLDeviceStore.uniqueDevices.values.first().customerProductName else ""
+
+            val finalProductName = if (productName != "" && uniqueUserNumber != 0L)
+                productName + " - " + uniqueUserNumber
+            else if (productName != "" && uniqueUserNumber == 0L)
+                productName
+            else if (productName == "" && uniqueUserNumber != 0L)
+                "" + uniqueUserNumber
+            else ""
+
+            return if ( finalProductName != "") {
+                finalProductName
+            } else {
+                ""
+            }
+        }
+
+    }
+
+    fun setLockerAddress() : String {
+        val selectedMasterDevice = MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]
+        return if (SettingsHelper.userLastSelectedLocker != "") {
+            selectedMasterDevice?.address ?: ""
+        } else {
+            ""
+        }
     }
 
 
