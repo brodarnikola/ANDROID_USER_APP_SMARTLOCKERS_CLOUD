@@ -80,6 +80,8 @@ import hr.sil.android.myappbox.core.util.logger
 import hr.sil.android.myappbox.store.MPLDeviceStore
 import hr.sil.android.myappbox.util.SettingsHelper
 
+import hr.sil.android.myappbox.compose.dialog.NoMasterSelectedDialog
+
 // --- 1. MOCK THEME & RESOURCES (Replace with your actual Theme/R values) ---
 
 object AppColors {
@@ -142,6 +144,18 @@ fun NavHomeScreen(
     val lockerNameOrAddress = rememberSaveable { mutableStateOf("") }
     val finalProductName = rememberSaveable { mutableStateOf("") }
     val lockerAddress = rememberSaveable { mutableStateOf("") }
+
+    val displayNoLockerSelected = rememberSaveable { mutableStateOf(false) }
+    if( displayNoLockerSelected.value ) {
+        NoMasterSelectedDialog(
+            onConfirm = {
+                displayNoLockerSelected.value = false
+            },
+            onDismiss = {
+                displayNoLockerSelected.value = false
+            }
+        )
+    }
 
 
     // Initial load
@@ -418,6 +432,9 @@ fun NavHomeScreen(
                                 modifier = Modifier
                                     .weight(1f)
                                     .clickable {
+                                        if(SettingsHelper.userLastSelectedLocker == "") {
+                                            displayNoLockerSelected.value = true
+                                        }
                                         //viewModel.onEvent(MainScreenEvent.OnCollectParcelClick)
                                     },
                                 contentAlignment = Alignment.Center

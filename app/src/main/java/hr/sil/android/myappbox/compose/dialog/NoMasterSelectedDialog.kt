@@ -1,6 +1,7 @@
 package hr.sil.android.myappbox.compose.dialog
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -18,6 +19,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -37,10 +39,12 @@ import hr.sil.android.myappbox.compose.components.ThmButtonTextSizeInsideDialog
 import hr.sil.android.myappbox.compose.components.ThmDescriptionTextColor
 import hr.sil.android.myappbox.compose.components.ThmLoginButtonTextColor
 import hr.sil.android.myappbox.compose.components.ThmMainButtonBackgroundColor
+import hr.sil.android.myappbox.compose.theme.Black
+import hr.sil.android.myappbox.view.ui.activities.dialogs.NoMasterSelectedDialog
 import hr.sil.android.myappbox.view.ui.activities.sendparcel.MplRequestAccessDialog
 
 @Composable
-fun MplRequestAccessDialog(
+fun NoMasterSelectedDialog(
     onDismiss: () -> Unit,
     onConfirm: () -> Unit
 ) {
@@ -51,57 +55,34 @@ fun MplRequestAccessDialog(
                     .fillMaxWidth()
                     .padding(horizontal = 10.dp)
             ) {
-                val (closeIcon,  subtitleText, confirmButton, spacer) = createRefs()
+                val (subtitleText, confirmButton, spacer) = createRefs()
 
-                Box(
-                    modifier = Modifier
-                        .size(30.dp)
-                        .constrainAs(closeIcon) {
-                            top.linkTo(parent.top, margin = 15.dp)
-                            end.linkTo(parent.end, margin = 15.dp)
-                        }
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.btn_x),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .align(Alignment.TopEnd)
-                            //.padding(top = 15.dp, end = 15.dp)
-                            .size(15.dp)
-                            .clickable(
-                                onClick = onDismiss
-                            ),
-                        tint = colorResource(R.color.colorDarkGray)
-                    )
-                }
-
-                // Subtitle Text - "Logout Again"
                 TextViewWithFont(
-                    text = stringResource(R.string.logout_again),
+                    text = stringResource(R.string.no_selected_locker),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 10.dp)
                         .constrainAs(subtitleText) {
-                            top.linkTo(closeIcon.bottom, margin = 10.dp)
+                            top.linkTo(parent.top, margin = 15.dp)
                             start.linkTo(parent.start)
-                            end.linkTo(parent.end)
                         },
                     textAlign = TextAlign.Center,
                     fontSize = 17.sp,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    fontWeight = FontWeight.Normal
+                    fontWeight = FontWeight.Normal,
+                    maxLines = 3
                 )
 
                 // Confirm Button
                 ButtonWithFont(
-                    onClick = onConfirm,
-                    modifier = Modifier 
+                    modifier = Modifier
                         .width(200.dp)
                         .constrainAs(confirmButton) {
                             top.linkTo(subtitleText.bottom, margin = 20.dp)
                             start.linkTo(parent.start)
                             end.linkTo(parent.end)
                         },
+                    onClick = onConfirm,
                     text = stringResource(id = R.string.app_generic_confirm).uppercase(),
                     backgroundColor = ThmMainButtonBackgroundColor, // ?attr/thmMainButtonBackgroundColor
                     textColor = ThmLoginButtonTextColor, // ?attr/thmLoginButtonTextColor
