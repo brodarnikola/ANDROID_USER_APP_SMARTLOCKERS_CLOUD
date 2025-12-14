@@ -64,31 +64,4 @@ class ShareKeyAdapter (mplLocker: List<ShareAccessKey>, val listOfDeliveriesActi
             }
         }
     }
-
-    override fun deletePickAtFriendKey(shareAccessKey: ShareAccessKey, rowView: View) {
-        GlobalScope.launch {
-            if (WSUser.deletePaF(shareAccessKey.id)) {
-                withContext(Dispatchers.Main) {
-                    App.ref.toast(
-                        rowView.context.getString(
-                            R.string.peripheral_settings_remove_access_success,
-                            shareAccessKey.id.toString()
-                        )
-                    )
-                    devices.remove(shareAccessKey)
-                    notifyDataSetChanged()
-                }
-            } else {
-                withContext(Dispatchers.Main) {
-                    App.ref.toast(
-                        rowView.context.getString(
-                            R.string.peripheral_settings_remove_access_error,
-                            shareAccessKey.id.toString()
-                        )
-                    )
-                }
-            }
-        }
-    }
-
 }

@@ -1,71 +1,26 @@
 package hr.sil.android.myappbox.compose.collect_parcel
 
-import android.app.Activity
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.lifecycle.viewmodel.compose.viewModel
-import hr.sil.android.myappbox.BuildConfig
 import hr.sil.android.myappbox.R
-import hr.sil.android.myappbox.compose.SignUpOnboardingActivity
-import hr.sil.android.myappbox.compose.components.GradientBackground
-import hr.sil.android.myappbox.compose.components.SettingsRoundedBackground
-import hr.sil.android.myappbox.compose.components.TextViewWithFont
-import hr.sil.android.myappbox.compose.components.ThmDescriptionTextColor
-import hr.sil.android.myappbox.compose.components.ThmSubTitleTextColor
-import hr.sil.android.myappbox.compose.components.ThmSubTitleTextSize
-import hr.sil.android.myappbox.compose.components.ThmTitleLetterSpacing
-import hr.sil.android.myappbox.compose.components.ThmTitleTextColor
-import hr.sil.android.myappbox.compose.components.ThmTitleTextSize
-import hr.sil.android.myappbox.compose.components.ThmToolbarBackgroundColor
-import hr.sil.android.myappbox.compose.dialog.LogoutDialog
-import hr.sil.android.myappbox.compose.main_activity.MainDestinations
-import hr.sil.android.myappbox.core.util.logger
 import hr.sil.android.myappbox.util.backend.UserUtil
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import kotlin.collections.forEach
-import kotlin.jvm.java
-import kotlin.text.isEmpty
 import kotlin.text.isNotEmpty
-import kotlin.text.uppercase
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -73,7 +28,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -83,8 +37,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.em
-import hr.sil.android.myappbox.core.remote.model.InstalationType
-import hr.sil.android.myappbox.core.remote.model.RLockerKeyPurpose
+import hr.sil.android.myappbox.compose.dialog.NoMasterSelectedDialog
 import hr.sil.android.myappbox.core.util.formatFromStringToDate
 import hr.sil.android.myappbox.core.util.formatToViewDateTimeDefaults
 import hr.sil.android.myappbox.data.LockerKeyWithShareAccess
@@ -105,6 +58,18 @@ fun ListOfDeliveriesScreen(
     val uiState by viewModel.uiState.collectAsState()
     val selectedMacAddress = rememberSaveable { mutableStateOf(SettingsHelper.userLastSelectedLocker) }
     val isLoading = rememberSaveable { mutableStateOf(false) }
+
+    val showDeleteShareKey = rememberSaveable { mutableStateOf(false) }
+    if(showDeleteShareKey.value) {
+        NoMasterSelectedDialog(
+            onDismiss = {
+
+            },
+            onConfirm = {
+
+            }
+        )
+    }
 
     Box(
         modifier = Modifier
@@ -131,6 +96,22 @@ fun ListOfDeliveriesScreen(
                 //)
             )
 
+//            Column(
+//                modifier = Modifier
+//                .fillMaxWidth()
+//                .weight(8.4f)
+//                .padding(top = 10.dp)
+//            ) {
+//                uiState.listOfDeliveries.forEach { delivery ->
+//                    DeliveryItemCard(
+//                        delivery = delivery,
+//                        macAddress = selectedMacAddress.value,
+//                        //onDeliveryClick = onDeliveryClick,
+//                        onShareKeyClick = onShareKeyClick,
+//                        showDeleteShareKey = showDeleteShareKey
+//                    )
+//                }
+//            }
             // RecyclerView List (8.4 weight)
             LazyColumn(
                 modifier = Modifier
@@ -143,7 +124,8 @@ fun ListOfDeliveriesScreen(
                         delivery = delivery,
                         macAddress = selectedMacAddress.value,
                         //onDeliveryClick = onDeliveryClick,
-                        onShareKeyClick = onShareKeyClick
+                        onShareKeyClick = onShareKeyClick,
+                        showDeleteShareKey = showDeleteShareKey
                     )
                 }
             }
@@ -185,7 +167,8 @@ fun DeliveryItemCard(
     delivery: LockerKeyWithShareAccess,
     macAddress: String,
     //onDeliveryClick: (LockerKeyWithShareAccess) -> Unit,
-    onShareKeyClick: (Long) -> Unit
+    onShareKeyClick: (Long) -> Unit ,
+    showDeleteShareKey: MutableState<Boolean>
 ) {
     val nameValue = when {
         delivery.masterName?.isNotEmpty() == true && UserUtil.user?.uniqueId != null ->
@@ -198,22 +181,22 @@ fun DeliveryItemCard(
     val tan = delivery.tan ?: "-"
     val formattedDate = formatCorrectDate(delivery.timeCreated)
 
-    val showShareButton = delivery.installationType != InstalationType.LINUX &&
-            delivery.purpose != RLockerKeyPurpose.DELIVERY
-    val showSharedWith = delivery.purpose != RLockerKeyPurpose.DELIVERY &&
-            delivery.installationType != InstalationType.LINUX
-    val showShareAccess = (delivery.installationType == InstalationType.LINUX && delivery.listOfShareAccess.isNotEmpty()) ||
-            delivery.purpose == RLockerKeyPurpose.DELIVERY
+//    val showShareButton = delivery.installationType != InstalationType.LINUX &&
+//            delivery.purpose != RLockerKeyPurpose.DELIVERY
+//    val showSharedWith = delivery.purpose != RLockerKeyPurpose.DELIVERY &&
+//            delivery.installationType != InstalationType.LINUX
+//    val showShareAccess = (delivery.installationType == InstalationType.LINUX && delivery.listOfShareAccess.isNotEmpty()) ||
+//            delivery.purpose == RLockerKeyPurpose.DELIVERY
 
     Surface(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 5.dp, horizontal = 10.dp)
             //.padding(start = 10.dp)
-            .padding(bottom = 7.dp)
-            .clickable {
+            .padding(bottom = 7.dp),
+            //.clickable {
                 //onDeliveryClick(delivery)
-            },
+            //},
         color = MaterialTheme.colorScheme.surfaceVariant
     ) {
         ConstraintLayout(
@@ -369,20 +352,23 @@ fun DeliveryItemCard(
             }
 
             // Shared With Text
-            if (showSharedWith && delivery.createdByName != null) {
+            if(true) { //if (showSharedWith && delivery.createdByName != null) {
                 Text(
+//                    text = stringResource(
+//                        R.string.peripheral_settings_grant_access,
+//                        delivery.createdByName ?: "",
+//                        delivery.lockerSize ?: "",
+//                        formattedDate
+//                    ),
                     text = stringResource(
-                        R.string.peripheral_settings_grant_access,
-                        delivery.createdByName ?: "",
-                        delivery.lockerSize ?: "",
-                        formattedDate
+                        R.string.shared_with
                     ),
                     modifier = Modifier
                         .padding(horizontal = 10.dp)
                         .constrainAs(sharedWithText) {
                             top.linkTo(deliveryDataSection.bottom)
-                            start.linkTo(nameAddressSection.start)
-                            end.linkTo(parent.end)
+                            start.linkTo(deliveryDataSection.start)
+                            //end.linkTo(parent.end)
                         },
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontWeight = FontWeight.Medium
@@ -390,29 +376,44 @@ fun DeliveryItemCard(
             }
 
             // Share Access List
-            if (showShareAccess) {
-                LazyRow(
+            if (true) { //if (showShareAccess) {
+                Column(
                     modifier = Modifier
                         .padding(horizontal = 10.dp, vertical = 5.dp)
                         .constrainAs(shareAccessList) {
                             top.linkTo(
-                                if (showSharedWith) sharedWithText.bottom else deliveryDataSection.bottom
+                                if (true) sharedWithText.bottom else deliveryDataSection.bottom
                             )
-                            start.linkTo(nameAddressSection.start)
-                            end.linkTo(parent.end)
-                            if (showShareButton) {
+                            start.linkTo(deliveryDataSection.start)
+                            //end.linkTo(parent.end)
+                            if (true) {
                                 bottom.linkTo(shareButton.top)
                             }
                         }
                 ) {
-                    items(delivery.listOfShareAccess) { shareAccess ->
-                        ShareAccessItem(shareAccess)
+                    delivery.listOfShareAccess.forEach { shareAccess ->
+                        ShareAccessItem(
+                            shareAccess = shareAccess,
+                            showDeleteShareKey = showDeleteShareKey,
+                            onDeleteClick = {
+                                //onDeleteShareKey(shareAccess)
+                            }
+                        )
                     }
+//                    items(delivery.listOfShareAccess) { shareAccess ->
+//                        ShareAccessItem(
+//                            shareAccess = shareAccess,
+//                            showDeleteShareKey = showDeleteShareKey,
+//                            onDeleteClick = {
+//                                //onDeleteShareKey(shareAccess)
+//                            }
+//                        )
+//                    }
                 }
             }
 
             // Share Button
-            if (showShareButton) {
+            if(true) { //if (showShareButton) {
                 Button(
                     onClick = { onShareKeyClick(delivery.id.toLong()) },
                     modifier = Modifier
@@ -421,11 +422,12 @@ fun DeliveryItemCard(
                         .padding(horizontal = 10.dp)
                         .constrainAs(shareButton) {
                             top.linkTo(
-                                if (showShareAccess) shareAccessList.bottom else deliveryDataSection.bottom,
+                                if (true) shareAccessList.bottom else deliveryDataSection.bottom,
                                 margin = 10.dp
                             )
                             start.linkTo(parent.start)
                             end.linkTo(parent.end)
+                            bottom.linkTo(parent.bottom, margin = 10.dp)
                         },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.primary
@@ -447,23 +449,67 @@ fun DeliveryItemCard(
 
 @Composable
 fun ShareAccessItem(
-    shareAccess: ShareAccessKey
+    shareAccess: ShareAccessKey,
+    onDeleteClick: () -> Unit,
+    showDeleteShareKey: MutableState<Boolean>
 ) {
-    Surface(
+    Row(
         modifier = Modifier
-            .padding(end = 8.dp)
+            .padding(end = 8.dp, top = 5.dp, bottom = 5.dp)
             .wrapContentWidth(),
-        color = MaterialTheme.colorScheme.secondaryContainer,
-        shape = RoundedCornerShape(4.dp)
+        verticalAlignment = Alignment.CenterVertically
     ) {
+        // Delete Icon
+        IconButton(
+            onClick = {
+                showDeleteShareKey.value = true
+                onDeleteClick
+            },
+            modifier = Modifier
+                .size(24.dp)
+                .padding(end = 4.dp)
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.ic_remove),
+                contentDescription = "Remove user",
+                tint = MaterialTheme.colorScheme.error
+            )
+        }
+
+        // Email Text
         Text(
             text = shareAccess.email,
-            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
-            color = MaterialTheme.colorScheme.onSecondaryContainer,
-            fontSize = 14.sp
+            modifier = Modifier
+                .wrapContentWidth()
+                .padding(start = 4.dp),
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            fontSize = 14.sp,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            fontWeight = FontWeight.Normal
         )
     }
 }
+
+//@Composable
+//fun ShareAccessItem(
+//    shareAccess: ShareAccessKey
+//) {
+//    Surface(
+//        modifier = Modifier
+//            .padding(end = 8.dp)
+//            .wrapContentWidth(),
+//        color = MaterialTheme.colorScheme.secondaryContainer,
+//        shape = RoundedCornerShape(4.dp)
+//    ) {
+//        Text(
+//            text = shareAccess.email,
+//            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+//            color = MaterialTheme.colorScheme.onSecondaryContainer,
+//            fontSize = 14.sp
+//        )
+//    }
+//}
 
 fun formatCorrectDate(timeCreated: String): String {
     return try {
