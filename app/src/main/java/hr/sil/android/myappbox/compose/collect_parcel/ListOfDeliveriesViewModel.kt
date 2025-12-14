@@ -2,6 +2,9 @@ package hr.sil.android.myappbox.compose.collect_parcel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
+import hr.sil.android.myappbox.App
+import hr.sil.android.myappbox.R
 import hr.sil.android.myappbox.core.remote.WSUser
 import hr.sil.android.myappbox.core.remote.model.InstalationType
 import hr.sil.android.myappbox.core.remote.model.RCreatedLockerKey
@@ -13,16 +16,20 @@ import hr.sil.android.myappbox.data.LockerKeyWithShareAccess
 import hr.sil.android.myappbox.data.ShareAccessKey
 import hr.sil.android.myappbox.util.SettingsHelper
 import hr.sil.android.myappbox.util.backend.UserUtil
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 data class ListOfDeliveriesUiState(
     val listOfDeliveries: List<LockerKeyWithShareAccess> = emptyList(),
     val isLoading: Boolean = false,
-    val errorMessage: String? = null
+    val errorMessage: String? = null,
+    val successKeyDelete: Boolean = false
 )
 
 class ListOfDeliveriesViewModel : ViewModel() {
@@ -31,10 +38,32 @@ class ListOfDeliveriesViewModel : ViewModel() {
 
     private val _uiState = MutableStateFlow(ListOfDeliveriesUiState())
     val uiState: StateFlow<ListOfDeliveriesUiState> = _uiState.asStateFlow()
-    private var listOfDeliveries: MutableList<LockerKeyWithShareAccess> = mutableListOf()
 
     init {
         loadListOfDeliveries()
+    }
+
+    fun deletePickAtFriendKey(keyId: Int) {
+        viewModelScope.launch {
+            if (WSUser.deletePaF(keyId)) {
+                val updatedList = _uiState.value.listOfDeliveries.filter { it.id != keyId }
+                _uiState.update {
+                    it.copy(
+                        listOfDeliveries = updatedList,
+                        successKeyDelete = true
+                    )
+                }
+            }
+            else {
+                val copy = _uiState.value.listOfDeliveries
+                _uiState.update {
+                    it.copy(
+                        listOfDeliveries = copy,
+                        successKeyDelete = false
+                    )
+                }
+            }
+        }
     }
 
     private fun loadListOfDeliveries() {
@@ -117,12 +146,12 @@ class ListOfDeliveriesViewModel : ViewModel() {
                         lockerMac = "AA:BB:CC:DD:EE:01"
                     ),
                     createMockShareAccessKey(
-                        id = 502,
+                        id = 602,
                         email = "shared.user2@example.com",
                         lockerMac = "AA:BB:CC:DD:EE:01"
                     ),
                     createMockShareAccessKey(
-                        id = 503,
+                        id = 703,
                         email = "shared.user3@example.com",
                         lockerMac = "AA:BB:CC:DD:EE:02"
                     )

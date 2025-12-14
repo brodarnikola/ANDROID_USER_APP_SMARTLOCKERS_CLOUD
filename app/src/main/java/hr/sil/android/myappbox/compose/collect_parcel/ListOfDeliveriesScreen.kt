@@ -1,7 +1,7 @@
 package hr.sil.android.myappbox.compose.collect_parcel
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.material3.*
@@ -29,15 +29,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.em
-import hr.sil.android.myappbox.compose.dialog.NoMasterSelectedDialog
+import hr.sil.android.myappbox.compose.dialog.DeletePickAtFriendDialog
 import hr.sil.android.myappbox.core.util.formatFromStringToDate
 import hr.sil.android.myappbox.core.util.formatToViewDateTimeDefaults
 import hr.sil.android.myappbox.data.LockerKeyWithShareAccess
@@ -51,22 +51,37 @@ fun ListOfDeliveriesScreen(
     //macAddress: String,
     //isLoading: Boolean = false,
     //onDeliveryClick: (LockerKeyWithShareAccess) -> Unit,
-    onShareKeyClick: (Long) -> Unit,
+    onShareKeyClick: (id: Int, selectedMacAddress: String) -> Unit,
     viewModel: ListOfDeliveriesViewModel = viewModel()
 ) {
 
+    val context = LocalContext.current
     val uiState by viewModel.uiState.collectAsState()
     val selectedMacAddress = rememberSaveable { mutableStateOf(SettingsHelper.userLastSelectedLocker) }
     val isLoading = rememberSaveable { mutableStateOf(false) }
 
+    val keyId = rememberSaveable { mutableStateOf(-1) }
     val showDeleteShareKey = rememberSaveable { mutableStateOf(false) }
+
+    val keySuccessDelete = stringResource(R.string.peripheral_settings_remove_access_success, keyId.toString())
+    val keyWrongDelete = stringResource(R.string.peripheral_settings_remove_access_error, keyId.toString() )
+
     if(showDeleteShareKey.value) {
-        NoMasterSelectedDialog(
-            onDismiss = {
-
-            },
+        DeletePickAtFriendDialog(
+            onDismiss = { showDeleteShareKey.value = false },
             onConfirm = {
+                viewModel.deletePickAtFriendKey(keyId.value)
+                if (uiState.successKeyDelete) {
+                    showDeleteShareKey.value = false
+                    Toast.makeText(context, keySuccessDelete, Toast.LENGTH_SHORT).show()
 
+                } else {
+                    showDeleteShareKey.value = false
+                    Toast.makeText(context, keyWrongDelete, Toast.LENGTH_SHORT).show()
+                }
+            },
+            onCancel = {
+                showDeleteShareKey.value = false
             }
         )
     }
@@ -96,22 +111,6 @@ fun ListOfDeliveriesScreen(
                 //)
             )
 
-//            Column(
-//                modifier = Modifier
-//                .fillMaxWidth()
-//                .weight(8.4f)
-//                .padding(top = 10.dp)
-//            ) {
-//                uiState.listOfDeliveries.forEach { delivery ->
-//                    DeliveryItemCard(
-//                        delivery = delivery,
-//                        macAddress = selectedMacAddress.value,
-//                        //onDeliveryClick = onDeliveryClick,
-//                        onShareKeyClick = onShareKeyClick,
-//                        showDeleteShareKey = showDeleteShareKey
-//                    )
-//                }
-//            }
             // RecyclerView List (8.4 weight)
             LazyColumn(
                 modifier = Modifier
@@ -122,10 +121,11 @@ fun ListOfDeliveriesScreen(
                 items(uiState.listOfDeliveries) { delivery ->
                     DeliveryItemCard(
                         delivery = delivery,
-                        macAddress = selectedMacAddress.value,
+                        selectedMacAddress = selectedMacAddress.value,
                         //onDeliveryClick = onDeliveryClick,
                         onShareKeyClick = onShareKeyClick,
-                        showDeleteShareKey = showDeleteShareKey
+                        showDeleteShareKey = showDeleteShareKey,
+                        keyId = keyId
                     )
                 }
             }
@@ -165,10 +165,11 @@ fun ListOfDeliveriesScreen(
 @Composable
 fun DeliveryItemCard(
     delivery: LockerKeyWithShareAccess,
-    macAddress: String,
+    selectedMacAddress: String,
     //onDeliveryClick: (LockerKeyWithShareAccess) -> Unit,
-    onShareKeyClick: (Long) -> Unit ,
-    showDeleteShareKey: MutableState<Boolean>
+    onShareKeyClick: (id: Int, selectedMacAddress: String) -> Unit,
+    showDeleteShareKey: MutableState<Boolean>,
+    keyId: MutableState<Int>
 ) {
     val nameValue = when {
         delivery.masterName?.isNotEmpty() == true && UserUtil.user?.uniqueId != null ->
@@ -395,9 +396,7 @@ fun DeliveryItemCard(
                         ShareAccessItem(
                             shareAccess = shareAccess,
                             showDeleteShareKey = showDeleteShareKey,
-                            onDeleteClick = {
-                                //onDeleteShareKey(shareAccess)
-                            }
+                            keyId = keyId
                         )
                     }
 //                    items(delivery.listOfShareAccess) { shareAccess ->
@@ -415,7 +414,7 @@ fun DeliveryItemCard(
             // Share Button
             if(true) { //if (showShareButton) {
                 Button(
-                    onClick = { onShareKeyClick(delivery.id.toLong()) },
+                    onClick = { onShareKeyClick(delivery.id, selectedMacAddress) },
                     modifier = Modifier
                         .wrapContentWidth()
                         .height(30.dp)
@@ -450,8 +449,8 @@ fun DeliveryItemCard(
 @Composable
 fun ShareAccessItem(
     shareAccess: ShareAccessKey,
-    onDeleteClick: () -> Unit,
-    showDeleteShareKey: MutableState<Boolean>
+    showDeleteShareKey: MutableState<Boolean>,
+    keyId: MutableState<Int>
 ) {
     Row(
         modifier = Modifier
@@ -463,7 +462,7 @@ fun ShareAccessItem(
         IconButton(
             onClick = {
                 showDeleteShareKey.value = true
-                onDeleteClick
+                keyId.value = shareAccess.id
             },
             modifier = Modifier
                 .size(24.dp)

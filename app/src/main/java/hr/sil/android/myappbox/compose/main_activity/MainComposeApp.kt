@@ -26,6 +26,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import hr.sil.android.myappbox.R
 import hr.sil.android.myappbox.compose.collect_parcel.ListOfDeliveriesScreen
+import hr.sil.android.myappbox.compose.collect_parcel.ShareAccessKeyScreen
 import hr.sil.android.myappbox.compose.google_maps.GoogleMapsLockerLocationsScreen
 import hr.sil.android.myappbox.compose.home_screen.NavHomeScreen
 import hr.sil.android.myappbox.compose.home_screen.SelectLockerScreen
@@ -38,6 +39,7 @@ import hr.sil.android.myappbox.compose.settings.NotificationsScreen
 import hr.sil.android.myappbox.compose.settings.PrivacyPolicyScreen
 import hr.sil.android.myappbox.compose.settings.SettingsScreen
 import hr.sil.android.myappbox.compose.settings.UserDetailsSettingsScreen
+import hr.sil.android.myappbox.core.util.logger
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -123,6 +125,8 @@ fun NavGraphBuilder.mainNavGraph(
     goToSendParcelOverview: (route: String, macAddress: String) -> Unit,
     navigateUp: () -> Unit
 ) {
+    val log = logger()
+
     composable(MainDestinations.HOME) {
         NavHomeScreen(
             viewModel = viewModel(), // viewModel,
@@ -186,10 +190,34 @@ fun NavGraphBuilder.mainNavGraph(
 
     composable(MainDestinations.LIST_OF_DELIVERIES) {
         ListOfDeliveriesScreen(
-            onShareKeyClick = {
-
+            onShareKeyClick = { id, selectedMacAddress ->
+                if (navBackStackEntry.value?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
+                    log.info("SHARE ACCESS KEY .. id is $id, selectedMacAddress is $selectedMacAddress")
+                    navController.navigate("${MainDestinations.SHARE_ACCESS_KEY}/$id/$selectedMacAddress")
+                }
             },
             viewModel = viewModel(),
+        )
+    }
+
+    composable("${MainDestinations.SHARE_ACCESS_KEY}/{${NavArguments.KEY_ID}}/{${NavArguments.MAC_ADDRESS}}",
+        arguments = listOf(
+            navArgument(NavArguments.KEY_ID) {
+                type = NavType.IntType
+            },
+            navArgument(NavArguments.MAC_ADDRESS) {
+                type = NavType.StringType
+            }
+        )) {
+        ShareAccessKeyScreen(
+            shareAccessKeyId = it.arguments?.getInt(NavArguments.KEY_ID) ?: 1,
+            macAddress = it.arguments?.getString(NavArguments.MAC_ADDRESS) ?: "",
+            viewModel = viewModel(),
+            navigateUp = {
+                navController.currentBackStackEntry?.let {
+                    navController.navigateUp()
+                }
+            }
         )
     }
 

@@ -23,6 +23,7 @@ object MainDestinations {
 
     const val PICK_AT_HOME_KEYS = "PickAtHomeKeys"
     const val LIST_OF_DELIVERIES = "ListOfDeliveries"
+    const val SHARE_ACCESS_KEY = "ShareAccessKey"
 
     const val GOOGLE_MAPS_SELECT_LOCKER = "GoogleMapsSelectLocker"
     const val SELECT_LOCKER = "SelectLocker"
@@ -43,6 +44,8 @@ object NavArguments {
     const val DEVICE_ID = "deviceId"
     const val MAC_ADDRESS = "macAddress"
     const val RETURN_TO_SCREEN = "returnToScreen"
+    const val KEY_ID = "KeyId"
+
     const val NAME_OF_DEVICE = "nameOfDevice"
     const val PIN_OF_DEVICE = "pinOfDevice"
     const val SIZE_OF_DEVICE = "sizeOfDevice"
