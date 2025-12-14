@@ -38,6 +38,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.em
 import hr.sil.android.myappbox.compose.dialog.DeletePickAtFriendDialog
+import hr.sil.android.myappbox.core.remote.model.InstalationType
+import hr.sil.android.myappbox.core.remote.model.RLockerKeyPurpose
 import hr.sil.android.myappbox.core.util.formatFromStringToDate
 import hr.sil.android.myappbox.core.util.formatToViewDateTimeDefaults
 import hr.sil.android.myappbox.data.LockerKeyWithShareAccess
@@ -47,10 +49,6 @@ import java.text.ParseException
 
 @Composable
 fun ListOfDeliveriesScreen(
-    //deliveries: List<LockerKeyWithShareAccess>,
-    //macAddress: String,
-    //isLoading: Boolean = false,
-    //onDeliveryClick: (LockerKeyWithShareAccess) -> Unit,
     onShareKeyClick: (id: Int, selectedMacAddress: String) -> Unit,
     viewModel: ListOfDeliveriesViewModel = viewModel()
 ) {
@@ -182,12 +180,12 @@ fun DeliveryItemCard(
     val tan = delivery.tan ?: "-"
     val formattedDate = formatCorrectDate(delivery.timeCreated)
 
-//    val showShareButton = delivery.installationType != InstalationType.LINUX &&
-//            delivery.purpose != RLockerKeyPurpose.DELIVERY
-//    val showSharedWith = delivery.purpose != RLockerKeyPurpose.DELIVERY &&
-//            delivery.installationType != InstalationType.LINUX
-//    val showShareAccess = (delivery.installationType == InstalationType.LINUX && delivery.listOfShareAccess.isNotEmpty()) ||
-//            delivery.purpose == RLockerKeyPurpose.DELIVERY
+    val showShareButton = delivery.installationType != InstalationType.LINUX &&
+            delivery.purpose != RLockerKeyPurpose.DELIVERY
+    val showSharedWith = delivery.purpose != RLockerKeyPurpose.DELIVERY &&
+            delivery.installationType != InstalationType.LINUX
+    val showShareAccess = (delivery.installationType == InstalationType.LINUX && delivery.listOfShareAccess.isNotEmpty()) ||
+            delivery.purpose == RLockerKeyPurpose.DELIVERY
 
     Surface(
         modifier = Modifier
@@ -353,7 +351,7 @@ fun DeliveryItemCard(
             }
 
             // Shared With Text
-            if(true) { //if (showSharedWith && delivery.createdByName != null) {
+            if (showSharedWith && delivery.createdByName != null) {
                 Text(
 //                    text = stringResource(
 //                        R.string.peripheral_settings_grant_access,
@@ -377,19 +375,15 @@ fun DeliveryItemCard(
             }
 
             // Share Access List
-            if (true) { //if (showShareAccess) {
+            if (showShareAccess) {
                 Column(
                     modifier = Modifier
                         .padding(horizontal = 10.dp, vertical = 5.dp)
                         .constrainAs(shareAccessList) {
-                            top.linkTo(
-                                if (true) sharedWithText.bottom else deliveryDataSection.bottom
-                            )
+                            top.linkTo( sharedWithText.bottom )
                             start.linkTo(deliveryDataSection.start)
                             //end.linkTo(parent.end)
-                            if (true) {
-                                bottom.linkTo(shareButton.top)
-                            }
+                            bottom.linkTo(shareButton.top)
                         }
                 ) {
                     delivery.listOfShareAccess.forEach { shareAccess ->
@@ -412,7 +406,7 @@ fun DeliveryItemCard(
             }
 
             // Share Button
-            if(true) { //if (showShareButton) {
+            if (showShareButton) {
                 Button(
                     onClick = { onShareKeyClick(delivery.id, selectedMacAddress) },
                     modifier = Modifier
@@ -420,8 +414,7 @@ fun DeliveryItemCard(
                         .height(30.dp)
                         .padding(horizontal = 10.dp)
                         .constrainAs(shareButton) {
-                            top.linkTo(
-                                if (true) shareAccessList.bottom else deliveryDataSection.bottom,
+                            top.linkTo( shareAccessList.bottom,
                                 margin = 10.dp
                             )
                             start.linkTo(parent.start)

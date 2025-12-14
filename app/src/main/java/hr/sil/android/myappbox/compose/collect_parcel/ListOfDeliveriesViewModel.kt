@@ -2,28 +2,20 @@ package hr.sil.android.myappbox.compose.collect_parcel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
-import hr.sil.android.myappbox.App
-import hr.sil.android.myappbox.R
 import hr.sil.android.myappbox.core.remote.WSUser
 import hr.sil.android.myappbox.core.remote.model.InstalationType
 import hr.sil.android.myappbox.core.remote.model.RCreatedLockerKey
-import hr.sil.android.myappbox.core.remote.model.RLanguage
 import hr.sil.android.myappbox.core.remote.model.RLockerKeyPurpose
 import hr.sil.android.myappbox.core.util.logger
 import hr.sil.android.myappbox.core.util.macRealToClean
 import hr.sil.android.myappbox.data.LockerKeyWithShareAccess
 import hr.sil.android.myappbox.data.ShareAccessKey
 import hr.sil.android.myappbox.util.SettingsHelper
-import hr.sil.android.myappbox.util.backend.UserUtil
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 data class ListOfDeliveriesUiState(
     val listOfDeliveries: List<LockerKeyWithShareAccess> = emptyList(),
@@ -67,6 +59,73 @@ class ListOfDeliveriesViewModel : ViewModel() {
     }
 
     private fun loadListOfDeliveries() {
+        viewModelScope.launch {
+            _uiState.update { it.copy(isLoading = true) }
+            try {
+
+                val data = if (SettingsHelper.userLastSelectedLocker != "") WSUser.getActiveKeys()
+                    ?.filter {
+                        it.purpose != RLockerKeyPurpose.PAH &&
+                                it.lockerMasterMac == SettingsHelper.userLastSelectedLocker.macRealToClean()
+//                    && isUserPartOfGroup(
+//                it.createdForGroup,
+//                it.createdForId)
+                    }?.toMutableList() ?: mutableListOf()
+                else WSUser.getActiveKeys()?.filter { it.purpose != RLockerKeyPurpose.PAH }
+                    ?.toMutableList() ?: mutableListOf()
+                log.info("data is: ${data}")
+
+                val remotePaFKeys =
+                    WSUser.getActivePaFCreatedKeys()?.toMutableList() ?: mutableListOf()
+
+                val listOfDeliveries = mutableListOf<LockerKeyWithShareAccess>()
+
+                for (activeLockerKey in data) {
+                    val lockerKeyWithShareAccess = LockerKeyWithShareAccess()
+                    lockerKeyWithShareAccess.id = activeLockerKey.id
+                    lockerKeyWithShareAccess.createdById = activeLockerKey.createdById
+                    lockerKeyWithShareAccess.purpose = activeLockerKey.purpose
+                    lockerKeyWithShareAccess.createdByName = activeLockerKey.createdByName
+                    lockerKeyWithShareAccess.masterName = activeLockerKey.masterName
+                    lockerKeyWithShareAccess.masterAddress = activeLockerKey.masterAddress
+                    lockerKeyWithShareAccess.trackingNumber = activeLockerKey.trackingNumber
+                    lockerKeyWithShareAccess.tan = activeLockerKey.tan
+                    lockerKeyWithShareAccess.installationType = activeLockerKey.keyInstallationtype
+                    lockerKeyWithShareAccess.timeCreated = activeLockerKey.timeCreated
+                    lockerKeyWithShareAccess.lockerSize = activeLockerKey.lockerSize
+
+                    for (pafKey in remotePaFKeys) {
+                        if (pafKey.lockerMac == activeLockerKey.lockerMac) {
+                            val shareAccessKey = ShareAccessKey()
+                            shareAccessKey.id = pafKey.id
+                            shareAccessKey.email = pafKey.createdForEndUserEmail ?: ""
+                            lockerKeyWithShareAccess.listOfShareAccess.add(shareAccessKey)
+                        }
+                    }
+                    listOfDeliveries.add(lockerKeyWithShareAccess)
+                }
+
+                listOfDeliveries.addAll(listOfDeliveries)
+
+                _uiState.update {
+                    it.copy(
+                        listOfDeliveries = listOfDeliveries,
+                        isLoading = false
+                    )
+                }
+            } catch (e: Exception) {
+                log.error("Error loading list od deliveries", e)
+                _uiState.update {
+                    it.copy(
+                        errorMessage = "FError loading list od deliveries",
+                        isLoading = false
+                    )
+                }
+            }
+        }
+    }
+
+    private fun mockLoadListOfDeliveries() {
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }
             try {
