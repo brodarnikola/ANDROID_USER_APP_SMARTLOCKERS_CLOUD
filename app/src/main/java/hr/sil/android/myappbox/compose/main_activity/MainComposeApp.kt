@@ -11,6 +11,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -27,7 +28,6 @@ import hr.sil.android.myappbox.R
 import hr.sil.android.myappbox.compose.home_screen.NavHomeScreen
 import hr.sil.android.myappbox.compose.home_screen.SelectLockerScreen
 import hr.sil.android.myappbox.compose.settings.ChangePasswordScreen
-import hr.sil.android.myappbox.compose.settings.DisplayQrCodeScreen
 import hr.sil.android.myappbox.compose.settings.DisplayQrCodeScreenWrapper
 import hr.sil.android.myappbox.compose.settings.HelpHorizontalPager
 import hr.sil.android.myappbox.compose.settings.LanguageScreen
@@ -41,7 +41,10 @@ import hr.sil.android.myappbox.compose.settings.UserDetailsSettingsScreen
 @OptIn(ExperimentalMaterial3Api::class)
 @RequiresApi(Build.VERSION_CODES.S)
 @Composable
-fun MainComposeApp(appState: MainAppState, navBackStackEntry: State<NavBackStackEntry?>) {
+fun MainComposeApp(
+    appState: MainAppState,
+    navBackStackEntry: State<NavBackStackEntry?>
+) {
     NavHost(
         navController = appState.navController,
         startDestination = MainDestinations.HOME,

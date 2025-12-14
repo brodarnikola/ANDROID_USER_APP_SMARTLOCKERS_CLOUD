@@ -1,5 +1,7 @@
 package hr.sil.android.myappbox.compose.settings
 
+import android.app.Activity
+import android.content.Intent
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -34,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import hr.sil.android.myappbox.R
+import hr.sil.android.myappbox.compose.SignUpOnboardingActivity
 import hr.sil.android.myappbox.compose.components.ButtonWithFont
 import hr.sil.android.myappbox.compose.components.SettingsRoundedBackground
 import hr.sil.android.myappbox.compose.components.TextViewWithFont
@@ -58,6 +61,7 @@ fun LanguageScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val context = LocalContext.current
+    val activity = LocalContext.current as Activity
 
     ConstraintLayout(
         modifier = Modifier.fillMaxSize()
@@ -124,7 +128,10 @@ fun LanguageScreen(
                             "Language saved successfully",
                             Toast.LENGTH_SHORT
                         ).show()
-                        navigateUp()
+                        val intent = Intent(context, SignUpOnboardingActivity::class.java)
+                        context.startActivity(intent)
+                        activity.finish()
+                        //navigateUp()
                     },
                     onError = { errorMessage ->
                         Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
@@ -210,8 +217,8 @@ private fun LanguageToggleItem(
             colors = SwitchDefaults.colors(
                 checkedThumbColor = colorResource(id = R.color.colorAccentZwick),
                 checkedTrackColor = colorResource(id = R.color.colorAccentZwick).copy(alpha = 0.3f),
-                uncheckedThumbColor = colorResource(id = R.color.colorWhite),
-                uncheckedTrackColor = colorResource(id = R.color.colorPrimaryDarkZwick)
+                uncheckedThumbColor = colorResource(id = R.color.colorPrimaryDarkZwick).copy(alpha = 0.1f),
+                uncheckedTrackColor = colorResource(id = R.color.colorWhite).copy(alpha = 0.1f)
             )
         )
     }

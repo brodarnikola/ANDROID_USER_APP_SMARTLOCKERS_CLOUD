@@ -2,25 +2,14 @@ package hr.sil.android.myappbox.compose.main_activity
 
 
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.automirrored.filled.ArrowForward
-import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.filled.Warning
-import androidx.compose.material.icons.outlined.Email
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -28,7 +17,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.colorResource
@@ -38,9 +26,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.compose.currentBackStackEntryAsState
 import hr.sil.android.myappbox.R
 import hr.sil.android.myappbox.compose.components.GradientBackground
+import hr.sil.android.myappbox.compose.dialog.NoMasterSelectedDialog
+import hr.sil.android.myappbox.util.SettingsHelper
 import kotlinx.coroutines.launch
 import kotlin.text.contains
 import kotlin.text.uppercase
@@ -110,6 +101,18 @@ fun MainActivityContent(
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
     val drawerWidth = screenWidth * 0.70f
 
+    val displayNoLockerSelected = rememberSaveable { mutableStateOf(false) }
+    if (displayNoLockerSelected.value) {
+        NoMasterSelectedDialog(
+            onConfirm = {
+                displayNoLockerSelected.value = false
+            },
+            onDismiss = {
+                displayNoLockerSelected.value = false
+            }
+        )
+    }
+
     ModalNavigationDrawer(
         drawerState = drawerState,
         gesturesEnabled = isHomeScreen,
@@ -152,7 +155,10 @@ fun MainActivityContent(
                     },
                     selected = false,
                     onClick = {
-                        scope.launch { drawerState.close() }
+                        if (SettingsHelper.userLastSelectedLocker == "")
+                            displayNoLockerSelected.value = true
+                        else
+                            scope.launch { drawerState.close() }
                         //onNavigateToPickupParcel()
                     },
                     colors = NavigationDrawerItemDefaults.colors(
@@ -170,7 +176,10 @@ fun MainActivityContent(
                     },
                     selected = false,
                     onClick = {
-                        scope.launch { drawerState.close() }
+                        if (SettingsHelper.userLastSelectedLocker == "")
+                            displayNoLockerSelected.value = true
+                        else
+                            scope.launch { drawerState.close() }
                         //onNavigateToSendParcel()
                     },
                     colors = NavigationDrawerItemDefaults.colors(
@@ -188,17 +197,20 @@ fun MainActivityContent(
                     },
                     badge = {
                         //if (deliveriesCount > 0) {
-                            Badge(
-                                containerColor = colorResource(R.color.colorRedBadgeNumber),
-                                contentColor = colorResource(R.color.colorWhite)
-                            ) {
-                                //Text(text = deliveriesCount.toString())
-                            }
+                        Badge(
+                            containerColor = colorResource(R.color.colorRedBadgeNumber),
+                            contentColor = colorResource(R.color.colorWhite)
+                        ) {
+                            //Text(text = deliveriesCount.toString())
+                        }
                         //}
                     },
                     selected = false,
                     onClick = {
-                        scope.launch { drawerState.close() }
+                        if (SettingsHelper.userLastSelectedLocker == "")
+                            displayNoLockerSelected.value = true
+                        else
+                            scope.launch { drawerState.close() }
                         //onNavigateToListOfDeliveries()
                     },
                     colors = NavigationDrawerItemDefaults.colors(
@@ -216,17 +228,20 @@ fun MainActivityContent(
                     },
                     badge = {
                         //if (pahKeysCount > 0) {
-                            Badge(
-                                containerColor = colorResource(R.color.colorRedBadgeNumber),
-                                contentColor = colorResource(R.color.colorWhite)
-                            ) {
-                                //Text(text = pahKeysCount.toString())
-                            }
+                        Badge(
+                            containerColor = colorResource(R.color.colorRedBadgeNumber),
+                            contentColor = colorResource(R.color.colorWhite)
+                        ) {
+                            //Text(text = pahKeysCount.toString())
+                        }
                         //}
                     },
                     selected = false,
                     onClick = {
-                        scope.launch { drawerState.close() }
+                        if (SettingsHelper.userLastSelectedLocker == "")
+                            displayNoLockerSelected.value = true
+                        else
+                            scope.launch { drawerState.close() }
                         //onNavigateToPahKeys()
                     },
                     colors = NavigationDrawerItemDefaults.colors(
@@ -244,7 +259,10 @@ fun MainActivityContent(
                     },
                     selected = false,
                     onClick = {
-                        scope.launch { drawerState.close() }
+                        if (SettingsHelper.userLastSelectedLocker == "")
+                            displayNoLockerSelected.value = true
+                        else
+                            scope.launch { drawerState.close() }
                         //onNavigateToShareAccess()
                     },
                     colors = NavigationDrawerItemDefaults.colors(
@@ -262,6 +280,12 @@ fun MainActivityContent(
                     },
                     selected = false,
                     onClick = {
+                        if (navBackStackEntry.value?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
+                            appState.navController.navigate(MainDestinations.SETTINGS) {
+                                launchSingleTop = true
+                                restoreState = true
+                            }
+                        }
                         scope.launch { drawerState.close() }
                         //onNavigateToSettings()
                     },
@@ -283,7 +307,9 @@ fun MainActivityContent(
                             20.dp
                         }
                         Box(
-                            modifier = Modifier.fillMaxWidth().padding(end = imageLogoPadding),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(end = imageLogoPadding),
                             contentAlignment = Alignment.Center
                         ) {
                             Image(
@@ -321,7 +347,8 @@ fun MainActivityContent(
             }
         ) { paddingValues ->
             GradientBackground(
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier
+                    .fillMaxSize()
                     .padding(paddingValues)
             ) {
 

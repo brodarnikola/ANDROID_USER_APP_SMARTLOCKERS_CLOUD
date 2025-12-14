@@ -191,8 +191,8 @@ private fun NotificationToggleItem(
             colors = SwitchDefaults.colors(
                 checkedThumbColor = colorResource(id = R.color.colorAccentZwick),
                 checkedTrackColor = colorResource(id = R.color.colorAccentZwick).copy(alpha = 0.3f),
-                uncheckedThumbColor = colorResource(id = R.color.colorPrimaryDarkZwick),
-                uncheckedTrackColor = colorResource(id = R.color.colorWhite)
+                uncheckedThumbColor = colorResource(id = R.color.colorPrimaryDarkZwick).copy(alpha = 0.1f),
+                uncheckedTrackColor = colorResource(id = R.color.colorWhite).copy(alpha = 0.1f)
             )
         )
     }
