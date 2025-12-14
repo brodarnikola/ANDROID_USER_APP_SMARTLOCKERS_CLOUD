@@ -25,6 +25,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import hr.sil.android.myappbox.R
+import hr.sil.android.myappbox.compose.collect_parcel.ListOfDeliveriesScreen
 import hr.sil.android.myappbox.compose.google_maps.GoogleMapsLockerLocationsScreen
 import hr.sil.android.myappbox.compose.home_screen.NavHomeScreen
 import hr.sil.android.myappbox.compose.home_screen.SelectLockerScreen
@@ -174,6 +175,21 @@ fun NavGraphBuilder.mainNavGraph(
                     navController.navigateUp()
                 }
             }
+        )
+    }
+
+    composable(MainDestinations.PICK_AT_HOME_KEYS) {
+        NotificationsScreen(
+            viewModel = viewModel(),
+        )
+    }
+
+    composable(MainDestinations.LIST_OF_DELIVERIES) {
+        ListOfDeliveriesScreen(
+            onShareKeyClick = {
+
+            },
+            viewModel = viewModel(),
         )
     }
 

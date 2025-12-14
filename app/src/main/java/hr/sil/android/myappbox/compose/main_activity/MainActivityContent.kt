@@ -31,7 +31,10 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import hr.sil.android.myappbox.R
 import hr.sil.android.myappbox.compose.components.GradientBackground
 import hr.sil.android.myappbox.compose.dialog.NoMasterSelectedDialog
+import hr.sil.android.myappbox.core.remote.model.RLockerKeyPurpose
+import hr.sil.android.myappbox.store.MPLDeviceStore
 import hr.sil.android.myappbox.util.SettingsHelper
+import hr.sil.android.myappbox.util.backend.UserUtil
 import kotlinx.coroutines.launch
 import kotlin.text.contains
 import kotlin.text.uppercase
@@ -111,6 +114,16 @@ fun MainActivityContent(
                 displayNoLockerSelected.value = false
             }
         )
+    }
+
+    val devicesWithKeys =
+        MPLDeviceStore.uniqueDevices.values.filter { it.activeKeys.size > 0 }
+    var counterPickupDeliveryKeys = 0
+    for (item in devicesWithKeys) {
+
+        if (item.activeKeys.filter { it.purpose == RLockerKeyPurpose.DELIVERY || it.purpose == RLockerKeyPurpose.PAF }
+                .isNotEmpty())
+            counterPickupDeliveryKeys += item.activeKeys.filter { it.purpose == RLockerKeyPurpose.DELIVERY || it.purpose == RLockerKeyPurpose.PAF }.size
     }
 
     ModalNavigationDrawer(
@@ -196,22 +209,30 @@ fun MainActivityContent(
                         )
                     },
                     badge = {
-                        //if (deliveriesCount > 0) {
-                        Badge(
-                            containerColor = colorResource(R.color.colorRedBadgeNumber),
-                            contentColor = colorResource(R.color.colorWhite)
-                        ) {
-                            //Text(text = deliveriesCount.toString())
+                        if (counterPickupDeliveryKeys > 0) {
+                            Badge(
+                                modifier = Modifier.size(25.dp),
+                                containerColor = colorResource(R.color.colorRedBadgeNumber),
+                                contentColor = colorResource(R.color.colorWhite)
+                            ) {
+                                Text(text = counterPickupDeliveryKeys.toString())
+                            }
                         }
-                        //}
                     },
                     selected = false,
                     onClick = {
-                        if (SettingsHelper.userLastSelectedLocker == "")
-                            displayNoLockerSelected.value = true
-                        else
+                        if (UserUtil.user?.status == "ACTIVE" && counterPickupDeliveryKeys > 0
+                        /*&& SettingsHelper.userLastSelectedLocker != "" && selectedMasterDevice?.activeKeys?.filter { it.purpose == RLockerKeyPurpose.DELIVERY || it.purpose == RLockerKeyPurpose.PAF }
+                            ?.isNotEmpty() == true */) {
+
+                            if (navBackStackEntry.value?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
+                                appState.navController.navigate(MainDestinations.LIST_OF_DELIVERIES) {
+                                    launchSingleTop = true
+                                    restoreState = true
+                                }
+                            }
                             scope.launch { drawerState.close() }
-                        //onNavigateToListOfDeliveries()
+                        }
                     },
                     colors = NavigationDrawerItemDefaults.colors(
                         unselectedContainerColor = Color.Transparent,

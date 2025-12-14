@@ -1,6 +1,5 @@
 package hr.sil.android.myappbox.compose.dialog
 
-import android.content.Intent
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -18,7 +17,6 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.constraintlayout.compose.ConstraintLayout
 import hr.sil.android.myappbox.R
-import hr.sil.android.myappbox.compose.SignUpOnboardingActivity
 import hr.sil.android.myappbox.compose.components.ButtonWithFont
 import hr.sil.android.myappbox.compose.components.RoundedDialog
 import hr.sil.android.myappbox.compose.components.TextViewWithFont
@@ -26,7 +24,6 @@ import hr.sil.android.myappbox.compose.components.ThmButtonLetterSpacing
 import hr.sil.android.myappbox.compose.components.ThmButtonTextSizeInsideDialog
 import hr.sil.android.myappbox.compose.components.ThmLoginButtonTextColor
 import hr.sil.android.myappbox.compose.components.ThmMainButtonBackgroundColor
-import hr.sil.android.myappbox.util.backend.UserUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay

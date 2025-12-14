@@ -20,6 +20,10 @@ object MainDestinations {
     const val ACCESS_SHARING_SCREEN = "AccessSharingScreen"
     const val ACCESS_SHARING_ADD_USER_SCREEN = "AccessSharingAddUserScreen"
 
+
+    const val PICK_AT_HOME_KEYS = "PickAtHomeKeys"
+    const val LIST_OF_DELIVERIES = "ListOfDeliveries"
+
     const val GOOGLE_MAPS_SELECT_LOCKER = "GoogleMapsSelectLocker"
     const val SELECT_LOCKER = "SelectLocker"
     const val SETTINGS = "Settings"

@@ -1,5 +1,6 @@
 package hr.sil.android.myappbox.compose.home_screen
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -85,6 +86,7 @@ object Res {
         const val temperature = "22°C"
         const val pressure = "1013 hPa"
     }
+
     object drawable {
         // Placeholders - replace with actual resource IDs
 //        val ic_map = R.drawable.ic_dialog_map
@@ -102,6 +104,7 @@ object Res {
 
 // --- 2. MAIN SCREEN COMPOSABLE ---
 
+@SuppressLint("SuspiciousIndentation")
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun NavHomeScreen(
@@ -120,7 +123,7 @@ fun NavHomeScreen(
     val displayCopiedToClipboardDialog = remember { mutableStateOf(false) }
 
     val displayNoLockerSelected = rememberSaveable { mutableStateOf(false) }
-    if( displayNoLockerSelected.value ) {
+    if (displayNoLockerSelected.value) {
         NoMasterSelectedDialog(
             onConfirm = {
                 displayNoLockerSelected.value = false
@@ -137,7 +140,8 @@ fun NavHomeScreen(
         lockerNameOrAddress.value =
             MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]
                 ?.name?.ifEmpty {
-                    MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]?.address ?: ""
+                    MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]?.address
+                        ?: ""
                 } ?: ""
         finalProductName.value = viewModel.setFinalProductName()
         lockerAddress.value = viewModel.setLockerAddress()
@@ -167,7 +171,7 @@ fun NavHomeScreen(
         }
     }
 
-    if( displayCopiedToClipboardDialog.value )
+    if (displayCopiedToClipboardDialog.value)
         TextCopiedToClipboardDialog(
             onDismiss = { displayCopiedToClipboardDialog.value = false },
             onConfirm = { displayCopiedToClipboardDialog.value = false }
@@ -183,9 +187,9 @@ fun NavHomeScreen(
 //        GradientBackground(
 //            modifier = Modifier.fillMaxSize()
 //        ) {
-        Box(modifier = Modifier.fillMaxSize()) {
-                //Column(modifier = Modifier.fillMaxSize()) {
-                    // AppBar
+    Box(modifier = Modifier.fillMaxSize()) {
+        //Column(modifier = Modifier.fillMaxSize()) {
+        // AppBar
 //                    Box(
 //                        modifier = Modifier
 //                            .fillMaxWidth()
@@ -224,15 +228,15 @@ fun NavHomeScreen(
 //                        }
 //                    }
 
-                    // ScrollView Content
-                    Column(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .verticalScroll(rememberScrollState())
-                            .padding(top = 10.dp, bottom = 20.dp)
-                    ) {
-                        // Verification Pin Disabled Section
-                        //if (state.showVerificationPinDisabled) {
+        // ScrollView Content
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(top = 10.dp, bottom = 20.dp)
+        ) {
+            // Verification Pin Disabled Section
+            //if (state.showVerificationPinDisabled) {
 //                        if(true) {
 //                            Column(
 //                                modifier = Modifier
@@ -280,385 +284,385 @@ fun NavHomeScreen(
 //                            }
 //                        }
 
-                        // Verification Pin Approved Section
-                        //if (state.showVerificationPinApproved) {
-                        if(true) {
-                            Column(
-                                modifier = Modifier.fillMaxWidth()
-                            ) {
-                                TextViewWithFont(
-                                    text = stringResource(id = R.string.app_generic_selected_locker).uppercase(),
-                                    color = ThmTitleTextColor,
-                                    fontSize = ThmTitleTextSize,
-                                    fontWeight = FontWeight.Normal,
-                                    textAlign = TextAlign.Start,
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(horizontal = 20.dp)
-                                )
+            // Verification Pin Approved Section
+            //if (state.showVerificationPinApproved) {
+            if (true) {
+                Column(
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    TextViewWithFont(
+                        text = stringResource(id = R.string.app_generic_selected_locker).uppercase(),
+                        color = ThmTitleTextColor,
+                        fontSize = ThmTitleTextSize,
+                        fontWeight = FontWeight.Normal,
+                        textAlign = TextAlign.Start,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 20.dp)
+                    )
 
-                                // Choose City Locker and Google Maps
-                                Row(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(top = 10.dp, start = 18.dp, end = 18.dp),
-                                    horizontalArrangement = Arrangement.SpaceBetween,
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    Row(
-                                        modifier = Modifier
-                                            .weight(0.91f)
-                                            .height(40.dp)
-                                            .padding(end = 10.dp)
-                                            .background(
-                                                color = colorResource(R.color.colorPrimary),
-                                                shape = RoundedCornerShape(4.dp)
-                                            )
-                                            .clickable {
-                                                nextScreen(MainDestinations.SELECT_LOCKER)
-                                                //viewModel.onEvent(MainScreenEvent.OnChooseCityLockerClick)
-                                            }
-                                            .padding(horizontal = 10.dp),
-                                        horizontalArrangement = Arrangement.SpaceBetween,
-                                        verticalAlignment = Alignment.CenterVertically
-                                    ) {
-                                        TextViewWithFont(
-                                            text = lockerNameOrAddress.value,
-                                            color = colorResource(R.color.colorBlackText),
-                                            fontSize = ThmTitleTextSize,
-                                            fontWeight = FontWeight.Normal,
-                                            //maxLines = 1,
-                                            modifier = Modifier.weight(0.9f)
-                                        )
-
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.ic_chevron_right),
-                                            contentDescription = null,
-                                            tint = Color.Unspecified,
-                                            modifier = Modifier.padding(start = 5.dp)
-                                        )
-                                    }
-
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_map),
-                                        contentDescription = null,
-                                        tint = Color.Unspecified,
-                                        modifier = Modifier
-                                            .weight(0.11f)
-                                            .clickable {
-                                                nextScreen(MainDestinations.GOOGLE_MAPS_SELECT_LOCKER)
-                                            }
-                                    )
-                                }
-
-                                // Address and Username Section
-                                Row(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(top = 10.dp, start = 18.dp, end = 18.dp),
-                                    horizontalArrangement = Arrangement.SpaceBetween,
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    Column(
-                                        modifier = Modifier.weight(9f)
-                                    ) {
-                                        TextViewWithFont(
-                                            text = finalProductName.value, //state.uniqueUserNumber ?: "",
-                                            color = ThmTitleTextColor,
-                                            fontSize = ThmTitleTextSize,
-                                            fontWeight = FontWeight.Normal,
-                                            maxLines = 1,
-                                            modifier = Modifier
-                                                .fillMaxWidth()
-                                                .padding(top = 5.dp)
-                                        )
-
-                                        TextViewWithFont(
-                                            text = lockerAddress.value,
-                                            color = ThmTitleTextColor,
-                                            fontSize = ThmTitleTextSize,
-                                            fontWeight = FontWeight.Normal,
-                                            maxLines = 1,
-                                            modifier = Modifier
-                                                .fillMaxWidth()
-                                                .padding(top = 5.dp)
-                                        )
-                                    }
-
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_copy_address),
-                                        contentDescription = null,
-                                        tint = Color.Unspecified,
-                                        modifier = Modifier
-                                            .weight(1f)
-                                            .clickable {
-                                                displayCopiedToClipboardDialog.value = true 
-                                            }
-                                    )
-                                }
-                            }
-                        }
-
-                        // First Row - Collect and Send Parcel
+                    // Choose City Locker and Google Maps
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 10.dp, start = 18.dp, end = 18.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
                         Row(
                             modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(top = 20.dp, start = 5.dp, end = 5.dp),
-                            horizontalArrangement = Arrangement.SpaceEvenly
+                                .weight(0.91f)
+                                .height(40.dp)
+                                .padding(end = 10.dp)
+                                .background(
+                                    color = colorResource(R.color.colorPrimary),
+                                    shape = RoundedCornerShape(4.dp)
+                                )
+                                .clickable {
+                                    nextScreen(MainDestinations.SELECT_LOCKER)
+                                    //viewModel.onEvent(MainScreenEvent.OnChooseCityLockerClick)
+                                }
+                                .padding(horizontal = 10.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
-                            // Collect Parcel
-                            Box(
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .clickable {
-                                        if(SettingsHelper.userLastSelectedLocker == "")
-                                            displayNoLockerSelected.value = true
-                                        //viewModel.onEvent(MainScreenEvent.OnCollectParcelClick)
-                                    },
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Column(
-                                    horizontalAlignment = Alignment.CenterHorizontally
-                                ) {
-                                    Box {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.ic_collect_parcel),
-                                            contentDescription = null,
-                                            tint = Color.Unspecified,
-                                            modifier = Modifier.alpha(0.2f)
-                                        )
+                            TextViewWithFont(
+                                text = lockerNameOrAddress.value,
+                                color = colorResource(R.color.colorBlackText),
+                                fontSize = ThmTitleTextSize,
+                                fontWeight = FontWeight.Normal,
+                                //maxLines = 1,
+                                modifier = Modifier.weight(0.9f)
+                            )
 
-                                        //if (state.deliveryKeysCount > 0) {
-                                        if( true ) {
-                                            Box(
-                                                modifier = Modifier
-                                                    .size(38.dp)
-                                                    .offset(x = 105.dp)
-                                                    .background(
-                                                        color = ThmDescriptionTextColor, //ThmMainBadgeBackgroundColor,
-                                                        shape = CircleShape
-                                                    ),
-                                                contentAlignment = Alignment.Center
-                                            ) {
-                                                Text(
-                                                    text = "98", //state.deliveryKeysCount.toString(),
-                                                    color = ThmTitleTextColor, //ThmMainBadgeTextColor,
-                                                    fontSize = 25.sp
-                                                )
-                                            }
-                                        }
-                                    }
-
-                                    TextViewWithFont(
-                                        text = stringResource(id = R.string.app_generic_pickup_parcel),
-                                        color = ThmDescriptionTextColor,
-                                        fontSize = ThmTitleTextSize,
-                                        fontWeight = FontWeight.Normal,
-                                        textAlign = TextAlign.Center,
-                                        //maxLines = 2
-                                    )
-                                }
-                            }
-
-                            // Send Parcel
-                            Box(
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .clickable {
-                                        if(SettingsHelper.userLastSelectedLocker == "")
-                                            displayNoLockerSelected.value = true
-                                        //viewModel.onEvent(MainScreenEvent.OnSendParcelClick)
-                                    },
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Column(
-                                    horizontalAlignment = Alignment.CenterHorizontally
-                                ) {
-                                    Box {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.ic_send_parcel),
-                                            contentDescription = null,
-                                            tint = Color.Unspecified,
-                                            modifier = Modifier.alpha(0.2f)
-                                        )
-
-                                        //if (state.showCancelPickAtHome && state.cancelPickAtHomeCount > 0) {
-                                        if(true) {
-                                            Row(
-                                                modifier = Modifier
-                                                    .offset(x = 105.dp)
-                                                    .background(
-                                                        color = colorResource(R.color.colorRedBadgeNumber),
-                                                        shape = RoundedCornerShape(4.dp)
-                                                    )
-                                                    .padding(horizontal = 7.dp, vertical = 5.dp),
-                                                verticalAlignment = Alignment.CenterVertically
-                                            ) {
-                                                Icon(
-                                                    painter = painterResource(id = R.drawable.ic_pick_at_home),
-                                                    contentDescription = null,
-                                                    tint = Color.Unspecified
-                                                )
-
-                                                Text(
-                                                    text = "25", //state.cancelPickAtHomeCount.toString(),
-                                                    color = ThmDescriptionTextColor, //ThmMainBadgeTextColor,
-                                                    fontSize = 25.sp,
-                                                    modifier = Modifier.padding(start = 2.dp)
-                                                )
-                                            }
-                                        }
-                                    }
-
-                                    TextViewWithFont(
-                                        text = stringResource(id = R.string.app_generic_send_parcel),
-                                        color = ThmDescriptionTextColor,
-                                        fontSize = ThmTitleTextSize,
-                                        fontWeight = FontWeight.Normal,
-                                        textAlign = TextAlign.Center,
-                                        //maxLines = 2
-                                    )
-                                }
-                            }
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_chevron_right),
+                                contentDescription = null,
+                                tint = Color.Unspecified,
+                                modifier = Modifier.padding(start = 5.dp)
+                            )
                         }
 
-                        // Second Row - Share Access and Settings
-                        Row(
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_map),
+                            contentDescription = null,
+                            tint = Color.Unspecified,
                             modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(top = 20.dp, bottom = 10.dp, start = 5.dp, end = 5.dp),
-                            horizontalArrangement = Arrangement.SpaceEvenly
+                                .weight(0.11f)
+                                .clickable {
+                                    nextScreen(MainDestinations.GOOGLE_MAPS_SELECT_LOCKER)
+                                }
+                        )
+                    }
+
+                    // Address and Username Section
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 10.dp, start = 18.dp, end = 18.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Column(
+                            modifier = Modifier.weight(9f)
                         ) {
-                            // Share Access
-                            Column(
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .clickable {
-                                        if(SettingsHelper.userLastSelectedLocker == "")
-                                            displayNoLockerSelected.value = true
-                                        //viewModel.onEvent(MainScreenEvent.OnShareAccessClick)
-                                    },
-                                horizontalAlignment = Alignment.CenterHorizontally
-                            ) {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_key_sharing),
-                                    contentDescription = null,
-                                    tint = Color.Unspecified,
-                                    modifier = Modifier.alpha(0.2f)
-                                )
-
-                                TextViewWithFont(
-                                    text = stringResource(id = R.string.app_generic_key_sharing),
-                                    color = ThmDescriptionTextColor,
-                                    fontSize = ThmTitleTextSize,
-                                    fontWeight = FontWeight.Normal,
-                                    textAlign = TextAlign.Center,
-                                    //maxLines = 2
-                                )
-                            }
-
-                            // Settings
-                            Column(
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .clickable {
-                                        nextScreen(MainDestinations.SETTINGS)
-                                    },
-                                horizontalAlignment = Alignment.CenterHorizontally
-                            ) {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_configure),
-                                    contentDescription = null,
-                                    tint = Color.Unspecified
-                                )
-
-                                TextViewWithFont(
-                                    text = stringResource(id = R.string.app_generic_my_configuration),
-                                    color = ThmDescriptionTextColor,
-                                    fontSize = ThmTitleTextSize,
-                                    fontWeight = FontWeight.Normal,
-                                    textAlign = TextAlign.Center,
-                                    //maxLines = 2
-                                )
-                            }
-                        }
-
-                        // Telemetry Section
-                        //if (state.showTelemetry) {
-                        if(true) {
-                            Row(
+                            TextViewWithFont(
+                                text = finalProductName.value, //state.uniqueUserNumber ?: "",
+                                color = ThmTitleTextColor,
+                                fontSize = ThmTitleTextSize,
+                                fontWeight = FontWeight.Normal,
+                                maxLines = 1,
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(top = 10.dp, start = 40.dp),
-                                horizontalArrangement = Arrangement.SpaceEvenly
-                            ) {
-                                // Humidity
-                                Row(
-                                    modifier = Modifier.weight(0.25f),
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_humidity),
-                                        contentDescription = null,
-                                        tint = Color.Unspecified
-                                    )
+                                    .padding(top = 5.dp)
+                            )
 
-                                    TextViewWithFont(
-                                        text = "AWESOME 7", //state.humidity ?: "",
-                                        color = ThmDescriptionTextColor,
-                                        fontSize = 13.sp,
-                                        fontWeight = FontWeight.Medium,
-                                        //maxLines = 1,
-                                        modifier = Modifier.padding(start = 5.dp, bottom = 2.dp)
-                                    )
+                            TextViewWithFont(
+                                text = lockerAddress.value,
+                                color = ThmTitleTextColor,
+                                fontSize = ThmTitleTextSize,
+                                fontWeight = FontWeight.Normal,
+                                maxLines = 1,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(top = 5.dp)
+                            )
+                        }
+
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_copy_address),
+                            contentDescription = null,
+                            tint = Color.Unspecified,
+                            modifier = Modifier
+                                .weight(1f)
+                                .clickable {
+                                    displayCopiedToClipboardDialog.value = true
                                 }
+                        )
+                    }
+                }
+            }
 
-                                // Temperature
-                                Row(
-                                    modifier = Modifier.weight(0.25f),
-                                    verticalAlignment = Alignment.CenterVertically
+            // First Row - Collect and Send Parcel
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 20.dp, start = 5.dp, end = 5.dp),
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+                // Collect Parcel
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .clickable {
+                            if (SettingsHelper.userLastSelectedLocker == "")
+                                displayNoLockerSelected.value = true
+                            //viewModel.onEvent(MainScreenEvent.OnCollectParcelClick)
+                        },
+                    contentAlignment = Alignment.Center
+                ) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Box {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_collect_parcel),
+                                contentDescription = null,
+                                tint = Color.Unspecified,
+                                modifier = Modifier.alpha(0.2f)
+                            )
+
+                            //if (state.deliveryKeysCount > 0) {
+                            if (true) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(38.dp)
+                                        .offset(x = 105.dp)
+                                        .background(
+                                            color = ThmDescriptionTextColor, //ThmMainBadgeBackgroundColor,
+                                            shape = CircleShape
+                                        ),
+                                    contentAlignment = Alignment.Center
                                 ) {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_temperature),
-                                        contentDescription = null,
-                                        tint = Color.Unspecified
-                                    )
-
-                                    TextViewWithFont(
-                                        text = "AWESOME TEMPERATURE", //state.temperature ?: "",
-                                        color = ThmDescriptionTextColor,
-                                        fontSize = 13.sp,
-                                        fontWeight = FontWeight.Medium,
-                                        //maxLines = 1,
-                                        modifier = Modifier.padding(start = 5.dp, bottom = 2.dp)
-                                    )
-                                }
-
-                                // Air Pressure
-                                Row(
-                                    modifier = Modifier.weight(0.25f),
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_air_pressure),
-                                        contentDescription = null,
-                                        tint = Color.Unspecified
-                                    )
-
-                                    TextViewWithFont(
-                                        text = "AWESOME PRESSURE", // state.airPressure ?: "",
-                                        color = ThmDescriptionTextColor,
-                                        fontSize = 13.sp,
-                                        fontWeight = FontWeight.Medium,
-                                        //maxLines = 1,
-                                        modifier = Modifier.padding(start = 5.dp, bottom = 2.dp)
+                                    Text(
+                                        text = "98", //state.deliveryKeysCount.toString(),
+                                        color = ThmTitleTextColor, //ThmMainBadgeTextColor,
+                                        fontSize = 25.sp
                                     )
                                 }
                             }
                         }
+
+                        TextViewWithFont(
+                            text = stringResource(id = R.string.app_generic_pickup_parcel),
+                            color = ThmDescriptionTextColor,
+                            fontSize = ThmTitleTextSize,
+                            fontWeight = FontWeight.Normal,
+                            textAlign = TextAlign.Center,
+                            //maxLines = 2
+                        )
                     }
                 }
-            //}
-       // }
+
+                // Send Parcel
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .clickable {
+                            if (SettingsHelper.userLastSelectedLocker == "")
+                                displayNoLockerSelected.value = true
+                            //viewModel.onEvent(MainScreenEvent.OnSendParcelClick)
+                        },
+                    contentAlignment = Alignment.Center
+                ) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Box {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_send_parcel),
+                                contentDescription = null,
+                                tint = Color.Unspecified,
+                                modifier = Modifier.alpha(0.2f)
+                            )
+
+                            //if (state.showCancelPickAtHome && state.cancelPickAtHomeCount > 0) {
+                            if (true) {
+                                Row(
+                                    modifier = Modifier
+                                        .offset(x = 105.dp)
+                                        .background(
+                                            color = colorResource(R.color.colorRedBadgeNumber),
+                                            shape = RoundedCornerShape(4.dp)
+                                        )
+                                        .padding(horizontal = 7.dp, vertical = 5.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_pick_at_home),
+                                        contentDescription = null,
+                                        tint = Color.Unspecified
+                                    )
+
+                                    Text(
+                                        text = "25", //state.cancelPickAtHomeCount.toString(),
+                                        color = ThmDescriptionTextColor, //ThmMainBadgeTextColor,
+                                        fontSize = 25.sp,
+                                        modifier = Modifier.padding(start = 2.dp)
+                                    )
+                                }
+                            }
+                        }
+
+                        TextViewWithFont(
+                            text = stringResource(id = R.string.app_generic_send_parcel),
+                            color = ThmDescriptionTextColor,
+                            fontSize = ThmTitleTextSize,
+                            fontWeight = FontWeight.Normal,
+                            textAlign = TextAlign.Center,
+                            //maxLines = 2
+                        )
+                    }
+                }
+            }
+
+            // Second Row - Share Access and Settings
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 20.dp, bottom = 10.dp, start = 5.dp, end = 5.dp),
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+                // Share Access
+                Column(
+                    modifier = Modifier
+                        .weight(1f)
+                        .clickable {
+                            if (SettingsHelper.userLastSelectedLocker == "")
+                                displayNoLockerSelected.value = true
+                            //viewModel.onEvent(MainScreenEvent.OnShareAccessClick)
+                        },
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_key_sharing),
+                        contentDescription = null,
+                        tint = Color.Unspecified,
+                        modifier = Modifier.alpha(0.2f)
+                    )
+
+                    TextViewWithFont(
+                        text = stringResource(id = R.string.app_generic_key_sharing),
+                        color = ThmDescriptionTextColor,
+                        fontSize = ThmTitleTextSize,
+                        fontWeight = FontWeight.Normal,
+                        textAlign = TextAlign.Center,
+                        //maxLines = 2
+                    )
+                }
+
+                // Settings
+                Column(
+                    modifier = Modifier
+                        .weight(1f)
+                        .clickable {
+                            nextScreen(MainDestinations.SETTINGS)
+                        },
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_configure),
+                        contentDescription = null,
+                        tint = Color.Unspecified
+                    )
+
+                    TextViewWithFont(
+                        text = stringResource(id = R.string.app_generic_my_configuration),
+                        color = ThmDescriptionTextColor,
+                        fontSize = ThmTitleTextSize,
+                        fontWeight = FontWeight.Normal,
+                        textAlign = TextAlign.Center,
+                        //maxLines = 2
+                    )
+                }
+            }
+
+            // Telemetry Section
+            //if (state.showTelemetry) {
+            if (true) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 10.dp, start = 40.dp),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    // Humidity
+                    Row(
+                        modifier = Modifier.weight(0.25f),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_humidity),
+                            contentDescription = null,
+                            tint = Color.Unspecified
+                        )
+
+                        TextViewWithFont(
+                            text = "AWESOME 7", //state.humidity ?: "",
+                            color = ThmDescriptionTextColor,
+                            fontSize = 13.sp,
+                            fontWeight = FontWeight.Medium,
+                            //maxLines = 1,
+                            modifier = Modifier.padding(start = 5.dp, bottom = 2.dp)
+                        )
+                    }
+
+                    // Temperature
+                    Row(
+                        modifier = Modifier.weight(0.25f),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_temperature),
+                            contentDescription = null,
+                            tint = Color.Unspecified
+                        )
+
+                        TextViewWithFont(
+                            text = "AWESOME TEMPERATURE", //state.temperature ?: "",
+                            color = ThmDescriptionTextColor,
+                            fontSize = 13.sp,
+                            fontWeight = FontWeight.Medium,
+                            //maxLines = 1,
+                            modifier = Modifier.padding(start = 5.dp, bottom = 2.dp)
+                        )
+                    }
+
+                    // Air Pressure
+                    Row(
+                        modifier = Modifier.weight(0.25f),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_air_pressure),
+                            contentDescription = null,
+                            tint = Color.Unspecified
+                        )
+
+                        TextViewWithFont(
+                            text = "AWESOME PRESSURE", // state.airPressure ?: "",
+                            color = ThmDescriptionTextColor,
+                            fontSize = 13.sp,
+                            fontWeight = FontWeight.Medium,
+                            //maxLines = 1,
+                            modifier = Modifier.padding(start = 5.dp, bottom = 2.dp)
+                        )
+                    }
+                }
+            }
+        }
+    }
+    //}
+    // }
     //}
 }
