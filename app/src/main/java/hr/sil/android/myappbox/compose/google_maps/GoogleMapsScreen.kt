@@ -1,46 +1,20 @@
 package hr.sil.android.myappbox.compose.google_maps
 
-import android.Manifest
 import android.content.*
-import android.content.pm.PackageManager
-import android.graphics.Color
-import android.graphics.Typeface
 import android.location.Address
 import android.location.Geocoder
 import android.os.Bundle
-import android.view.Gravity
-import android.view.MenuItem
-import android.view.View
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
-import hr.sil.android.retailuser.gps.GpsUtils
-import hr.sil.android.myappbox.core.util.logger
 import hr.sil.android.myappbox.store.MPLDeviceStore
-import hr.sil.android.myappbox.store.model.MPLDevice
 import hr.sil.android.myappbox.util.SettingsHelper
 import hr.sil.android.myappbox.util.backend.UserUtil
-import hr.sil.android.myappbox.view.ui.BaseActivity
-import hr.sil.android.myappbox.view.ui.activities.dialogs.NoMasterSelectedDialog
-import hr.sil.android.myappbox.view.ui.activities.dialogs.SupportEmailPhoneDialog
-import hr.sil.android.myappbox.view.ui.activities.dialogs.TextCopiedToClipboardDialog
-import hr.sil.android.view_util.permission.DroidPermission
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
-import kotlin.collections.iterator
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -49,53 +23,30 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Switch
-import androidx.compose.material3.SwitchDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ConstraintLayout
 import hr.sil.android.myappbox.R
 import hr.sil.android.myappbox.compose.components.ButtonWithFont
-import hr.sil.android.myappbox.compose.components.TextViewWithFont
 import hr.sil.android.myappbox.compose.components.ThmButtonLetterSpacing
 import hr.sil.android.myappbox.compose.components.ThmButtonTextSize
-import hr.sil.android.myappbox.compose.components.ThmDescriptionTextColor
 import hr.sil.android.myappbox.compose.components.ThmLoginButtonTextColor
 import hr.sil.android.myappbox.compose.components.ThmMainButtonBackgroundColor
-import hr.sil.android.myappbox.compose.components.ThmSubTitleTextColor
-import hr.sil.android.myappbox.compose.components.ThmSubTitleTextSize
-import hr.sil.android.myappbox.compose.components.ThmTitleLetterSpacing
-import hr.sil.android.myappbox.compose.components.ThmTitleTextColor
-import hr.sil.android.myappbox.compose.components.ThmTitleTextSize
 
-import android.app.Activity
-import android.content.Intent
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.unit.sp
-
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.em
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.maps.MapView
+import hr.sil.android.myappbox.compose.dialog.TextCopiedToClipboardDialog
 import kotlinx.coroutines.CoroutineScope
 import kotlin.collections.forEach
 import kotlin.text.isEmpty
@@ -104,9 +55,12 @@ import kotlin.text.isNotEmpty
 @Composable
 fun GoogleMapsLockerLocationsScreen(
     onMarkerClick: (String) -> Unit = {},
-    onCopyClick: () -> Unit = {},
-    onConfirmClick: () -> Unit = {}
+    navigateUp: () -> Unit = {}
 ) {
+
+    val displayCopiedToClipboardDialog = remember { mutableStateOf(false) }
+    val selectedMacAddressDevice = rememberSaveable { mutableStateOf(SettingsHelper.userLastSelectedLocker) }
+
     val selectedMasterDevice = MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]
     val lockerName = selectedMasterDevice?.name ?: ""
     val uniqueUserNumber = if (UserUtil.user?.uniqueId != null && UserUtil.user?.uniqueId != 0L) {
@@ -124,6 +78,12 @@ fun GoogleMapsLockerLocationsScreen(
 
     val addressLocker = selectedMasterDevice?.address ?: ""
 
+    if( displayCopiedToClipboardDialog.value )
+        TextCopiedToClipboardDialog(
+            onDismiss = { displayCopiedToClipboardDialog.value = false },
+            onConfirm = { displayCopiedToClipboardDialog.value = false }
+        )
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -135,7 +95,7 @@ fun GoogleMapsLockerLocationsScreen(
                 .systemBarsPadding()
         ) {
             // Top Divider
-            Divider(
+            HorizontalDivider(
                 modifier = Modifier.fillMaxWidth(),
                 thickness = 1.dp,
                 color = MaterialTheme.colorScheme.outline
@@ -214,7 +174,9 @@ fun GoogleMapsLockerLocationsScreen(
                     }
 
                     IconButton(
-                        onClick = onCopyClick,
+                        onClick = {
+                            displayCopiedToClipboardDialog.value = true
+                        },
                         modifier = Modifier
                             .weight(0.1f)
                             .padding(bottom = 5.dp)
@@ -234,20 +196,9 @@ fun GoogleMapsLockerLocationsScreen(
                     .weight(0.67f)
             ) {
                 GoogleMapView(
-                    onMarkerClick = onMarkerClick
+                    onMarkerClick = onMarkerClick,
+                    selectedMacAddressDevice = selectedMacAddressDevice
                 )
-//                AndroidView(
-//                    factory = { context ->
-//                        val mapView = MapView(context).apply {
-//                            onCreate(Bundle())
-//                            getMapAsync { googleMap ->
-//                                // Map setup logic here
-//                            }
-//                        }
-//                        mapView
-//                    },
-//                    modifier = Modifier.fillMaxSize()
-//                )
             }
 
             // Confirm Button Section (14% weight)
@@ -261,19 +212,8 @@ fun GoogleMapsLockerLocationsScreen(
                 ButtonWithFont(
                     text = stringResource(id = R.string.app_generic_confirm).uppercase(),
                     onClick = {
-//                        viewModel.saveNotificationSettings(
-//                            onSuccess = {
-//                                Toast.makeText(
-//                                    context,
-//                                    "Settings saved successfully",
-//                                    Toast.LENGTH_SHORT
-//                                ).show()
-//                                navigateUp()
-//                            },
-//                            onError = { errorMessage ->
-//                                Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
-//                            }
-//                        )
+                        SettingsHelper.userLastSelectedLocker = selectedMacAddressDevice.value
+                        navigateUp()
                     },
                     backgroundColor = ThmMainButtonBackgroundColor, // ?attr/thmMainButtonBackgroundColor
                     textColor = ThmLoginButtonTextColor, // ?attr/thmLoginButtonTextColor
@@ -294,7 +234,7 @@ fun GoogleMapsLockerLocationsScreen(
 @Composable
 fun GoogleMapView(
     onMarkerClick: (String) -> Unit,
-    modifier: Modifier = Modifier
+    selectedMacAddressDevice: MutableState<String>
 ) {
     val lockersLocations = MPLDeviceStore.uniqueDevices.values.toList()
 
@@ -316,7 +256,7 @@ fun GoogleMapView(
 
     AndroidView(
         factory = { mapView },
-        modifier = modifier
+        modifier = Modifier
     ) { map ->
 
         map.getMapAsync { googleMap ->
@@ -369,6 +309,7 @@ fun GoogleMapView(
                 marker.tag?.let { tag ->
                     if (tag is String) {
                         onMarkerClick(tag)
+                        selectedMacAddressDevice.value = marker.tag as String
                     }
                 }
                 false

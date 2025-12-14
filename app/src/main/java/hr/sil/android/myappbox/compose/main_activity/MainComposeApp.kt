@@ -169,13 +169,10 @@ fun NavGraphBuilder.mainNavGraph(
 
     composable(MainDestinations.GOOGLE_MAPS_SELECT_LOCKER) {
         GoogleMapsLockerLocationsScreen(
-            onMarkerClick = {
-            },
-            onConfirmClick = {
-
-            },
-            onCopyClick = {
-
+            navigateUp = {
+                navController.currentBackStackEntry?.let {
+                    navController.navigateUp()
+                }
             }
         )
     }

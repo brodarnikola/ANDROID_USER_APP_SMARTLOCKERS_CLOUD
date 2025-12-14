@@ -23,6 +23,7 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -51,6 +52,7 @@ import hr.sil.android.myappbox.store.MPLDeviceStore
 import hr.sil.android.myappbox.util.SettingsHelper
 
 import hr.sil.android.myappbox.compose.dialog.NoMasterSelectedDialog
+import hr.sil.android.myappbox.compose.dialog.TextCopiedToClipboardDialog
 
 // --- 1. MOCK THEME & RESOURCES (Replace with your actual Theme/R values) ---
 
@@ -115,6 +117,8 @@ fun NavHomeScreen(
     val finalProductName = rememberSaveable { mutableStateOf("") }
     val lockerAddress = rememberSaveable { mutableStateOf("") }
 
+    val displayCopiedToClipboardDialog = remember { mutableStateOf(false) }
+
     val displayNoLockerSelected = rememberSaveable { mutableStateOf(false) }
     if( displayNoLockerSelected.value ) {
         NoMasterSelectedDialog(
@@ -163,6 +167,11 @@ fun NavHomeScreen(
         }
     }
 
+    if( displayCopiedToClipboardDialog.value )
+        TextCopiedToClipboardDialog(
+            onDismiss = { displayCopiedToClipboardDialog.value = false },
+            onConfirm = { displayCopiedToClipboardDialog.value = false }
+        )
 
 //    ModalNavigationDrawer(
 //        drawerState = drawerState,
@@ -383,11 +392,7 @@ fun NavHomeScreen(
                                         modifier = Modifier
                                             .weight(1f)
                                             .clickable {
-                                                //if(SettingsHelper.userLastSelectedLocker == "")
-                                                //    displayNoLockerSelected.value = true
-                                                //else
-                                                //    nextScreen(MainDestinations.GOOGLE_MAPS_SELECT_LOCKER)
-                                                //viewModel.onEvent(MainScreenEvent.OnCopyAddressClick)
+                                                displayCopiedToClipboardDialog.value = true 
                                             }
                                     )
                                 }
