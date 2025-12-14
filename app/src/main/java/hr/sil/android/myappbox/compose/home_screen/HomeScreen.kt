@@ -337,7 +337,7 @@ fun NavHomeScreen(
                                         modifier = Modifier
                                             .weight(0.11f)
                                             .clickable {
-                                                //viewModel.onEvent(MainScreenEvent.OnGoogleMapsClick)
+                                                nextScreen(MainDestinations.GOOGLE_MAPS_SELECT_LOCKER)
                                             }
                                     )
                                 }
@@ -383,6 +383,10 @@ fun NavHomeScreen(
                                         modifier = Modifier
                                             .weight(1f)
                                             .clickable {
+                                                //if(SettingsHelper.userLastSelectedLocker == "")
+                                                //    displayNoLockerSelected.value = true
+                                                //else
+                                                //    nextScreen(MainDestinations.GOOGLE_MAPS_SELECT_LOCKER)
                                                 //viewModel.onEvent(MainScreenEvent.OnCopyAddressClick)
                                             }
                                     )

@@ -25,6 +25,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import hr.sil.android.myappbox.R
+import hr.sil.android.myappbox.compose.google_maps.GoogleMapsLockerLocationsScreen
 import hr.sil.android.myappbox.compose.home_screen.NavHomeScreen
 import hr.sil.android.myappbox.compose.home_screen.SelectLockerScreen
 import hr.sil.android.myappbox.compose.settings.ChangePasswordScreen
@@ -162,6 +163,19 @@ fun NavGraphBuilder.mainNavGraph(
                 if (navBackStackEntry.value?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
                     navController.navigate("$route/$returnToScreen/$macAddress")
                 }
+            }
+        )
+    }
+
+    composable(MainDestinations.GOOGLE_MAPS_SELECT_LOCKER) {
+        GoogleMapsLockerLocationsScreen(
+            onMarkerClick = {
+            },
+            onConfirmClick = {
+
+            },
+            onCopyClick = {
+
             }
         )
     }

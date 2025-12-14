@@ -39,7 +39,7 @@ import kotlinx.coroutines.withContext
 import java.util.*
 import kotlin.collections.iterator
 
-class GoogleMapsLockerLocationsActivity : //  :  BaseActivity(R.id.no_ble_layout, R.id.no_internet_layout, R.id.no_location_gps_layout),
+class GoogleMapsLockerLocationsActivity :
     OnMapReadyCallback,
     GoogleMap.OnMarkerClickListener
 {
@@ -477,30 +477,6 @@ class GoogleMapsLockerLocationsActivity : //  :  BaseActivity(R.id.no_ble_layout
 //        }
 //    }
 //
-//    override fun onBluetoothStateUpdated(available: Boolean) {
-//        super.onBluetoothStateUpdated(available)
-//        bluetoothAvalilable = available
-//        if (viewLoaded) {
-//            updateUI()
-//        }
-//    }
-//
-//    override fun onNetworkStateUpdated(available: Boolean) {
-//        super.onNetworkStateUpdated(available)
-//        networkAvailable = available
-//        if (viewLoaded) {
-//            updateUI()
-//        }
-//    }
-//
-//    override fun onLocationGPSStateUpdated(available: Boolean) {
-//        super.onLocationGPSStateUpdated(available)
-//        locationGPSAvalilable = available
-//        if (viewLoaded) {
-//            updateUI()
-//        }
-//    }
-//
 //    private fun removeGoogleMapsFragmentFromMemory() {
 //        val mapFragment =
 //            supportFragmentManager.findFragmentById(R.id.g_map) as SupportMapFragment?
@@ -508,39 +484,6 @@ class GoogleMapsLockerLocationsActivity : //  :  BaseActivity(R.id.no_ble_layout
 //            supportFragmentManager.beginTransaction().remove(mapFragment)
 //                .commit()
 //        }
-//    }
-//
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        when (item.getItemId()) {
-//            R.id.home -> {
-//
-//                removeGoogleMapsFragmentFromMemory()
-//
-//                val intent = Intent()
-//                val packageName = this@GoogleMapsLockerLocationsActivity.packageName
-//                val componentName = ComponentName(packageName, packageName + ".aliasMainActivity")
-//                intent.component = componentName
-//
-//                startActivity(intent)
-//                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-//                finish()
-//                return true
-//            }
-//
-//            else -> return super.onOptionsItemSelected(item)
-//        }
-//    }
-//
-//    override fun onBackPressed() {
-//        val intent = Intent()
-//        val packageName = this@GoogleMapsLockerLocationsActivity.packageName
-//        val componentName = ComponentName(packageName, packageName + ".aliasMainActivity")
-//        intent.component = componentName
-//
-//        startActivity(intent)
-//        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-//        finish()
-//        super.onBackPressed()
 //    }
 
 
