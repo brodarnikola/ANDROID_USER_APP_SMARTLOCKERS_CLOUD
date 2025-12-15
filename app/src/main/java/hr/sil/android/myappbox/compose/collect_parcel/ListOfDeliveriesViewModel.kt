@@ -105,7 +105,7 @@ class ListOfDeliveriesViewModel : ViewModel() {
                     listOfDeliveries.add(lockerKeyWithShareAccess)
                 }
 
-                listOfDeliveries.addAll(listOfDeliveries)
+                //listOfDeliveries.addAll(listOfDeliveries)
 
                 _uiState.update {
                     it.copy(

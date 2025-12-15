@@ -30,6 +30,7 @@ import hr.sil.android.myappbox.compose.collect_parcel.ShareAccessKeyScreen
 import hr.sil.android.myappbox.compose.google_maps.GoogleMapsLockerLocationsScreen
 import hr.sil.android.myappbox.compose.home_screen.NavHomeScreen
 import hr.sil.android.myappbox.compose.home_screen.SelectLockerScreen
+import hr.sil.android.myappbox.compose.send_parcel.SendParcelsOverviewScreen
 import hr.sil.android.myappbox.compose.settings.ChangePasswordScreen
 import hr.sil.android.myappbox.compose.settings.DisplayQrCodeScreenWrapper
 import hr.sil.android.myappbox.compose.settings.HelpHorizontalPager
@@ -183,7 +184,7 @@ fun NavGraphBuilder.mainNavGraph(
     }
 
     composable(MainDestinations.PICK_AT_HOME_KEYS) {
-        NotificationsScreen(
+        SendParcelsOverviewScreen(
             viewModel = viewModel(),
         )
     }

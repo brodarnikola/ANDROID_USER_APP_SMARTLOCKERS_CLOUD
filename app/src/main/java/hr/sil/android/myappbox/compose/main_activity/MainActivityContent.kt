@@ -261,7 +261,11 @@ fun MainActivityContent(
                     onClick = {
                         if (SettingsHelper.userLastSelectedLocker == "")
                             displayNoLockerSelected.value = true
-                        else
+                        else 
+                            appState.navController.navigate(MainDestinations.PICK_AT_HOME_KEYS) {
+                                launchSingleTop = true
+                                restoreState = true
+                            }
                             scope.launch { drawerState.close() }
                         //onNavigateToPahKeys()
                     },
