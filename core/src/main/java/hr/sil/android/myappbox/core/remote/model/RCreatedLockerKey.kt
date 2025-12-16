@@ -31,6 +31,8 @@ class RCreatedLockerKey {
     var id: Int = 0
     var timeCreated: String = "" //Date = Date()
 
+    var isDeleting: Boolean = false
+
     @SerializedName("locker___id")
     var lockerId: Int = 0
 
@@ -100,4 +102,40 @@ class RCreatedLockerKey {
     fun getLockerBLEMacAddress(): String = lockerMac.macCleanToReal()
 
     fun getMasterBLEMacAddress(): String = lockerMasterMac.macCleanToReal()
+}
+
+// In a separate file (e.g., RCreatedLockerKeyExtensions.kt) or inside a companion object
+fun RCreatedLockerKey.clone(newIsDeleting: Boolean? = null): RCreatedLockerKey {
+    val newKey = RCreatedLockerKey().apply {
+        // Copy all properties manually
+        this.id = this@clone.id
+        this.timeCreated = this@clone.timeCreated
+        this.isDeleting = newIsDeleting ?: this@clone.isDeleting // Use newIsDeleting if provided, otherwise copy existing
+        this.lockerId = this@clone.lockerId
+        this.lockerMac = this@clone.lockerMac
+        this.tan = this@clone.tan
+        this.pin = this@clone.pin
+        this.lockerMasterId = this@clone.lockerMasterId
+        this.lockerMasterMac = this@clone.lockerMasterMac
+        this.purpose = this@clone.purpose
+        this.createdById = this@clone.createdById
+        this.createdByName = this@clone.createdByName
+        this.createdForId = this@clone.createdForId
+        this.createdForEndUserName = this@clone.createdForEndUserName
+        this.createdForEndUserEmail = this@clone.createdForEndUserEmail
+        this.baseId = this@clone.baseId
+        this.baseTimeCreated = this@clone.baseTimeCreated
+        this.baseGroupId = this@clone.baseGroupId
+        this.basePurpose = this@clone.basePurpose
+        this.lockerSize = this@clone.lockerSize
+        this.masterName = this@clone.masterName
+        this.masterAddress = this@clone.masterAddress
+        this.keyInstallationtype = this@clone.keyInstallationtype
+        this.isInBleProximityOrLinuxDevice = this@clone.isInBleProximityOrLinuxDevice
+        this.isLinuxKeyDevice = this@clone.isLinuxKeyDevice
+        this.deviceLatitude = this@clone.deviceLatitude
+        this.deviceLongitude = this@clone.deviceLongitude
+        this.qrCode = this@clone.qrCode
+    }
+    return newKey
 }

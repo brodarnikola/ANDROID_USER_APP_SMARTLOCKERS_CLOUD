@@ -10,11 +10,13 @@ import hr.sil.android.myappbox.core.remote.WSUser
 import hr.sil.android.myappbox.core.remote.model.InstalationType
 import hr.sil.android.myappbox.core.remote.model.RCreatedLockerKey
 import hr.sil.android.myappbox.core.remote.model.RLockerKeyPurpose
+import hr.sil.android.myappbox.core.remote.model.clone
 import hr.sil.android.myappbox.core.util.logger
+import hr.sil.android.myappbox.core.util.macCleanToReal
 import hr.sil.android.myappbox.core.util.macRealToClean
 import hr.sil.android.myappbox.store.MPLDeviceStore
 import hr.sil.android.myappbox.util.SettingsHelper
-import hr.sil.android.myappbox.utils.isEmailValid
+import hr.sil.android.myappbox.util.backend.UserUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,6 +24,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 data class SendParcelOverviewUiState(
     val isLoading: Boolean = false,
@@ -42,6 +45,7 @@ object MockRCreatedLockerKeyData {
     private fun createMockKey1(): RCreatedLockerKey {
         return RCreatedLockerKey().apply {
             id = 1001
+            isDeleting = false
             timeCreated = "2024-12-10T14:30:00Z"
             lockerId = 5001
             lockerMac = "AABBCCDDEE11"
@@ -74,6 +78,7 @@ object MockRCreatedLockerKeyData {
     private fun createMockKey2(): RCreatedLockerKey {
         return RCreatedLockerKey().apply {
             id = 1002
+            isDeleting = false
             timeCreated = "2024-12-11T09:15:00Z"
             lockerId = 5002
             lockerMac = "AABBCCDDEE22"
@@ -106,6 +111,7 @@ object MockRCreatedLockerKeyData {
     private fun createMockKey3(): RCreatedLockerKey {
         return RCreatedLockerKey().apply {
             id = 1003
+            isDeleting = false
             timeCreated = "2024-12-12T16:45:00Z"
             lockerId = 5003
             lockerMac = "AABBCCDDEE33"
@@ -139,6 +145,7 @@ object MockRCreatedLockerKeyData {
     fun createMockKeyWithoutProximity(): RCreatedLockerKey {
         return RCreatedLockerKey().apply {
             id = 1004
+            isDeleting = false
             timeCreated = "2024-12-13T11:20:00Z"
             lockerId = 5004
             lockerMac = "AABBCCDDEE44"
@@ -167,6 +174,7 @@ object MockRCreatedLockerKeyData {
     fun createMockKeyLinuxOnly(): RCreatedLockerKey {
         return RCreatedLockerKey().apply {
             id = 1005
+            isDeleting = false
             timeCreated = "2024-12-14T08:00:00Z"
             lockerId = 5005
             lockerMac = "AABBCCDDEE55"
@@ -216,29 +224,115 @@ class SendParcelOverviewViewModel : ViewModel() {
         loadMixedMockData()
     }
 
-    fun loadMockData() {
-        _uiState.update { it.copy(isLoading = true) }
-
+    fun deletePickAtHomeKeyLinux(
+        lockerMac: String, lockerMasterMac: String, context: Context,
+        onSuccess: () -> Unit, onError: (errorId: Int, lockerMasterMac: String) -> Unit,
+        idKey: Int
+    ) {
         viewModelScope.launch {
-            // Simulate network delay
-            delay(500)
 
-            val listOfKeys = MockRCreatedLockerKeyData.createMockRCreatedLockerKeys()
-
-            // Simulate filtering logic
-            for (keyItem in listOfKeys) {
-                // Mock proximity check
-                keyItem.isInBleProximityOrLinuxDevice = when (keyItem.id) {
-                    1001, 1002 -> true  // First two are in proximity
-                    else -> false
+            // 1. START LOADING: Create a NEW List where the target item is marked 'isDeleting = true'
+            val listWithLoading = _uiState.value.allListOfKeys.map { key ->
+                if (key.id == idKey && key.lockerMasterMac == lockerMasterMac) {
+                    // *** USE THE CLONE FUNCTION HERE ***
+                    key.clone(newIsDeleting = true)
+                } else {
+                    key
                 }
             }
 
-            _uiState.update {
-                it.copy(
-                    isLoading = false,
-                    allListOfKeys = listOfKeys
-                )
+            // 2. FORCE REFRESH: Update state with the NEW list
+            _uiState.update { it.copy(allListOfKeys = listWithLoading.toMutableList()) }
+
+            // --- Execute BLE / API Logic ---
+            delay(2000)
+
+            val backendResponse = WSUser.cancelPickAtHomeLinuxDevices(lockerMac)
+
+            // 3. HANDLE RESULT
+            if (backendResponse?.success ?: false) {
+                // SUCCESS: Create a NEW list EXCLUDING the deleted item
+                val listAfterDelete = _uiState.value.allListOfKeys.filter {
+                    !(it.id == idKey && it.lockerMasterMac == lockerMasterMac)
+                }
+
+                // Ensure the result list is mutable for the UiState (as per your data class)
+                _uiState.update { it.copy(allListOfKeys = listAfterDelete.toMutableList()) }
+                onSuccess()
+            } else {
+                // ERROR: Create a NEW list resetting the loading flag
+                val listReset = _uiState.value.allListOfKeys.map { key ->
+                    if (key.id == idKey && key.lockerMasterMac == lockerMasterMac) {
+                        // *** USE THE CLONE FUNCTION HERE ***
+                        key.clone(newIsDeleting = false)
+                    } else {
+                        key
+                    }
+                }
+
+                // Ensure the result list is mutable for the UiState (as per your data class)
+                _uiState.update { it.copy(allListOfKeys = listReset.toMutableList()) }
+                onError(R.string.sent_parcel_error_delete, lockerMasterMac)
+            }
+        }
+    }
+
+    fun deletePickAtHomeKey(
+        lockerMac: String, lockerMasterMac: String, context: Context,
+        onSuccess: () -> Unit, onError: (errorId: Int, lockerMasterMac: String) -> Unit,
+        idKey: Int
+    ) {
+        viewModelScope.launch {
+
+            // 1. START LOADING: Create a NEW List where the target item is marked 'isDeleting = true'
+            val listWithLoading = _uiState.value.allListOfKeys.map { key ->
+                if (key.id == idKey && key.lockerMasterMac == lockerMasterMac) {
+                    // *** USE THE CLONE FUNCTION HERE ***
+                    key.clone(newIsDeleting = true)
+                } else {
+                    key
+                }
+            }
+
+            // 2. FORCE REFRESH: Update state with the NEW list
+            _uiState.update { it.copy(allListOfKeys = listWithLoading.toMutableList()) }
+
+            // --- Execute BLE / API Logic ---
+            delay(2000)
+            val communicator = MPLDeviceStore.uniqueDevices[lockerMasterMac.macCleanToReal()]?.createBLECommunicator(context)
+            val userId = UserUtil.user?.id ?: 0
+            var success = false
+
+            if (communicator != null && communicator.connect() && userId != 0) {
+                val response = communicator.requestParcelSendCancel(lockerMac, userId)
+                communicator.disconnect()
+                success = response.isSuccessful
+            }
+
+            // 3. HANDLE RESULT
+            if (success) {
+                // SUCCESS: Create a NEW list EXCLUDING the deleted item
+                val listAfterDelete = _uiState.value.allListOfKeys.filter {
+                    !(it.id == idKey && it.lockerMasterMac == lockerMasterMac)
+                }
+
+                // Ensure the result list is mutable for the UiState (as per your data class)
+                _uiState.update { it.copy(allListOfKeys = listAfterDelete.toMutableList()) }
+                onSuccess()
+            } else {
+                // ERROR: Create a NEW list resetting the loading flag
+                val listReset = _uiState.value.allListOfKeys.map { key ->
+                    if (key.id == idKey && key.lockerMasterMac == lockerMasterMac) {
+                        // *** USE THE CLONE FUNCTION HERE ***
+                        key.clone(newIsDeleting = false)
+                    } else {
+                        key
+                    }
+                }
+
+                // Ensure the result list is mutable for the UiState (as per your data class)
+                _uiState.update { it.copy(allListOfKeys = listReset.toMutableList()) }
+                onError(R.string.sent_parcel_error_delete, lockerMasterMac)
             }
         }
     }
@@ -260,7 +354,7 @@ class SendParcelOverviewViewModel : ViewModel() {
         }
     }
 
-    fun loadSendParcelOverview( ) {
+    fun loadSendParcelOverview() {
         viewModelScope.launch(Dispatchers.IO) {
 
             _uiState.update { it.copy(isLoading = true) }
@@ -269,8 +363,9 @@ class SendParcelOverviewViewModel : ViewModel() {
 
             //listOfKeys.filter { ActionStatusHandler.actionStatusDb.get(it.lockerId.toString() + ActionStatusType.PAH_ACCESS_CANCEL) == null }
 
-            val listOfDevices = if( SettingsHelper.userLastSelectedLocker != "" ) MPLDeviceStore.uniqueDevices.values.filter { SettingsHelper.userLastSelectedLocker.macRealToClean() == it.macAddress.macRealToClean() } //&& (it.isInBleProximity || it.installationType == InstalationType.LINUX) }
-            else MPLDeviceStore.uniqueDevices.values.filter { it.isInBleProximity || it.installationType == InstalationType.LINUX }
+            val listOfDevices =
+                if (SettingsHelper.userLastSelectedLocker != "") MPLDeviceStore.uniqueDevices.values.filter { SettingsHelper.userLastSelectedLocker.macRealToClean() == it.macAddress.macRealToClean() } //&& (it.isInBleProximity || it.installationType == InstalationType.LINUX) }
+                else MPLDeviceStore.uniqueDevices.values.filter { it.isInBleProximity || it.installationType == InstalationType.LINUX }
 
             for (keyItem in listOfKeys) {
 
@@ -279,8 +374,9 @@ class SendParcelOverviewViewModel : ViewModel() {
                 for (lockerDevice in listOfDevices) {
 
                     if (keyItem.lockerMasterMac == lockerDevice.macAddress.macRealToClean()) {
-                        keyItem.isLinuxKeyDevice = lockerDevice.installationType ?: InstalationType.LINUX
-                        if( lockerDevice.installationType == InstalationType.LINUX ) {
+                        keyItem.isLinuxKeyDevice =
+                            lockerDevice.installationType ?: InstalationType.LINUX
+                        if (lockerDevice.installationType == InstalationType.LINUX) {
                             keyItem.deviceLatitude = lockerDevice.latitude
                             keyItem.deviceLongitude = lockerDevice.longitude
                         }

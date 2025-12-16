@@ -2,6 +2,7 @@ package hr.sil.android.myappbox.compose.send_parcel
 
 import android.app.Activity
 import android.content.Intent
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -37,7 +38,10 @@ import java.text.ParseException
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.platform.LocalContext
+import hr.sil.android.myappbox.compose.dialog.CancelPickAtHomeLinuxDialog
+import hr.sil.android.myappbox.compose.dialog.CancelPickedHomeDialog
 import hr.sil.android.myappbox.core.model.MPLDeviceType
+import hr.sil.android.myappbox.core.remote.model.InstalationType
 import hr.sil.android.myappbox.core.remote.model.RCreatedLockerKey
 import hr.sil.android.myappbox.store.MPLDeviceStore
 
@@ -51,10 +55,66 @@ fun SendParcelsOverviewScreen(
     val context = LocalContext.current
     val activity = LocalContext.current as Activity
     val uiState by viewModel.uiState.collectAsState()
+
+    val lockerMac = remember { mutableStateOf("") }
+    val lockerMasterMac = remember { mutableStateOf("") }
+    val idKey = remember { mutableStateOf(0) }
+
+    val displayCancelDialog = remember { mutableStateOf(false) }
+    val displayCancelLinuxDialog = remember { mutableStateOf(false) }
+    if (displayCancelDialog.value) {
+        val errorString = stringResource(R.string.sent_parcel_error_delete, lockerMasterMac.value)
+        CancelPickedHomeDialog(
+            onConfirm = {
+                displayCancelDialog.value = false
+                viewModel.deletePickAtHomeKey(
+                    lockerMac.value, lockerMasterMac.value, context,
+                    onSuccess = {
+                        Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+                    },
+                    onError = { stringInt, lockerMasterMac ->
+                        Toast.makeText(context, errorString, Toast.LENGTH_SHORT).show()
+                    },
+                    idKey.value
+                )
+            },
+            onDismiss = {
+                displayCancelDialog.value = false
+            },
+            onCancel = {
+                displayCancelDialog.value = false
+            }
+        )
+    }
+    if (displayCancelLinuxDialog.value) {
+        val errorString = stringResource(R.string.sent_parcel_error_delete, lockerMasterMac.value)
+        CancelPickAtHomeLinuxDialog(
+            onDismiss = {
+                displayCancelLinuxDialog.value = false
+            },
+            onConfirm = {
+                displayCancelLinuxDialog.value = false
+                viewModel.deletePickAtHomeKeyLinux(
+                    lockerMac.value, lockerMasterMac.value, context,
+                    onSuccess = {
+                        Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+                    },
+                    onError = { stringInt, lockerMasterMac ->
+                        Toast.makeText(context, errorString, Toast.LENGTH_SHORT).show()
+                    },
+                    idKey.value
+                )
+            },
+            onCancel = {
+                displayCancelLinuxDialog.value = false
+            }
+        )
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-           // .systemBarsPadding()
+        // .systemBarsPadding()
     ) {
         // Title
         Text(
@@ -98,10 +158,20 @@ fun SendParcelsOverviewScreen(
                 items = uiState.allListOfKeys,
                 key = { it.id }
             ) { key ->
+
                 SendParcelKeyItem(
                     keyObject = key,
                     activity = activity,
+                    isDeleting = key.isDeleting,
                     onCancelClick = {
+                        lockerMac.value = key.lockerMac
+                        lockerMasterMac.value = key.lockerMasterMac
+                        idKey.value = key.id
+                        if (key.isLinuxKeyDevice == InstalationType.LINUX) {
+                            displayCancelDialog.value = true
+                        } else {
+                            displayCancelLinuxDialog.value = true
+                        }
                         //onCancelKey(key)
                     }
                 )
@@ -114,13 +184,12 @@ fun SendParcelsOverviewScreen(
 fun SendParcelKeyItem(
     keyObject: RCreatedLockerKey,
     onCancelClick: () -> Unit,
-    activity: Activity
+    activity: Activity,
+    isDeleting: Boolean
 ) {
     val locker = MPLDeviceStore.uniqueDevices[keyObject.getMasterBLEMacAddress()]
     val formattedDate = formatCorrectDate(keyObject.timeCreated)
     val isSPL = locker?.type == MPLDeviceType.SPL
-
-    var isDeleting by remember { mutableStateOf(false) }
 
     Surface(
         modifier = Modifier
@@ -201,7 +270,7 @@ fun SendParcelKeyItem(
                 when {
                     keyObject.pin != null -> {
                         Text(
-                            text = stringResource(R.string.app_generic_parcel_pin, keyObject.pin  ),
+                            text = stringResource(R.string.app_generic_parcel_pin, keyObject.pin),
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(bottom = 2.dp),
@@ -212,9 +281,10 @@ fun SendParcelKeyItem(
                             overflow = TextOverflow.Ellipsis
                         )
                     }
+
                     keyObject.tan != null -> {
                         Text(
-                            text = stringResource(R.string.app_generic_parcel_pin, keyObject.tan  ),
+                            text = stringResource(R.string.app_generic_parcel_pin, keyObject.tan),
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(bottom = 2.dp),
@@ -274,30 +344,74 @@ fun SendParcelKeyItem(
 
                 val shareBodyText = when {
                     keyObject.pin != "" -> {
-                        stringResource(R.string.share_pin_device_name, keyObject.masterName.toString()) + "\n"+
-                                stringResource(R.string.share_pin_device_address, keyObject.masterAddress.toString()) +  "\n" +
-                                stringResource(R.string.share_pin_device_locker_size, keyObject.lockerSize.toString()) +  "\n" +
-                                stringResource(R.string.share_pin_device_pin, keyObject.pin ) + "\n" +
-                                stringResource(R.string.app_generic_date_created, keyObject.timeCreated)
+                        stringResource(
+                            R.string.share_pin_device_name,
+                            keyObject.masterName.toString()
+                        ) + "\n" +
+                                stringResource(
+                                    R.string.share_pin_device_address,
+                                    keyObject.masterAddress.toString()
+                                ) + "\n" +
+                                stringResource(
+                                    R.string.share_pin_device_locker_size,
+                                    keyObject.lockerSize.toString()
+                                ) + "\n" +
+                                stringResource(
+                                    R.string.share_pin_device_pin,
+                                    keyObject.pin
+                                ) + "\n" +
+                                stringResource(
+                                    R.string.app_generic_date_created,
+                                    keyObject.timeCreated
+                                )
 
                     }
+
                     keyObject.tan != "" -> {
-                        stringResource(R.string.share_pin_device_name, keyObject.masterName.toString()) + "\n"+
-                                stringResource(R.string.share_pin_device_address, keyObject.masterAddress.toString()) +  "\n" +
-                                stringResource(R.string.share_pin_device_locker_size, keyObject.lockerSize.toString()) +  "\n" +
-                                stringResource(R.string.share_pin_device_pin, keyObject.tan ) + "\n" +
-                                stringResource(R.string.app_generic_date_created, keyObject.timeCreated)
+                        stringResource(
+                            R.string.share_pin_device_name,
+                            keyObject.masterName.toString()
+                        ) + "\n" +
+                                stringResource(
+                                    R.string.share_pin_device_address,
+                                    keyObject.masterAddress.toString()
+                                ) + "\n" +
+                                stringResource(
+                                    R.string.share_pin_device_locker_size,
+                                    keyObject.lockerSize.toString()
+                                ) + "\n" +
+                                stringResource(
+                                    R.string.share_pin_device_pin,
+                                    keyObject.tan
+                                ) + "\n" +
+                                stringResource(
+                                    R.string.app_generic_date_created,
+                                    keyObject.timeCreated
+                                )
                     }
+
                     else -> {
-                        stringResource(R.string.share_pin_device_name, keyObject.masterName.toString()) + "\n"+
-                                stringResource(R.string.share_pin_device_address, keyObject.masterAddress.toString()) +  "\n" +
-                                stringResource(R.string.share_pin_device_locker_size, keyObject.lockerSize.toString()) + "\n" +
-                                stringResource(R.string.app_generic_date_created, keyObject.timeCreated)
+                        stringResource(
+                            R.string.share_pin_device_name,
+                            keyObject.masterName.toString()
+                        ) + "\n" +
+                                stringResource(
+                                    R.string.share_pin_device_address,
+                                    keyObject.masterAddress.toString()
+                                ) + "\n" +
+                                stringResource(
+                                    R.string.share_pin_device_locker_size,
+                                    keyObject.lockerSize.toString()
+                                ) + "\n" +
+                                stringResource(
+                                    R.string.app_generic_date_created,
+                                    keyObject.timeCreated
+                                )
                     }
                 }
 
                 val emailTitle = stringResource(R.string.access_sharing_share_choose_sharing)
-                
+
                 Button(
                     onClick = {
                         val emailIntent = Intent(Intent.ACTION_SEND)
@@ -314,7 +428,7 @@ fun SendParcelKeyItem(
                     contentPadding = PaddingValues(horizontal = 7.dp, vertical = 3.dp)
                 ) {
                     Text(
-                        text = stringResource(R.string.app_generic_key_sharing),
+                        text = stringResource(R.string.app_generic_key_sharing).uppercase(),
                         fontSize = 14.sp,
                         letterSpacing = 0.1.em,
                         color = MaterialTheme.colorScheme.onPrimary,
@@ -336,13 +450,14 @@ fun SendParcelKeyItem(
             ) {
                 if (isDeleting) {
                     CircularProgressIndicator(
-                        modifier = Modifier.size(30.dp),
+                        modifier = Modifier
+                            .size(30.dp),
                         color = MaterialTheme.colorScheme.primary
                     )
                 } else {
                     Button(
                         onClick = {
-                            isDeleting = true
+                            //isDeleting.value = true
                             onCancelClick()
                         },
                         modifier = Modifier
@@ -423,44 +538,6 @@ fun formatCorrectDate(timeCreated: String): String {
 //    }
 //}
 //
-//private fun handleShareKey(key: RCreatedLockerKey) {
-//    val shareBodyText = when {
-//        key.pin != null -> {
-//            getString(R.string.share_pin_device_name, key.masterName) + "\n" +
-//                    getString(R.string.share_pin_device_address, key.masterAddress) + "\n" +
-//                    getString(R.string.share_pin_device_locker_size, key.lockerSize) + "\n" +
-//                    getString(R.string.share_pin_device_pin, key.pin) + "\n" +
-//                    getString(R.string.app_generic_date_created, formatCorrectDate(key.timeCreated))
-//        }
-//
-//        key.tan != null -> {
-//            getString(R.string.share_pin_device_name, key.masterName) + "\n" +
-//                    getString(R.string.share_pin_device_address, key.masterAddress) + "\n" +
-//                    getString(R.string.share_pin_device_locker_size, key.lockerSize) + "\n" +
-//                    getString(R.string.share_pin_device_pin, key.tan) + "\n" +
-//                    getString(R.string.app_generic_date_created, formatCorrectDate(key.timeCreated))
-//        }
-//
-//        else -> {
-//            getString(R.string.share_pin_device_name, key.masterName) + "\n" +
-//                    getString(R.string.share_pin_device_address, key.masterAddress) + "\n" +
-//                    getString(R.string.share_pin_device_locker_size, key.lockerSize) + "\n" +
-//                    getString(R.string.app_generic_date_created, formatCorrectDate(key.timeCreated))
-//        }
-//    }
-//
-//    val emailIntent = Intent(Intent.ACTION_SEND).apply {
-//        type = "text/plain"
-//        putExtra(Intent.EXTRA_TEXT, shareBodyText)
-//    }
-//    startActivity(
-//        Intent.createChooser(
-//            emailIntent,
-//            getString(R.string.access_sharing_share_choose_sharing)
-//        )
-//    )
-//}
-//
 //private suspend fun cancelOtherDevicesPickAtHomeKey(keyObject: RCreatedLockerKey) {
 //    log.info("SPl unit mac = ${keyObject.lockerMasterMac.macCleanToReal()}")
 //    val communicator = MPLDeviceStore.uniqueDevices[keyObject.lockerMasterMac.macCleanToReal()]
@@ -505,72 +582,3 @@ fun formatCorrectDate(timeCreated: String): String {
 //        }
 //    }
 //}
-
-@Composable
-fun CancelPickedHomeDialog(
-    keyObject: RCreatedLockerKey,
-    onConfirm: () -> Unit,
-    onDismiss: () -> Unit
-) {
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        title = {
-            Text(
-                text = stringResource(R.string.app_generic_are_you_sure),
-                fontWeight = FontWeight.Bold
-            )
-        },
-        text = {
-            Text(
-                text = stringResource(R.string.cancel_pick_at_home_description)
-            )
-        },
-        confirmButton = {
-            Button(
-                onClick = onConfirm,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.error
-                )
-            ) {
-                Text(stringResource(R.string.app_generic_confirm))
-            }
-        },
-        dismissButton = {
-            TextButton(onClick = onDismiss) {
-                Text(stringResource(R.string.app_generic_cancel))
-            }
-        }
-    )
-}
-
-@Composable
-fun CancelPickAtHomeLinuxDialog(
-    pinOrTan: String,
-    onDismiss: () -> Unit
-) {
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        title = {
-            Text(
-                text = "Please press collect button on device and enter pin, to cancel pick at home key",
-                fontWeight = FontWeight.Bold
-            )
-        },
-        text = {
-//            Column {
-//                Text(stringResource(R.string.cancel_pick_home_linux_message))
-//                Spacer(modifier = Modifier.height(8.dp))
-//                Text(
-//                    text = pinOrTan,
-//                    fontWeight = FontWeight.Bold,
-//                    fontSize = 18.sp
-//                )
-//            }
-        },
-        confirmButton = {
-            Button(onClick = onDismiss) {
-                Text(stringResource(R.string.app_generic_confirm))
-            }
-        }
-    )
-}
