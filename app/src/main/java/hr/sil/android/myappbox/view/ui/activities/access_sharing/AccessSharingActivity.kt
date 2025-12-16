@@ -24,7 +24,7 @@ import kotlinx.coroutines.withContext
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-class AccessSharingActivity //  :  BaseActivity(R.id.no_ble_layout, R.id.no_internet_layout, R.id.no_location_gps_layout)
+class AccessSharingActivity
 {
 
 //    val log = logger()
@@ -99,21 +99,6 @@ class AccessSharingActivity //  :  BaseActivity(R.id.no_ble_layout, R.id.no_inte
 //            }
 //        }
 //
-//    }
-//
-//    private fun checkIfHasEmailAndMobilePhoneSupport() {
-//        if( resources.getBoolean(R.bool.has_mobile_and_email_support) ) {
-//            binding.ivSupportImage.visibility = View.VISIBLE
-//            binding.ivSupportImage.setOnClickListener {
-//                val supportEmailPhoneDialog = SupportEmailPhoneDialog()
-//                supportEmailPhoneDialog.show(
-//                    supportFragmentManager,
-//                    ""
-//                )
-//            }
-//        }
-//        else
-//            binding.ivSupportImage.visibility = View.GONE
 //    }
 //
 //    private suspend fun addOwnerGroupAndAdminGroupToRecylerView(ownerGroupData: MutableList<REndUserGroupMember>, userDevice: MPLDevice?) {
@@ -472,80 +457,6 @@ class AccessSharingActivity //  :  BaseActivity(R.id.no_ble_layout, R.id.no_inte
 //        finalMembersArray.add(rGroupInfo)
 //        finalMembersArray.add(nameOfAdminGroup)
 //        finalMembersArray.add(rEmptyGroupMembers)
-//    }
-//
-//    override fun onNetworkStateUpdated(available: Boolean) {
-//        super.onNetworkStateUpdated(available)
-//        networkAvailable = available
-//        internetConnection = available
-//        updateUI()
-//    }
-//
-//    override fun onBluetoothStateUpdated(available: Boolean) {
-//        super.onBluetoothStateUpdated(available)
-//        bluetoothAvalilable = available
-//        updateUI()
-//    }
-//
-//    override fun onLocationGPSStateUpdated(available: Boolean) {
-//        super.onLocationGPSStateUpdated(available)
-//        locationGPSAvalilable = available
-//        updateUI()
-//    }
-//
-//    override fun onPause() {
-//        super.onPause()
-//        finalMembersArray.clear()
-//    }
-//
-//    @Subscribe(threadMode = ThreadMode.MAIN)
-//    fun onMplDeviceNotify(event: UnauthorizedUserEvent) {
-//        log.info("Received unauthorized event, user will now be log outed")
-//        val intent = Intent( this, LoginActivity::class.java)
-//        startActivity(intent)
-//        finish()
-//    }
-//
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        when (item.getItemId()) {
-//            R.id.home -> {
-//
-//                /*val intent = Intent(baseContext, AccessSharingListActivity::class.java)
-//                startActivity(intent)
-//                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-//                finish()*/
-//
-//                val intent = Intent()
-//                val packageName = this@AccessSharingActivity.packageName
-//                val componentName = ComponentName(packageName, packageName + ".aliasFinishAccessSharing")
-//                intent.component = componentName
-//
-//                startActivity(intent)
-//                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-//                finish()
-//
-//                return true
-//            }
-//
-//            else -> return super.onOptionsItemSelected(item)
-//        }
-//    }
-//
-//    override fun onBackPressed() {
-//        /*val intent = Intent(baseContext, AccessSharingListActivity::class.java)
-//        startActivity(intent)
-//        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-//        finish()*/
-//
-//        val intent = Intent()
-//        val packageName = this@AccessSharingActivity.packageName
-//        val componentName = ComponentName(packageName, packageName + ".aliasFinishAccessSharing")
-//        intent.component = componentName
-//
-//        startActivity(intent)
-//        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-//        finish()
-//        super.onBackPressed()
 //    }
 
 }

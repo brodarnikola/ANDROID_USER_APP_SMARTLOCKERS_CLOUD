@@ -492,7 +492,7 @@ fun NavHomeScreen(
                                     displayNoAccessDialog.value = true
                                 }
                                 canShareAccess -> {
-                                    //nextScreen(MainDestinations.ACCESS_SHARING)
+                                    nextScreen(MainDestinations.ACCESS_SHARING_SCREEN)
                                 }
                             }
                         },

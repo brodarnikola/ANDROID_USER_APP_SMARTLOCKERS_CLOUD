@@ -25,6 +25,8 @@ val ThmLoginBackground = Color(0xFFf7ecdd) // ?attr/thmLoginBackground
 val ThmToolbarBackgroundColor = Color(0x00ffffff) // ?attr/thmToolbarBackgroundColor
 val ThmTitleTextColor = Color(0xFF000000) // ?attr/thmTitleTextColor
 
+val ThmNavigationDrawerMenuTextColor = Color(0xFFFFFFFF) // ?attr/thmTitleTextColor
+
 val ThmSubTitleTextColor = Color(0xFF2b2a29)
 val ThmDescriptionTextColor =  Color(0xFF2b2a29) // 2b2a2
 
@@ -35,6 +37,9 @@ val ThmLoggedInBottomLineEditTextColor = Color(0xFFE0E0E0) // ?attr/thmLoggedInB
 val ThmLoginDescriptionTextColor = Color(0xFF666666) // ?attr/thmLoginDescriptionTextColor
 val ThmTitleTextSize = 19.sp // ?attr/thmTitleTextSize
 val ThmEdittextTextSize = 12.sp // ?attr/thmEdittextTextSize
+
+
+val ThmNavigationDrawerMenuTextSize = 17.sp // ?attr/thmTitleTextSize
 val ThmDescriptionTextSize = 14.sp
 val ThmSubTitleTextSize = 17.sp
 

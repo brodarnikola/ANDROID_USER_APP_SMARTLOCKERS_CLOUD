@@ -25,11 +25,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.compose.currentBackStackEntryAsState
 import hr.sil.android.myappbox.R
 import hr.sil.android.myappbox.compose.components.GradientBackground
+import hr.sil.android.myappbox.compose.components.TextViewWithFont
+import hr.sil.android.myappbox.compose.components.ThmDescriptionTextSize
+import hr.sil.android.myappbox.compose.components.ThmNavigationDrawerMenuTextColor
+import hr.sil.android.myappbox.compose.components.ThmNavigationDrawerMenuTextSize
+import hr.sil.android.myappbox.compose.components.ThmTitleTextColor
+import hr.sil.android.myappbox.compose.components.ThmTitleTextSize
 import hr.sil.android.myappbox.compose.dialog.NoMasterSelectedDialog
 import hr.sil.android.myappbox.core.remote.model.InstalationType
 import hr.sil.android.myappbox.core.remote.model.RLockerKeyPurpose
@@ -154,9 +161,15 @@ fun MainActivityContent(
                 NavigationDrawerItem(
                     label = {
                         val alphaValue = if(UserUtil.user?.status == "ACTIVE" && selectedMasterDevice?.activeKeys?.any { it.purpose == RLockerKeyPurpose.DELIVERY || it.purpose == RLockerKeyPurpose.PAF } == true) 1.0f else 0.5f
-                        Text(
+                        TextViewWithFont(
                             text = stringResource(R.string.app_generic_pickup_parcel),
-                            color = colorResource(R.color.colorWhite).copy(alpha = alphaValue)
+                            color = ThmNavigationDrawerMenuTextColor.copy(alpha = alphaValue),
+                            fontSize = ThmNavigationDrawerMenuTextSize,
+                            //letterSpacing = 0.1.em,
+                            fontWeight = FontWeight.Normal,
+                            textAlign = TextAlign.Start,
+                            modifier = Modifier
+                                .fillMaxWidth()
                         )
                     },
                     selected = false,
@@ -179,9 +192,15 @@ fun MainActivityContent(
                     label = {
                         val alphaValue = if(SettingsHelper.userLastSelectedLocker != "" && UserUtil.user?.status == "ACTIVE" && selectedMasterDevice?.hasUserRightsOnSendParcelLocker() ?: false
                             && selectedMasterDevice?.isUserAssigned == true) 1.0f else 0.5f
-                        Text(
+                        TextViewWithFont(
                             text = stringResource(R.string.app_generic_send_parcel),
-                            color = colorResource(R.color.colorWhite).copy(alphaValue)
+                            color = ThmNavigationDrawerMenuTextColor.copy(alpha = alphaValue),
+                            fontSize = ThmNavigationDrawerMenuTextSize,
+                            //letterSpacing = 0.1.em,
+                            fontWeight = FontWeight.Normal,
+                            textAlign = TextAlign.Start,
+                            modifier = Modifier
+                                .fillMaxWidth()
                         )
                     },
                     selected = false,
@@ -204,9 +223,15 @@ fun MainActivityContent(
                 NavigationDrawerItem(
                     label = {
                         val alphaValue = if (UserUtil.user?.status == "ACTIVE" && counterPickupDeliveryKeys > 0) 1.0f else 0.5f
-                        Text(
+                        TextViewWithFont(
                             text = stringResource(R.string.list_of_deliveries_cpl),
-                            color = colorResource(R.color.colorWhite).copy(alpha = alphaValue)
+                            color = ThmNavigationDrawerMenuTextColor.copy(alpha = alphaValue),
+                            fontSize = ThmNavigationDrawerMenuTextSize,
+                            //letterSpacing = 0.1.em,
+                            fontWeight = FontWeight.Normal,
+                            textAlign = TextAlign.Start,
+                            modifier = Modifier
+                                .fillMaxWidth()
                         )
                     },
                     badge = {
@@ -251,9 +276,15 @@ fun MainActivityContent(
                 NavigationDrawerItem(
                     label = {
                         val alphaValue = if (UserUtil.pahKeys.isNotEmpty() && UserUtil.user?.status == "ACTIVE") 1.0f else 0.5f
-                        Text(
+                        TextViewWithFont(
                             text = stringResource(R.string.locker_pick_home_keys),
-                            color = colorResource(R.color.colorWhite).copy(alpha = alphaValue)
+                            color = ThmNavigationDrawerMenuTextColor.copy(alpha = alphaValue),
+                            fontSize = ThmNavigationDrawerMenuTextSize,
+                            //letterSpacing = 0.1.em,
+                            fontWeight = FontWeight.Normal,
+                            textAlign = TextAlign.Start,
+                            modifier = Modifier
+                                .fillMaxWidth()
                         )
                     },
                     badge = {
@@ -295,15 +326,26 @@ fun MainActivityContent(
                 NavigationDrawerItem(
                     label = {
                         val alphaValue = if (UserUtil.user?.status == "ACTIVE" && selectedMasterDevice?.hasRightsToShareAccess() ?: false && selectedMasterDevice?.installationType == InstalationType.DEVICE) 1.0f else 0.5f
-                        Text(
+                        TextViewWithFont(
                             text = stringResource(R.string.app_generic_key_sharing),
-                            color = colorResource(R.color.colorWhite).copy(alpha = alphaValue)
+                            color = ThmNavigationDrawerMenuTextColor.copy(alpha = alphaValue),
+                            fontSize = ThmNavigationDrawerMenuTextSize,
+                            //letterSpacing = 0.1.em,
+                            fontWeight = FontWeight.Normal,
+                            textAlign = TextAlign.Start,
+                            modifier = Modifier
+                                .fillMaxWidth()
                         )
                     },
                     selected = false,
                     onClick = {
-                        if (SettingsHelper.userLastSelectedLocker != "" && UserUtil.user?.status == "ACTIVE" && selectedMasterDevice?.hasRightsToShareAccess() ?: false && selectedMasterDevice?.installationType == InstalationType.DEVICE)
+                        if (SettingsHelper.userLastSelectedLocker != "" && UserUtil.user?.status == "ACTIVE" && selectedMasterDevice?.hasRightsToShareAccess() ?: false && selectedMasterDevice?.installationType == InstalationType.DEVICE) {
+                            appState.navController.navigate(MainDestinations.ACCESS_SHARING_SCREEN) {
+                                launchSingleTop = true
+                                restoreState = true
+                            }
                             scope.launch { drawerState.close() }
+                        }
                         else {
                             noAccessMessage.value = noSelectedLocker
                             displayNoLockerSelected.value = true
@@ -318,9 +360,15 @@ fun MainActivityContent(
 
                 NavigationDrawerItem(
                     label = {
-                        Text(
+                        TextViewWithFont(
                             text = stringResource(R.string.app_generic_my_configuration),
-                            color = colorResource(R.color.colorWhite)
+                            color = ThmNavigationDrawerMenuTextColor,
+                            fontSize = ThmNavigationDrawerMenuTextSize,
+                            //letterSpacing = 0.1.em,
+                            fontWeight = FontWeight.Normal,
+                            textAlign = TextAlign.Start,
+                            modifier = Modifier
+                                .fillMaxWidth()
                         )
                     },
                     selected = false,
