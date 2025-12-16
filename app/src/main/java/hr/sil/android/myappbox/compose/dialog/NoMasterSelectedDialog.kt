@@ -45,6 +45,8 @@ import hr.sil.android.myappbox.view.ui.activities.sendparcel.MplRequestAccessDia
 
 @Composable
 fun NoMasterSelectedDialog(
+    messageResId: Int = -1,
+    message: String = "",
     onDismiss: () -> Unit,
     onConfirm: () -> Unit
 ) {
@@ -57,8 +59,11 @@ fun NoMasterSelectedDialog(
             ) {
                 val (subtitleText, confirmButton, spacer) = createRefs()
 
+                val finalText = if(messageResId != -1) stringResource(messageResId)
+                else message
+
                 TextViewWithFont(
-                    text = stringResource(R.string.no_selected_locker),
+                    text = finalText,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 10.dp)

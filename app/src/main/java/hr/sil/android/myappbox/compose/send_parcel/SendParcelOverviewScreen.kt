@@ -431,6 +431,7 @@ fun SendParcelKeyItem(
                         text = stringResource(R.string.app_generic_key_sharing).uppercase(),
                         fontSize = 14.sp,
                         letterSpacing = 0.1.em,
+                        maxLines = 1,
                         color = MaterialTheme.colorScheme.onPrimary,
                         fontWeight = FontWeight.Medium
                     )

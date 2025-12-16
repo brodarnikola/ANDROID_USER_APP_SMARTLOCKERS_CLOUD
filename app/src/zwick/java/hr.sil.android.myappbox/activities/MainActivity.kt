@@ -63,8 +63,7 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 
-class MainActivity //  :  BaseActivity(R.id.no_ble_layout, R.id.no_internet_layout, R.id.no_location_gps_layout),
-    NavigationView.OnNavigationItemSelectedListener {
+class MainActivity  :v NavigationView.OnNavigationItemSelectedListener {
 
     private val log = logger()
 
@@ -133,36 +132,6 @@ class MainActivity //  :  BaseActivity(R.id.no_ble_layout, R.id.no_internet_layo
         displayTelemetryFromSelectedDevice()
 
         setupClickListeners()
-
-        val permissions = mutableListOf<String>().apply {
-            addAll(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION))
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                addAll(arrayOf(Manifest.permission.BLUETOOTH_SCAN,  Manifest.permission.BLUETOOTH_CONNECT))
-            }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                add(Manifest.permission.POST_NOTIFICATIONS)
-            }
-            if (hr.sil.android.smartlockers.enduser.BuildConfig.DEBUG) {
-                add(Manifest.permission.READ_EXTERNAL_STORAGE)
-            }
-        }.toTypedArray()
-
-        droidPermission
-            .request(*permissions)
-            .done { _, deniedPermissions ->
-                if (deniedPermissions.isNotEmpty()) {
-                    log.info("Some permissions were denied!")
-                    App.ref.permissionCheckDone = true
-                } else {
-                    log.info("Enabling bluetooth...")
-                    App.ref.permissionCheckDone = true
-//                    App.ref.btMonitor.enable {
-//                        log.info("Bluetooth enabled!")
-//                        App.ref.permissionCheckDone = true
-//                    }
-                }
-            }
-            .execute()
     }
 
     private fun setupUIBasedOnPinStatus(pinEntered: Boolean) {
@@ -305,27 +274,6 @@ class MainActivity //  :  BaseActivity(R.id.no_ble_layout, R.id.no_internet_layo
             val search1: MenuItem = binding.navView.menu.findItem(R.id.listOfDeliveriesActivity)
             pickupParcel =  search1.actionView!!.findViewById(R.id.listOfDeliveriesActivity)
         }
-    }
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-
-        val id = item.itemId
-
-        if (id == R.id.pickupParcelActivity) {
-            setupPickupParcelClickListener()
-        } else if (id == R.id.sendParcelActivity) {
-            setupSendParcelClickListener()
-        } else if (id == R.id.listOfDeliveriesActivity) {
-            setupListOfDeliveriesClickListener(false)
-        } else if (id == R.id.pahKeysActivity) {
-            setupCancelPickAtHomeClickListener(false)
-        } else if (id == R.id.shareAccessActivity) {
-            setupShareAccessClickListener()
-        } else if (id == R.id.settingsActivity) {
-            setupSettingsClickListener()
-        }
-        binding.drawerLayout?.closeDrawer(GravityCompat.START)
-        return true
     }
 
     private fun setupPickupParcelClickListener() {
@@ -551,83 +499,6 @@ class MainActivity //  :  BaseActivity(R.id.no_ble_layout, R.id.no_internet_layo
             startActivity(startIntent)
             finish()
         }
-    }
-
-    override fun onBackPressed() {
-        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            binding.drawerLayout.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
-            finishAndRemoveTask()
-        }
-    }
-
-    private fun setNotification() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            // Create channel to show notifications.
-            val channelId = getString(R.string.default_notification_channel_id)
-            val channelName = getString(R.string.default_notification_channel_name)
-            val notificationManager = getSystemService(NotificationManager::class.java)
-            notificationManager!!.createNotificationChannel(
-                NotificationChannel(
-                    channelId,
-                    channelName, NotificationManager.IMPORTANCE_LOW
-                )
-            )
-        }
-
-        // If a notification message is tapped, any data accompanying the notification
-        // message is available in the intent extras. In this sample the launcher
-        // intent is fired when the notification is tapped, so any accompanying data would
-        // be handled here. If you want a different intent fired, set the click_action
-        // field of the notification message to the desired intent. The launcher intent
-        // is used when no click_action is specified.
-        //
-        // Handle possible data accompanying notification message.
-        // [START handle_data_extras]
-        if (intent.extras != null) {
-            for (key in intent.extras!!.keySet()) {
-                val value = intent.extras!!.get(key)
-                log.info("Key: $key Value: $value")
-            }
-        }
-    }
-
-    override fun onBluetoothStateUpdated(available: Boolean) {
-        super.onBluetoothStateUpdated(available)
-        bluetoothAvalilable = available
-        if (viewLoaded) {
-            updateUI()
-        }
-    }
-
-    override fun onNetworkStateUpdated(available: Boolean) {
-        super.onNetworkStateUpdated(available)
-        networkAvailable = available
-        if (viewLoaded) {
-            updateUI()
-        }
-    }
-
-    override fun onLocationGPSStateUpdated(available: Boolean) {
-        super.onLocationGPSStateUpdated(available)
-        locationGPSAvalilable = available
-        if (viewLoaded) {
-            updateUI()
-        }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMplDeviceNotify(event: MPLDevicesUpdatedEvent) {
-        refreshBadges()
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMplDeviceNotify(event: UnauthorizedUserEvent) {
-        log.info("Received unauthorized event, user will now be log outed")
-        val intent = Intent(this, LoginActivity::class.java)
-        startActivity(intent)
-
     }
 
     private fun displayCPLNameAndUsername() {
@@ -958,56 +829,6 @@ class MainActivity //  :  BaseActivity(R.id.no_ble_layout, R.id.no_internet_layo
                 counter += item.activeKeys.filter { it.purpose == RLockerKeyPurpose.DELIVERY || it.purpose == RLockerKeyPurpose.PAF }.size
         }
         return counter
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        checkIfHasEmailAndMobilePhoneSupport()
-
-        lifecycleScope.launch {
-
-            log.info("Selected master mac address is: ${SettingsHelper.userLastSelectedLocker}")
-            // when we will receive push notification from backend for refreshing "cancel pick at home keys", then I need to use this
-            // val pahKeyy = DataCache.getPickAtHomeKeys().toMutableList(), instead of "WSUser.getActivePaHCreatedKeys() ?: mutableListOf() "
-            val pahKeyy = WSUser.getActivePaHCreatedKeys() ?: mutableListOf()
-
-            UserUtil.pahKeys = pahKeyy
-
-            withContext(Dispatchers.Main) {
-                if (pahKeyy.size > 0 && binding.mainLayout.clCancelPickAtHome != null && binding.mainLayout.tvCancelPHomeKeysNumber != null) {
-                    binding.mainLayout.clCancelPickAtHome.visibility = View.VISIBLE
-                    binding.mainLayout.tvCancelPHomeKeysNumber.text = pahKeyy.size.toString()
-                } else if (binding.mainLayout.clCancelPickAtHome != null) {
-                    binding.mainLayout.clCancelPickAtHome.visibility = View.GONE
-                }
-                if (!App.ref.eventBus.isRegistered(this@MainActivity))
-                    App.ref.eventBus.register(this@MainActivity)
-                refreshBadges()
-            }
-        }
-
-        val notificationManager =
-            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        if (notificationManager.activeNotifications.size > 0)
-            notificationManager.cancelAll()
-    }
-
-    private fun checkIfHasEmailAndMobilePhoneSupport() {
-        if( binding.mainLayout.ivSupportImage != null ) {
-            binding.mainLayout.ivSupportImage.setOnClickListener {
-                val supportEmailPhoneDialog = SupportEmailPhoneDialog()
-                supportEmailPhoneDialog.show(
-                    supportFragmentManager,
-                    ""
-                )
-            }
-        }
-    }
-
-    override fun onPause() {
-        super.onPause()
-        App.ref.eventBus.unregister(this)
     }
 
 }

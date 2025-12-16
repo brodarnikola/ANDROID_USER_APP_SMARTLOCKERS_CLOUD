@@ -53,111 +53,121 @@ import hr.sil.android.myappbox.util.SettingsHelper
 
 import hr.sil.android.myappbox.compose.dialog.NoMasterSelectedDialog
 import hr.sil.android.myappbox.compose.dialog.TextCopiedToClipboardDialog
-import hr.sil.android.myappbox.core.remote.model.InstalationType
-import hr.sil.android.myappbox.core.remote.model.RLockerKeyPurpose
-import hr.sil.android.myappbox.core.remote.model.RequiredAccessRequestTypes
-import hr.sil.android.myappbox.core.util.macRealToClean
-import hr.sil.android.myappbox.util.backend.UserUtil
 
+// --- 1. MOCK THEME & RESOURCES (Replace with your actual Theme/R values) ---
+
+object AppColors {
+    val LoginBackground = Color(0xFFF5F5F5)
+    val ToolbarBackground = Color(0xFFF5F5F5) // ?attr/thmLoginBackground
+    val TitleText = Color(0xFF333333)
+    val DescriptionText = Color(0xFF666666)
+    val ButtonText = Color.White
+    val BadgeBackground = Color.Red
+    val BadgeText = Color.White
+    val PrimaryDark = Color(0xFF00574B)
+    val DarkerBlack80 = Color(0xCC000000)
+
+    // Simulating the red background drawable
+    val RedButtonBackground = Color(0xFFD32F2F)
+}
+
+// Simulating your R.string and R.drawable
+object Res {
+    object string {
+        const val no_deliveries = "No deliveries to locker possible"
+        const val enter_pin = "ENTER VERIFICATION PIN"
+        const val selected_locker = "SELECTED LOCKER"
+        const val pickup_parcel = "PICKUP PARCEL"
+        const val send_parcel = "SEND PARCEL"
+        const val key_sharing = "KEY SHARING"
+        const val my_config = "MY CONFIGURATION"
+        const val humidity = "50%" // Example data
+        const val temperature = "22°C"
+        const val pressure = "1013 hPa"
+    }
+
+    object drawable {
+        // Placeholders - replace with actual resource IDs
+//        val ic_map = R.drawable.ic_dialog_map
+//        val ic_chevron_right = R.drawable.ic_media_play // Placeholder
+//        val ic_copy_address = R.drawable.ic_menu_save // Placeholder
+//        val ic_collect_parcel = R.drawable.ic_input_add // Placeholder
+//        val ic_send_parcel = R.drawable.ic_menu_send // Placeholder
+//        val ic_share_access = R.drawable.ic_menu_share // Placeholder
+//        val ic_settings = R.drawable.ic_menu_preferences // Placeholder
+//        val ic_humidity = R.drawable.ic_lock_idle_low_battery // Placeholder
+//        val ic_temperature = R.drawable.ic_lock_idle_charging // Placeholder
+//        val ic_pressure = R.drawable.ic_lock_power_off // Placeholder
+    }
+}
+
+// --- 2. MAIN SCREEN COMPOSABLE ---
 
 @SuppressLint("SuspiciousIndentation")
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun NavHomeScreen(
+fun NavHomeScreen1(
     modifier: Modifier = Modifier,
     viewModel: NavHomeViewModel,
     nextScreen: (route: String) -> Unit = {},
     navigateUp: () -> Unit = {}
 ) {
+
     val state = viewModel.state.collectAsStateWithLifecycle().value
 
-    val selectedMasterDevice = MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]
     val lockerNameOrAddress = rememberSaveable { mutableStateOf("") }
     val finalProductName = rememberSaveable { mutableStateOf("") }
     val lockerAddress = rememberSaveable { mutableStateOf("") }
 
     val displayCopiedToClipboardDialog = remember { mutableStateOf(false) }
+
     val displayNoLockerSelected = rememberSaveable { mutableStateOf(false) }
-    val displayNoAccessDialog = rememberSaveable { mutableStateOf(false) }
-    val noAccessMessage = rememberSaveable { mutableStateOf("") }
-
-    val noSelectedLocker = stringResource(R.string.no_selected_locker)
-    val noDeliverisToLockerPossible = stringResource(R.string.no_deliveris_to_locker_possible)
-    val appGenericRequestAccess = stringResource(R.string.app_generic_request_access)
-    val adminAapproveRequestAccess = stringResource(R.string.admin_approve_request_access)
-    val appGenericNoAccessForDevice = stringResource(R.string.app_generic_no_access_for_device)
-    val noDeliveriesToPickup = stringResource(R.string.no_deliveries_to_pickup)
-
-    // Check conditions
-    val deviceAddressConfirmed = selectedMasterDevice?.requiredAccessRequestTypes
-        ?.firstOrNull { it.name == RequiredAccessRequestTypes.ADDRESS_CONFIRMATION.name }
-
-    val isPublicLocker = selectedMasterDevice != null &&
-            !(UserUtil.user?.addressConfirmed == false && deviceAddressConfirmed != null)
-
-    val canCollectParcel = isPublicLocker &&
-            UserUtil.user?.status == "ACTIVE" &&
-            selectedMasterDevice?.activeKeys?.any {
-                it.purpose == RLockerKeyPurpose.DELIVERY || it.purpose == RLockerKeyPurpose.PAF
-            } == true
-
-    val canSendParcel = isPublicLocker &&
-            SettingsHelper.userLastSelectedLocker.isNotEmpty() &&
-            UserUtil.user?.status == "ACTIVE" &&
-            (selectedMasterDevice?.hasUserRightsOnSendParcelLocker() ?: false) &&
-            selectedMasterDevice?.isUserAssigned == true
-
-    val canShareAccess = isPublicLocker &&
-            UserUtil.user?.status == "ACTIVE" &&
-            (selectedMasterDevice?.hasRightsToShareAccess() ?: false) &&
-            selectedMasterDevice?.installationType == InstalationType.DEVICE
-
-    val deliveryKeysCount = selectedMasterDevice?.activeKeys
-        ?.count { it.purpose == RLockerKeyPurpose.DELIVERY || it.purpose == RLockerKeyPurpose.PAF } ?: 0
-
-    val pahKeysCount = UserUtil.pahKeys.filter {
-        it.lockerMasterMac == selectedMasterDevice?.macAddress?.macRealToClean()
-    }.size
-
     if (displayNoLockerSelected.value) {
         NoMasterSelectedDialog(
-            messageResId = R.string.no_selected_locker,
-            onConfirm = { displayNoLockerSelected.value = false },
-            onDismiss = { displayNoLockerSelected.value = false }
+            onConfirm = {
+                displayNoLockerSelected.value = false
+            },
+            onDismiss = {
+                displayNoLockerSelected.value = false
+            }
         )
     }
 
-    if (displayNoAccessDialog.value) {
-        NoMasterSelectedDialog(
-            message = noAccessMessage.value,
-            onConfirm = { displayNoAccessDialog.value = false },
-            onDismiss = { displayNoAccessDialog.value = false }
-        )
-    }
 
+    // Initial load
     LaunchedEffect(Unit) {
-        lockerNameOrAddress.value = MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]
-            ?.name?.ifEmpty {
-                MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]?.address ?: ""
-            } ?: ""
+        lockerNameOrAddress.value =
+            MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]
+                ?.name?.ifEmpty {
+                    MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]?.address
+                        ?: ""
+                } ?: ""
         finalProductName.value = viewModel.setFinalProductName()
         lockerAddress.value = viewModel.setLockerAddress()
     }
 
+    // Update again on Resume
     val lifecycleOwner = LocalLifecycleOwner.current
+
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_RESUME || event == Lifecycle.Event.ON_START) {
-                lockerNameOrAddress.value = MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]
-                    ?.name?.ifEmpty {
-                        MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]?.address ?: ""
-                    } ?: ""
+                lockerNameOrAddress.value =
+                    MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]
+                        ?.name?.ifEmpty {
+                            MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]?.address
+                                ?: ""
+                        } ?: ""
                 finalProductName.value = viewModel.setFinalProductName()
                 lockerAddress.value = viewModel.setLockerAddress()
             }
         }
+
         lifecycleOwner.lifecycle.addObserver(observer)
-        onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
+
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)
+        }
     }
 
     if (displayCopiedToClipboardDialog.value)
@@ -166,17 +176,121 @@ fun NavHomeScreen(
             onConfirm = { displayCopiedToClipboardDialog.value = false }
         )
 
+//    ModalNavigationDrawer(
+//        drawerState = drawerState,
+//        drawerContent = {
+//            // Add your drawer content here
+//            // ModalDrawerSheet { /* drawer items */ }
+//        }
+//    ) {
+//        GradientBackground(
+//            modifier = Modifier.fillMaxSize()
+//        ) {
     Box(modifier = Modifier.fillMaxSize()) {
+        //Column(modifier = Modifier.fillMaxSize()) {
+        // AppBar
+//                    Box(
+//                        modifier = Modifier
+//                            .fillMaxWidth()
+//                            .wrapContentHeight()
+//                            .windowInsetsPadding(WindowInsets.statusBars)
+//                    ) {
+//                        Box(
+//                            modifier = Modifier
+//                                .fillMaxWidth()
+//                                .height(IntrinsicSize.Max)
+//                        ) {
+//                            Spacer(
+//                                modifier = Modifier
+//                                    .fillMaxWidth()
+//                                    .height(56.dp)
+//                            )
+//
+//                            Icon(
+//                                painter = painterResource(id = R.drawable.logo_header_zwick),
+//                                contentDescription = null,
+//                                tint = Color.Unspecified,
+//                                modifier = Modifier.align(Alignment.Center)
+//                            )
+//
+//                            Icon(
+//                                painter = painterResource(id = R.drawable.ic_help_access_sharing),
+//                                contentDescription = null,
+//                                tint = Color.Unspecified,
+//                                modifier = Modifier
+//                                    .align(Alignment.CenterEnd)
+//                                    .padding(end = 20.dp)
+//                                    .clickable {
+//                                        //viewModel.onEvent(MainScreenEvent.OnSupportClick)
+//                                    }
+//                            )
+//                        }
+//                    }
+
+        // ScrollView Content
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
                 .padding(top = 10.dp, bottom = 20.dp)
         ) {
-            //if (isPublicLocker) {
-                Column(modifier = Modifier.fillMaxWidth()) {
+            // Verification Pin Disabled Section
+            //if (state.showVerificationPinDisabled) {
+//                        if(true) {
+//                            Column(
+//                                modifier = Modifier
+//                                    .fillMaxWidth()
+//                                    .padding(top = 5.dp, bottom = 10.dp, start = 20.dp, end = 20.dp)
+//                                    .border(
+//                                        width = 2.dp,
+//                                        color = colorResource(R.color.colorPrimary),
+//                                        shape = RoundedCornerShape(8.dp)
+//                                    )
+//                                    .background(
+//                                        color = colorResource(R.color.transparentColor),
+//                                        shape = RoundedCornerShape(8.dp)
+//                                    )
+//                                    .padding(horizontal = 5.dp, vertical = 10.dp)
+//                            ) {
+//                                TextViewWithFont(
+//                                    text = stringResource(id = R.string.no_deliveris_to_locker_possible),
+//                                    color = colorResource(R.color.colorDarkerBlack80Percent),
+//                                    fontSize = ThmTitleTextSize,
+//                                    fontWeight = FontWeight.Normal,
+//                                    textAlign = TextAlign.Center,
+//                                    //maxLines = 3,
+//                                    modifier = Modifier
+//                                        .fillMaxWidth()
+//                                        .padding(top = 5.dp)
+//                                )
+//
+//                                ButtonWithFont(
+//                                    text = stringResource(id = R.string.enter_verification_pin).uppercase(),
+//                                    onClick = {
+//                                        //viewModel.onEvent(MainScreenEvent.OnEnterVerificationPinClick)
+//                                    },
+//                                    backgroundColor = ThmMainButtonBackgroundColor,
+//                                    textColor = ThmLoginButtonTextColor,
+//                                    fontSize = ThmButtonTextSize,
+//                                    fontWeight = FontWeight.Medium,
+//                                    modifier = Modifier
+//                                        .width(230.dp)
+//                                        .padding(top = 10.dp)
+//                                        .align(Alignment.CenterHorizontally),
+//                                    letterSpacing = 15.sp,
+//                                    enabled = true
+//                                )
+//                            }
+//                        }
+
+            // Verification Pin Approved Section
+            //if (state.showVerificationPinApproved) {
+            if (true) {
+                Column(
+                    modifier = Modifier.fillMaxWidth()
+                ) {
                     TextViewWithFont(
-                        text = stringResource(R.string.app_generic_selected_locker).uppercase(),
+                        text = stringResource(id = R.string.app_generic_selected_locker).uppercase(),
                         color = ThmTitleTextColor,
                         fontSize = ThmTitleTextSize,
                         fontWeight = FontWeight.Normal,
@@ -186,6 +300,7 @@ fun NavHomeScreen(
                             .padding(horizontal = 20.dp)
                     )
 
+                    // Choose City Locker and Google Maps
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -202,7 +317,10 @@ fun NavHomeScreen(
                                     color = colorResource(R.color.colorPrimary),
                                     shape = RoundedCornerShape(4.dp)
                                 )
-                                .clickable { nextScreen(MainDestinations.SELECT_LOCKER) }
+                                .clickable {
+                                    nextScreen(MainDestinations.SELECT_LOCKER)
+                                    //viewModel.onEvent(MainScreenEvent.OnChooseCityLockerClick)
+                                }
                                 .padding(horizontal = 10.dp),
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
@@ -212,11 +330,12 @@ fun NavHomeScreen(
                                 color = colorResource(R.color.colorBlackText),
                                 fontSize = ThmTitleTextSize,
                                 fontWeight = FontWeight.Normal,
+                                //maxLines = 1,
                                 modifier = Modifier.weight(0.9f)
                             )
 
                             Icon(
-                                painter = painterResource(R.drawable.ic_chevron_right),
+                                painter = painterResource(id = R.drawable.ic_chevron_right),
                                 contentDescription = null,
                                 tint = Color.Unspecified,
                                 modifier = Modifier.padding(start = 5.dp)
@@ -224,15 +343,18 @@ fun NavHomeScreen(
                         }
 
                         Icon(
-                            painter = painterResource(R.drawable.ic_map),
+                            painter = painterResource(id = R.drawable.ic_map),
                             contentDescription = null,
                             tint = Color.Unspecified,
                             modifier = Modifier
                                 .weight(0.11f)
-                                .clickable { nextScreen(MainDestinations.GOOGLE_MAPS_SELECT_LOCKER) }
+                                .clickable {
+                                    nextScreen(MainDestinations.GOOGLE_MAPS_SELECT_LOCKER)
+                                }
                         )
                     }
 
+                    // Address and Username Section
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -240,9 +362,11 @@ fun NavHomeScreen(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Column(modifier = Modifier.weight(9f)) {
+                        Column(
+                            modifier = Modifier.weight(9f)
+                        ) {
                             TextViewWithFont(
-                                text = finalProductName.value,
+                                text = finalProductName.value, //state.uniqueUserNumber ?: "",
                                 color = ThmTitleTextColor,
                                 fontSize = ThmTitleTextSize,
                                 fontWeight = FontWeight.Normal,
@@ -265,23 +389,18 @@ fun NavHomeScreen(
                         }
 
                         Icon(
-                            painter = painterResource(R.drawable.ic_copy_address),
+                            painter = painterResource(id = R.drawable.ic_copy_address),
                             contentDescription = null,
                             tint = Color.Unspecified,
                             modifier = Modifier
                                 .weight(1f)
                                 .clickable {
-                                    if (SettingsHelper.userLastSelectedLocker.isEmpty()) {
-                                        displayNoLockerSelected.value = true
-                                    } else {
-                                        // Copy to clipboard logic
-                                        displayCopiedToClipboardDialog.value = true
-                                    }
+                                    displayCopiedToClipboardDialog.value = true
                                 }
                         )
                     }
                 }
-            //}
+            }
 
             // First Row - Collect and Send Parcel
             Row(
@@ -295,63 +414,38 @@ fun NavHomeScreen(
                     modifier = Modifier
                         .weight(1f)
                         .clickable {
-                            when {
-                                SettingsHelper.userLastSelectedLocker.isEmpty() -> {
-                                    noAccessMessage.value = noSelectedLocker
-                                    displayNoAccessDialog.value = true
-                                }
-                                !isPublicLocker -> {
-                                    noAccessMessage.value = noDeliverisToLockerPossible
-                                    displayNoAccessDialog.value = true
-                                }
-                                selectedMasterDevice?.isUserAssigned == false &&
-                                        selectedMasterDevice?.activeAccessRequest == false -> {
-                                    noAccessMessage.value = appGenericRequestAccess
-                                    displayNoAccessDialog.value = true
-                                }
-                                selectedMasterDevice?.isUserAssigned == false &&
-                                        selectedMasterDevice?.activeAccessRequest == true -> {
-                                    noAccessMessage.value = adminAapproveRequestAccess
-                                    displayNoAccessDialog.value = true
-                                }
-                                selectedMasterDevice?.hasUserRightsOnSendParcelLocker() == false -> {
-                                    noAccessMessage.value = appGenericNoAccessForDevice
-                                    displayNoAccessDialog.value = true
-                                }
-                                deliveryKeysCount > 0 -> {
-                                    //nextScreen(MainDestinations.PICKUP_PARCEL)
-                                }
-                                else -> {
-                                    noAccessMessage.value = noDeliveriesToPickup
-                                    displayNoAccessDialog.value = true
-                                }
-                            }
+                            if (SettingsHelper.userLastSelectedLocker == "")
+                                displayNoLockerSelected.value = true
+                            //viewModel.onEvent(MainScreenEvent.OnCollectParcelClick)
                         },
                     contentAlignment = Alignment.Center
                 ) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
                         Box {
                             Icon(
-                                painter = painterResource(R.drawable.ic_collect_parcel),
+                                painter = painterResource(id = R.drawable.ic_collect_parcel),
                                 contentDescription = null,
                                 tint = Color.Unspecified,
-                                modifier = Modifier.alpha(if (canCollectParcel) 1.0f else 0.2f)
+                                modifier = Modifier.alpha(0.2f)
                             )
 
-                            if (deliveryKeysCount > 0) {
+                            //if (state.deliveryKeysCount > 0) {
+                            if (true) {
                                 Box(
                                     modifier = Modifier
                                         .size(38.dp)
                                         .offset(x = 105.dp)
                                         .background(
-                                            color = ThmDescriptionTextColor,
+                                            color = ThmDescriptionTextColor, //ThmMainBadgeBackgroundColor,
                                             shape = CircleShape
                                         ),
                                     contentAlignment = Alignment.Center
                                 ) {
                                     Text(
-                                        text = deliveryKeysCount.toString(),
-                                        color = ThmTitleTextColor,
+                                        text = "98", //state.deliveryKeysCount.toString(),
+                                        color = ThmTitleTextColor, //ThmMainBadgeTextColor,
                                         fontSize = 25.sp
                                     )
                                 }
@@ -359,11 +453,12 @@ fun NavHomeScreen(
                         }
 
                         TextViewWithFont(
-                            text = stringResource(R.string.app_generic_pickup_parcel),
+                            text = stringResource(id = R.string.app_generic_pickup_parcel),
                             color = ThmDescriptionTextColor,
                             fontSize = ThmTitleTextSize,
                             fontWeight = FontWeight.Normal,
-                            textAlign = TextAlign.Center
+                            textAlign = TextAlign.Center,
+                            //maxLines = 2
                         )
                     }
                 }
@@ -373,49 +468,25 @@ fun NavHomeScreen(
                     modifier = Modifier
                         .weight(1f)
                         .clickable {
-                            when {
-                                SettingsHelper.userLastSelectedLocker.isEmpty() -> {
-                                    noAccessMessage.value = noSelectedLocker
-                                    displayNoAccessDialog.value = true
-                                }
-                                !isPublicLocker -> {
-                                    noAccessMessage.value = noDeliverisToLockerPossible
-                                    displayNoAccessDialog.value = true
-                                }
-                                selectedMasterDevice?.isUserAssigned == false &&
-                                        selectedMasterDevice?.activeAccessRequest == false -> {
-                                    noAccessMessage.value =appGenericRequestAccess
-                                    displayNoAccessDialog.value = true
-                                }
-                                selectedMasterDevice?.isUserAssigned == false &&
-                                        selectedMasterDevice?.activeAccessRequest == true -> {
-                                    noAccessMessage.value = adminAapproveRequestAccess
-                                    displayNoAccessDialog.value = true
-                                }
-                                selectedMasterDevice?.hasUserRightsOnSendParcelLocker() == false -> {
-                                    noAccessMessage.value = appGenericNoAccessForDevice
-                                    displayNoAccessDialog.value = true
-                                }
-                                selectedMasterDevice?.installationType == InstalationType.LINUX -> {
-                                    //nextScreen(MainDestinations.DISPLAY_QR_CODE)
-                                }
-                                canSendParcel -> {
-                                    nextScreen(MainDestinations.SELECT_PARCEL_SIZE)
-                                }
-                            }
+                            if (SettingsHelper.userLastSelectedLocker == "")
+                                displayNoLockerSelected.value = true
+                            //viewModel.onEvent(MainScreenEvent.OnSendParcelClick)
                         },
                     contentAlignment = Alignment.Center
                 ) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
                         Box {
                             Icon(
-                                painter = painterResource(R.drawable.ic_send_parcel),
+                                painter = painterResource(id = R.drawable.ic_send_parcel),
                                 contentDescription = null,
                                 tint = Color.Unspecified,
-                                modifier = Modifier.alpha(if (canSendParcel) 1.0f else 0.2f)
+                                modifier = Modifier.alpha(0.2f)
                             )
 
-                            if (pahKeysCount > 0) {
+                            //if (state.showCancelPickAtHome && state.cancelPickAtHomeCount > 0) {
+                            if (true) {
                                 Row(
                                     modifier = Modifier
                                         .offset(x = 105.dp)
@@ -427,14 +498,14 @@ fun NavHomeScreen(
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
                                     Icon(
-                                        painter = painterResource(R.drawable.ic_pick_at_home),
+                                        painter = painterResource(id = R.drawable.ic_pick_at_home),
                                         contentDescription = null,
                                         tint = Color.Unspecified
                                     )
 
                                     Text(
-                                        text = pahKeysCount.toString(),
-                                        color = ThmDescriptionTextColor,
+                                        text = "25", //state.cancelPickAtHomeCount.toString(),
+                                        color = ThmDescriptionTextColor, //ThmMainBadgeTextColor,
                                         fontSize = 25.sp,
                                         modifier = Modifier.padding(start = 2.dp)
                                     )
@@ -443,11 +514,12 @@ fun NavHomeScreen(
                         }
 
                         TextViewWithFont(
-                            text = stringResource(R.string.app_generic_send_parcel),
+                            text = stringResource(id = R.string.app_generic_send_parcel),
                             color = ThmDescriptionTextColor,
                             fontSize = ThmTitleTextSize,
                             fontWeight = FontWeight.Normal,
-                            textAlign = TextAlign.Center
+                            textAlign = TextAlign.Center,
+                            //maxLines = 2
                         )
                     }
                 }
@@ -465,52 +537,26 @@ fun NavHomeScreen(
                     modifier = Modifier
                         .weight(1f)
                         .clickable {
-                            when {
-                                SettingsHelper.userLastSelectedLocker.isEmpty() -> {
-                                    noAccessMessage.value = noSelectedLocker
-                                    displayNoAccessDialog.value = true
-                                }
-                                !isPublicLocker -> {
-                                    noAccessMessage.value = noDeliverisToLockerPossible
-                                    displayNoAccessDialog.value = true
-                                }
-                                selectedMasterDevice?.isUserAssigned == false &&
-                                        selectedMasterDevice?.activeAccessRequest == false -> {
-                                    noAccessMessage.value = appGenericRequestAccess
-                                    displayNoAccessDialog.value = true
-                                }
-                                selectedMasterDevice?.isUserAssigned == false &&
-                                        selectedMasterDevice?.activeAccessRequest == true -> {
-                                    noAccessMessage.value = adminAapproveRequestAccess
-                                    displayNoAccessDialog.value = true
-                                }
-                                selectedMasterDevice?.installationType != InstalationType.DEVICE -> {
-                                    // Do nothing for non-device installations
-                                }
-                                selectedMasterDevice?.hasUserRightsOnSendParcelLocker() == false -> {
-                                    noAccessMessage.value = appGenericNoAccessForDevice
-                                    displayNoAccessDialog.value = true
-                                }
-                                canShareAccess -> {
-                                    //nextScreen(MainDestinations.ACCESS_SHARING)
-                                }
-                            }
+                            if (SettingsHelper.userLastSelectedLocker == "")
+                                displayNoLockerSelected.value = true
+                            //viewModel.onEvent(MainScreenEvent.OnShareAccessClick)
                         },
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Icon(
-                        painter = painterResource(R.drawable.ic_key_sharing),
+                        painter = painterResource(id = R.drawable.ic_key_sharing),
                         contentDescription = null,
                         tint = Color.Unspecified,
-                        modifier = Modifier.alpha(if (canShareAccess) 1.0f else 0.2f)
+                        modifier = Modifier.alpha(0.2f)
                     )
 
                     TextViewWithFont(
-                        text = stringResource(R.string.app_generic_key_sharing),
+                        text = stringResource(id = R.string.app_generic_key_sharing),
                         color = ThmDescriptionTextColor,
                         fontSize = ThmTitleTextSize,
                         fontWeight = FontWeight.Normal,
-                        textAlign = TextAlign.Center
+                        textAlign = TextAlign.Center,
+                        //maxLines = 2
                     )
                 }
 
@@ -518,86 +564,96 @@ fun NavHomeScreen(
                 Column(
                     modifier = Modifier
                         .weight(1f)
-                        .clickable { nextScreen(MainDestinations.SETTINGS) },
+                        .clickable {
+                            nextScreen(MainDestinations.SETTINGS)
+                        },
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Icon(
-                        painter = painterResource(R.drawable.ic_configure),
+                        painter = painterResource(id = R.drawable.ic_configure),
                         contentDescription = null,
                         tint = Color.Unspecified
                     )
 
                     TextViewWithFont(
-                        text = stringResource(R.string.app_generic_my_configuration),
+                        text = stringResource(id = R.string.app_generic_my_configuration),
                         color = ThmDescriptionTextColor,
                         fontSize = ThmTitleTextSize,
                         fontWeight = FontWeight.Normal,
-                        textAlign = TextAlign.Center
+                        textAlign = TextAlign.Center,
+                        //maxLines = 2
                     )
                 }
             }
 
             // Telemetry Section
-            if (selectedMasterDevice?.isInBleProximity == true) {
+            //if (state.showTelemetry) {
+            if (true) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 10.dp, start = 40.dp),
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
+                    // Humidity
                     Row(
                         modifier = Modifier.weight(0.25f),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(
-                            painter = painterResource(R.drawable.ic_humidity),
+                            painter = painterResource(id = R.drawable.ic_humidity),
                             contentDescription = null,
                             tint = Color.Unspecified
                         )
 
                         TextViewWithFont(
-                            text = "${selectedMasterDevice?.humidity?.format(2) ?: "-"} %",
+                            text = "AWESOME 7", //state.humidity ?: "",
                             color = ThmDescriptionTextColor,
                             fontSize = 13.sp,
                             fontWeight = FontWeight.Medium,
+                            //maxLines = 1,
                             modifier = Modifier.padding(start = 5.dp, bottom = 2.dp)
                         )
                     }
 
+                    // Temperature
                     Row(
                         modifier = Modifier.weight(0.25f),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(
-                            painter = painterResource(R.drawable.ic_temperature),
+                            painter = painterResource(id = R.drawable.ic_temperature),
                             contentDescription = null,
                             tint = Color.Unspecified
                         )
 
                         TextViewWithFont(
-                            text = "${selectedMasterDevice?.temperature?.format(2) ?: "-"} C",
+                            text = "AWESOME TEMPERATURE", //state.temperature ?: "",
                             color = ThmDescriptionTextColor,
                             fontSize = 13.sp,
                             fontWeight = FontWeight.Medium,
+                            //maxLines = 1,
                             modifier = Modifier.padding(start = 5.dp, bottom = 2.dp)
                         )
                     }
 
+                    // Air Pressure
                     Row(
                         modifier = Modifier.weight(0.25f),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(
-                            painter = painterResource(R.drawable.ic_air_pressure),
+                            painter = painterResource(id = R.drawable.ic_air_pressure),
                             contentDescription = null,
                             tint = Color.Unspecified
                         )
 
                         TextViewWithFont(
-                            text = "${selectedMasterDevice?.pressure?.format(2) ?: "-"} hPa",
+                            text = "AWESOME PRESSURE", // state.airPressure ?: "",
                             color = ThmDescriptionTextColor,
                             fontSize = 13.sp,
                             fontWeight = FontWeight.Medium,
+                            //maxLines = 1,
                             modifier = Modifier.padding(start = 5.dp, bottom = 2.dp)
                         )
                     }
@@ -605,35 +661,7 @@ fun NavHomeScreen(
             }
         }
     }
+    //}
+    // }
+    //}
 }
-
-//@Composable
-//fun NoMasterSelectedDialog(
-//    messageResId: Int? = null,
-//    message: String? = null,
-//    onConfirm: () -> Unit,
-//    onDismiss: () -> Unit
-//) {
-//    AlertDialog(
-//        onDismissRequest = onDismiss,
-//        title = {
-//            Text(
-//                text = stringResource(R.string.app_generic_info),
-//                fontWeight = FontWeight.Bold
-//            )
-//        },
-//        text = {
-//            Text(
-//                text = message ?: stringResource(messageResId ?: R.string.no_selected_locker)
-//            )
-//        },
-//        confirmButton = {
-//            Button(onClick = onConfirm) {
-//                Text(stringResource(R.string.app_generic_ok))
-//            }
-//        }
-//    )
-//}
-
-// Extension function for formatting
-fun Double.format(decimals: Int): String = "%.${decimals}f".format(this)

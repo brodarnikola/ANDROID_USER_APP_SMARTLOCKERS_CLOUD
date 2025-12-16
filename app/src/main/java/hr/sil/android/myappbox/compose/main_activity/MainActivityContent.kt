@@ -31,6 +31,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import hr.sil.android.myappbox.R
 import hr.sil.android.myappbox.compose.components.GradientBackground
 import hr.sil.android.myappbox.compose.dialog.NoMasterSelectedDialog
+import hr.sil.android.myappbox.core.remote.model.InstalationType
 import hr.sil.android.myappbox.core.remote.model.RLockerKeyPurpose
 import hr.sil.android.myappbox.store.MPLDeviceStore
 import hr.sil.android.myappbox.util.SettingsHelper
@@ -46,26 +47,6 @@ data class BottomNavigationBarItem(
     val badgeAmount: Int? = null
 )
 
-
-fun bottomNavigationItems(): List<BottomNavigationBarItem> {
-    // setting up the individual tabs
-    val homeTab = BottomNavigationBarItem(
-        route = MainDestinations.HOME,
-        icon = R.drawable.ic_help_access_sharing
-    )
-    val tcTab = BottomNavigationBarItem(
-        route = MainDestinations.TERMS_AND_CONDITION_SCREEN,
-        icon = R.drawable.ic_pick_at_home
-    )
-    val settingsTab = BottomNavigationBarItem(
-        route = MainDestinations.SETTINGS,
-        icon = R.drawable.ic_send_parcel
-    )
-
-    // creating a list of all the tabs
-    val tabBarItems = listOf(homeTab, tcTab, settingsTab)
-    return tabBarItems
-}
 
 // Main Composable with Overlays
 @RequiresApi(Build.VERSION_CODES.S)
@@ -98,15 +79,28 @@ fun MainActivityContent(
         currentRoute == null || currentRoute == MainDestinations.HOME
     }
 
+    val noAccessMessage = rememberSaveable { mutableStateOf("") }
+
+    val noSelectedLocker = stringResource(R.string.no_selected_locker)
+    val noDeliverisToLockerPossible = stringResource(R.string.no_deliveris_to_locker_possible)
+    val appGenericRequestAccess = stringResource(R.string.app_generic_request_access)
+    val adminAapproveRequestAccess = stringResource(R.string.admin_approve_request_access)
+    val appGenericNoAccessForDevice = stringResource(R.string.app_generic_no_access_for_device)
+    val noDeliveriesToPickup = stringResource(R.string.no_deliveries_to_pickup)
+
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
     val drawerWidth = screenWidth * 0.70f
 
+    val lastSelectedMasterDevice = rememberSaveable { mutableStateOf(SettingsHelper.userLastSelectedLocker) }
+    val selectedMasterDevice = MPLDeviceStore.uniqueDevices[lastSelectedMasterDevice ?: ""]
+
     val displayNoLockerSelected = rememberSaveable { mutableStateOf(false) }
     if (displayNoLockerSelected.value) {
         NoMasterSelectedDialog(
+            message = noAccessMessage.value,
             onConfirm = {
                 displayNoLockerSelected.value = false
             },
@@ -117,7 +111,7 @@ fun MainActivityContent(
     }
 
     val devicesWithKeys =
-        MPLDeviceStore.uniqueDevices.values.filter { it.activeKeys.size > 0 }
+        MPLDeviceStore.uniqueDevices.values.filter { it.activeKeys.isNotEmpty() }
     var counterPickupDeliveryKeys = 0
     for (item in devicesWithKeys) {
         if (item.activeKeys.any { it.purpose == RLockerKeyPurpose.DELIVERY || it.purpose == RLockerKeyPurpose.PAF })
@@ -159,17 +153,20 @@ fun MainActivityContent(
                 // Menu Items
                 NavigationDrawerItem(
                     label = {
+                        val alphaValue = if(UserUtil.user?.status == "ACTIVE" && selectedMasterDevice?.activeKeys?.any { it.purpose == RLockerKeyPurpose.DELIVERY || it.purpose == RLockerKeyPurpose.PAF } == true) 1.0f else 0.5f
                         Text(
                             text = stringResource(R.string.app_generic_pickup_parcel),
-                            color = colorResource(R.color.colorWhite)
+                            color = colorResource(R.color.colorWhite).copy(alpha = alphaValue)
                         )
                     },
                     selected = false,
                     onClick = {
-                        if (SettingsHelper.userLastSelectedLocker == "")
-                            displayNoLockerSelected.value = true
-                        else
+                        if (SettingsHelper.userLastSelectedLocker != "" && UserUtil.user?.status == "ACTIVE" && selectedMasterDevice?.activeKeys?.any { it.purpose == RLockerKeyPurpose.DELIVERY || it.purpose == RLockerKeyPurpose.PAF } == true)
                             scope.launch { drawerState.close() }
+                        else {
+                            noAccessMessage.value = noSelectedLocker
+                            displayNoLockerSelected.value = true
+                        }
                         //onNavigateToPickupParcel()
                     },
                     colors = NavigationDrawerItemDefaults.colors(
@@ -180,17 +177,22 @@ fun MainActivityContent(
 
                 NavigationDrawerItem(
                     label = {
+                        val alphaValue = if(SettingsHelper.userLastSelectedLocker != "" && UserUtil.user?.status == "ACTIVE" && selectedMasterDevice?.hasUserRightsOnSendParcelLocker() ?: false
+                            && selectedMasterDevice?.isUserAssigned == true) 1.0f else 0.5f
                         Text(
                             text = stringResource(R.string.app_generic_send_parcel),
-                            color = colorResource(R.color.colorWhite)
+                            color = colorResource(R.color.colorWhite).copy(alphaValue)
                         )
                     },
                     selected = false,
                     onClick = {
-                        if (SettingsHelper.userLastSelectedLocker == "")
+                        if (SettingsHelper.userLastSelectedLocker == "") {
+                            noAccessMessage.value = noSelectedLocker
                             displayNoLockerSelected.value = true
-                        else
+                        }
+                        else {
                             scope.launch { drawerState.close() }
+                        }
                         //onNavigateToSendParcel()
                     },
                     colors = NavigationDrawerItemDefaults.colors(
@@ -201,9 +203,10 @@ fun MainActivityContent(
 
                 NavigationDrawerItem(
                     label = {
+                        val alphaValue = if (UserUtil.user?.status == "ACTIVE" && counterPickupDeliveryKeys > 0) 1.0f else 0.5f
                         Text(
                             text = stringResource(R.string.list_of_deliveries_cpl),
-                            color = colorResource(R.color.colorWhite)
+                            color = colorResource(R.color.colorWhite).copy(alpha = alphaValue)
                         )
                     },
                     badge = {
@@ -234,6 +237,10 @@ fun MainActivityContent(
                             }
                             scope.launch { drawerState.close() }
                         }
+                        else {
+                            noAccessMessage.value = noSelectedLocker
+                            displayNoLockerSelected.value = true
+                        }
                     },
                     colors = NavigationDrawerItemDefaults.colors(
                         unselectedContainerColor = Color.Transparent,
@@ -243,14 +250,14 @@ fun MainActivityContent(
 
                 NavigationDrawerItem(
                     label = {
+                        val alphaValue = if (UserUtil.pahKeys.isNotEmpty() && UserUtil.user?.status == "ACTIVE") 1.0f else 0.5f
                         Text(
                             text = stringResource(R.string.locker_pick_home_keys),
-                            color = colorResource(R.color.colorWhite)
+                            color = colorResource(R.color.colorWhite).copy(alpha = alphaValue)
                         )
                     },
                     badge = {
                         //if (pahKeysCount > 0) {
-
                         if (UserUtil.pahKeys.isNotEmpty() && UserUtil.user?.status == "ACTIVE") {
                             Badge(
                                 modifier = Modifier.size(25.dp),
@@ -264,15 +271,19 @@ fun MainActivityContent(
                     },
                     selected = false,
                     onClick = {
-                        //if (UserUtil.pahKeys.isNotEmpty() && UserUtil.user?.status == "ACTIVE") {
+                        if (UserUtil.pahKeys.isNotEmpty() && UserUtil.user?.status == "ACTIVE") {
                             if (navBackStackEntry.value?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
                                 appState.navController.navigate(MainDestinations.PICK_AT_HOME_KEYS) {
-                                    //launchSingleTop = true
-                                    //restoreState = true
+                                    launchSingleTop = true
+                                    restoreState = true
                                 }
                             }
                             scope.launch { drawerState.close() }
-                        //}
+                        }
+                        else {
+                            noAccessMessage.value = noSelectedLocker
+                            displayNoLockerSelected.value = true
+                        }
                         //onNavigateToPahKeys()
                     },
                     colors = NavigationDrawerItemDefaults.colors(
@@ -283,17 +294,20 @@ fun MainActivityContent(
 
                 NavigationDrawerItem(
                     label = {
+                        val alphaValue = if (UserUtil.user?.status == "ACTIVE" && selectedMasterDevice?.hasRightsToShareAccess() ?: false && selectedMasterDevice?.installationType == InstalationType.DEVICE) 1.0f else 0.5f
                         Text(
                             text = stringResource(R.string.app_generic_key_sharing),
-                            color = colorResource(R.color.colorWhite)
+                            color = colorResource(R.color.colorWhite).copy(alpha = alphaValue)
                         )
                     },
                     selected = false,
                     onClick = {
-                        if (SettingsHelper.userLastSelectedLocker == "")
-                            displayNoLockerSelected.value = true
-                        else
+                        if (SettingsHelper.userLastSelectedLocker != "" && UserUtil.user?.status == "ACTIVE" && selectedMasterDevice?.hasRightsToShareAccess() ?: false && selectedMasterDevice?.installationType == InstalationType.DEVICE)
                             scope.launch { drawerState.close() }
+                        else {
+                            noAccessMessage.value = noSelectedLocker
+                            displayNoLockerSelected.value = true
+                        }
                         //onNavigateToShareAccess()
                     },
                     colors = NavigationDrawerItemDefaults.colors(
