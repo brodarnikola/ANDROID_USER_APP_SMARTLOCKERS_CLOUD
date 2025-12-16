@@ -1,5 +1,7 @@
 package hr.sil.android.myappbox.compose.send_parcel
 
+import android.app.Activity
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -33,7 +35,6 @@ import hr.sil.android.myappbox.core.util.formatFromStringToDate
 import hr.sil.android.myappbox.core.util.formatToViewDateTimeDefaults
 import java.text.ParseException
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.platform.LocalContext
 import hr.sil.android.myappbox.core.model.MPLDeviceType
@@ -48,11 +49,12 @@ fun SendParcelsOverviewScreen(
 ) {
 
     val context = LocalContext.current
+    val activity = LocalContext.current as Activity
     val uiState by viewModel.uiState.collectAsState()
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .systemBarsPadding()
+           // .systemBarsPadding()
     ) {
         // Title
         Text(
@@ -92,14 +94,15 @@ fun SendParcelsOverviewScreen(
                 .padding(top = 10.dp),
             contentPadding = PaddingValues(bottom = 20.dp)
         ) {
-            items(uiState.allListOfKeys, key = { it.id }) { key ->
+            items(
+                items = uiState.allListOfKeys,
+                key = { it.id }
+            ) { key ->
                 SendParcelKeyItem(
                     keyObject = key,
+                    activity = activity,
                     onCancelClick = {
                         //onCancelKey(key)
-                    },
-                    onShareClick = {
-                       // onShareKey(key)
                     }
                 )
             }
@@ -111,7 +114,7 @@ fun SendParcelsOverviewScreen(
 fun SendParcelKeyItem(
     keyObject: RCreatedLockerKey,
     onCancelClick: () -> Unit,
-    onShareClick: () -> Unit
+    activity: Activity
 ) {
     val locker = MPLDeviceStore.uniqueDevices[keyObject.getMasterBLEMacAddress()]
     val formattedDate = formatCorrectDate(keyObject.timeCreated)
@@ -136,7 +139,7 @@ fun SendParcelKeyItem(
 
             // Locker Picture
             Image(
-                painter = painterResource(R.drawable.ic_dimensions),
+                painter = painterResource(R.drawable.ic_parcel),
                 contentDescription = "Locker",
                 modifier = Modifier
                     .constrainAs(lockerImage) {
@@ -268,8 +271,40 @@ fun SendParcelKeyItem(
                     },
                 contentAlignment = Alignment.Center
             ) {
+
+                val shareBodyText = when {
+                    keyObject.pin != "" -> {
+                        stringResource(R.string.share_pin_device_name, keyObject.masterName.toString()) + "\n"+
+                                stringResource(R.string.share_pin_device_address, keyObject.masterAddress.toString()) +  "\n" +
+                                stringResource(R.string.share_pin_device_locker_size, keyObject.lockerSize.toString()) +  "\n" +
+                                stringResource(R.string.share_pin_device_pin, keyObject.pin ) + "\n" +
+                                stringResource(R.string.app_generic_date_created, keyObject.timeCreated)
+
+                    }
+                    keyObject.tan != "" -> {
+                        stringResource(R.string.share_pin_device_name, keyObject.masterName.toString()) + "\n"+
+                                stringResource(R.string.share_pin_device_address, keyObject.masterAddress.toString()) +  "\n" +
+                                stringResource(R.string.share_pin_device_locker_size, keyObject.lockerSize.toString()) +  "\n" +
+                                stringResource(R.string.share_pin_device_pin, keyObject.tan ) + "\n" +
+                                stringResource(R.string.app_generic_date_created, keyObject.timeCreated)
+                    }
+                    else -> {
+                        stringResource(R.string.share_pin_device_name, keyObject.masterName.toString()) + "\n"+
+                                stringResource(R.string.share_pin_device_address, keyObject.masterAddress.toString()) +  "\n" +
+                                stringResource(R.string.share_pin_device_locker_size, keyObject.lockerSize.toString()) + "\n" +
+                                stringResource(R.string.app_generic_date_created, keyObject.timeCreated)
+                    }
+                }
+
+                val emailTitle = stringResource(R.string.access_sharing_share_choose_sharing)
+                
                 Button(
-                    onClick = onShareClick,
+                    onClick = {
+                        val emailIntent = Intent(Intent.ACTION_SEND)
+                        emailIntent.setType("text/plain")
+                        emailIntent.putExtra(Intent.EXTRA_TEXT, shareBodyText)
+                        activity.startActivity(Intent.createChooser(emailIntent, emailTitle))
+                    },
                     modifier = Modifier
                         .wrapContentWidth()
                         .padding(horizontal = 10.dp),

@@ -90,12 +90,12 @@ fun MainActivityContent(
 
     showBottomBar.value = when {
         currentRoute == null -> true
-        navBackStackEntry.value?.destination?.route?.contains(MainDestinations.HOME) == true -> true
+        navBackStackEntry.value?.destination?.route == MainDestinations.HOME -> true
         else -> false
     }
 
     val isHomeScreen = remember(currentRoute) {
-        currentRoute == null || currentRoute.contains(MainDestinations.HOME)
+        currentRoute == null || currentRoute == MainDestinations.HOME
     }
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
@@ -120,9 +120,7 @@ fun MainActivityContent(
         MPLDeviceStore.uniqueDevices.values.filter { it.activeKeys.size > 0 }
     var counterPickupDeliveryKeys = 0
     for (item in devicesWithKeys) {
-
-        if (item.activeKeys.filter { it.purpose == RLockerKeyPurpose.DELIVERY || it.purpose == RLockerKeyPurpose.PAF }
-                .isNotEmpty())
+        if (item.activeKeys.any { it.purpose == RLockerKeyPurpose.DELIVERY || it.purpose == RLockerKeyPurpose.PAF })
             counterPickupDeliveryKeys += item.activeKeys.filter { it.purpose == RLockerKeyPurpose.DELIVERY || it.purpose == RLockerKeyPurpose.PAF }.size
     }
 
@@ -215,7 +213,10 @@ fun MainActivityContent(
                                 containerColor = colorResource(R.color.colorRedBadgeNumber),
                                 contentColor = colorResource(R.color.colorWhite)
                             ) {
-                                Text(text = counterPickupDeliveryKeys.toString())
+                                Text(text = counterPickupDeliveryKeys.toString(),
+                                     //modifier = Modifier.size(20.dp),
+                                     //textAlign = TextAlign.Center
+                                )
                             }
                         }
                     },
@@ -249,24 +250,29 @@ fun MainActivityContent(
                     },
                     badge = {
                         //if (pahKeysCount > 0) {
-                        Badge(
-                            containerColor = colorResource(R.color.colorRedBadgeNumber),
-                            contentColor = colorResource(R.color.colorWhite)
-                        ) {
-                            //Text(text = pahKeysCount.toString())
+
+                        if (UserUtil.pahKeys.isNotEmpty() && UserUtil.user?.status == "ACTIVE") {
+                            Badge(
+                                modifier = Modifier.size(25.dp),
+                                containerColor = colorResource(R.color.colorRedBadgeNumber),
+                                contentColor = colorResource(R.color.colorWhite)
+                            ) {
+                                Text(text = UserUtil.pahKeys.size.toString() )
+                                //Text(text = pahKeysCount.toString())
+                            }
                         }
-                        //}
                     },
                     selected = false,
                     onClick = {
-                        if (SettingsHelper.userLastSelectedLocker == "")
-                            displayNoLockerSelected.value = true
-                        else 
-                            appState.navController.navigate(MainDestinations.PICK_AT_HOME_KEYS) {
-                                launchSingleTop = true
-                                restoreState = true
+                        //if (UserUtil.pahKeys.isNotEmpty() && UserUtil.user?.status == "ACTIVE") {
+                            if (navBackStackEntry.value?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
+                                appState.navController.navigate(MainDestinations.PICK_AT_HOME_KEYS) {
+                                    //launchSingleTop = true
+                                    //restoreState = true
+                                }
                             }
                             scope.launch { drawerState.close() }
+                        //}
                         //onNavigateToPahKeys()
                     },
                     colors = NavigationDrawerItemDefaults.colors(

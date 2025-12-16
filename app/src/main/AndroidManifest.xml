@@ -153,12 +153,12 @@
             android:exported="true"
             android:theme="@style/ZwickTheme.MainTheme" />
 
-        <activity
-            android:name="hr.sil.android.myappbox.view.ui.activities.sendparcel.SendParcelsOverviewActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:exported="true"
-            android:theme="@style/ZwickTheme.MainTheme" />
+<!--        <activity-->
+<!--            android:name="hr.sil.android.myappbox.view.ui.activities.sendparcel.SendParcelsOverviewActivity"-->
+<!--            android:launchMode="singleTop"-->
+<!--            android:screenOrientation="portrait"-->
+<!--            android:exported="true"-->
+<!--            android:theme="@style/ZwickTheme.MainTheme" />-->
 
         <activity
             android:name="hr.sil.android.myappbox.view.ui.activities.access_sharing.AccessSharingListActivity"
