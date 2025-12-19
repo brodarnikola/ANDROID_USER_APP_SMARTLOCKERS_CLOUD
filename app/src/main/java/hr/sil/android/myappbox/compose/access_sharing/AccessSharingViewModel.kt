@@ -198,6 +198,7 @@ class AccessSharingViewModel : ViewModel() {
 
         val rGroupName = RGroupDisplayMembersAdmin().apply {
             groupOwnerName = UserUtil.userGroup?.name.toString()
+            groupId = UserUtil.userGroup?.id ?: -1
             role = "USER"
         }
 

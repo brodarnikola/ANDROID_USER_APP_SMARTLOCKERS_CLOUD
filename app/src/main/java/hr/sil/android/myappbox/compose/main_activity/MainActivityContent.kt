@@ -434,7 +434,8 @@ fun MainActivityContent(
                         }
                     },
                     colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = MaterialTheme.colorScheme.surface
+                        containerColor = MaterialTheme.colorScheme.surface,
+                        // containerColor = colorResource(R.color. colorGradientFinish), //MaterialTheme.colorScheme.surface,
                     )
                 )
             }

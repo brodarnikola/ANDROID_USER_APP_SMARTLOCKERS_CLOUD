@@ -39,7 +39,7 @@ import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.toast
 
-class AccessSharingAddUserActivity //  :  BaseActivity(R.id.no_ble_layout, R.id.no_internet_layout, R.id.no_location_gps_layout) 
+class AccessSharingAddUserActivity
 {
 
     private val log = logger()
@@ -84,35 +84,6 @@ class AccessSharingAddUserActivity //  :  BaseActivity(R.id.no_ble_layout, R.id.
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.getItemId()) {
-            android.R.id.home -> {
-
-                val startIntent =
-                    Intent(this@AccessSharingAddUserActivity, AccessSharingActivity::class.java)
-                startIntent.putExtra("rMacAddress", masterMacAddress)
-                startIntent.putExtra("nameOfDevice", nameOfDevice)
-                startActivity(startIntent)
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-                finish()
-                return true
-            }
-
-            else -> return super.onOptionsItemSelected(item)
-        }
-    }
-
-    override fun onBackPressed() {
-        val startIntent =
-            Intent(this@AccessSharingAddUserActivity, AccessSharingActivity::class.java)
-        startIntent.putExtra("rMacAddress", masterMacAddress)
-        startIntent.putExtra("nameOfDevice", nameOfDevice)
-        startActivity(startIntent)
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-        finish()
-        super.onBackPressed()
     }
 
     override fun onStart() {
@@ -238,33 +209,6 @@ class AccessSharingAddUserActivity //  :  BaseActivity(R.id.no_ble_layout, R.id.
         }
     }
 
-    private fun checkIfHasEmailAndMobilePhoneSupport() {
-        binding.ivSupportImage.setOnClickListener {
-            val supportEmailPhoneDialog = SupportEmailPhoneDialog()
-            supportEmailPhoneDialog.show(
-                supportFragmentManager,
-                ""
-            )
-        }
-    }
-
-    override fun onNetworkStateUpdated(available: Boolean) {
-        super.onNetworkStateUpdated(available)
-        networkAvailable = available
-        updateUI()
-    }
-
-    override fun onBluetoothStateUpdated(available: Boolean) {
-        super.onBluetoothStateUpdated(available)
-        bluetoothAvalilable = available
-        updateUI()
-    }
-
-    override fun onLocationGPSStateUpdated(available: Boolean) {
-        super.onLocationGPSStateUpdated(available)
-        locationGPSAvalilable = available
-        updateUI()
-    }
 
     private fun requestReadContactsPermission(): Deferred<Boolean> {
         val deferred = CompletableDeferred<Boolean>()
@@ -325,12 +269,5 @@ class AccessSharingAddUserActivity //  :  BaseActivity(R.id.no_ble_layout, R.id.
         return activityForResultWrapper.call(this, intent)
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMplDeviceNotify(event: UnauthorizedUserEvent) {
-        log.info("Received unauthorized event, user will now be log outed")
-        val intent = Intent( this, LoginActivity::class.java)
-        startActivity(intent)
-        finish()
-    }
 
 }

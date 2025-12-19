@@ -47,6 +47,7 @@ object NavArguments {
     const val KEY_ID = "KeyId"
 
     const val NAME_OF_DEVICE = "nameOfDevice"
+    const val GROUP_ID = "groupId"
     const val PIN_OF_DEVICE = "pinOfDevice"
     const val SIZE_OF_DEVICE = "sizeOfDevice"
     const val TITLE_HELP = "titleHelp"

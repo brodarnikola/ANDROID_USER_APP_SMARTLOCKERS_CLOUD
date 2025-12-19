@@ -20,17 +20,22 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.lifecycle.viewmodel.compose.viewModel
 import hr.sil.android.myappbox.R
+import hr.sil.android.myappbox.compose.main_activity.MainDestinations
 import hr.sil.android.myappbox.core.remote.model.ItemRGroupInfo
 import hr.sil.android.myappbox.core.remote.model.REmptyGroupMembers
 import hr.sil.android.myappbox.core.remote.model.RGroupDisplayMembersAdmin
 import hr.sil.android.myappbox.core.remote.model.RGroupDisplayMembersChild
 import hr.sil.android.myappbox.core.remote.model.RGroupDisplayMembersHeader
+import hr.sil.android.myappbox.core.util.logger
 import hr.sil.android.myappbox.util.backend.UserUtil
 import kotlin.collections.List
 
+import hr.sil.android.myappbox.core.util.logger
 @Composable
 fun AccessSharingScreen(
     viewModel: AccessSharingViewModel = viewModel(),
+    nextScreen: (route: String, nameOfGroup: String, groupId: Int) -> Unit,
+    //nextScreen: ( ) -> Unit,
     //macAddress: String,
     //isLoading: Boolean,
     //onAddUser: (RGroupDisplayMembersAdmin) -> Unit,
@@ -88,6 +93,13 @@ fun AccessSharingScreen(
                             AccessSharingSubHeaderItem(
                                 admin = item,
                                 onAddClick = {
+                                    val nameOfGroup = item.groupOwnerName
+                                    val groupIdParameter = item.groupId
+
+                                    logger().info("nameOfGroup: $nameOfGroup")
+                                    logger().info("groupId: $groupIdParameter")
+
+                                    nextScreen(MainDestinations.ACCESS_SHARING_ADD_USER_SCREEN, nameOfGroup, groupIdParameter)
                                     //onAddUser(item)
                                 }
                             )

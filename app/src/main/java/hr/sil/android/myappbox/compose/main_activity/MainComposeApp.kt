@@ -11,7 +11,6 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -25,6 +24,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import hr.sil.android.myappbox.R
+import hr.sil.android.myappbox.compose.access_sharing.AccessSharingAddUserScreen
 import hr.sil.android.myappbox.compose.access_sharing.AccessSharingScreen
 import hr.sil.android.myappbox.compose.collect_parcel.ListOfDeliveriesScreen
 import hr.sil.android.myappbox.compose.collect_parcel.ShareAccessKeyScreen
@@ -187,6 +187,32 @@ fun NavGraphBuilder.mainNavGraph(
     composable(MainDestinations.ACCESS_SHARING_SCREEN) {
         AccessSharingScreen(
             viewModel = viewModel(),
+            nextScreen = { route, nameOfGroup, groupId ->
+                if (navBackStackEntry.value?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
+                    navController.navigate("$route/$nameOfGroup/$groupId")
+                }
+            }
+        )
+    }
+
+    composable("${MainDestinations.ACCESS_SHARING_ADD_USER_SCREEN}/{${NavArguments.NAME_OF_DEVICE}}/{${NavArguments.GROUP_ID}}",
+        arguments = listOf(
+            navArgument(NavArguments.NAME_OF_DEVICE) {
+                type = NavType.StringType
+            },
+            navArgument(NavArguments.GROUP_ID) {
+                type = NavType.IntType
+            }
+        )) {
+        AccessSharingAddUserScreen(
+            viewModel = viewModel(),
+            nameOfGroup = it.arguments?.getString(NavArguments.NAME_OF_DEVICE) ?: "",
+            groupId = it.arguments?.getInt(NavArguments.GROUP_ID) ?: 1,
+            navigateUp = {
+                navController.currentBackStackEntry?.let {
+                    navController.navigateUp()
+                }
+            }
         )
     }
 
