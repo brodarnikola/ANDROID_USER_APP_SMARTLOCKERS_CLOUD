@@ -137,39 +137,6 @@ class SelectParcelSizeActivity //  :  BaseActivity(R.id.no_ble_layout, R.id.no_i
         }
     }
 
-    private fun checkIfHasEmailAndMobilePhoneSupport() {
-        binding.ivSupportImage.setOnClickListener {
-            val supportEmailPhoneDialog = SupportEmailPhoneDialog()
-            supportEmailPhoneDialog.show(
-                supportFragmentManager,
-                ""
-            )
-        }
-    }
-
-    private fun initDimensionImage() {
-        val dimensionImage = getDrawableAttrValue(R.attr.thmSPBtnLockerDimensions)
-        if (dimensionImage != null) {
-            binding.ivDimensions.visibility = View.VISIBLE
-            binding.ivDimensions.setImageDrawable(dimensionImage)
-        } else {
-            binding.ivDimensions.visibility = View.INVISIBLE
-        }
-    }
-
-    //?attr/
-    private fun getDrawableAttrValue(attr: Int): Drawable? {
-        val attrArray = intArrayOf(attr)
-        val typedArray = obtainStyledAttributes(attrArray)
-        val result = try {
-            typedArray.getDrawable(0)
-        } catch (exc: Exception) {
-            null
-        }
-        typedArray.recycle()
-        return result
-    }
-
     private fun initButtons() {
         log.info("Initialisation of the buttons")
         coroutineJob = lifecycleScope.launch {
@@ -272,25 +239,6 @@ class SelectParcelSizeActivity //  :  BaseActivity(R.id.no_ble_layout, R.id.no_i
             coroutineJob?.cancel()
         App.ref.eventBus.unregister(this)
     }
-
-    override fun onBluetoothStateUpdated(available: Boolean) {
-        super.onBluetoothStateUpdated(available)
-        bluetoothAvalilable = available
-        updateUI()
-    }
-
-    override fun onNetworkStateUpdated(available: Boolean) {
-        super.onNetworkStateUpdated(available)
-        networkAvailable = available
-        updateUI()
-    }
-
-    override fun onLocationGPSStateUpdated(available: Boolean) {
-        super.onLocationGPSStateUpdated(available)
-        locationGPSAvalilable = available
-        updateUI()
-    }
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMplDeviceNotify(event: MPLDevicesUpdatedEvent) {
         log.info("Received MPL event $macAddress")
@@ -352,37 +300,5 @@ class SelectParcelSizeActivity //  :  BaseActivity(R.id.no_ble_layout, R.id.no_i
         startActivity(intent)
         finish()
     }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.getItemId()) {
-            android.R.id.home -> {
-
-                val intent = Intent()
-                val packageName = this@SelectParcelSizeActivity.packageName
-                val componentName =
-                    ComponentName(packageName, packageName + ".aliasFinishSelectParcelSize")
-                intent.component = componentName
-
-                startActivity(intent)
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-                finish()
-                return true
-            }
-            else -> return super.onOptionsItemSelected(item)
-        }
-    }
-
-    override fun onBackPressed() {
-        val intent = Intent()
-        val packageName = this@SelectParcelSizeActivity.packageName
-        val componentName = ComponentName(packageName, packageName + ".aliasFinishSelectParcelSize")
-        intent.component = componentName
-
-        startActivity(intent)
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-        finish()
-        super.onBackPressed()
-    }
-
 
 }

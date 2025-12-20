@@ -31,6 +31,8 @@ import hr.sil.android.myappbox.compose.collect_parcel.ShareAccessKeyScreen
 import hr.sil.android.myappbox.compose.google_maps.GoogleMapsLockerLocationsScreen
 import hr.sil.android.myappbox.compose.home_screen.NavHomeScreen
 import hr.sil.android.myappbox.compose.home_screen.SelectLockerScreen
+import hr.sil.android.myappbox.compose.send_parcel.SelectParcelContentScreen
+import hr.sil.android.myappbox.compose.send_parcel.SelectParcelSizeScreen
 import hr.sil.android.myappbox.compose.send_parcel.SendParcelsOverviewScreen
 import hr.sil.android.myappbox.compose.settings.ChangePasswordScreen
 import hr.sil.android.myappbox.compose.settings.DisplayQrCodeScreenWrapper
@@ -154,6 +156,17 @@ fun NavGraphBuilder.mainNavGraph(
             navigateUp = {
                 navController.currentBackStackEntry?.let {
                     navController.navigateUp()
+                }
+            }
+        )
+    }
+
+    composable(MainDestinations.SELECT_PARCEL_SIZE) {
+        SelectParcelSizeScreen(
+            viewModel = viewModel(),
+            onSizeClick = {
+                if (navBackStackEntry.value?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
+                    navController.navigate("${MainDestinations.SEND_PARCEL_SIZE}/$it")
                 }
             }
         )

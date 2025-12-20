@@ -255,23 +255,6 @@ class SelectParcelSizeActivity //  :  BaseActivity(R.id.no_ble_layout, R.id.no_i
 //        App.ref.eventBus.unregister(this)
 //    }
 //
-//    override fun onBluetoothStateUpdated(available: Boolean) {
-//        super.onBluetoothStateUpdated(available)
-//        bluetoothAvalilable = available
-//        updateUI()
-//    }
-//
-//    override fun onNetworkStateUpdated(available: Boolean) {
-//        super.onNetworkStateUpdated(available)
-//        networkAvailable = available
-//        updateUI()
-//    }
-//
-//    override fun onLocationGPSStateUpdated(available: Boolean) {
-//        super.onLocationGPSStateUpdated(available)
-//        locationGPSAvalilable = available
-//        updateUI()
-//    }
 //
 //    @Subscribe(threadMode = ThreadMode.MAIN)
 //    fun onMplDeviceNotify(event: MPLDevicesUpdatedEvent) {
@@ -333,37 +316,6 @@ class SelectParcelSizeActivity //  :  BaseActivity(R.id.no_ble_layout, R.id.no_i
 //        val intent = Intent(this, LoginActivity::class.java)
 //        startActivity(intent)
 //        finish()
-//    }
-//
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        when (item.getItemId()) {
-//            android.R.id.home -> {
-//
-//                val intent = Intent()
-//                val packageName = this@SelectParcelSizeActivity.packageName
-//                val componentName =
-//                    ComponentName(packageName, packageName + ".aliasFinishSelectParcelSize")
-//                intent.component = componentName
-//
-//                startActivity(intent)
-//                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-//                finish()
-//                return true
-//            }
-//            else -> return super.onOptionsItemSelected(item)
-//        }
-//    }
-//
-//    override fun onBackPressed() {
-//        val intent = Intent()
-//        val packageName = this@SelectParcelSizeActivity.packageName
-//        val componentName = ComponentName(packageName, packageName + ".aliasFinishSelectParcelSize")
-//        intent.component = componentName
-//
-//        startActivity(intent)
-//        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-//        finish()
-//        super.onBackPressed()
 //    }
 
 

@@ -94,7 +94,7 @@ fun ListOfDeliveriesScreen(
         ) {
             // Title (0.5 weight)
             Text(
-                text = stringResource(R.string.list_of_deliveries_cpl),
+                text = stringResource(R.string.list_of_deliveries_cpl).uppercase(),
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(0.5f)

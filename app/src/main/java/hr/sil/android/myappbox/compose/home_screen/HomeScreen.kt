@@ -384,7 +384,7 @@ fun NavHomeScreen(
                                 }
                                 selectedMasterDevice?.isUserAssigned == false &&
                                         selectedMasterDevice?.activeAccessRequest == false -> {
-                                    noAccessMessage.value =appGenericRequestAccess
+                                    noAccessMessage.value = appGenericRequestAccess
                                     displayNoAccessDialog.value = true
                                 }
                                 selectedMasterDevice?.isUserAssigned == false &&
