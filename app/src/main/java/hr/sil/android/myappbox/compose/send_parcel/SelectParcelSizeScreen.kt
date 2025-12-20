@@ -9,6 +9,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -31,9 +32,12 @@ import hr.sil.android.myappbox.compose.components.ThmSubTitleTextSize
 import hr.sil.android.myappbox.compose.components.ThmTitleLetterSpacing
 import hr.sil.android.myappbox.compose.components.ThmTitleTextColor
 import hr.sil.android.myappbox.compose.components.ThmTitleTextSize
+import hr.sil.android.myappbox.compose.dialog.GeneratedPinDialog
+import hr.sil.android.myappbox.compose.dialog.PinManagementDialog
 import hr.sil.android.myappbox.core.remote.model.RAvailableLockerSize
 import hr.sil.android.myappbox.core.remote.model.RLockerSize
 import hr.sil.android.myappbox.core.util.logger
+import hr.sil.android.myappbox.util.SettingsHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -41,18 +45,58 @@ import kotlinx.coroutines.withContext
 @Composable
 fun SelectParcelSizeScreen(
     viewModel: SelectParcelSizeViewModel = viewModel(),
-    onSizeClick: (String) -> Unit
+    onSizeClick: (String) -> Unit,
+    onNavigateToDelivery: (macAddress: String, pin: Int, size: String) -> Unit = { _, _, _ -> },
 ) {
     val state by viewModel.uiState.collectAsState()
+
+    val showPinManagementDialog = rememberSaveable { mutableStateOf(false) }
+    val showGeneratedPinDialog = rememberSaveable { mutableStateOf(false) }
+
+
+    if (showGeneratedPinDialog.value) {
+        PinManagementDialog(
+            macAddress = SettingsHelper.userLastSelectedLocker,
+            lockerSize = state.selectedLockerSize,
+            onDismiss = { showPinManagementDialog.value = false },
+            onConfirm = { mac, pin, size ->
+                showPinManagementDialog.value = false
+                onNavigateToDelivery(mac, pin, size)
+            }
+        )
+//        GeneratedPinDialog(
+//            macAddress = SettingsHelper.userLastSelectedLocker,
+//            lockerSize = state.selectedLockerSize,
+//            onDismiss = { showGeneratedPinDialog.value = false },
+//            onConfirm = { mac, pin, size ->
+//                showGeneratedPinDialog.value = false
+//                onNavigateToDelivery(mac, pin, size)
+//            }
+//        )
+    }
+
+    if (showPinManagementDialog.value) {
+        PinManagementDialog(
+            macAddress = SettingsHelper.userLastSelectedLocker,
+            lockerSize = state.selectedLockerSize,
+            onDismiss = { showPinManagementDialog.value = false },
+            onConfirm = { mac, pin, size ->
+                showPinManagementDialog.value = false
+                onNavigateToDelivery(mac, pin, size)
+            }
+        )
+    }
 
     LaunchedEffect(Unit) {
         viewModel.events.collect { event ->
             when (event) {
                 is SelectParcelSizeEvent.ShowPinManagement -> {
+                    showPinManagementDialog.value = true
                     // showPinManagement(event.device, event.size)
                 }
 
                 is SelectParcelSizeEvent.ShowGeneratedPin -> {
+                    showGeneratedPinDialog.value = true
                     //showGeneratedPin(event.device, event.size)
                 }
 
@@ -280,20 +324,40 @@ fun NotInProximityContent() {
             modifier = Modifier.padding(bottom = 40.dp)
         )
 
-        Text(
+        TextViewWithFont(
             text = stringResource(R.string.not_in_proximity_first_description),
+            color = ThmDescriptionTextColor,
+            fontSize = ThmTitleTextSize,
+            fontWeight = FontWeight.Normal,
             textAlign = TextAlign.Center,
-            fontSize = 20.sp,
-            modifier = Modifier.padding(horizontal = 15.dp)
+            modifier = Modifier
+                .padding(horizontal = 15.dp)
         )
+
+//        Text(
+//            text = stringResource(R.string.not_in_proximity_first_description),
+//            textAlign = TextAlign.Center,
+//            fontSize = 20.sp,
+//            modifier = Modifier.padding(horizontal = 15.dp)
+//        )
 
         Spacer(Modifier.height(30.dp))
 
-        Text(
+        TextViewWithFont(
             text = stringResource(R.string.nav_pickup_parcel_content_lock),
+            color = ThmDescriptionTextColor,
+            fontSize = ThmTitleTextSize,
+            fontWeight = FontWeight.Normal,
             textAlign = TextAlign.Center,
-            fontSize = 20.sp,
-            modifier = Modifier.padding(horizontal = 15.dp)
+            modifier = Modifier
+                .padding(horizontal = 15.dp)
         )
+
+//        Text(
+//            text = stringResource(R.string.nav_pickup_parcel_content_lock),
+//            textAlign = TextAlign.Center,
+//            fontSize = 20.sp,
+//            modifier = Modifier.padding(horizontal = 15.dp)
+//        )
     }
 }

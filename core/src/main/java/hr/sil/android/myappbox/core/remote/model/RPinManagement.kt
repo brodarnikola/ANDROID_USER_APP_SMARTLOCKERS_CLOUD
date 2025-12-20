@@ -9,4 +9,7 @@ class RPinManagement {
     var pinGenerated: Boolean = false
     var isSelected: Boolean = false
     var isExtendedToDelete: Boolean = false
+
+    var isExtendedToName: Boolean = false
+
 }

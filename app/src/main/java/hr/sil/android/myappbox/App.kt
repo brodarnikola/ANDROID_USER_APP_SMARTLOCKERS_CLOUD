@@ -36,6 +36,7 @@ import hr.sil.android.myappbox.cache.status.ActionStatusHandler
 import hr.sil.android.myappbox.data.UserLastLocationGps
 import hr.sil.android.myappbox.core.remote.WSUser
 import hr.sil.android.myappbox.core.remote.model.RLanguage
+import hr.sil.android.myappbox.core.remote.model.RPinManagement
 import hr.sil.android.myappbox.core.util.BLEScannerStateHolder
 import hr.sil.android.myappbox.core.util.logger
 import hr.sil.android.myappbox.events.UnauthorizedUserEvent
@@ -63,6 +64,9 @@ import java.util.*
  */
 class App : Application(), BLEScannerStateHolder {
     private val log = logger()
+
+    var pinManagementSelectedItem = RPinManagement()
+    var pinManagementName = ""
 
     companion object {
         @JvmStatic
