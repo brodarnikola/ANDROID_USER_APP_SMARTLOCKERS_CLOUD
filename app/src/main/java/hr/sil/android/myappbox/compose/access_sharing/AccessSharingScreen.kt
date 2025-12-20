@@ -62,7 +62,7 @@ fun AccessSharingScreen(
         Column(modifier = Modifier.fillMaxSize()) {
             // Title
             Text(
-                text = stringResource(R.string.app_generic_key_sharing),
+                text = stringResource(R.string.app_generic_key_sharing).uppercase(),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 15.dp)
