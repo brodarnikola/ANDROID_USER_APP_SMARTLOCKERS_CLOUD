@@ -66,7 +66,12 @@ fun PickupParcelScreen(
     val activity = LocalContext.current as Activity
 
     LaunchedEffect(key1 = Unit) {
-        viewModel.onEvent(PickupParcelScreenEvent.OnInit(SettingsHelper.userLastSelectedLocker, context))
+        viewModel.onEvent(
+            PickupParcelScreenEvent.OnInit(
+                SettingsHelper.userLastSelectedLocker,
+                context
+            )
+        )
     }
 
     LaunchedEffect(key1 = Unit) {
@@ -85,374 +90,386 @@ fun PickupParcelScreen(
         }
     }
 
-    GradientBackground(
+    ConstraintLayout(
         modifier = Modifier.fillMaxSize()
     ) {
-        ConstraintLayout(
-            modifier = Modifier.fillMaxSize()
-        ) {
-            val (pickupParcelTitle, clInProximity, clNotInProximity) = createRefs()
+        val (pickupParcelTitle, clInProximity, clNotInProximity) = createRefs()
 
-            // Title
-            TextViewWithFont(
-                text = stringResource(id = state.titleRes).uppercase(),
-                color = ThmTitleTextColor,
-                fontSize = ThmTitleTextSize,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center,
-                letterSpacing = ThmTitleLetterSpacing,
+        // Title
+        TextViewWithFont(
+            text = stringResource(id = state.titleRes).uppercase(),
+            color = ThmTitleTextColor,
+            fontSize = ThmTitleTextSize,
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center,
+            letterSpacing = ThmTitleLetterSpacing,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp)
+                .constrainAs(pickupParcelTitle) {
+                    top.linkTo(parent.top)
+                    height = Dimension.percent(0.05f)
+                }
+        )
+
+        // In Proximity Layout
+        if (state.isInProximity) {
+            ConstraintLayout(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 8.dp)
-                    .constrainAs(pickupParcelTitle) {
-                        top.linkTo(parent.top)
-                        height = Dimension.percent(0.05f)
+                    .constrainAs(clInProximity) {
+                        top.linkTo(pickupParcelTitle.bottom)
+                        height = Dimension.percent(0.85f)
                     }
-            )
+            ) {
+                val (clOpenPickupParcel, statusText, keysList, clLockerTelemetry,
+                    forceOpen, pickupParcelFinish, llClean, progressBarLockerCleaning) = createRefs()
 
-            // In Proximity Layout
-            if (state.isInProximity) {
-                ConstraintLayout(
+                // Open Pickup Parcel Button Area
+                Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .constrainAs(clInProximity) {
-                            top.linkTo(pickupParcelTitle.bottom)
-                            height = Dimension.percent(0.85f)
-                        }
-                ) {
-                    val (clOpenPickupParcel, statusText, keysList, clLockerTelemetry,
-                        forceOpen, pickupParcelFinish, llClean, progressBarLockerCleaning) = createRefs()
-
-                    // Open Pickup Parcel Button Area
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable(enabled = state.isButtonEnabled) {
-                                viewModel.onEvent(PickupParcelScreenEvent.OnOpenClick(context, activity))
-                            }
-                            .constrainAs(clOpenPickupParcel) {
-                                top.linkTo(parent.top)
-                                height = Dimension.percent(0.35f)
-                            },
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Icon(
-                            painter = painterResource(id = state.circleDrawableRes),
-                            contentDescription = null,
-                            tint = Color.Unspecified,
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(40.dp)
-                                .then(
-                                    if (state.isAnimating) {
-                                        Modifier.rotate(state.animationRotation)
-                                    } else Modifier
+                        .clickable(enabled = state.isButtonEnabled) {
+                            viewModel.onEvent(
+                                PickupParcelScreenEvent.OnOpenClick(
+                                    context,
+                                    activity
                                 )
-                        )
-
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_padlock_top),
-                            contentDescription = null,
-                            tint = Color.Unspecified,
-                            modifier = Modifier
-                                .size(79.dp, 90.dp)
-                                .offset(y = if (state.isUnlocked) (-60).dp else (-30).dp)
-                        )
-
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_padlock_base),
-                            contentDescription = null,
-                            tint = Color.Unspecified,
-                            modifier = Modifier.offset(y = 46.dp)
-                        )
-                    }
-
-                    // Status Text
-                    TextViewWithFont(
-                        text = state.statusText,
-                        color = if (state.isError) ThmErrorTextColor else ThmDescriptionTextColor,
-                        fontSize = ThmSubTitleTextSize,
-                        fontWeight = FontWeight.Normal,
-                        textAlign = TextAlign.Center,
-                        maxLines = 3,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 8.dp)
-                            .constrainAs(statusText) {
-                                top.linkTo(clOpenPickupParcel.bottom)
-                                height = Dimension.percent(0.1f)
-                            }
-                    )
-
-                    // Keys List
-                    LazyColumn(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 10.dp)
-                            .constrainAs(keysList) {
-                                top.linkTo(statusText.bottom)
-                                height = Dimension.percent(0.47f)
-                            }
-                    ) {
-                        itemsIndexed(state.keys) { index, key ->
-                            ParcelPickupKeyItem(
-                                key = key,
-                                index = index,
-                                instalationType = state.installationType,
-                                type = state.masterUnitType,
-                                onShareClick = {
-                                    viewModel.onEvent(PickupParcelScreenEvent.OnShareKeyClick(key))
-                                },
-                                onDeleteClick = {
-                                    viewModel.onEvent(PickupParcelScreenEvent.OnDeleteKeyClick(index, key.id))
-                                },
-                                onQrCodeClick = {
-                                    viewModel.onEvent(PickupParcelScreenEvent.OnQrCodeClick(
-                                        SettingsHelper.userLastSelectedLocker, context, activity))
-                                }
                             )
                         }
-                    }
+                        .constrainAs(clOpenPickupParcel) {
+                            top.linkTo(parent.top)
+                            height = Dimension.percent(0.35f)
+                        },
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        painter = painterResource(id = state.circleDrawableRes),
+                        contentDescription = null,
+                        tint = Color.Unspecified,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(10.dp)
+                            .then(
+                                if (state.isAnimating) {
+                                    Modifier.rotate(state.animationRotation)
+                                } else Modifier
+                            )
+                    )
 
-                    // Telemetry
-                    if (state.showTelemetry) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .background(ThmCPTelemetryBackgroundColor )
-                                .alpha(0.4f)
-                                .padding(horizontal = 10.dp, vertical = 10.dp)
-                                .constrainAs(clLockerTelemetry) {
-                                    top.linkTo(keysList.bottom)
-                                    bottom.linkTo(parent.bottom)
-                                    height = Dimension.percent(0.08f)
-                                },
-                            horizontalArrangement = Arrangement.SpaceEvenly,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Row(
-                                modifier = Modifier.weight(3.3f),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_humidity),
-                                    contentDescription = null,
-                                    tint = Color.Unspecified
-                                )
-                                TextViewWithFont(
-                                    text = state.humidity,
-                                    color = ThmDescriptionTextColor,
-                                    fontSize = 13.sp,
-                                    fontWeight = FontWeight.Bold,
-                                    maxLines = 1,
-                                    modifier = Modifier.padding(start = 5.dp)
-                                )
-                            }
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_padlock_top),
+                        contentDescription = null,
+                        tint = Color.Unspecified,
+                        modifier = Modifier
+                            .size(79.dp, 90.dp)
+                            .offset(y = if (state.isUnlocked) (-30).dp else (5).dp)
+                    )
 
-                            Row(
-                                modifier = Modifier.weight(2.8f),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_temperature),
-                                    contentDescription = null,
-                                    tint = Color.Unspecified
-                                )
-                                TextViewWithFont(
-                                    text = state.temperature,
-                                    color = ThmDescriptionTextColor,
-                                    fontSize = 13.sp,
-                                    fontWeight = FontWeight.Bold,
-                                    maxLines = 1,
-                                    modifier = Modifier.padding(start = 5.dp)
-                                )
-                            }
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_padlock_base),
+                        contentDescription = null,
+                        tint = Color.Unspecified,
+                        modifier = Modifier.offset(y = 36.dp)
+                    )
+                }
 
-                            Row(
-                                modifier = Modifier.weight(3.8f),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_air_pressure),
-                                    contentDescription = null,
-                                    tint = Color.Unspecified
-                                )
-                                TextViewWithFont(
-                                    text = state.airPressure,
-                                    color = ThmDescriptionTextColor,
-                                    fontSize = 13.sp,
-                                    fontWeight = FontWeight.Bold,
-                                    maxLines = 1,
-                                    modifier = Modifier.padding(start = 5.dp)
-                                )
-                            }
+                // Status Text
+                TextViewWithFont(
+                    text = state.statusText,
+                    color = if (state.isError) ThmErrorTextColor else ThmDescriptionTextColor,
+                    fontSize = ThmSubTitleTextSize,
+                    fontWeight = FontWeight.Normal,
+                    textAlign = TextAlign.Center,
+                    maxLines = 3,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 8.dp)
+                        .constrainAs(statusText) {
+                            top.linkTo(clOpenPickupParcel.bottom)
+                            height = Dimension.percent(0.1f)
                         }
-                    }
+                )
 
-                    // Force Open Button
-                    if (state.showForceOpen) {
-                        ButtonWithFont(
-                            text = stringResource(id = R.string.app_generic_force_open),
-                            onClick = {
+                // Keys List
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 10.dp)
+                        .constrainAs(keysList) {
+                            top.linkTo(statusText.bottom)
+                            height = Dimension.percent(0.47f)
+                        }
+                ) {
+                    itemsIndexed(state.keys) { index, key ->
+                        ParcelPickupKeyItem(
+                            key = key,
+                            index = index,
+                            instalationType = state.installationType,
+                            type = state.masterUnitType,
+                            onShareClick = {
+                                viewModel.onEvent(PickupParcelScreenEvent.OnShareKeyClick(key))
+                            },
+                            onDeleteClick = {
                                 viewModel.onEvent(
-                                    PickupParcelScreenEvent.OnForceOpenClick(
-                                        context,
-                                        activity
+                                    PickupParcelScreenEvent.OnDeleteKeyClick(
+                                        index,
+                                        key.id
                                     )
                                 )
                             },
-                            backgroundColor = ThmMainButtonBackgroundColor,
-                            textColor = ThmLoginButtonTextColor,
-                            fontSize = ThmButtonTextSize,
-                            fontWeight = FontWeight.Medium,
-                            letterSpacing = ThmButtonLetterSpacing,
-                            modifier = Modifier
-                                .width(250.dp)
-                                .padding(bottom = 20.dp)
-                                .constrainAs(forceOpen) {
-                                    bottom.linkTo(pickupParcelFinish.top)
-                                    start.linkTo(parent.start)
-                                    end.linkTo(parent.end)
-                                    height = Dimension.percent(0.08f)
-                                },
-                            enabled = true
+                            onQrCodeClick = {
+                                viewModel.onEvent(
+                                    PickupParcelScreenEvent.OnQrCodeClick(
+                                        SettingsHelper.userLastSelectedLocker, context, activity
+                                    )
+                                )
+                            }
                         )
                     }
+                }
 
-                    // Finish Button
-                    if (state.showFinishButton) {
-                        ButtonWithFont(
-                            text = stringResource(id = R.string.app_generic_confirm),
-                            onClick = {
-                                viewModel.onEvent(PickupParcelScreenEvent.OnFinishClick(activity))
+                // Telemetry
+                if (state.showTelemetry) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(ThmCPTelemetryBackgroundColor)
+                            .alpha(0.4f)
+                            .padding(horizontal = 10.dp, vertical = 10.dp)
+                            .constrainAs(clLockerTelemetry) {
+                                top.linkTo(keysList.bottom)
+                                bottom.linkTo(parent.bottom)
+                                height = Dimension.percent(0.08f)
                             },
-                            backgroundColor = ThmMainButtonBackgroundColor,
-                            textColor = ThmLoginButtonTextColor,
-                            fontSize = ThmButtonTextSize,
-                            fontWeight = FontWeight.Medium,
-                            letterSpacing = ThmButtonLetterSpacing,
-                            modifier = Modifier
-                                .width(250.dp)
-                                .padding(bottom = 140.dp)
-                                .constrainAs(pickupParcelFinish) {
-                                    bottom.linkTo(parent.bottom)
-                                    start.linkTo(parent.start)
-                                    end.linkTo(parent.end)
-                                    height = Dimension.percent(0.08f)
-                                },
-                            enabled = true
-                        )
-                    }
-
-                    // Locker Cleaning Checkbox
-                    if (state.showCleaningCheckbox) {
+                        horizontalArrangement = Arrangement.SpaceEvenly,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
                         Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 20.dp)
-                                .constrainAs(llClean) {
-                                    top.linkTo(pickupParcelFinish.bottom)
-                                    bottom.linkTo(parent.bottom)
-                                },
-                            horizontalArrangement = Arrangement.Center,
+                            modifier = Modifier.weight(3.3f),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Icon(
-                                painter = painterResource(id = R.drawable.ic_needs_cleaning),
+                                painter = painterResource(id = R.drawable.ic_humidity),
                                 contentDescription = null,
                                 tint = Color.Unspecified
                             )
+                            TextViewWithFont(
+                                text = state.humidity,
+                                color = ThmDescriptionTextColor,
+                                fontSize = 13.sp,
+                                fontWeight = FontWeight.Bold,
+                                maxLines = 1,
+                                modifier = Modifier.padding(start = 5.dp)
+                            )
+                        }
 
-                            Row(
-                                modifier = Modifier
-                                    .padding(start = 15.dp)
-                                    .clickable(enabled = state.isCleaningCheckboxEnabled) {
-                                        viewModel.onEvent(
-                                            PickupParcelScreenEvent.OnCleaningCheckboxClick(
-                                                state.lockerMacAddress,
-                                                context,
-                                                activity
-                                            )
-                                        )
-                                    }
-                                    .alpha(if (state.isCleaningCheckboxEnabled) 1f else 0.5f),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Checkbox(
-                                    checked = state.isCleaningCheckboxChecked,
-                                    onCheckedChange = null,
-                                    enabled = state.isCleaningCheckboxEnabled
-                                )
+                        Row(
+                            modifier = Modifier.weight(2.8f),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_temperature),
+                                contentDescription = null,
+                                tint = Color.Unspecified
+                            )
+                            TextViewWithFont(
+                                text = state.temperature,
+                                color = ThmDescriptionTextColor,
+                                fontSize = 13.sp,
+                                fontWeight = FontWeight.Bold,
+                                maxLines = 1,
+                                modifier = Modifier.padding(start = 5.dp)
+                            )
+                        }
 
-                                TextViewWithFont(
-                                    text = stringResource(id = R.string.locker_needs_cleaning).uppercase(),
-                                    color = ThmDescriptionTextColor,
-                                    fontWeight = FontWeight.Normal
-                                )
-                            }
+                        Row(
+                            modifier = Modifier.weight(3.8f),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_air_pressure),
+                                contentDescription = null,
+                                tint = Color.Unspecified
+                            )
+                            TextViewWithFont(
+                                text = state.airPressure,
+                                color = ThmDescriptionTextColor,
+                                fontSize = 13.sp,
+                                fontWeight = FontWeight.Bold,
+                                maxLines = 1,
+                                modifier = Modifier.padding(start = 5.dp)
+                            )
                         }
                     }
+                }
 
-                    // Progress Bar for Cleaning
-                    if (state.showCleaningProgress) {
-                        RotatingRingIndicator(
-                            modifier = Modifier
-                                .size(40.dp)
-                                .constrainAs(progressBarLockerCleaning) {
-                                    top.linkTo(llClean.bottom)
-                                    start.linkTo(parent.start)
-                                    end.linkTo(parent.end)
-                                }
+                // Force Open Button
+                if (state.showForceOpen) {
+                    ButtonWithFont(
+                        text = stringResource(id = R.string.app_generic_force_open),
+                        onClick = {
+                            viewModel.onEvent(
+                                PickupParcelScreenEvent.OnForceOpenClick(
+                                    context,
+                                    activity
+                                )
+                            )
+                        },
+                        backgroundColor = ThmMainButtonBackgroundColor,
+                        textColor = ThmLoginButtonTextColor,
+                        fontSize = ThmButtonTextSize,
+                        fontWeight = FontWeight.Medium,
+                        letterSpacing = ThmButtonLetterSpacing,
+                        modifier = Modifier
+                            .width(250.dp)
+                            .padding(bottom = 20.dp)
+                            .constrainAs(forceOpen) {
+                                bottom.linkTo(pickupParcelFinish.top)
+                                start.linkTo(parent.start)
+                                end.linkTo(parent.end)
+                                height = Dimension.percent(0.08f)
+                            },
+                        enabled = true
+                    )
+                }
+
+                // Finish Button
+                if (state.showFinishButton) {
+                    ButtonWithFont(
+                        text = stringResource(id = R.string.app_generic_confirm),
+                        onClick = {
+                            viewModel.onEvent(PickupParcelScreenEvent.OnFinishClick(activity))
+                        },
+                        backgroundColor = ThmMainButtonBackgroundColor,
+                        textColor = ThmLoginButtonTextColor,
+                        fontSize = ThmButtonTextSize,
+                        fontWeight = FontWeight.Medium,
+                        letterSpacing = ThmButtonLetterSpacing,
+                        modifier = Modifier
+                            .width(250.dp)
+                            .padding(bottom = 140.dp)
+                            .constrainAs(pickupParcelFinish) {
+                                bottom.linkTo(parent.bottom)
+                                start.linkTo(parent.start)
+                                end.linkTo(parent.end)
+                                height = Dimension.percent(0.08f)
+                            },
+                        enabled = true
+                    )
+                }
+
+                // Locker Cleaning Checkbox
+                if (state.showCleaningCheckbox) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 20.dp)
+                            .constrainAs(llClean) {
+                                top.linkTo(pickupParcelFinish.bottom)
+                                bottom.linkTo(parent.bottom)
+                            },
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_needs_cleaning),
+                            contentDescription = null,
+                            tint = Color.Unspecified
                         )
+
+                        Row(
+                            modifier = Modifier
+                                .padding(start = 15.dp)
+                                .clickable(enabled = state.isCleaningCheckboxEnabled) {
+                                    viewModel.onEvent(
+                                        PickupParcelScreenEvent.OnCleaningCheckboxClick(
+                                            state.lockerMacAddress,
+                                            context,
+                                            activity
+                                        )
+                                    )
+                                }
+                                .alpha(if (state.isCleaningCheckboxEnabled) 1f else 0.5f),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Checkbox(
+                                checked = state.isCleaningCheckboxChecked,
+                                onCheckedChange = null,
+                                enabled = state.isCleaningCheckboxEnabled
+                            )
+
+                            TextViewWithFont(
+                                text = stringResource(id = R.string.locker_needs_cleaning).uppercase(),
+                                color = ThmDescriptionTextColor,
+                                fontWeight = FontWeight.Normal
+                            )
+                        }
                     }
                 }
-            }
 
-            // Not In Proximity Layout
-            if (!state.isInProximity) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 10.dp)
-                        .constrainAs(clNotInProximity) {
-                            top.linkTo(pickupParcelTitle.bottom)
-                            bottom.linkTo(parent.bottom)
-                            height = Dimension.fillToConstraints
-                        },
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_not_in_proximity),
-                        contentDescription = null,
-                        tint = Color.Unspecified,
-                        modifier = Modifier.padding(bottom = 100.dp)
-                    )
-
-                    TextViewWithFont(
-                        text = stringResource(id = R.string.not_in_proximity_first_description),
-                        color = ThmDescriptionTextColor,
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Normal,
-                        textAlign = TextAlign.Center,
-                        maxLines = 3,
+                // Progress Bar for Cleaning
+                if (state.showCleaningProgress) {
+                    RotatingRingIndicator(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 20.dp, vertical = 20.dp)
-                    )
-
-                    TextViewWithFont(
-                        text = stringResource(id = R.string.not_in_proximity_second_description, state.deviceName),
-                        color = ThmDescriptionTextColor,
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Normal,
-                        textAlign = TextAlign.Center,
-                        maxLines = 3,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 20.dp, vertical = 30.dp)
+                            .size(40.dp)
+                            .constrainAs(progressBarLockerCleaning) {
+                                top.linkTo(llClean.bottom)
+                                start.linkTo(parent.start)
+                                end.linkTo(parent.end)
+                            }
                     )
                 }
+            }
+        }
+
+        // Not In Proximity Layout
+        if (!state.isInProximity) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 10.dp)
+                    .constrainAs(clNotInProximity) {
+                        top.linkTo(pickupParcelTitle.bottom)
+                        bottom.linkTo(parent.bottom)
+                        height = Dimension.fillToConstraints
+                    },
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_not_in_proximity),
+                    contentDescription = null,
+                    tint = Color.Unspecified,
+                    modifier = Modifier.padding(bottom = 100.dp)
+                )
+
+                TextViewWithFont(
+                    text = stringResource(id = R.string.not_in_proximity_first_description),
+                    color = ThmDescriptionTextColor,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Normal,
+                    textAlign = TextAlign.Center,
+                    maxLines = 3,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp, vertical = 20.dp)
+                )
+
+                TextViewWithFont(
+                    text = stringResource(
+                        id = R.string.not_in_proximity_second_description,
+                        state.deviceName
+                    ),
+                    color = ThmDescriptionTextColor,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Normal,
+                    textAlign = TextAlign.Center,
+                    maxLines = 3,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp, vertical = 30.dp)
+                )
             }
         }
     }
@@ -512,6 +529,7 @@ fun ParcelPickupKeyItem(
                     }
                 }
             }
+
             RLockerKeyPurpose.PAF -> {
                 if (key.createdForId != null && instalationType != InstalationType.LINUX) {
                     IconButton(
@@ -526,6 +544,7 @@ fun ParcelPickupKeyItem(
                     }
                 }
             }
+
             else -> {}
         }
     }
