@@ -12,6 +12,7 @@ import hr.sil.android.myappbox.core.remote.model.RGroupDisplayMembersChild
 import hr.sil.android.myappbox.core.remote.model.RGroupDisplayMembersHeader
 import hr.sil.android.myappbox.core.remote.model.RGroupInfo
 import hr.sil.android.myappbox.core.remote.model.RMasterUnitType
+import hr.sil.android.myappbox.core.remote.model.RUserRemoveAccess
 import hr.sil.android.myappbox.core.util.logger
 import hr.sil.android.myappbox.core.util.macRealToClean
 import hr.sil.android.myappbox.store.MPLDeviceStore
@@ -24,6 +25,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 data class AccessSharingUiState(
     val listAccessSharing: List<ItemRGroupInfo> = emptyList(),
@@ -33,6 +35,7 @@ data class AccessSharingUiState(
 )
 
 private val ROLE_USER = "USER"
+
 //
 val EMPTY_OWNER_GROUP_MEMBERS_OR_GROUP_MEMBERHSIP = ""
 
@@ -63,9 +66,19 @@ class AccessSharingViewModel : ViewModel() {
             val userDevice =
                 MPLDeviceStore.uniqueDevices.values.first { it.macAddress == SettingsHelper.userLastSelectedLocker }
 
-            val ownerGroupData: MutableList<REndUserGroupMember> =  WSUser.getGroupMembers()?.toMutableList() ?: mutableListOf() // DataCache.getGroupMembers(true).toMutableList()
+            val ownerGroupData: MutableList<REndUserGroupMember> =
+                WSUser.getGroupMembers()?.toMutableList()
+                    ?: mutableListOf() // DataCache.getGroupMembers(true).toMutableList()
 
-            addOwnerGroupAndAdminGroup(ownerGroupData, userDevice, finalMembersArray, accessSharingMyGroup, accessSharingOtherGroup, shareAccessGroupMembersEmpty, shareAccessGroupMembershipEmpty)
+            addOwnerGroupAndAdminGroup(
+                ownerGroupData,
+                userDevice,
+                finalMembersArray,
+                accessSharingMyGroup,
+                accessSharingOtherGroup,
+                shareAccessGroupMembersEmpty,
+                shareAccessGroupMembershipEmpty
+            )
 
 //            val adminOwnerShipGroup: Collection<RGroupInfo> = WSUser.getGroupMemberships()?: mutableListOf() // DataCache.getGroupMembershipById()
 //            val adminDataList: MutableList<RGroupInfo> = mutableListOf()
@@ -95,11 +108,52 @@ class AccessSharingViewModel : ViewModel() {
                     isLoading = false
                 )
             }
+        }
+    }
 
-//            withContext(Dispatchers.Main) {
-//                groupItems = finalMembersArray
-//                isLoading = false
-//            }
+    fun deleteAccessSharing(
+        groupId: Int,
+        endUserId: Int,
+        masterId: Int,
+        onSuccess: () -> Unit,
+        onError: () -> Unit
+    ) {
+        _uiState.update { it.copy(successKeyDelete = true) }
+
+        viewModelScope.launch(Dispatchers.IO) {
+
+            val userAccess = RUserRemoveAccess().apply {
+                this.groupId = groupId
+                this.endUserId = endUserId
+                this.masterId = masterId
+            }
+
+            if (WSUser.removeUserAccess(userAccess)) {
+                log.info("Successfully remove user $groupId $endUserId $masterId from group")
+
+                log.info(
+                    "Second example Admin group list size is 11: " + uiState.value.listAccessSharing
+                )
+
+                _uiState.update { state ->
+                    state.copy(
+                        listAccessSharing = state.listAccessSharing.filterNot {
+                            it is RGroupDisplayMembersChild &&
+                                    it.endUserId == endUserId &&
+                                    it.groupId == groupId &&
+                                    it.master_id == masterId
+                        }
+                    )
+                }
+
+                onSuccess()
+
+                log.info(
+                    "Second example Admin group list size is 22: " + uiState.value.listAccessSharing
+                )
+            } else {
+                onError()
+            }
         }
     }
 
@@ -114,9 +168,23 @@ class AccessSharingViewModel : ViewModel() {
     ) {
 
         if (userDevice?.masterUnitType == RMasterUnitType.MPL)
-            displayMplDevices(ownerGroupData, finalMembersArray, accessSharingMyGroup, accessSharingOtherGroup, shareAccessGroupMembersEmpty, shareAccessGroupMembershipEmpty)
+            displayMplDevices(
+                ownerGroupData,
+                finalMembersArray,
+                accessSharingMyGroup,
+                accessSharingOtherGroup,
+                shareAccessGroupMembersEmpty,
+                shareAccessGroupMembershipEmpty
+            )
         else
-            dislaySplDevices(ownerGroupData, finalMembersArray, accessSharingMyGroup, accessSharingOtherGroup, shareAccessGroupMembersEmpty, shareAccessGroupMembershipEmpty)
+            dislaySplDevices(
+                ownerGroupData,
+                finalMembersArray,
+                accessSharingMyGroup,
+                accessSharingOtherGroup,
+                shareAccessGroupMembersEmpty,
+                shareAccessGroupMembershipEmpty
+            )
     }
 
     private suspend fun dislaySplDevices(
@@ -168,13 +236,23 @@ class AccessSharingViewModel : ViewModel() {
                 finalMembersArray.add(rGroupName)
                 finalMembersArray.addAll(convertOwnerData)
             } else {
-                emptyGroupMembersForThisMPLorSPLDevice(finalMembersArray, accessSharingMyGroup, shareAccessGroupMembersEmpty)
+                emptyGroupMembersForThisMPLorSPLDevice(
+                    finalMembersArray,
+                    accessSharingMyGroup,
+                    shareAccessGroupMembersEmpty
+                )
             }
         } else {
-            emptyGroupMembersForThisMPLorSPLDevice(finalMembersArray, accessSharingMyGroup, shareAccessGroupMembersEmpty)
+            emptyGroupMembersForThisMPLorSPLDevice(
+                finalMembersArray,
+                accessSharingMyGroup,
+                shareAccessGroupMembersEmpty
+            )
         }
 
-        val dataGroupMemberShip = WSUser.getGroupMemberships()?: mutableListOf() // DataCache.getGroupMembershipById(true).toMutableList()
+
+        val dataGroupMemberShip = WSUser.getGroupMemberships()
+            ?: mutableListOf() // DataCache.getGroupMembershipById(true).toMutableList()
 
         if (dataGroupMemberShip.isNotEmpty()) {
 
@@ -182,7 +260,8 @@ class AccessSharingViewModel : ViewModel() {
             var addOnlyOneTimeHeader: Int = 0
 
             val rGroupInfo: RGroupDisplayMembersHeader = RGroupDisplayMembersHeader()
-            rGroupInfo.groupOwnerName = accessSharingOtherGroup // this.getString(R.string.access_sharing_other_group)
+            rGroupInfo.groupOwnerName =
+                accessSharingOtherGroup // this.getString(R.string.access_sharing_other_group)
 
             for (items in dataGroupMemberShip) {
 
@@ -199,12 +278,16 @@ class AccessSharingViewModel : ViewModel() {
 
                     finalMembersArray.add(nameOfAdminGroup)
                 } else if (items.master_mac == SettingsHelper.userLastSelectedLocker.macRealToClean()) {
-                    val groupDataList: Collection<RGroupInfo> = WSUser.getGroupMembershipsById(items.groupId.toLong()) ?: mutableListOf() // DataCache.groupMemberships(items.groupId.toLong())
+                    val groupDataList: Collection<RGroupInfo> =
+                        WSUser.getGroupMembershipsById(items.groupId.toLong())
+                            ?: mutableListOf() // DataCache.groupMemberships(items.groupId.toLong())
 
                     if (groupDataList.size > 0) {
 
-                        val groupMembersData: MutableList<RGroupDisplayMembersChild> = mutableListOf()
-                        val nameOfAdminGroup: RGroupDisplayMembersAdmin = RGroupDisplayMembersAdmin()
+                        val groupMembersData: MutableList<RGroupDisplayMembersChild> =
+                            mutableListOf()
+                        val nameOfAdminGroup: RGroupDisplayMembersAdmin =
+                            RGroupDisplayMembersAdmin()
                         nameOfAdminGroup.groupOwnerName = items.groupName
                         nameOfAdminGroup.role = items.role
 
@@ -215,7 +298,8 @@ class AccessSharingViewModel : ViewModel() {
                                 firstMember.let {
                                     if (subItems.master_mac == SettingsHelper.userLastSelectedLocker.macRealToClean() && subItems.endUserId != firstMember.groupOwnerId) {
                                         oneAdminUserFound = true
-                                        val groupDataObject: RGroupDisplayMembersChild = RGroupDisplayMembersChild()
+                                        val groupDataObject: RGroupDisplayMembersChild =
+                                            RGroupDisplayMembersChild()
                                         groupDataObject.groupId = subItems.groupId
                                         groupDataObject.groupOwnerEmail = subItems.groupOwnerEmail
                                         groupDataObject.endUserName = subItems.endUserName
@@ -235,7 +319,8 @@ class AccessSharingViewModel : ViewModel() {
                             } else {
                                 if (subItems.master_mac == SettingsHelper.userLastSelectedLocker.macRealToClean() && UserUtil.user?.id != subItems.endUserId) {
                                     oneAdminUserFound = true
-                                    val groupDataObject: RGroupDisplayMembersChild = RGroupDisplayMembersChild()
+                                    val groupDataObject: RGroupDisplayMembersChild =
+                                        RGroupDisplayMembersChild()
                                     groupDataObject.groupId = subItems.groupId
                                     groupDataObject.groupOwnerEmail = subItems.groupOwnerEmail
                                     groupDataObject.endUserName = subItems.endUserName
@@ -264,22 +349,26 @@ class AccessSharingViewModel : ViewModel() {
                     }
                 }
             }
-            if (addOnlyOneTimeHeader == 0 ) {
+            if (addOnlyOneTimeHeader == 0) {
 
                 val nameOfAdminGroup = RGroupDisplayMembersAdmin()
                 nameOfAdminGroup.groupOwnerName = EMPTY_OWNER_GROUP_MEMBERS_OR_GROUP_MEMBERHSIP
                 nameOfAdminGroup.role = "USER"
 
                 val rEmptyGroupMembers: REmptyGroupMembers = REmptyGroupMembers()
-                rEmptyGroupMembers.emptyGroupMembers = shareAccessGroupMembershipEmpty // getString(R.string.share_access_group_membership_empty)
+                rEmptyGroupMembers.emptyGroupMembers =
+                    shareAccessGroupMembershipEmpty // getString(R.string.share_access_group_membership_empty)
 
                 finalMembersArray.add(rGroupInfo)
                 finalMembersArray.add(nameOfAdminGroup)
                 finalMembersArray.add(rEmptyGroupMembers)
             }
-        }
-        else {
-            emptyGroupMembershipForThisMPLorSPL_device(finalMembersArray, accessSharingOtherGroup, shareAccessGroupMembershipEmpty)
+        } else {
+            emptyGroupMembershipForThisMPLorSPL_device(
+                finalMembersArray,
+                accessSharingOtherGroup,
+                shareAccessGroupMembershipEmpty
+            )
         }
     }
 
@@ -291,7 +380,6 @@ class AccessSharingViewModel : ViewModel() {
         shareAccessGroupMembersEmpty: String,
         shareAccessGroupMembershipEmpty: String
     ) {
-
 
         var oneOwnerUserFound: Boolean = false
         // First I'm adding all data from owner list to finalMembersArray
@@ -321,11 +409,12 @@ class AccessSharingViewModel : ViewModel() {
             if (oneOwnerUserFound == true) {
 
                 val rGroupInfo: RGroupDisplayMembersHeader = RGroupDisplayMembersHeader()
-                rGroupInfo.groupOwnerName = accessSharingMyGroup //this.getString(R.string.access_sharing_my_group)
+                rGroupInfo.groupOwnerName =
+                    accessSharingMyGroup //this.getString(R.string.access_sharing_my_group)
 
                 val rGroupName: RGroupDisplayMembersAdmin = RGroupDisplayMembersAdmin()
                 rGroupName.groupOwnerName = UserUtil.userGroup?.name.toString()
-                rGroupName.groupId =  UserUtil.userGroup?.id ?: 0
+                rGroupName.groupId = UserUtil.userGroup?.id ?: 0
 
                 finalMembersArray.add(rGroupInfo)
                 finalMembersArray.add(rGroupName)
@@ -345,7 +434,9 @@ class AccessSharingViewModel : ViewModel() {
             )
         }
 
-        val dataGroupMemberShip =  WSUser.getGroupMemberships()?: mutableListOf() // DataCache.getGroupMembershipById(true).toMutableList()
+
+        val dataGroupMemberShip = WSUser.getGroupMemberships()
+            ?: mutableListOf() // DataCache.getGroupMembershipById(true).toMutableList()
 
         if (dataGroupMemberShip.isNotEmpty()) {
 
@@ -353,7 +444,8 @@ class AccessSharingViewModel : ViewModel() {
             var addOnlyOneTimeHeader: Int = 0
 
             val rGroupInfo: RGroupDisplayMembersHeader = RGroupDisplayMembersHeader()
-            rGroupInfo.groupOwnerName = accessSharingOtherGroup // this.getString(R.string.access_sharing_other_group)
+            rGroupInfo.groupOwnerName =
+                accessSharingOtherGroup // this.getString(R.string.access_sharing_other_group)
 
             for (items in dataGroupMemberShip) {
 
@@ -370,11 +462,13 @@ class AccessSharingViewModel : ViewModel() {
                     nameOfAdminGroup.groupId = items.groupId
 
                     finalMembersArray.add(nameOfAdminGroup)
-                }
-                else if( items.master_mac == SettingsHelper.userLastSelectedLocker.macRealToClean() ) {
-                    val groupDataList: Collection<RGroupInfo> = WSUser.getGroupMembershipsById(items.groupId.toLong()) ?: mutableListOf() // DataCache.groupMemberships(items.groupId.toLong())
+                } else if (items.master_mac == SettingsHelper.userLastSelectedLocker.macRealToClean()) {
+                    val groupDataList: Collection<RGroupInfo> =
+                        WSUser.getGroupMembershipsById(items.groupId.toLong())
+                            ?: mutableListOf() // DataCache.groupMemberships(items.groupId.toLong())
                     if (groupDataList.size > 0) {
-                        val groupMembersData: MutableList<RGroupDisplayMembersChild> = mutableListOf()
+                        val groupMembersData: MutableList<RGroupDisplayMembersChild> =
+                            mutableListOf()
                         val nameOfAdminGroup = RGroupDisplayMembersAdmin()
                         nameOfAdminGroup.groupOwnerName = items.groupName
                         nameOfAdminGroup.role = items.role
@@ -385,9 +479,9 @@ class AccessSharingViewModel : ViewModel() {
                             if (ownerResult.isNotEmpty()) {
                                 val firstMember = ownerResult[0]
                                 firstMember.let {
-                                    if (subItems.master_mac == SettingsHelper.userLastSelectedLocker.macRealToClean() ) {
+                                    if (subItems.master_mac == SettingsHelper.userLastSelectedLocker.macRealToClean()) {
                                         oneAdminUserFound = true
-                                        if( subItems.endUserId != firstMember.groupOwnerId ) {
+                                        if (subItems.endUserId != firstMember.groupOwnerId) {
                                             val groupDataObject: RGroupDisplayMembersChild =
                                                 RGroupDisplayMembersChild()
                                             groupDataObject.groupId = subItems.groupId
@@ -403,9 +497,9 @@ class AccessSharingViewModel : ViewModel() {
                                     }
                                 }
                             } else {
-                                if (subItems.master_mac == SettingsHelper.userLastSelectedLocker.macRealToClean() ) {
+                                if (subItems.master_mac == SettingsHelper.userLastSelectedLocker.macRealToClean()) {
                                     oneAdminUserFound = true
-                                    if( subItems.endUserId != UserUtil.user?.id ) {
+                                    if (subItems.endUserId != UserUtil.user?.id) {
                                         val groupDataObject: RGroupDisplayMembersChild =
                                             RGroupDisplayMembersChild()
                                         groupDataObject.groupId = subItems.groupId
@@ -439,21 +533,21 @@ class AccessSharingViewModel : ViewModel() {
                 }
             }
 
-            if (addOnlyOneTimeHeader == 0 ) {
+            if (addOnlyOneTimeHeader == 0) {
 
                 val nameOfAdminGroup = RGroupDisplayMembersAdmin()
                 nameOfAdminGroup.groupOwnerName = EMPTY_OWNER_GROUP_MEMBERS_OR_GROUP_MEMBERHSIP
                 nameOfAdminGroup.role = "USER"
 
                 val rEmptyGroupMembers: REmptyGroupMembers = REmptyGroupMembers()
-                rEmptyGroupMembers.emptyGroupMembers = shareAccessGroupMembershipEmpty // getString(R.string.share_access_group_membership_empty)
+                rEmptyGroupMembers.emptyGroupMembers =
+                    shareAccessGroupMembershipEmpty // getString(R.string.share_access_group_membership_empty)
 
                 finalMembersArray.add(rGroupInfo)
                 finalMembersArray.add(nameOfAdminGroup)
                 finalMembersArray.add(rEmptyGroupMembers)
             }
-        }
-        else {
+        } else {
             emptyGroupMembershipForThisMPLorSPL_device(
                 finalMembersArray,
                 accessSharingOtherGroup,
@@ -469,7 +563,8 @@ class AccessSharingViewModel : ViewModel() {
     ) {
 
         val rGroupInfo: RGroupDisplayMembersHeader = RGroupDisplayMembersHeader()
-        rGroupInfo.groupOwnerName = accessSharingMyGroup //this.getString(R.string.access_sharing_my_group)
+        rGroupInfo.groupOwnerName =
+            accessSharingMyGroup //this.getString(R.string.access_sharing_my_group)
 
         val rGroupName: RGroupDisplayMembersAdmin = RGroupDisplayMembersAdmin()
         rGroupName.groupOwnerName = UserUtil.userGroup?.name.toString()
@@ -477,7 +572,8 @@ class AccessSharingViewModel : ViewModel() {
         rGroupName.role = "USER"
 
         val rEmptyGroupMembers: REmptyGroupMembers = REmptyGroupMembers()
-        rEmptyGroupMembers.emptyGroupMembers = shareAccessGroupMembersEmpty //getString(R.string.share_access_group_members_empty)
+        rEmptyGroupMembers.emptyGroupMembers =
+            shareAccessGroupMembersEmpty //getString(R.string.share_access_group_members_empty)
 
         finalMembersArray.add(rGroupInfo)
         finalMembersArray.add(rGroupName)
@@ -491,191 +587,21 @@ class AccessSharingViewModel : ViewModel() {
     ) {
 
         val rGroupInfo: RGroupDisplayMembersHeader = RGroupDisplayMembersHeader()
-        rGroupInfo.groupOwnerName = accessSharingOtherGroup //this.getString(R.string.access_sharing_other_group)
+        rGroupInfo.groupOwnerName =
+            accessSharingOtherGroup //this.getString(R.string.access_sharing_other_group)
 
         val nameOfAdminGroup = RGroupDisplayMembersAdmin()
         nameOfAdminGroup.groupOwnerName = EMPTY_OWNER_GROUP_MEMBERS_OR_GROUP_MEMBERHSIP
         nameOfAdminGroup.role = "USER"
 
         val rEmptyGroupMembers: REmptyGroupMembers = REmptyGroupMembers()
-        rEmptyGroupMembers.emptyGroupMembers = shareAccessGroupMembershipEmpty // getString(R.string.share_access_group_membership_empty)
+        rEmptyGroupMembers.emptyGroupMembers =
+            shareAccessGroupMembershipEmpty // getString(R.string.share_access_group_membership_empty)
 
         finalMembersArray.add(rGroupInfo)
         finalMembersArray.add(nameOfAdminGroup)
         finalMembersArray.add(rEmptyGroupMembers)
     }
-
-
-
-
-
-
-//    private suspend fun displaySplDevices(
-//        ownerResult: MutableList<REndUserGroupMember>,
-//        finalMembersArray: MutableList<ItemRGroupInfo>,
-//        accessSharingMyGroup: String,
-//        accessSharingOtherGroup: String,
-//        shareAccessGroupMembersEmpty: String,
-//        shareAccessGroupMembershipEmpty: String
-//    ) {
-//        // Similar implementation to displayMplDevices with SPL-specific logic
-//        displayMplDevices(
-//            ownerResult,
-//            finalMembersArray,
-//            accessSharingMyGroup,
-//            accessSharingOtherGroup,
-//            shareAccessGroupMembersEmpty,
-//            shareAccessGroupMembershipEmpty
-//        )
-//    }
-//
-//    private suspend fun displayMplDevices(
-//        ownerResult: MutableList<REndUserGroupMember>,
-//        finalMembersArray: MutableList<ItemRGroupInfo>,
-//        accessSharingMyGroup: String,
-//        accessSharingOtherGroup: String,
-//        shareAccessGroupMembersEmpty: String,
-//        shareAccessGroupMembershipEmpty: String
-//    ) {
-//        var oneOwnerUserFound = false
-//
-//        if (ownerResult.isNotEmpty()) {
-//            val convertOwnerData = mutableListOf<RGroupDisplayMembersChild>()
-//
-//            for (items in ownerResult) {
-//                if (items.master_mac == SettingsHelper.userLastSelectedLocker.macRealToClean() &&
-//                    items.endUserId != UserUtil.user?.id
-//                ) {
-//                    oneOwnerUserFound = true
-//
-//                    val ownerDataObject = RGroupDisplayMembersChild().apply {
-//                        groupId = items.groupId
-//                        endUserEmail = items.email
-//                        endUserName = items.name
-//                        role = items.role
-//                        endUserId = items.endUserId
-//                        master_id = items.master_id
-//                    }
-//                    convertOwnerData.add(ownerDataObject)
-//                }
-//            }
-//
-//            if (oneOwnerUserFound) {
-//                val rGroupInfo = RGroupDisplayMembersHeader().apply {
-//                    groupOwnerName = accessSharingMyGroup// stringResource(R.string.access_sharing_my_group)
-//                }
-//
-//                val rGroupName = RGroupDisplayMembersAdmin().apply {
-//                    groupOwnerName = UserUtil.userGroup?.name.toString()
-//                    groupId = UserUtil.userGroup?.id ?: 0
-//                }
-//
-//                finalMembersArray.add(rGroupInfo)
-//                finalMembersArray.add(rGroupName)
-//                finalMembersArray.addAll(convertOwnerData)
-//            } else {
-//                emptyGroupMembersForThisMPLorSPLDevice(finalMembersArray, accessSharingMyGroup, shareAccessGroupMembersEmpty)
-//            }
-//        } else {
-//            emptyGroupMembersForThisMPLorSPLDevice(finalMembersArray, accessSharingMyGroup, shareAccessGroupMembersEmpty)
-//        }
-//
-//        val dataGroupMemberShip = WSUser.getGroupMemberships()?: mutableListOf() // DataCache.getGroupMembershipById(true).toMutableList()
-//
-//        if (dataGroupMemberShip.isNotEmpty()) {
-//            var addOnlyOneTimeHeader = 0
-//            val rGroupInfo = RGroupDisplayMembersHeader().apply {
-//                groupOwnerName = accessSharingOtherGroup // stringResource(R.string.access_sharing_other_group)
-//            }
-//
-//            for (items in dataGroupMemberShip) {
-//                if (items.role == "USER" && items.master_mac == SettingsHelper.userLastSelectedLocker.macRealToClean()) {
-//                    if (addOnlyOneTimeHeader == 0) {
-//                        finalMembersArray.add(rGroupInfo)
-//                        addOnlyOneTimeHeader = 1
-//                    }
-//
-//                    val nameOfAdminGroup = RGroupDisplayMembersAdmin().apply {
-//                        groupOwnerName = items.groupName
-//                        role = items.role
-//                        groupId = items.groupId
-//                    }
-//                    finalMembersArray.add(nameOfAdminGroup)
-//                } else if (items.master_mac == SettingsHelper.userLastSelectedLocker.macRealToClean()) {
-//                    processGroupMembership(
-//                        items, ownerResult, finalMembersArray,
-//                        rGroupInfo, addOnlyOneTimeHeader
-//                    )
-//                }
-//            }
-//
-//            if (addOnlyOneTimeHeader == 0) {
-//                emptyGroupMembershipForThisMPLorSPL_device(finalMembersArray, rGroupInfo, accessSharingOtherGroup, shareAccessGroupMembershipEmpty)
-//            }
-//        } else {
-//            emptyGroupMembershipForThisMPLorSPL_device(finalMembersArray, null, accessSharingOtherGroup, shareAccessGroupMembershipEmpty)
-//        }
-//    }
-//
-//    private fun emptyGroupMembersForThisMPLorSPLDevice(
-//        finalMembersArray: MutableList<ItemRGroupInfo>,
-//        accessSharingMyGroup: String,
-//        shareAccessGroupMembersEmpty: String
-//    ) {
-//        val rGroupInfo = RGroupDisplayMembersHeader().apply {
-//            groupOwnerName = accessSharingMyGroup // getString(R.string.access_sharing_my_group)
-//        }
-//
-//        val rGroupName = RGroupDisplayMembersAdmin().apply {
-//            groupOwnerName = UserUtil.userGroup?.name.toString()
-//            groupId = UserUtil.userGroup?.id ?: -1
-//            role = "USER"
-//        }
-//
-//        val rEmptyGroupMembers = REmptyGroupMembers().apply {
-//            emptyGroupMembers = shareAccessGroupMembersEmpty //getString(R.string.share_access_group_members_empty)
-//        }
-//
-//        finalMembersArray.add(rGroupInfo)
-//        finalMembersArray.add(rGroupName)
-//        finalMembersArray.add(rEmptyGroupMembers)
-//    }
-//
-//    private fun emptyGroupMembershipForThisMPLorSPL_device(
-//        finalMembersArray: MutableList<ItemRGroupInfo>,
-//        rGroupInfo: RGroupDisplayMembersHeader?,
-//        accessSharingOtherGroup: String,
-//        shareAccessGroupMembershipEmpty: String
-//    ) {
-//        val groupInfo = rGroupInfo ?: RGroupDisplayMembersHeader().apply {
-//            groupOwnerName = accessSharingOtherGroup // getString(R.string.access_sharing_other_group)
-//        }
-//
-//        val nameOfAdminGroup = RGroupDisplayMembersAdmin().apply {
-//            groupOwnerName = EMPTY_OWNER_GROUP_MEMBERS_OR_GROUP_MEMBERHSIP
-//            role = "USER"
-//        }
-//
-//        val rEmptyGroupMembers = REmptyGroupMembers().apply {
-//            emptyGroupMembers = shareAccessGroupMembershipEmpty //getString(R.string.share_access_group_membership_empty)
-//        }
-//
-//        finalMembersArray.add(groupInfo)
-//        finalMembersArray.add(nameOfAdminGroup)
-//        finalMembersArray.add(rEmptyGroupMembers)
-//    }
-//
-//    private fun processGroupMembership(
-//        items: RGroupInfo,
-//        ownerResult: MutableList<REndUserGroupMember>,
-//        finalMembersArray: MutableList<ItemRGroupInfo>,
-//        rGroupInfo: RGroupDisplayMembersHeader,
-//        addOnlyOneTimeHeader: Int
-//    ) {
-//        // Process group membership logic
-//    }
-
-
 
 
 }

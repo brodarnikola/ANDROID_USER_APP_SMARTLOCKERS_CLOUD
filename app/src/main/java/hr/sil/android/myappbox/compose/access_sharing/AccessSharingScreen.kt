@@ -1,11 +1,13 @@
 package hr.sil.android.myappbox.compose.access_sharing
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.lifecycle.viewmodel.compose.viewModel
 import hr.sil.android.myappbox.R
+import hr.sil.android.myappbox.compose.dialog.DeleteAccessShareUserDialog
 import hr.sil.android.myappbox.compose.main_activity.MainDestinations
 import hr.sil.android.myappbox.core.remote.model.ItemRGroupInfo
 import hr.sil.android.myappbox.core.remote.model.REmptyGroupMembers
@@ -49,6 +52,33 @@ fun AccessSharingScreen(
     val accessSharingOtherGroup = stringResource(R.string.access_sharing_other_group)
     val shareAccessGroupMembersEmpty = stringResource(R.string.share_access_group_members_empty)
     val shareAccessGroupMembershipEmpty = stringResource(R.string.share_access_group_membership_empty)
+
+    val groupId = rememberSaveable { mutableStateOf(-1) }
+    val endUserId = rememberSaveable { mutableStateOf(-1) }
+    val masterId = rememberSaveable { mutableStateOf(-1) }
+    val displayRemoveUserDialog = rememberSaveable { mutableStateOf(false) }
+    if( displayRemoveUserDialog.value ) {
+        val errorMessage = stringResource(R.string.toast_access_sharing_remove_error)
+        DeleteAccessShareUserDialog(
+            onDismiss = { displayRemoveUserDialog.value = false },
+            onConfirm = {
+                //displayRemoveUserDialog.value = false
+                viewModel.deleteAccessSharing(
+                    groupId.value,
+                    endUserId.value,
+                    masterId.value,
+                    onSuccess = {
+                        displayRemoveUserDialog.value = false
+                    },
+                    onError = {
+                        Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+                    }
+                )
+                //onRemoveUser()
+            },
+            onCancel = { displayRemoveUserDialog.value = false }
+        )
+    }
 
     LaunchedEffect(Unit) {
         viewModel.loadData(accessSharingMyGroup, accessSharingOtherGroup, shareAccessGroupMembersEmpty, shareAccessGroupMembershipEmpty)
@@ -109,6 +139,10 @@ fun AccessSharingScreen(
                                 child = item,
                                 index = index,
                                 onRemoveClick = {
+                                    groupId.value = item.groupId
+                                    endUserId.value = item.endUserId
+                                    masterId.value = item.master_id
+                                    displayRemoveUserDialog.value = true
                                     //onRemoveUser(item)
                                 }
                             )
@@ -141,7 +175,7 @@ fun AccessSharingHeaderItem(header: RGroupDisplayMembersHeader) {
             .padding(horizontal = 15.dp, vertical = 10.dp)
     ) {
         Text(
-            text = header.groupOwnerName ?: "",
+            text = header.groupOwnerName ,
             modifier = Modifier.fillMaxWidth(),
             fontSize = MaterialTheme.typography.titleMedium.fontSize,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -173,7 +207,7 @@ fun AccessSharingSubHeaderItem(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = admin.groupOwnerName ?: "",
+                text = admin.groupOwnerName,
                 modifier = Modifier.weight(8f),
                 fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                 color = colorResource(R.color.colorWhite),
@@ -241,7 +275,7 @@ fun AccessSharingChildItem(
                 modifier = Modifier.weight(8f)
             ) {
                 Text(
-                    text = child.endUserName ?: "",
+                    text = child.endUserName ,
                     fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontWeight = FontWeight.Normal,
@@ -250,7 +284,7 @@ fun AccessSharingChildItem(
                 )
 
                 Text(
-                    text = child.endUserEmail ?: "",
+                    text = child.endUserEmail ,
                     fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontWeight = FontWeight.Normal,
@@ -261,7 +295,7 @@ fun AccessSharingChildItem(
 
             if (child.role == "ADMIN") {
                 Icon(
-                    painter = painterResource(R.drawable.ic_admin_white),
+                    painter = painterResource(R.drawable.ic_admin),
                     contentDescription = "Admin",
                     modifier = Modifier
                         .weight(1f)
@@ -295,353 +329,10 @@ fun AccessSharingEmptyItem(empty: REmptyGroupMembers) {
             .padding(horizontal = 15.dp, vertical = 5.dp)
     ) {
         Text(
-            text = empty.emptyGroupMembers ?: "",
+            text = empty.emptyGroupMembers ,
             fontSize = MaterialTheme.typography.bodyMedium.fontSize,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontWeight = FontWeight.Normal
         )
     }
 }
-
-//class AccessSharingActivity : ComponentActivity() {
-//
-//    val log = logger()
-//
-//    private var groupItems by mutableStateOf<List<ItemRGroupInfo>>(emptyList())
-//    private var isLoading by mutableStateOf(true)
-//    private var showDeleteDialog by mutableStateOf(false)
-//    private var userToDelete by mutableStateOf<RGroupDisplayMembersChild?>(null)
-//
-//    private val macAddress by lazy { intent.getStringExtra("rMacAddress") ?: "" }
-//    private val macRealToClean by lazy {
-//        intent.getStringExtra("rMacAddress")?.macRealToClean() ?: ""
-//    }
-//    private val nameOfDevice by lazy { intent.getStringExtra("nameOfDevice") ?: "" }
-//
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//
-//        setContent {
-//            MaterialTheme {
-//                Box {
-//                    AccessSharingScreen(
-//                        groupItems = groupItems,
-//                        macAddress = macAddress,
-//                        nameOfDevice = nameOfDevice,
-//                        isLoading = isLoading,
-//                        onAddUser = { admin ->
-//                            handleAddUser(admin)
-//                        },
-//                        onRemoveUser = { child ->
-//                            userToDelete = child
-//                            showDeleteDialog = true
-//                        }
-//                    )
-//
-//                    if (showDeleteDialog && userToDelete != null) {
-//                        DeleteAccessSharingUserDialog(
-//                            user = userToDelete!!,
-//                            onConfirm = {
-//                                lifecycleScope.launch {
-//                                    deleteAccessSharing(userToDelete!!)
-//                                }
-//                                showDeleteDialog = false
-//                            },
-//                            onDismiss = {
-//                                showDeleteDialog = false
-//                                userToDelete = null
-//                            }
-//                        )
-//                    }
-//                }
-//            }
-//        }
-//
-//        loadData()
-//    }
-//
-//    private fun loadData() {
-//        lifecycleScope.launch {
-//            isLoading = true
-//
-//            val userDevice = MPLDeviceStore.uniqueDevices.values
-//                .firstOrNull { it.macAddress == macAddress }
-//
-//            val ownerGroupData = DataCache.getGroupMembers(true).toMutableList()
-//            val finalMembersArray = mutableListOf<ItemRGroupInfo>()
-//
-//            if (userDevice != null) {
-//                if (userDevice.masterUnitType == RMasterUnitType.MPL) {
-//                    displayMplDevices(ownerGroupData, finalMembersArray)
-//                } else {
-//                    displaySplDevices(ownerGroupData, finalMembersArray)
-//                }
-//            }
-//
-//            withContext(Dispatchers.Main) {
-//                groupItems = finalMembersArray
-//                isLoading = false
-//            }
-//        }
-//    }
-
-//    private suspend fun displayMplDevices(
-//        ownerResult: MutableList<REndUserGroupMember>,
-//        finalMembersArray: MutableList<ItemRGroupInfo>
-//    ) {
-//        var oneOwnerUserFound = false
-//
-//        if (ownerResult.isNotEmpty()) {
-//            val convertOwnerData = mutableListOf<RGroupDisplayMembersChild>()
-//
-//            for (items in ownerResult) {
-//                if (items.master_mac == macRealToClean &&
-//                    items.endUserId != UserUtil.user?.id) {
-//                    oneOwnerUserFound = true
-//
-//                    val ownerDataObject = RGroupDisplayMembersChild().apply {
-//                        groupId = items.groupId
-//                        endUserEmail = items.email
-//                        endUserName = items.name
-//                        role = items.role
-//                        endUserId = items.endUserId
-//                        master_id = items.master_id
-//                    }
-//                    convertOwnerData.add(ownerDataObject)
-//                }
-//            }
-//
-//            if (oneOwnerUserFound) {
-//                val rGroupInfo = RGroupDisplayMembersHeader().apply {
-//                    groupOwnerName = stringResource(R.string.access_sharing_my_group)
-//                }
-//
-//                val rGroupName = RGroupDisplayMembersAdmin().apply {
-//                    groupOwnerName = UserUtil.userGroup?.name.toString()
-//                    groupId = UserUtil.userGroup?.id ?: 0
-//                }
-//
-//                finalMembersArray.add(rGroupInfo)
-//                finalMembersArray.add(rGroupName)
-//                finalMembersArray.addAll(convertOwnerData)
-//            } else {
-//                emptyGroupMembersForThisMPLorSPLDevice(finalMembersArray)
-//            }
-//        } else {
-//            emptyGroupMembersForThisMPLorSPLDevice(finalMembersArray)
-//        }
-//
-//        val dataGroupMemberShip = DataCache.getGroupMembershipById(true).toMutableList()
-//
-//        if (dataGroupMemberShip.isNotEmpty()) {
-//            var addOnlyOneTimeHeader = 0
-//            val rGroupInfo = RGroupDisplayMembersHeader().apply {
-//                groupOwnerName = stringResource(R.string.access_sharing_other_group)
-//            }
-//
-//            for (items in dataGroupMemberShip) {
-//                if (items.role == "USER" && items.master_mac == macRealToClean) {
-//                    if (addOnlyOneTimeHeader == 0) {
-//                        finalMembersArray.add(rGroupInfo)
-//                        addOnlyOneTimeHeader = 1
-//                    }
-//
-//                    val nameOfAdminGroup = RGroupDisplayMembersAdmin().apply {
-//                        groupOwnerName = items.groupName
-//                        role = items.role
-//                        groupId = items.groupId
-//                    }
-//                    finalMembersArray.add(nameOfAdminGroup)
-//                } else if (items.master_mac == macRealToClean) {
-//                    processGroupMembership(items, ownerResult, finalMembersArray,
-//                        rGroupInfo, addOnlyOneTimeHeader)
-//                }
-//            }
-//
-//            if (addOnlyOneTimeHeader == 0) {
-//                emptyGroupMembershipForThisMPLorSPL_device(finalMembersArray, rGroupInfo)
-//            }
-//        } else {
-//            emptyGroupMembershipForThisMPLorSPL_device(finalMembersArray, null)
-//        }
-//    }
-//
-//    private suspend fun displaySplDevices(
-//        ownerResult: MutableList<REndUserGroupMember>,
-//        finalMembersArray: MutableList<ItemRGroupInfo>
-//    ) {
-//        // Similar implementation to displayMplDevices with SPL-specific logic
-//        displayMplDevices(ownerResult, finalMembersArray)
-//    }
-//
-//    private fun processGroupMembership(
-//        items: RGroupInfo,
-//        ownerResult: MutableList<REndUserGroupMember>,
-//        finalMembersArray: MutableList<ItemRGroupInfo>,
-//        rGroupInfo: RGroupDisplayMembersHeader,
-//        addOnlyOneTimeHeader: Int
-//    ) {
-//        // Process group membership logic
-//    }
-//
-//    private fun emptyGroupMembersForThisMPLorSPLDevice(
-//        finalMembersArray: MutableList<ItemRGroupInfo>
-//    ) {
-//        val rGroupInfo = RGroupDisplayMembersHeader().apply {
-//            groupOwnerName = getString(R.string.access_sharing_my_group)
-//        }
-//
-//        val rGroupName = RGroupDisplayMembersAdmin().apply {
-//            groupOwnerName = UserUtil.userGroup?.name.toString()
-//            role = "USER"
-//        }
-//
-//        val rEmptyGroupMembers = REmptyGroupMembers().apply {
-//            emptyGroupMembers = getString(R.string.share_access_group_members_empty)
-//        }
-//
-//        finalMembersArray.add(rGroupInfo)
-//        finalMembersArray.add(rGroupName)
-//        finalMembersArray.add(rEmptyGroupMembers)
-//    }
-//
-//    private fun emptyGroupMembershipForThisMPLorSPL_device(
-//        finalMembersArray: MutableList<ItemRGroupInfo>,
-//        rGroupInfo: RGroupDisplayMembersHeader?
-//    ) {
-//        val groupInfo = rGroupInfo ?: RGroupDisplayMembersHeader().apply {
-//            groupOwnerName = getString(R.string.access_sharing_other_group)
-//        }
-//
-//        val nameOfAdminGroup = RGroupDisplayMembersAdmin().apply {
-//            groupOwnerName = ""
-//            role = "USER"
-//        }
-//
-//        val rEmptyGroupMembers = REmptyGroupMembers().apply {
-//            emptyGroupMembers = getString(R.string.share_access_group_membership_empty)
-//        }
-//
-//        finalMembersArray.add(groupInfo)
-//        finalMembersArray.add(nameOfAdminGroup)
-//        finalMembersArray.add(rEmptyGroupMembers)
-//    }
-//
-//    private fun handleAddUser(admin: RGroupDisplayMembersAdmin) {
-//        val intent = Intent().apply {
-//            putExtra("rMacAddress", macAddress)
-//            putExtra("nameOfDevice", nameOfDevice)
-//            putExtra("nameOfGroup", admin.groupOwnerName)
-//            putExtra("groupId", admin.groupId)
-//            component = ComponentName(
-//                packageName,
-//                "$packageName.aliasAccessSharingAddUser"
-//            )
-//        }
-//        startActivity(intent)
-//        finish()
-//    }
-
-    private suspend fun deleteAccessSharing(removeAccess: RGroupDisplayMembersChild) {
-//        val userAccess = RUserRemoveAccess().apply {
-//            groupId = removeAccess.groupId
-//            endUserId = removeAccess.endUserId
-//            masterId = removeAccess.master_id
-//        }
-//
-//        if (WSUser.removeUserAccess(userAccess)) {
-//            log.info("Successfully removed user ${removeAccess.groupOwnerName} from group")
-//
-//            deleteItem(removeAccess)
-//
-//            withContext(Dispatchers.Main) {
-//                loadData()
-//                Toast.makeText(
-//                    this@AccessSharingActivity,
-//                    getString(R.string.toast_access_sharing_remove_success,
-//                        removeAccess.groupOwnerName),
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            }
-//        } else {
-//            withContext(Dispatchers.Main) {
-//                Toast.makeText(
-//                    this@AccessSharingActivity,
-//                    getString(R.string.toast_access_sharing_remove_error),
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            }
-//        }
-    }
-
-//    private suspend fun deleteItem(item: RGroupDisplayMembersChild) {
-//        var deletedInOwnerList = false
-//
-//        for (ownerItems in DataCache.getGroupMembers()) {
-//            if (ownerItems.endUserId == item.endUserId &&
-//                ownerItems.groupId == item.groupId &&
-//                ownerItems.master_id == item.master_id) {
-//                deletedInOwnerList = true
-//                DataCache.deleteOwnerGroupElement(ownerItems.id)
-//                break
-//            }
-//        }
-//
-//        if (!deletedInOwnerList) {
-//            val groupMemberShipId = DataCache.getGroupMembershipById().toMutableList()
-//
-//            for (items in groupMemberShipId) {
-//                val groupDataList = DataCache.groupMemberships(items.groupId.toLong())
-//                    .toMutableList()
-//
-//                for (subItems in groupDataList) {
-//                    if (subItems.endUserId == item.endUserId &&
-//                        subItems.groupId == item.groupId &&
-//                        subItems.master_id == item.master_id) {
-//                        DataCache.groupMemberships(items.groupId.toLong(), true)
-//                        break
-//                    }
-//                }
-//            }
-//        }
-//    }
-//
-//@Composable
-//fun DeleteAccessSharingUserDialog(
-//    user: RGroupDisplayMembersChild,
-//    onConfirm: () -> Unit,
-//    onDismiss: () -> Unit
-//) {
-//    AlertDialog(
-//        onDismissRequest = onDismiss,
-//        title = {
-//            Text(
-//                text = stringResource(R.string.delete_access_sharing_title),
-//                fontWeight = FontWeight.Bold
-//            )
-//        },
-//        text = {
-//            Text(
-//                text = stringResource(
-//                    R.string.delete_access_sharing_message,
-//                    user.endUserName ?: ""
-//                )
-//            )
-//        },
-//        confirmButton = {
-//            Button(
-//                onClick = onConfirm,
-//                colors = ButtonDefaults.buttonColors(
-//                    containerColor = MaterialTheme.colorScheme.error
-//                )
-//            ) {
-//                Text(stringResource(R.string.app_generic_confirm))
-//            }
-//        },
-//        dismissButton = {
-//            TextButton(onClick = onDismiss) {
-//                Text(stringResource(R.string.app_generic_cancel))
-//            }
-//        }
-//    )
-//}
