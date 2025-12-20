@@ -319,7 +319,7 @@ fun NavHomeScreen(
                                     displayNoAccessDialog.value = true
                                 }
                                 deliveryKeysCount > 0 -> {
-                                    //nextScreen(MainDestinations.PICKUP_PARCEL)
+                                    nextScreen(MainDestinations.PARCEL_PICKUP)
                                 }
                                 else -> {
                                     noAccessMessage.value = noDeliveriesToPickup

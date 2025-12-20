@@ -27,6 +27,7 @@ import hr.sil.android.myappbox.R
 import hr.sil.android.myappbox.compose.access_sharing.AccessSharingAddUserScreen
 import hr.sil.android.myappbox.compose.access_sharing.AccessSharingScreen
 import hr.sil.android.myappbox.compose.collect_parcel.ListOfDeliveriesScreen
+import hr.sil.android.myappbox.compose.collect_parcel.PickupParcelScreen
 import hr.sil.android.myappbox.compose.collect_parcel.ShareAccessKeyScreen
 import hr.sil.android.myappbox.compose.google_maps.GoogleMapsLockerLocationsScreen
 import hr.sil.android.myappbox.compose.home_screen.NavHomeScreen
@@ -147,6 +148,17 @@ fun NavGraphBuilder.mainNavGraph(
 //                    goToDeviceDetails(MainDestinations.DEVICE_DETAILS, deviceId, nameOfDevice)
 //                }
 //            }
+        )
+    }
+
+    composable(MainDestinations.PARCEL_PICKUP) {
+        PickupParcelScreen(
+            viewModel = viewModel(),
+            navigateUp = {
+                navController.currentBackStackEntry?.let {
+                    navController.navigateUp()
+                }
+            }
         )
     }
 

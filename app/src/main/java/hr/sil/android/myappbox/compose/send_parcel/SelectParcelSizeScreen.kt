@@ -87,7 +87,7 @@ fun SelectParcelContentScreen(
     onLockerSelected: (RLockerSize) -> Unit,
     onSizeClick: (String) -> Unit,
     //lockerSizes: List<LockerSize>,
-) { 
+) {
 
     Box(modifier = Modifier.fillMaxSize()) {
 

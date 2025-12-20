@@ -23,7 +23,7 @@ import org.greenrobot.eventbus.ThreadMode
 import java.util.*
 import java.util.concurrent.atomic.AtomicBoolean
 
-class PickupParcelActivity //  :  BaseActivity(R.id.no_ble_layout, R.id.no_internet_layout, R.id.no_location_gps_layout)
+class PickupParcelActivity
 {
 
 //    val log = logger()
