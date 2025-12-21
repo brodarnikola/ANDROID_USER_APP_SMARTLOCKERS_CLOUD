@@ -128,12 +128,33 @@ data class PickupParcelState(
 sealed class PickupParcelScreenEvent {
     data class OnInit(val macAddress: String, val context: Context) : PickupParcelScreenEvent()
     data class OnOpenClick(val context: Context, val activity: Activity) : PickupParcelScreenEvent()
-    data class OnForceOpenClick(val context: Context, val activity: Activity) : PickupParcelScreenEvent()
+    data class OnForceOpenClick(val context: Context, val activity: Activity) :
+        PickupParcelScreenEvent()
+
     data class OnFinishClick(val activity: Activity) : PickupParcelScreenEvent()
-    data class OnConfirmPickAtFriendKeyClick(val email: String, val pickAtFriendKeyId: Int) : PickupParcelScreenEvent()
-    data class OnDeleteKeyClick(val position: Int, val keyId: Int) : PickupParcelScreenEvent()
-    data class OnQrCodeClick(val macAddress: String, val context: Context, val activity: Activity) : PickupParcelScreenEvent()
-    data class OnCleaningCheckboxClick(val lockerMacAddress: String, val context: Context, val activity: Activity) : PickupParcelScreenEvent()
+    data class OnConfirmPickAtFriendKeyClick(
+        val email: String,
+        val pickAtFriendKeyId: Int,
+        val onSuccess: () -> Unit,
+        val onInvitationCode: () -> Unit,
+        val onError: () -> Unit
+    ) : PickupParcelScreenEvent()
+
+    data class OnDeleteKeyClick(
+        val position: Int,
+        val keyId: Int,
+        val onSuccess: () -> Unit,
+        val onError: () -> Unit
+    ) : PickupParcelScreenEvent()
+
+    data class OnQrCodeClick(val macAddress: String, val context: Context, val activity: Activity) :
+        PickupParcelScreenEvent()
+
+    data class OnCleaningCheckboxClick(
+        val lockerMacAddress: String,
+        val context: Context,
+        val activity: Activity
+    ) : PickupParcelScreenEvent()
 }
 
 sealed class PickupParcelScreenUiEvent {
@@ -141,7 +162,7 @@ sealed class PickupParcelScreenUiEvent {
     object NavigateToFinish : PickupParcelScreenUiEvent()
 }
 
-class PickupParcelViewModel () : ViewModel() {
+class PickupParcelViewModel() : ViewModel() {
 
     val log = logger()
 
@@ -184,9 +205,11 @@ class PickupParcelViewModel () : ViewModel() {
             is PickupParcelScreenEvent.OnFinishClick -> {
                 viewModelScope.launch {
 
-                    MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]?.activeKeys?.toMutableList()?.removeAll { key -> key.lockerMasterMac.macCleanToReal() == SettingsHelper.userLastSelectedLocker }
+                    MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]?.activeKeys?.toMutableList()
+                        ?.removeAll { key -> key.lockerMasterMac.macCleanToReal() == SettingsHelper.userLastSelectedLocker }
 
-                    _state.value.keys.toMutableList().removeAll { key -> key.lockerMasterMac.macCleanToReal() == SettingsHelper.userLastSelectedLocker }
+                    _state.value.keys.toMutableList()
+                        .removeAll { key -> key.lockerMasterMac.macCleanToReal() == SettingsHelper.userLastSelectedLocker }
                     _state.update { it.copy(keys = listOf()) }
 
                     _uiEventsPickupParcel.send(PickupParcelScreenUiEvent.NavigateToFinish)
@@ -194,56 +217,85 @@ class PickupParcelViewModel () : ViewModel() {
             }
 
             is PickupParcelScreenEvent.OnDeleteKeyClick -> {
-                deletePickAtFriendKey(event.position, event.keyId)
+                deletePickAtFriendKey(event.position, event.keyId, event.onSuccess, event.onError)
             }
 
             is PickupParcelScreenEvent.OnConfirmPickAtFriendKeyClick -> {
-
-                ActionStatusHandler.log.info("onConfirm email 33: ${event.email}, ${event.pickAtFriendKeyId}")
-                viewModelScope.launch {
-
-                    val groups = WSUser.getGroupMembers() // DataCache.getGroupMembers()
-                    val groupMemberships = groups?.any { it.email == event.email } ?: false
-
-                    if (!groupMemberships) {
-                        //log.info("PaF share $email - $email")
-                        //log.info("P@h created $pickAtFriendKeyId mail: $email")
-                        val returnedData = WSUser.createPaF(event.pickAtFriendKeyId, event.email)
-                        log.info("Invitation key = ${returnedData?.invitationCode}")
-                        if (returnedData?.invitationCode.isNullOrEmpty()) {
-
-//                            pickupParcelActivity.setupAdapterForKeys()
-//                            withContext(Dispatchers.Main) {
-//                                val message = pickupParcelActivity.resources?.getString(R.string.app_generic_success).toString()
-//                                App.ref.toast(message)
-//                                dismiss()
-//                                //updateKeys()
-//                            }
-                        } else {
-//                            withContext(Dispatchers.Main) {
-//                                val shareAppDialog = ShareAppDialog(pickupParcelActivity, mailAddress)
-//                                shareAppDialog.show( pickupParcelActivity.supportFragmentManager, "" )
-//                                dismiss()
-//                            }
-                        }
-
-                    } else {
-//                        withContext(Dispatchers.Main) {
-//                            App.ref.toast(R.string.grant_access_error_exists)
-//                        }
-                    }
-                }
+                confirmPickAtFriendKey(
+                    event.email,
+                    event.pickAtFriendKeyId,
+                    event.onSuccess,
+                    event.onInvitationCode,
+                    event.onError
+                )
             }
 
             is PickupParcelScreenEvent.OnQrCodeClick -> {
                 viewModelScope.launch {
-                    _uiEventsPickupParcel.send(PickupParcelScreenUiEvent.NavigateToQrCode(SettingsHelper.userLastSelectedLocker))
-                   // _uiEvents.send(PickupParcelScreenUiEvent.NavigateToQrCode(SettingsHelper.userLastSelectedLocker))
+                    _uiEventsPickupParcel.send(
+                        PickupParcelScreenUiEvent.NavigateToQrCode(
+                            SettingsHelper.userLastSelectedLocker
+                        )
+                    )
+                    // _uiEvents.send(PickupParcelScreenUiEvent.NavigateToQrCode(SettingsHelper.userLastSelectedLocker))
                 }
             }
 
             is PickupParcelScreenEvent.OnCleaningCheckboxClick -> {
                 handleCleaningCheckbox(event.lockerMacAddress, event.context, event.activity)
+            }
+        }
+    }
+
+    private fun confirmPickAtFriendKey(
+        email: String,
+        pickAtFriendKeyId: Int,
+        onSuccess: () -> Unit,
+        onInvitationCode: () -> Unit,
+        onError: () -> Unit
+    ) {
+        ActionStatusHandler.log.info("onConfirm email 33: ${email}, ${pickAtFriendKeyId}")
+        viewModelScope.launch {
+
+            val groups = WSUser.getGroupMembers() // DataCache.getGroupMembers()
+            val groupMemberships = groups?.any { it.email == email } ?: false
+
+            if (!groupMemberships) {
+                //log.info("PaF share $email - $email")
+                //log.info("P@h created $pickAtFriendKeyId mail: $email")
+                val returnedData = WSUser.createPaF(pickAtFriendKeyId, email)
+                log.info("Invitation key = ${returnedData?.invitationCode}")
+                if (returnedData?.invitationCode.isNullOrEmpty()) {
+
+                    _uiEvents.send(
+                        UiEvent.ShowToast(
+                            App.ref.getString(
+                                R.string.app_generic_success
+                            )
+                        )
+                    )
+
+                    val keys = combineLockerKeys()
+                    _state.update { it.copy(keys = keys) }
+                    onSuccess()
+                } else {
+                    onInvitationCode()
+//                            withContext(Dispatchers.Main) {
+//                                val shareAppDialog = ShareAppDialog(pickupParcelActivity, mailAddress)
+//                                shareAppDialog.show( pickupParcelActivity.supportFragmentManager, "" )
+//                                dismiss()
+//                            }
+                }
+
+            } else {
+                _uiEvents.send(
+                    UiEvent.ShowToast(
+                        App.ref.getString(
+                            R.string.grant_access_error_exists
+                        )
+                    )
+                )
+                onError()
             }
         }
     }
@@ -256,25 +308,28 @@ class PickupParcelViewModel () : ViewModel() {
     }
 
     private suspend fun combineLockerKeys(): List<RCreatedLockerKey> {
-        val keysAssignedToUser = MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]?.activeKeys?.filter {
-            it.lockerMasterMac.macCleanToReal() == SettingsHelper.userLastSelectedLocker &&
-                    it.purpose != RLockerKeyPurpose.PAH &&
-                    isUserPartOfGroup(it.createdForGroup, it.createdForId)
-        }?.map { RCreatedLockerKey().apply {
-            this.id = it.id
-            this.createdById = it.createdById
-            this.lockerMac = it.lockerMac
-            this.lockerId = it.lockerId
-            this.lockerMasterId = it.lockerMasterId
-            this.lockerMasterMac = it.lockerMasterMac
-            this.createdByName = it.createdByName
-            this.purpose = it.purpose
-            this.masterAddress = it.masterAddress
-            this.masterName = it.masterName
-            this.lockerSize = it.lockerSize
-            this.timeCreated = it.timeCreated ?: ""
-            this.qrCode = it.qrCode ?: ""
-        }}?.toMutableList() ?: mutableListOf()
+        val keysAssignedToUser =
+            MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]?.activeKeys?.filter {
+                it.lockerMasterMac.macCleanToReal() == SettingsHelper.userLastSelectedLocker &&
+                        it.purpose != RLockerKeyPurpose.PAH &&
+                        isUserPartOfGroup(it.createdForGroup, it.createdForId)
+            }?.map {
+                RCreatedLockerKey().apply {
+                    this.id = it.id
+                    this.createdById = it.createdById
+                    this.lockerMac = it.lockerMac
+                    this.lockerId = it.lockerId
+                    this.lockerMasterId = it.lockerMasterId
+                    this.lockerMasterMac = it.lockerMasterMac
+                    this.createdByName = it.createdByName
+                    this.purpose = it.purpose
+                    this.masterAddress = it.masterAddress
+                    this.masterName = it.masterName
+                    this.lockerSize = it.lockerSize
+                    this.timeCreated = it.timeCreated ?: ""
+                    this.qrCode = it.qrCode ?: ""
+                }
+            }?.toMutableList() ?: mutableListOf()
 
         log.info("Assigned keys ${keysAssignedToUser.size}")
 
@@ -342,7 +397,7 @@ class PickupParcelViewModel () : ViewModel() {
     private fun isOpenDoorPossible(): Boolean {
 
         val keys = device?.activeKeys?.any { it.purpose != RLockerKeyPurpose.PAH }
-        val userRights =  device?.hasUserRightsOnLocker() ?: false
+        val userRights = device?.hasUserRightsOnLocker() ?: false
 
         return if (keys == true && userRights) {
             true
@@ -376,7 +431,10 @@ class PickupParcelViewModel () : ViewModel() {
 
         viewModelScope.launch {
             if (isOpenDoorPossible() && UserUtil.user?.id != null) {
-                val comunicator = MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]?.createBLECommunicator(activity)
+                val comunicator =
+                    MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]?.createBLECommunicator(
+                        activity
+                    )
 
                 if (comunicator?.connect() == true) {
                     log.info("Connected!")
@@ -396,7 +454,8 @@ class PickupParcelViewModel () : ViewModel() {
                             actionSuccessful = false
                         } else {
                             openedParcels.add(key.lockerMac)
-                            val updatedKeys = _state.value.keys.filter { it.lockerMac != key.lockerMac }
+                            val updatedKeys =
+                                _state.value.keys.filter { it.lockerMac != key.lockerMac }
                             _state.update { it.copy(keys = updatedKeys) }
                             persistActionOpenKey(key.id)
                             //NotificationHelper(App.ref).clearNotification()
@@ -429,7 +488,12 @@ class PickupParcelViewModel () : ViewModel() {
                     setUnSuccessOpenView(context.getString(R.string.main_locker_ble_connection_error))
                 }
             } else {
-                setUnSuccessOpenView(context.getString(R.string.toast_pickup_parcel_error, UserUtil.user?.id.toString()))
+                setUnSuccessOpenView(
+                    context.getString(
+                        R.string.toast_pickup_parcel_error,
+                        UserUtil.user?.id.toString()
+                    )
+                )
             }
 
             connecting.set(false)
@@ -537,27 +601,46 @@ class PickupParcelViewModel () : ViewModel() {
 //        }
     }
 
-    private fun deletePickAtFriendKey(position: Int, keyId: Int) {
+    private fun deletePickAtFriendKey(
+        position: Int,
+        keyId: Int,
+        onSuccess: () -> Unit = {},
+        onError: () -> Unit = {}
+    ) {
         viewModelScope.launch {
             if (WSUser.deletePaF(keyId)) {
-                _uiEvents.send(UiEvent.ShowToast(App.ref.getString(
-                    R.string.peripheral_settings_remove_access_success,
-                    keyId.toString()
-                )))
+                _uiEvents.send(
+                    UiEvent.ShowToast(
+                        App.ref.getString(
+                            R.string.peripheral_settings_remove_access_success,
+                            keyId.toString()
+                        )
+                    )
+                )
                 val updatedKeys = _state.value.keys.toMutableList().apply {
                     removeAt(position)
                 }
                 _state.update { it.copy(keys = updatedKeys) }
+                onSuccess()
             } else {
-                _uiEvents.send(UiEvent.ShowToast(App.ref.getString(
-                    R.string.peripheral_settings_remove_access_error,
-                    keyId.toString()
-                )))
+                _uiEvents.send(
+                    UiEvent.ShowToast(
+                        App.ref.getString(
+                            R.string.peripheral_settings_remove_access_error,
+                            keyId.toString()
+                        )
+                    )
+                )
+                onError()
             }
         }
     }
 
-    private fun handleCleaningCheckbox(lockerMacAddress: String, context: Context, activity: Activity) {
+    private fun handleCleaningCheckbox(
+        lockerMacAddress: String,
+        context: Context,
+        activity: Activity
+    ) {
         _state.update {
             it.copy(
                 isCleaningCheckboxEnabled = false,
@@ -580,7 +663,10 @@ class PickupParcelViewModel () : ViewModel() {
         context: Context,
         activity: Activity
     ) {
-        val comunicator = MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]?.createBLECommunicator(activity)
+        val comunicator =
+            MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]?.createBLECommunicator(
+                activity
+            )
 
         if (comunicator?.connect() == true) {
             log.info("Connected!")
@@ -596,6 +682,7 @@ class PickupParcelViewModel () : ViewModel() {
                     lockerInfo.index = lockerMacAddress.takeLast(MAC_ADDRESS_LAST_BYTE_LENGTH)
                         .hexToByteArray()
                 }
+
                 else -> {
                     lockerInfo.mac = lockerMacAddress.macCleanToBytes().reversedArray()
                     lockerInfo.index = byteArrayOf(0x00)
@@ -643,7 +730,8 @@ class PickupParcelViewModel () : ViewModel() {
 
     fun onMplDeviceUpdate() {
         if (!connecting.get() && device?.installationType != InstalationType.LINUX) {
-            device = MPLDeviceStore.uniqueDevices.values.find { it.macAddress == SettingsHelper.userLastSelectedLocker }
+            device =
+                MPLDeviceStore.uniqueDevices.values.find { it.macAddress == SettingsHelper.userLastSelectedLocker }
             setupOpenButton()
         }
     }

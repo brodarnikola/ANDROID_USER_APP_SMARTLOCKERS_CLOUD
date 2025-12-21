@@ -53,6 +53,7 @@ import hr.sil.android.myappbox.compose.components.ThmSubTitleTextSize
 import hr.sil.android.myappbox.compose.components.ThmTitleLetterSpacing
 import hr.sil.android.myappbox.compose.components.ThmTitleTextColor
 import hr.sil.android.myappbox.compose.components.ThmTitleTextSize
+import hr.sil.android.myappbox.compose.dialog.DeletePickAtFriendKeyDialog
 import hr.sil.android.myappbox.compose.dialog.PickAtFriendKeysDialog
 import hr.sil.android.myappbox.core.remote.model.InstalationType
 import hr.sil.android.myappbox.core.remote.model.RCreatedLockerKey
@@ -72,6 +73,11 @@ fun PickupParcelScreen(
     val state = viewModel.state.collectAsStateWithLifecycle().value
     val context = LocalContext.current
     val activity = LocalContext.current as Activity
+
+
+    val displayRemovePickAtFriendKeyDialog = rememberSaveable { mutableStateOf(false) }
+    val positionPickAtFriendKeyId = rememberSaveable { mutableStateOf(-1) }
+    val endUserEmail = rememberSaveable { mutableStateOf("") }
 
     val displayPickAtFriendKeyDialog = rememberSaveable { mutableStateOf(false) }
     val pickAtFriendKeyId = rememberSaveable { mutableStateOf(-1) }
@@ -115,14 +121,46 @@ fun PickupParcelScreen(
                     PickupParcelScreenEvent.OnConfirmPickAtFriendKeyClick(
                         email = email,
                         pickAtFriendKeyId = pickAtFriendKeyId.value,
+                        onSuccess = {
+                            displayPickAtFriendKeyDialog.value = false
+                        },
+                        onInvitationCode = {
+
+                        },
+                        onError = {
+                            displayPickAtFriendKeyDialog.value = false
+                        }
                         //context,
                         //activity
                     )
                 )
-                //displayPickAtFriendKeyDialog.value = false
             },
             onCancel = {
                 displayPickAtFriendKeyDialog.value = false
+            }
+        )
+    }
+
+    if( displayRemovePickAtFriendKeyDialog.value ) {
+        DeletePickAtFriendKeyDialog(
+            endUserEmail = endUserEmail.value,
+            onDismiss = { displayRemovePickAtFriendKeyDialog.value = false },
+            onConfirm = {
+                viewModel.onEvent(
+                    PickupParcelScreenEvent.OnDeleteKeyClick(
+                        positionPickAtFriendKeyId.value,
+                        pickAtFriendKeyId.value,
+                        onSuccess = {
+                            displayRemovePickAtFriendKeyDialog.value = false
+                        },
+                        onError = {
+                            displayRemovePickAtFriendKeyDialog.value = false
+                        }
+                    )
+                )
+            },
+            onCancel = {
+                displayRemovePickAtFriendKeyDialog.value = false
             }
         )
     }
@@ -260,12 +298,10 @@ fun PickupParcelScreen(
                                 displayPickAtFriendKeyDialog.value = true
                             },
                             onDeleteClick = {
-                                viewModel.onEvent(
-                                    PickupParcelScreenEvent.OnDeleteKeyClick(
-                                        index,
-                                        key.id
-                                    )
-                                )
+                                pickAtFriendKeyId.value = key.id
+                                endUserEmail.value = key.createdForEndUserEmail ?: ""
+                                displayRemovePickAtFriendKeyDialog.value = true
+                                positionPickAtFriendKeyId.value = index
                             },
                             onQrCodeClick = {
                                 viewModel.onEvent(
@@ -605,7 +641,7 @@ fun ParcelPickupKeyItem(
     onShareClick: () -> Unit,
     onDeleteClick: () -> Unit,
     onQrCodeClick: () -> Unit
-) { 
+) {
 
     val backgroundColor =
         if (index % 2 == 0) ThmCPShareKeyOddBC else ThmCPShareKeyEvenBC
