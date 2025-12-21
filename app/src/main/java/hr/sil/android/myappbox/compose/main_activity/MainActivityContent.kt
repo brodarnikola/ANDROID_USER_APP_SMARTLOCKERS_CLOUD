@@ -2,6 +2,7 @@ package hr.sil.android.myappbox.compose.main_activity
 
 
 import android.annotation.SuppressLint
+import android.net.http.SslCertificate.restoreState
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
@@ -44,6 +45,7 @@ import hr.sil.android.myappbox.compose.dialog.NoMasterSelectedDialog
 import hr.sil.android.myappbox.core.remote.WSUser
 import hr.sil.android.myappbox.core.remote.model.InstalationType
 import hr.sil.android.myappbox.core.remote.model.RLockerKeyPurpose
+import hr.sil.android.myappbox.core.remote.model.RequiredAccessRequestTypes
 import hr.sil.android.myappbox.core.util.logger
 import hr.sil.android.myappbox.store.MPLDeviceStore
 import hr.sil.android.myappbox.util.SettingsHelper
@@ -104,7 +106,7 @@ fun MainActivityContent(
 
     val lastSelectedMasterDevice =
         rememberSaveable { mutableStateOf(SettingsHelper.userLastSelectedLocker) }
-    val selectedMasterDevice = MPLDeviceStore.uniqueDevices[lastSelectedMasterDevice ?: ""]
+    val selectedMasterDevice = MPLDeviceStore.uniqueDevices[lastSelectedMasterDevice.value ?: ""]
 
     val displayNoLockerSelected = rememberSaveable { mutableStateOf(false) }
     if (displayNoLockerSelected.value) {
@@ -126,6 +128,11 @@ fun MainActivityContent(
         if (item.activeKeys.any { it.purpose == RLockerKeyPurpose.DELIVERY || it.purpose == RLockerKeyPurpose.PAF })
             counterPickupDeliveryKeys += item.activeKeys.filter { it.purpose == RLockerKeyPurpose.DELIVERY || it.purpose == RLockerKeyPurpose.PAF }.size
     }
+
+    val deviceAddressConfirmed = selectedMasterDevice?.requiredAccessRequestTypes
+        ?.firstOrNull { it.name == RequiredAccessRequestTypes.ADDRESS_CONFIRMATION.name }
+    val isPublicLocker = selectedMasterDevice != null &&
+            !(UserUtil.user?.addressConfirmed == false && deviceAddressConfirmed != null)
 
     val pahKeysCount = rememberSaveable { mutableStateOf(0) }
     LaunchedEffect(key1 = appState.currentRoute) {
@@ -169,7 +176,7 @@ fun MainActivityContent(
                     }
                 }
 
-                Divider(color = colorResource(R.color.colorWhite).copy(alpha = 0.2f))
+                HorizontalDivider(color = colorResource(R.color.colorWhite).copy(alpha = 0.2f))
 
                 // Menu Items
                 NavigationDrawerItem(
@@ -222,12 +229,56 @@ fun MainActivityContent(
                     },
                     selected = false,
                     onClick = {
-                        if (SettingsHelper.userLastSelectedLocker == "") {
-                            noAccessMessage.value = noSelectedLocker
-                            displayNoLockerSelected.value = true
-                        } else {
-                            scope.launch { drawerState.close() }
+
+                        when {
+                            SettingsHelper.userLastSelectedLocker.isEmpty() -> {
+                                noAccessMessage.value = noSelectedLocker
+                                displayNoLockerSelected.value = true
+                            }
+                            !isPublicLocker -> {
+                                noAccessMessage.value = noDeliverisToLockerPossible
+                                displayNoLockerSelected.value = true
+                            }
+                            selectedMasterDevice?.isUserAssigned == false &&
+                                    selectedMasterDevice?.activeAccessRequest == false -> {
+                                noAccessMessage.value = appGenericRequestAccess
+                                displayNoLockerSelected.value = true
+                            }
+                            selectedMasterDevice?.isUserAssigned == false &&
+                                    selectedMasterDevice?.activeAccessRequest == true -> {
+                                noAccessMessage.value = adminAapproveRequestAccess
+                                displayNoLockerSelected.value = true
+                            }
+                            selectedMasterDevice?.hasUserRightsOnSendParcelLocker() == false -> {
+                                noAccessMessage.value = appGenericNoAccessForDevice
+                                displayNoLockerSelected.value = true
+                            }
+                            selectedMasterDevice?.installationType == InstalationType.LINUX -> {
+                                if (navBackStackEntry.value?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
+                                    appState.navController.navigate("${MainDestinations.SETTINGS_QR_CODE}/${1}/${SettingsHelper.userLastSelectedLocker}") {
+                                        launchSingleTop = true
+                                        restoreState = true
+                                    }
+                                }
+                                scope.launch { drawerState.close() }
+                            }
+                            else -> {
+                                if (navBackStackEntry.value?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
+                                    appState.navController.navigate(MainDestinations.SELECT_PARCEL_SIZE) {
+                                        launchSingleTop = true
+                                        restoreState = true
+                                    }
+                                }
+                                scope.launch { drawerState.close() }
+                            }
                         }
+
+//                        if (SettingsHelper.userLastSelectedLocker == "") {
+//                            noAccessMessage.value = noSelectedLocker
+//                            displayNoLockerSelected.value = true
+//                        } else {
+//                            scope.launch { drawerState.close() }
+//                        }
                         //onNavigateToSendParcel()
                     },
                     colors = NavigationDrawerItemDefaults.colors(
