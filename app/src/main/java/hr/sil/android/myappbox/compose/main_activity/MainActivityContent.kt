@@ -1,6 +1,7 @@
 package hr.sil.android.myappbox.compose.main_activity
 
 
+import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
@@ -28,6 +29,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.navigation.compose.currentBackStackEntryAsState
 import hr.sil.android.myappbox.R
 import hr.sil.android.myappbox.compose.components.GradientBackground
@@ -38,17 +41,24 @@ import hr.sil.android.myappbox.compose.components.ThmNavigationDrawerMenuTextSiz
 import hr.sil.android.myappbox.compose.components.ThmTitleTextColor
 import hr.sil.android.myappbox.compose.components.ThmTitleTextSize
 import hr.sil.android.myappbox.compose.dialog.NoMasterSelectedDialog
+import hr.sil.android.myappbox.core.remote.WSUser
 import hr.sil.android.myappbox.core.remote.model.InstalationType
 import hr.sil.android.myappbox.core.remote.model.RLockerKeyPurpose
+import hr.sil.android.myappbox.core.util.logger
 import hr.sil.android.myappbox.store.MPLDeviceStore
 import hr.sil.android.myappbox.util.SettingsHelper
 import hr.sil.android.myappbox.util.backend.UserUtil
 import kotlinx.coroutines.launch
 import kotlin.text.contains
 import kotlin.text.uppercase
+import hr.sil.android.myappbox.core.util.logger
+import hr.sil.android.myappbox.core.util.macRealToClean
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 
 
 // Main Composable with Overlays
+@SuppressLint("RestrictedApi")
 @RequiresApi(Build.VERSION_CODES.S)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -92,7 +102,8 @@ fun MainActivityContent(
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
     val drawerWidth = screenWidth * 0.70f
 
-    val lastSelectedMasterDevice = rememberSaveable { mutableStateOf(SettingsHelper.userLastSelectedLocker) }
+    val lastSelectedMasterDevice =
+        rememberSaveable { mutableStateOf(SettingsHelper.userLastSelectedLocker) }
     val selectedMasterDevice = MPLDeviceStore.uniqueDevices[lastSelectedMasterDevice ?: ""]
 
     val displayNoLockerSelected = rememberSaveable { mutableStateOf(false) }
@@ -115,6 +126,20 @@ fun MainActivityContent(
         if (item.activeKeys.any { it.purpose == RLockerKeyPurpose.DELIVERY || it.purpose == RLockerKeyPurpose.PAF })
             counterPickupDeliveryKeys += item.activeKeys.filter { it.purpose == RLockerKeyPurpose.DELIVERY || it.purpose == RLockerKeyPurpose.PAF }.size
     }
+
+    val pahKeysCount = rememberSaveable { mutableStateOf(0) }
+    val newTime = System.currentTimeMillis()
+    LaunchedEffect(key1 = newTime) {
+        if( appState.currentRoute == MainDestinations.HOME) {
+            CoroutineScope(Dispatchers.IO).launch {
+                UserUtil.pahKeys = WSUser.getActivePaHCreatedKeys() ?: mutableListOf()
+                pahKeysCount.value = UserUtil.pahKeys.filter {
+                    it.lockerMasterMac.macRealToClean() == SettingsHelper.userLastSelectedLocker.macRealToClean()
+                }.size
+            }
+        }
+    }
+    println("Will it enter here 11, ${pahKeysCount.value}")
 
     ModalNavigationDrawer(
         drawerState = drawerState,
@@ -151,7 +176,8 @@ fun MainActivityContent(
                 // Menu Items
                 NavigationDrawerItem(
                     label = {
-                        val alphaValue = if(UserUtil.user?.status == "ACTIVE" && selectedMasterDevice?.activeKeys?.any { it.purpose == RLockerKeyPurpose.DELIVERY || it.purpose == RLockerKeyPurpose.PAF } == true) 1.0f else 0.5f
+                        val alphaValue =
+                            if (UserUtil.user?.status == "ACTIVE" && selectedMasterDevice?.activeKeys?.any { it.purpose == RLockerKeyPurpose.DELIVERY || it.purpose == RLockerKeyPurpose.PAF } == true) 1.0f else 0.5f
                         TextViewWithFont(
                             text = stringResource(R.string.app_generic_pickup_parcel),
                             color = ThmNavigationDrawerMenuTextColor.copy(alpha = alphaValue),
@@ -181,8 +207,10 @@ fun MainActivityContent(
 
                 NavigationDrawerItem(
                     label = {
-                        val alphaValue = if(SettingsHelper.userLastSelectedLocker != "" && UserUtil.user?.status == "ACTIVE" && selectedMasterDevice?.hasUserRightsOnSendParcelLocker() ?: false
-                            && selectedMasterDevice?.isUserAssigned == true) 1.0f else 0.5f
+                        val alphaValue =
+                            if (SettingsHelper.userLastSelectedLocker != "" && UserUtil.user?.status == "ACTIVE" && selectedMasterDevice?.hasUserRightsOnSendParcelLocker() ?: false
+                                && selectedMasterDevice?.isUserAssigned == true
+                            ) 1.0f else 0.5f
                         TextViewWithFont(
                             text = stringResource(R.string.app_generic_send_parcel),
                             color = ThmNavigationDrawerMenuTextColor.copy(alpha = alphaValue),
@@ -199,8 +227,7 @@ fun MainActivityContent(
                         if (SettingsHelper.userLastSelectedLocker == "") {
                             noAccessMessage.value = noSelectedLocker
                             displayNoLockerSelected.value = true
-                        }
-                        else {
+                        } else {
                             scope.launch { drawerState.close() }
                         }
                         //onNavigateToSendParcel()
@@ -213,7 +240,8 @@ fun MainActivityContent(
 
                 NavigationDrawerItem(
                     label = {
-                        val alphaValue = if (UserUtil.user?.status == "ACTIVE" && counterPickupDeliveryKeys > 0) 1.0f else 0.5f
+                        val alphaValue =
+                            if (UserUtil.user?.status == "ACTIVE" && counterPickupDeliveryKeys > 0) 1.0f else 0.5f
                         TextViewWithFont(
                             text = stringResource(R.string.list_of_deliveries_cpl),
                             color = ThmNavigationDrawerMenuTextColor.copy(alpha = alphaValue),
@@ -232,9 +260,10 @@ fun MainActivityContent(
                                 containerColor = colorResource(R.color.colorRedBadgeNumber),
                                 contentColor = colorResource(R.color.colorWhite)
                             ) {
-                                Text(text = counterPickupDeliveryKeys.toString(),
-                                     //modifier = Modifier.size(20.dp),
-                                     //textAlign = TextAlign.Center
+                                Text(
+                                    text = counterPickupDeliveryKeys.toString(),
+                                    //modifier = Modifier.size(20.dp),
+                                    //textAlign = TextAlign.Center
                                 )
                             }
                         }
@@ -252,8 +281,7 @@ fun MainActivityContent(
                                 }
                             }
                             scope.launch { drawerState.close() }
-                        }
-                        else {
+                        } else {
                             noAccessMessage.value = noSelectedLocker
                             displayNoLockerSelected.value = true
                         }
@@ -266,7 +294,8 @@ fun MainActivityContent(
 
                 NavigationDrawerItem(
                     label = {
-                        val alphaValue = if (UserUtil.pahKeys.size > 0 && UserUtil.user?.status == "ACTIVE") 1.0f else 0.5f
+                        val alphaValue =
+                            if (pahKeysCount.value > 0 && UserUtil.user?.status == "ACTIVE") 1.0f else 0.5f
                         TextViewWithFont(
                             text = stringResource(R.string.locker_pick_home_keys),
                             color = ThmNavigationDrawerMenuTextColor.copy(alpha = alphaValue),
@@ -280,13 +309,16 @@ fun MainActivityContent(
                     },
                     badge = {
                         //if (pahKeysCount > 0) {
-                        if (UserUtil.pahKeys.size > 0 && UserUtil.user?.status == "ACTIVE") {
+                        if (pahKeysCount.value > 0 && UserUtil.user?.status == "ACTIVE") {
                             Badge(
                                 modifier = Modifier.size(25.dp),
                                 containerColor = colorResource(R.color.colorRedBadgeNumber),
                                 contentColor = colorResource(R.color.colorWhite)
                             ) {
-                                Text(text = UserUtil.pahKeys.size.toString() )
+                                Text(
+                                    text = UserUtil.pahKeys.size.toString(),
+                                    fontSize = 14.sp
+                                )
                                 //Text(text = pahKeysCount.toString())
                             }
                         }
@@ -301,8 +333,7 @@ fun MainActivityContent(
                                 }
                             }
                             scope.launch { drawerState.close() }
-                        }
-                        else {
+                        } else {
                             noAccessMessage.value = noSelectedLocker
                             displayNoLockerSelected.value = true
                         }
@@ -316,7 +347,8 @@ fun MainActivityContent(
 
                 NavigationDrawerItem(
                     label = {
-                        val alphaValue = if (UserUtil.user?.status == "ACTIVE" && selectedMasterDevice?.hasRightsToShareAccess() ?: false && selectedMasterDevice?.installationType == InstalationType.DEVICE) 1.0f else 0.5f
+                        val alphaValue =
+                            if (UserUtil.user?.status == "ACTIVE" && selectedMasterDevice?.hasRightsToShareAccess() ?: false && selectedMasterDevice?.installationType == InstalationType.DEVICE) 1.0f else 0.5f
                         TextViewWithFont(
                             text = stringResource(R.string.app_generic_key_sharing),
                             color = ThmNavigationDrawerMenuTextColor.copy(alpha = alphaValue),
@@ -336,8 +368,7 @@ fun MainActivityContent(
                                 restoreState = true
                             }
                             scope.launch { drawerState.close() }
-                        }
-                        else {
+                        } else {
                             noAccessMessage.value = noSelectedLocker
                             displayNoLockerSelected.value = true
                         }
