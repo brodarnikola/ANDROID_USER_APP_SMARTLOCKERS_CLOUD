@@ -2,6 +2,7 @@ package hr.sil.android.myappbox.compose.collect_parcel
 
 
 import android.app.Activity
+import android.content.Intent
 import android.widget.Toast
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
@@ -32,9 +33,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import hr.sil.android.myappbox.App
+import hr.sil.android.myappbox.BuildConfig
 import hr.sil.android.myappbox.R
 import hr.sil.android.myappbox.cache.status.ActionStatusHandler.log
 import hr.sil.android.myappbox.compose.components.ButtonWithFont
@@ -55,6 +58,7 @@ import hr.sil.android.myappbox.compose.components.ThmTitleTextColor
 import hr.sil.android.myappbox.compose.components.ThmTitleTextSize
 import hr.sil.android.myappbox.compose.dialog.DeletePickAtFriendKeyDialog
 import hr.sil.android.myappbox.compose.dialog.PickAtFriendKeysDialog
+import hr.sil.android.myappbox.compose.dialog.ShareApplicationDialog
 import hr.sil.android.myappbox.core.remote.model.InstalationType
 import hr.sil.android.myappbox.core.remote.model.RCreatedLockerKey
 import hr.sil.android.myappbox.core.remote.model.RLockerKeyPurpose
@@ -79,8 +83,12 @@ fun PickupParcelScreen(
     val positionPickAtFriendKeyId = rememberSaveable { mutableStateOf(-1) }
     val endUserEmail = rememberSaveable { mutableStateOf("") }
 
+    val shareAppEmail = rememberSaveable { mutableStateOf("") }
+
     val displayPickAtFriendKeyDialog = rememberSaveable { mutableStateOf(false) }
     val pickAtFriendKeyId = rememberSaveable { mutableStateOf(-1) }
+
+    val shareApplicationDialog = rememberSaveable { mutableStateOf(false) }
 
     LaunchedEffect(key1 = Unit) {
         viewModel.onEvent(
@@ -105,6 +113,7 @@ fun PickupParcelScreen(
                     // Navigate to QR code
                     //navigateUp
                 }
+
                 is PickupParcelScreenUiEvent.NavigateToFinish -> {
                     navigateUp()
                 }
@@ -112,11 +121,12 @@ fun PickupParcelScreen(
         }
     }
 
-    if( displayPickAtFriendKeyDialog.value ) {
+    if (displayPickAtFriendKeyDialog.value) {
         PickAtFriendKeysDialog(
             onDismiss = { displayPickAtFriendKeyDialog.value = false },
             onConfirm = { email ->
                 log.info("onConfirm email 11: ${email}")
+                shareAppEmail.value = email
                 viewModel.onEvent(
                     PickupParcelScreenEvent.OnConfirmPickAtFriendKeyClick(
                         email = email,
@@ -125,7 +135,8 @@ fun PickupParcelScreen(
                             displayPickAtFriendKeyDialog.value = false
                         },
                         onInvitationCode = {
-
+                            displayPickAtFriendKeyDialog.value = false
+                            shareApplicationDialog.value = true
                         },
                         onError = {
                             displayPickAtFriendKeyDialog.value = false
@@ -141,7 +152,47 @@ fun PickupParcelScreen(
         )
     }
 
-    if( displayRemovePickAtFriendKeyDialog.value ) {
+    if (shareApplicationDialog.value) {
+        val stringDownloadAndroidApp = stringResource(R.string.download_androdi_app)
+        val stringDownloadIosApp = stringResource(R.string.download_ios_app)
+        val stringDownloadWebApp = stringResource(R.string.web_portal)
+        val shareAppTitle = stringResource(R.string.access_sharing_share_choose_sharing)
+        ShareApplicationDialog(
+            onDismiss = { shareApplicationDialog.value = false },
+            onConfirm = {
+                val appLink = BuildConfig.APP_ANDR_DOWNLOAD_URL
+                val iOSLink = BuildConfig.APP_IOS_DOWNLOAD_URL
+                val webPortal = BuildConfig.WEB_PORTAL
+
+                var inviteUserText =  ""
+
+                if(  App.ref.resources.getBoolean(R.bool.has_android_link) &&  App.ref.resources.getBoolean(R.bool.has_ios_link) &&  App.ref.resources.getBoolean(R.bool.has_web_portal_link) ) {
+                    inviteUserText += "\n" + stringDownloadAndroidApp + appLink + "\n" + stringDownloadIosApp + iOSLink + "\n" + stringDownloadWebApp + " " + webPortal
+                }
+                else if(  App.ref.resources.getBoolean(R.bool.has_android_link) &&  App.ref.resources.getBoolean(R.bool.has_ios_link) ) {
+                    inviteUserText += "\n" + stringDownloadAndroidApp + appLink + "\n" + stringDownloadIosApp + iOSLink
+                }
+                else if(  App.ref.resources.getBoolean(R.bool.has_android_link) && ! App.ref.resources.getBoolean(R.bool.has_ios_link) ) {
+                    inviteUserText += "\n" + stringDownloadAndroidApp + appLink
+                }
+
+                val shareBodyText = inviteUserText
+                val emailIntent = Intent(Intent.ACTION_SEND)
+                emailIntent.setType("message/rfc822")
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(shareAppEmail.value) /*arrayOf(userAccess.groupUserEmail)*/)
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject/Title")
+                emailIntent.putExtra(Intent.EXTRA_TEXT, shareBodyText)
+
+                activity.startActivity(Intent.createChooser(emailIntent,  shareAppTitle))
+                shareApplicationDialog.value = false
+            },
+            onCancel = {
+                shareApplicationDialog.value = false
+            }
+        )
+    }
+
+    if (displayRemovePickAtFriendKeyDialog.value) {
         DeletePickAtFriendKeyDialog(
             endUserEmail = endUserEmail.value,
             onDismiss = { displayRemovePickAtFriendKeyDialog.value = false },
@@ -240,7 +291,7 @@ fun PickupParcelScreen(
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(10.dp)
-                            .rotate(if( state.isAnimating ) rotation else 0f)
+                            .rotate(if (state.isAnimating) rotation else 0f)
                     )
 
                     Icon(
@@ -448,7 +499,8 @@ fun PickupParcelScreen(
                 // Locker Cleaning Checkbox
                 if (state.showCleaningCheckbox) {
 
-                    val topConstraint = if(state.showFinishButton) pickupParcelFinish else if(state.showForceOpen) forceOpen else keysList
+                    val topConstraint =
+                        if (state.showFinishButton) pickupParcelFinish else if (state.showForceOpen) forceOpen else keysList
 
                     Row(
                         modifier = Modifier

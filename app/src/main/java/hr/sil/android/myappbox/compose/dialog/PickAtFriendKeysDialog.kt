@@ -77,8 +77,6 @@ fun PickAtFriendKeysDialog(
         mutableStateOf<String?>(null)
     }
 
-    val isError = rememberSaveable { mutableStateOf(false) }
-    val errorText = rememberSaveable { mutableStateOf("") }
     Dialog(onDismissRequest = onDismiss) {
         RoundedDialog {
             ConstraintLayout(

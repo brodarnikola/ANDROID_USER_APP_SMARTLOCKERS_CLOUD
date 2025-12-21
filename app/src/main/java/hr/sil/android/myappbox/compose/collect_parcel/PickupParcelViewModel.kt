@@ -280,11 +280,6 @@ class PickupParcelViewModel() : ViewModel() {
                     onSuccess()
                 } else {
                     onInvitationCode()
-//                            withContext(Dispatchers.Main) {
-//                                val shareAppDialog = ShareAppDialog(pickupParcelActivity, mailAddress)
-//                                shareAppDialog.show( pickupParcelActivity.supportFragmentManager, "" )
-//                                dismiss()
-//                            }
                 }
 
             } else {
