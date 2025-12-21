@@ -108,34 +108,34 @@ class RCreatedLockerKey {
 fun RCreatedLockerKey.clone(newIsDeleting: Boolean? = null): RCreatedLockerKey {
     val newKey = RCreatedLockerKey().apply {
         // Copy all properties manually
-        this.id = if (this@clone.id != null) this@clone.id else 0
-        this.timeCreated = if (this@clone.timeCreated != null)  this@clone.timeCreated else ""
+        this.id = this@clone.id
+        this.timeCreated = this@clone.timeCreated
         this.isDeleting = newIsDeleting ?: this@clone.isDeleting // Use newIsDeleting if provided, otherwise copy existing
-        this.lockerId =  if (this@clone.lockerId != null)  this@clone.lockerId else 0
-        this.lockerMac = if (this@clone.lockerMac != null)  this@clone.lockerMac else ""
-        this.tan =  if (this@clone.tan != null) this@clone.tan else ""
-        this.pin = if (this@clone.pin != null) this@clone.pin else ""
-        this.lockerMasterId = if (this@clone.lockerMasterId != null)  this@clone.lockerMasterId else 0
-        this.lockerMasterMac = if (this@clone.lockerMasterMac != null)  this@clone.lockerMasterMac else ""
-        this.purpose = if (this@clone.purpose != null)   this@clone.purpose else RLockerKeyPurpose.UNKNOWN 
+        this.lockerId = this@clone.lockerId
+        this.lockerMac = this@clone.lockerMac
+        this.tan = this@clone.tan
+        this.pin = this@clone.pin
+        this.lockerMasterId = this@clone.lockerMasterId
+        this.lockerMasterMac = this@clone.lockerMasterMac
+        this.purpose = this@clone.purpose
         this.createdById = if (this@clone.createdById != null) this@clone.createdById else -1
         this.createdByName = if (this@clone.createdByName != null)  this@clone.createdByName else ""
         this.createdForId = if (this@clone.createdForId != null)  this@clone.createdForId else -1
         this.createdForEndUserName = if (this@clone.createdForEndUserName != null)  this@clone.createdForEndUserName else ""
         this.createdForEndUserEmail = if (this@clone.createdForEndUserEmail != null)  this@clone.createdForEndUserEmail else ""
         this.baseId = if (this@clone.baseId != null)  this@clone.baseId else -1
-        this.baseTimeCreated = if (this@clone.baseTimeCreated != null)  this@clone.baseTimeCreated else ""
+        this.baseTimeCreated = this@clone.baseTimeCreated
         this.baseGroupId = if (this@clone.baseGroupId != null)  this@clone.baseGroupId else -1
         this.basePurpose = if (this@clone.basePurpose != null)  this@clone.basePurpose else ""
         this.lockerSize = if (this@clone.lockerSize != null)  this@clone.lockerSize else ""
         this.masterName = if (this@clone.masterName != null)  this@clone.masterName else ""
         this.masterAddress = if (this@clone.masterAddress != null)  this@clone.masterAddress else ""
-        this.keyInstallationtype = if (this@clone.keyInstallationtype != null)  this@clone.keyInstallationtype else InstalationType.LINUX
-        this.isInBleProximityOrLinuxDevice = if (this@clone.isInBleProximityOrLinuxDevice != null)  this@clone.isInBleProximityOrLinuxDevice else false
-        this.isLinuxKeyDevice = if (this@clone.isLinuxKeyDevice != null)  this@clone.isLinuxKeyDevice else InstalationType.DEVICE
-        this.deviceLatitude = if (this@clone.deviceLatitude != null)  this@clone.deviceLatitude else 0.0
-        this.deviceLongitude = if (this@clone.deviceLongitude != null)  this@clone.deviceLongitude else 0.0
-        this.qrCode = if (this@clone.qrCode != null)  this@clone.qrCode else ""
+        this.keyInstallationtype = this@clone.keyInstallationtype
+        this.isInBleProximityOrLinuxDevice = this@clone.isInBleProximityOrLinuxDevice
+        this.isLinuxKeyDevice = this@clone.isLinuxKeyDevice
+        this.deviceLatitude = this@clone.deviceLatitude
+        this.deviceLongitude = this@clone.deviceLongitude
+        this.qrCode = this@clone.qrCode
     }
     return newKey
 }

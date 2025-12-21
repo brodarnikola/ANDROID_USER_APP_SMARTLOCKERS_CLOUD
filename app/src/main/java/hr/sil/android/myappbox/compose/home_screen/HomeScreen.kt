@@ -385,38 +385,6 @@ fun NavHomeScreen(
                 Box(
                     modifier = Modifier
                         .weight(1f),
-//                        .clickable {
-//                            when {
-//                                SettingsHelper.userLastSelectedLocker.isEmpty() -> {
-//                                    noAccessMessage.value = noSelectedLocker
-//                                    displayNoAccessDialog.value = true
-//                                }
-//                                !isPublicLocker -> {
-//                                    noAccessMessage.value = noDeliverisToLockerPossible
-//                                    displayNoAccessDialog.value = true
-//                                }
-//                                selectedMasterDevice?.isUserAssigned == false &&
-//                                        selectedMasterDevice?.activeAccessRequest == false -> {
-//                                    noAccessMessage.value = appGenericRequestAccess
-//                                    displayNoAccessDialog.value = true
-//                                }
-//                                selectedMasterDevice?.isUserAssigned == false &&
-//                                        selectedMasterDevice?.activeAccessRequest == true -> {
-//                                    noAccessMessage.value = adminAapproveRequestAccess
-//                                    displayNoAccessDialog.value = true
-//                                }
-//                                selectedMasterDevice?.hasUserRightsOnSendParcelLocker() == false -> {
-//                                    noAccessMessage.value = appGenericNoAccessForDevice
-//                                    displayNoAccessDialog.value = true
-//                                }
-//                                selectedMasterDevice?.installationType == InstalationType.LINUX -> {
-//                                    //nextScreen(MainDestinations.DISPLAY_QR_CODE)
-//                                }
-//                                canSendParcel -> {
-//                                    nextScreen(MainDestinations.SELECT_PARCEL_SIZE)
-//                                }
-//                            }
-//                        },
                     contentAlignment = Alignment.Center
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {

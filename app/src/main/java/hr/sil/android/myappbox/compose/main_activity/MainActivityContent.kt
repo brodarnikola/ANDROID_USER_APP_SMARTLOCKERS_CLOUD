@@ -48,13 +48,6 @@ import kotlin.text.contains
 import kotlin.text.uppercase
 
 
-data class BottomNavigationBarItem(
-    val route: String,
-    val icon: Int,
-    val badgeAmount: Int? = null
-)
-
-
 // Main Composable with Overlays
 @RequiresApi(Build.VERSION_CODES.S)
 @OptIn(ExperimentalMaterial3Api::class)
@@ -66,8 +59,6 @@ fun MainActivityContent(
     val systemState by systemStateViewModel.systemState.collectAsState()
 
     val appState = rememberMainAppState()
-
-    //val bottomNavigationItems = bottomNavigationItems()
 
     val showBottomBar = rememberSaveable { mutableStateOf(true) }
 
@@ -275,7 +266,7 @@ fun MainActivityContent(
 
                 NavigationDrawerItem(
                     label = {
-                        val alphaValue = if (UserUtil.pahKeys.isNotEmpty() && UserUtil.user?.status == "ACTIVE") 1.0f else 0.5f
+                        val alphaValue = if (UserUtil.pahKeys.size > 0 && UserUtil.user?.status == "ACTIVE") 1.0f else 0.5f
                         TextViewWithFont(
                             text = stringResource(R.string.locker_pick_home_keys),
                             color = ThmNavigationDrawerMenuTextColor.copy(alpha = alphaValue),
@@ -289,7 +280,7 @@ fun MainActivityContent(
                     },
                     badge = {
                         //if (pahKeysCount > 0) {
-                        if (UserUtil.pahKeys.isNotEmpty() && UserUtil.user?.status == "ACTIVE") {
+                        if (UserUtil.pahKeys.size > 0 && UserUtil.user?.status == "ACTIVE") {
                             Badge(
                                 modifier = Modifier.size(25.dp),
                                 containerColor = colorResource(R.color.colorRedBadgeNumber),
