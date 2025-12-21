@@ -290,6 +290,7 @@ class AccessSharingViewModel : ViewModel() {
                             RGroupDisplayMembersAdmin()
                         nameOfAdminGroup.groupOwnerName = items.groupName
                         nameOfAdminGroup.role = items.role
+                        nameOfAdminGroup.groupId = items.groupId
 
                         for (subItems in groupDataList) {
 
@@ -344,7 +345,6 @@ class AccessSharingViewModel : ViewModel() {
                             if (groupMembersData.isNotEmpty())
                                 finalMembersArray.addAll(groupMembersData)
                             oneAdminUserFound = false
-
                         }
                     }
                 }

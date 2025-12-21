@@ -55,24 +55,15 @@ fun SelectParcelSizeScreen(
 
 
     if (showGeneratedPinDialog.value) {
-        PinManagementDialog(
+        GeneratedPinDialog(
             macAddress = SettingsHelper.userLastSelectedLocker,
             lockerSize = state.selectedLockerSize,
-            onDismiss = { showPinManagementDialog.value = false },
+            onDismiss = { showGeneratedPinDialog.value = false },
             onConfirm = { mac, pin, size ->
-                showPinManagementDialog.value = false
+                showGeneratedPinDialog.value = false
                 onNavigateToDelivery(mac, pin, size)
             }
         )
-//        GeneratedPinDialog(
-//            macAddress = SettingsHelper.userLastSelectedLocker,
-//            lockerSize = state.selectedLockerSize,
-//            onDismiss = { showGeneratedPinDialog.value = false },
-//            onConfirm = { mac, pin, size ->
-//                showGeneratedPinDialog.value = false
-//                onNavigateToDelivery(mac, pin, size)
-//            }
-//        )
     }
 
     if (showPinManagementDialog.value) {

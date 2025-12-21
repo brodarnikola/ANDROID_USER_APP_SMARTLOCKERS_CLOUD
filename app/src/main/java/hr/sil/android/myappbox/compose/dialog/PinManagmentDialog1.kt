@@ -29,13 +29,21 @@ import kotlin.collections.isNotEmpty
 import kotlin.let
 import kotlin.text.isNotEmpty
 import kotlin.text.toInt
-
 import hr.sil.android.myappbox.R
 import hr.sil.android.myappbox.compose.components.ButtonWithFont
+import hr.sil.android.myappbox.compose.components.TextViewWithFont
+import hr.sil.android.myappbox.compose.components.ThmButtonLetterSpacing
+import hr.sil.android.myappbox.compose.components.ThmDescriptionTextSize
+import hr.sil.android.myappbox.compose.components.ThmEdittextTextSize
+import hr.sil.android.myappbox.compose.components.ThmLoginButtonTextColor
+import hr.sil.android.myappbox.compose.components.ThmSubTitleTextSize
+import hr.sil.android.myappbox.compose.components.ThmTitleTextColor
+import hr.sil.android.myappbox.compose.components.ThmTitleTextSize
 import hr.sil.android.myappbox.core.remote.model.RPinManagement
 
+
 @Composable
-fun PinManagementDialog(
+fun PinManagementDialog1(
     macAddress: String,
     lockerSize: RLockerSize,
     onDismiss: () -> Unit,
@@ -52,7 +60,7 @@ fun PinManagementDialog(
     Dialog(
         onDismissRequest = {
             onDismiss()
-        /* Prevent dismiss on outside click */
+            /* Prevent dismiss on outside click */
         },
         properties = DialogProperties(
             dismissOnBackPress = false,
@@ -72,15 +80,26 @@ fun PinManagementDialog(
                     .padding(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                // Title
-                Text(
-                    text = stringResource(R.string.pin_managment_title),
-                    fontSize = 18.sp,
-                    color = colorResource(R.color.colorBlack),
+
+                TextViewWithFont(
+                    text = stringResource(id = R.string.pin_managment_title).uppercase(),
+                    color = ThmTitleTextColor,
+                    fontSize = ThmTitleTextSize,
+                    fontWeight = FontWeight.Medium,
                     textAlign = TextAlign.Center,
                     letterSpacing = 0.05.sp,
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
+
+                // Title
+//                Text(
+//                    text = stringResource(R.string.pin_managment_title),
+//                    fontSize = 18.sp,
+//                    color = colorResource(R.color.colorBlack),
+//                    textAlign = TextAlign.Center,
+//                    letterSpacing = 0.05.sp,
+//                    modifier = Modifier.padding(bottom = 16.dp)
+//                )
 
                 // Content: Loading or Pin List
                 Box(
@@ -124,11 +143,18 @@ fun PinManagementDialog(
                         }
 
                         else -> {
-                            Text(
+                            TextViewWithFont(
                                 text = uiState.errorMessage ?: "No pins available",
-                                color = colorResource(R.color.colorBlack),
-                                fontSize = 14.sp
+                                color = ThmTitleTextColor,
+                                fontSize = ThmDescriptionTextSize,
+                                fontWeight = FontWeight.Medium,
+                                textAlign = TextAlign.Center,
                             )
+//                            Text(
+//                                text = uiState.errorMessage ?: "No pins available",
+//                                color = colorResource(R.color.colorBlack),
+//                                fontSize = 14.sp
+//                            )
                         }
                     }
                 }
@@ -136,13 +162,23 @@ fun PinManagementDialog(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 // Description
-                Text(
-                    text = stringResource(R.string.generated_pin_description),
-                    fontSize = 18.sp,
-                    color = colorResource(R.color.colorBlack),
+
+                TextViewWithFont(
+                    text = stringResource(id = R.string.generated_pin_description).uppercase(),
+                    color = ThmTitleTextColor,
+                    fontSize = ThmSubTitleTextSize,
+                    fontWeight = FontWeight.Medium,
                     textAlign = TextAlign.Center,
                     letterSpacing = 0.05.sp
                 )
+
+//                Text(
+//                    text = stringResource(R.string.generated_pin_description),
+//                    fontSize = 18.sp,
+//                    color = colorResource(R.color.colorBlack),
+//                    textAlign = TextAlign.Center,
+//                    letterSpacing = 0.05.sp
+//                )
 
                 Spacer(modifier = Modifier.height(16.dp))
 
@@ -242,26 +278,48 @@ private fun PinManagementItem(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column(modifier = Modifier.weight(1f)) {
-                Text(
+
+                TextViewWithFont(
                     text = pin.pin,
-                    fontSize = 16.sp,
+                    color = ThmTitleTextColor,
+                    fontSize = ThmSubTitleTextSize,
                     fontWeight = FontWeight.Bold,
-                    color = colorResource(R.color.colorBlack)
+                    textAlign = TextAlign.Center
                 )
+
+//                Text(
+//                    text = pin.pin,
+//                    fontSize = 16.sp,
+//                    fontWeight = FontWeight.Bold,
+//                    color = colorResource(R.color.colorBlack)
+//                )
 
                 Spacer(modifier = Modifier.height(4.dp))
 
                 if (!pin.isExtendedToName) {
-                    Text(
+
+                    TextViewWithFont(
                         text = if (pin.pinGenerated == true) {
                             stringResource(R.string.pin_managment_generate)
                         } else {
                             pin.pinName ?: ""
                         },
-                        fontSize = 12.sp,
+                        color = colorResource(R.color.colorBlack).copy(alpha = 0.7f),
+                        fontSize = ThmEdittextTextSize,
                         fontWeight = FontWeight.Normal,
-                        color = colorResource(R.color.colorBlack).copy(alpha = 0.7f)
+                        textAlign = TextAlign.Center
                     )
+
+//                    Text(
+//                        text = if (pin.pinGenerated == true) {
+//                            stringResource(R.string.pin_managment_generate)
+//                        } else {
+//                            pin.pinName ?: ""
+//                        },
+//                        fontSize = 12.sp,
+//                        fontWeight = FontWeight.Normal,
+//                        color = colorResource(R.color.colorBlack).copy(alpha = 0.7f)
+//                    )
                 }
             }
 
@@ -372,11 +430,20 @@ private fun PinManagementItem(
                     .fillMaxWidth()
                     .padding(top = 8.dp)
             ) {
-                Text(
+
+                TextViewWithFont(
                     text = stringResource(R.string.app_generic_are_you_sure),
-                    fontSize = 12.sp,
-                    color = colorResource(R.color.colorBlack)
+                    color = colorResource(R.color.colorBlack),
+                    fontSize = ThmEdittextTextSize,
+                    fontWeight = FontWeight.Normal,
+                    textAlign = TextAlign.Center
                 )
+
+//                Text(
+//                    text = stringResource(R.string.app_generic_are_you_sure),
+//                    fontSize = 12.sp,
+//                    color = colorResource(R.color.colorBlack)
+//                )
 
                 Spacer(modifier = Modifier.height(8.dp))
 
@@ -384,45 +451,82 @@ private fun PinManagementItem(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.End
                 ) {
-                    Button(
-                        onClick = onToggleDelete,
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = colorResource(R.color.colorPrimary).copy(alpha = 0.7f)
-                        ),
+
+                    ButtonWithFont(
+                        text = stringResource(id = R.string.app_generic_cancel),
+                        onClick = {
+                            onToggleDelete
+                        },
+                        backgroundColor = colorResource(R.color.colorWhite), // ThmMainButtonBackgroundColor, // ?attr/thmMainButtonBackgroundColor
+                        textColor = ThmLoginButtonTextColor, // ?attr/thmLoginButtonTextColor
+                        fontSize = ThmEdittextTextSize, // ?attr/thmButtonTextSize
+                        fontWeight = FontWeight.Medium, // ?attr/thmMainFontTypeMedium
+                        letterSpacing = ThmButtonLetterSpacing, // ?attr/thmButtonLetterSpacing
                         modifier = Modifier.height(36.dp),
                         enabled = !isDeletingPin
-                    ) {
-                        Text(
-                            text = stringResource(R.string.app_generic_cancel),
-                            fontSize = 12.sp,
-                            color = colorResource(R.color.colorWhite)
-                        )
-                    }
+                    )
+
+//                    Button(
+//                        onClick = onToggleDelete,
+//                        colors = ButtonDefaults.buttonColors(
+//                            containerColor = colorResource(R.color.colorPrimary).copy(alpha = 0.7f)
+//                        ),
+//                        modifier = Modifier.height(36.dp),
+//                        enabled = !isDeletingPin
+//                    ) {
+//                        Text(
+//                            text = stringResource(R.string.app_generic_cancel),
+//                            fontSize = 12.sp,
+//                            color = colorResource(R.color.colorWhite)
+//                        )
+//                    }
 
                     Spacer(modifier = Modifier.width(8.dp))
 
-                    Button(
-                        onClick = onDeletePin,
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = colorResource(R.color.colorPrimary)
-                        ),
-                        modifier = Modifier.height(36.dp),
-                        enabled = !isDeletingPin
-                    ) {
-                        if (isDeletingPin) {
-                            CircularProgressIndicator(
-                                modifier = Modifier.size(16.dp),
-                                color = colorResource(R.color.colorWhite),
-                                strokeWidth = 2.dp
-                            )
-                        } else {
-                            Text(
-                                text = stringResource(R.string.pin_managment_delete_pin),
-                                fontSize = 12.sp,
-                                color = colorResource(R.color.colorWhite)
-                            )
-                        }
+                    if (isDeletingPin) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(16.dp),
+                            color = colorResource(R.color.colorWhite),
+                            strokeWidth = 2.dp
+                        )
+                    } else {
+                        ButtonWithFont(
+                            text = stringResource(id = R.string.pin_managment_delete_pin),
+                            onClick = {
+                                onDeletePin
+                            },
+                            backgroundColor = colorResource(R.color.colorWhite), // ThmMainButtonBackgroundColor, // ?attr/thmMainButtonBackgroundColor
+                            textColor = ThmLoginButtonTextColor, // ?attr/thmLoginButtonTextColor
+                            fontSize = ThmEdittextTextSize, // ?attr/thmButtonTextSize
+                            fontWeight = FontWeight.Medium, // ?attr/thmMainFontTypeMedium
+                            letterSpacing = ThmButtonLetterSpacing, // ?attr/thmButtonLetterSpacing
+                            modifier = Modifier.height(36.dp),
+                            enabled = true
+                        )
                     }
+
+//                    Button(
+//                        onClick = onDeletePin,
+//                        colors = ButtonDefaults.buttonColors(
+//                            containerColor = colorResource(R.color.colorPrimary)
+//                        ),
+//                        modifier = Modifier.height(36.dp),
+//                        enabled = !isDeletingPin
+//                    ) {
+//                        if (isDeletingPin) {
+//                            CircularProgressIndicator(
+//                                modifier = Modifier.size(16.dp),
+//                                color = colorResource(R.color.colorWhite),
+//                                strokeWidth = 2.dp
+//                            )
+//                        } else {
+//                            Text(
+//                                text = stringResource(R.string.pin_managment_delete_pin),
+//                                fontSize = 12.sp,
+//                                color = colorResource(R.color.colorWhite)
+//                            )
+//                        }
+//                    }
                 }
             }
         }
