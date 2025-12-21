@@ -56,6 +56,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import hr.sil.android.ble.scanner.scan_multi.properties.advv2.common.MPLDeviceStatus
 import hr.sil.android.myappbox.App
+import hr.sil.android.myappbox.cache.status.ActionStatusHandler
 import hr.sil.android.myappbox.compose.components.GradientBackground
 import hr.sil.android.myappbox.compose.dialog.DeleteAccessShareUserDialog
 import hr.sil.android.myappbox.compose.home_screen.format
@@ -68,6 +69,7 @@ import hr.sil.android.myappbox.core.remote.model.REmptyGroupMembers
 import hr.sil.android.myappbox.core.remote.model.RGroupDisplayMembersAdmin
 import hr.sil.android.myappbox.core.remote.model.RGroupDisplayMembersChild
 import hr.sil.android.myappbox.core.remote.model.RGroupDisplayMembersHeader
+import hr.sil.android.myappbox.core.remote.model.RLockerKey
 import hr.sil.android.myappbox.core.remote.model.RLockerKeyPurpose
 import hr.sil.android.myappbox.core.remote.model.RMasterUnitType
 import hr.sil.android.myappbox.core.remote.model.RUserAccessRole
@@ -83,6 +85,7 @@ import hr.sil.android.myappbox.store.MPLDeviceStore
 import hr.sil.android.myappbox.store.model.MPLDevice
 import hr.sil.android.myappbox.util.SettingsHelper
 import hr.sil.android.myappbox.utils.UiEvent
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.StateFlow
@@ -90,6 +93,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.Date
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -126,7 +130,7 @@ sealed class PickupParcelScreenEvent {
     data class OnOpenClick(val context: Context, val activity: Activity) : PickupParcelScreenEvent()
     data class OnForceOpenClick(val context: Context, val activity: Activity) : PickupParcelScreenEvent()
     data class OnFinishClick(val activity: Activity) : PickupParcelScreenEvent()
-    data class OnShareKeyClick(val key: RCreatedLockerKey) : PickupParcelScreenEvent()
+    data class OnConfirmPickAtFriendKeyClick(val email: String, val pickAtFriendKeyId: Int) : PickupParcelScreenEvent()
     data class OnDeleteKeyClick(val position: Int, val keyId: Int) : PickupParcelScreenEvent()
     data class OnQrCodeClick(val macAddress: String, val context: Context, val activity: Activity) : PickupParcelScreenEvent()
     data class OnCleaningCheckboxClick(val lockerMacAddress: String, val context: Context, val activity: Activity) : PickupParcelScreenEvent()
@@ -146,6 +150,9 @@ class PickupParcelViewModel () : ViewModel() {
 
     private val _uiEvents = Channel<UiEvent>()
     val uiEvents = _uiEvents.receiveAsFlow()
+
+    private val _uiEventsPickupParcel = Channel<PickupParcelScreenUiEvent>()
+    val uiEventsPickupParcel = _uiEventsPickupParcel.receiveAsFlow()
 
     private var device: MPLDevice? = null
     private val openedParcels = mutableListOf<String>()
@@ -176,20 +183,61 @@ class PickupParcelViewModel () : ViewModel() {
 
             is PickupParcelScreenEvent.OnFinishClick -> {
                 viewModelScope.launch {
-                    //_uiEvents.send(PickupParcelScreenUiEvent.NavigateToFinish)
-                }
-            }
 
-            is PickupParcelScreenEvent.OnShareKeyClick -> {
-                // Show pick a friend dialog
+                    MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]?.activeKeys?.toMutableList()?.removeAll { key -> key.lockerMasterMac.macCleanToReal() == SettingsHelper.userLastSelectedLocker }
+
+                    _state.value.keys.toMutableList().removeAll { key -> key.lockerMasterMac.macCleanToReal() == SettingsHelper.userLastSelectedLocker }
+                    _state.update { it.copy(keys = listOf()) }
+
+                    _uiEventsPickupParcel.send(PickupParcelScreenUiEvent.NavigateToFinish)
+                }
             }
 
             is PickupParcelScreenEvent.OnDeleteKeyClick -> {
                 deletePickAtFriendKey(event.position, event.keyId)
             }
 
+            is PickupParcelScreenEvent.OnConfirmPickAtFriendKeyClick -> {
+
+                ActionStatusHandler.log.info("onConfirm email 33: ${event.email}, ${event.pickAtFriendKeyId}")
+                viewModelScope.launch {
+
+                    val groups = WSUser.getGroupMembers() // DataCache.getGroupMembers()
+                    val groupMemberships = groups?.any { it.email == event.email } ?: false
+
+                    if (!groupMemberships) {
+                        //log.info("PaF share $email - $email")
+                        //log.info("P@h created $pickAtFriendKeyId mail: $email")
+                        val returnedData = WSUser.createPaF(event.pickAtFriendKeyId, event.email)
+                        log.info("Invitation key = ${returnedData?.invitationCode}")
+                        if (returnedData?.invitationCode.isNullOrEmpty()) {
+
+//                            pickupParcelActivity.setupAdapterForKeys()
+//                            withContext(Dispatchers.Main) {
+//                                val message = pickupParcelActivity.resources?.getString(R.string.app_generic_success).toString()
+//                                App.ref.toast(message)
+//                                dismiss()
+//                                //updateKeys()
+//                            }
+                        } else {
+//                            withContext(Dispatchers.Main) {
+//                                val shareAppDialog = ShareAppDialog(pickupParcelActivity, mailAddress)
+//                                shareAppDialog.show( pickupParcelActivity.supportFragmentManager, "" )
+//                                dismiss()
+//                            }
+                        }
+
+                    } else {
+//                        withContext(Dispatchers.Main) {
+//                            App.ref.toast(R.string.grant_access_error_exists)
+//                        }
+                    }
+                }
+            }
+
             is PickupParcelScreenEvent.OnQrCodeClick -> {
                 viewModelScope.launch {
+                    _uiEventsPickupParcel.send(PickupParcelScreenUiEvent.NavigateToQrCode(SettingsHelper.userLastSelectedLocker))
                    // _uiEvents.send(PickupParcelScreenUiEvent.NavigateToQrCode(SettingsHelper.userLastSelectedLocker))
                 }
             }
@@ -209,7 +257,7 @@ class PickupParcelViewModel () : ViewModel() {
 
     private suspend fun combineLockerKeys(): List<RCreatedLockerKey> {
         val keysAssignedToUser = MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]?.activeKeys?.filter {
-            it.lockerMasterMac.macCleanToReal() == SettingsHelper.userLastSelectedLocker.macRealToClean() &&
+            it.lockerMasterMac.macCleanToReal() == SettingsHelper.userLastSelectedLocker &&
                     it.purpose != RLockerKeyPurpose.PAH &&
                     isUserPartOfGroup(it.createdForGroup, it.createdForId)
         }?.map { RCreatedLockerKey().apply {
@@ -232,7 +280,7 @@ class PickupParcelViewModel () : ViewModel() {
 
         val remotePaFKeys = WSUser.getActivePaFCreatedKeys()
         val createdPaFKeys = remotePaFKeys?.filter {
-            it.lockerMasterMac.macCleanToReal() == SettingsHelper.userLastSelectedLocker.macRealToClean()
+            it.lockerMasterMac.macCleanToReal() == SettingsHelper.userLastSelectedLocker //.macRealToClean()
         } ?: mutableListOf()
 
         log.info("PAF keys ${createdPaFKeys.size}")
@@ -366,6 +414,7 @@ class PickupParcelViewModel () : ViewModel() {
                             _state.update {
                                 it.copy(
                                     showCleaningCheckbox = true,
+                                    showFinishButton = true,
                                     lockerMacAddress = openedParcels.firstOrNull() ?: ""
                                 )
                             }
@@ -438,7 +487,7 @@ class PickupParcelViewModel () : ViewModel() {
                 isUnlocked = true,
                 statusText = context.getString(R.string.nav_pickup_parcel_content_unlock),
                 titleRes = R.string.nav_pickup_parcel_unlock,
-                showForceOpen = false,
+                showForceOpen = true,
                 showFinishButton = true
             )
         }

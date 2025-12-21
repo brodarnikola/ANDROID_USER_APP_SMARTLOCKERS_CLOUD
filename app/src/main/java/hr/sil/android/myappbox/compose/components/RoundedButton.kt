@@ -31,7 +31,7 @@ val ThmButtonTextSizeInsideDialog = 16.sp
 
 // <color name="colorPrimary40Percent">#66D3C18C</color>
 val ThmCPTelemetryBackgroundColor = Color(0xFFD3C18C)
-val ThmShareKeyAdapterTextColor = Color(0xFF000000)
+val ThmShareKeyAdapterTextColor = Color(0xFFFFFFFF)
 // 664a4a4a
 val ThmCPShareKeyOddBC = Color(0xFF4A4A4A)
 val ThmCPShareKeyEvenBC = Color(0xFF4A4A4A)

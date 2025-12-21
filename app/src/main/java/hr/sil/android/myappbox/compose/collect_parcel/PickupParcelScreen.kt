@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -33,16 +34,16 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import hr.sil.android.myappbox.App
 import hr.sil.android.myappbox.R
+import hr.sil.android.myappbox.cache.status.ActionStatusHandler.log
 import hr.sil.android.myappbox.compose.components.ButtonWithFont
-import hr.sil.android.myappbox.compose.components.GradientBackground
 import hr.sil.android.myappbox.compose.components.RotatingRingIndicator
 import hr.sil.android.myappbox.compose.components.TextViewWithFont
 import hr.sil.android.myappbox.compose.components.ThmButtonLetterSpacing
 import hr.sil.android.myappbox.compose.components.ThmButtonTextSize
 import hr.sil.android.myappbox.compose.components.ThmCPShareKeyEvenBC
 import hr.sil.android.myappbox.compose.components.ThmCPShareKeyOddBC
-import hr.sil.android.myappbox.compose.components.ThmCPTelemetryBackgroundColor
 import hr.sil.android.myappbox.compose.components.ThmDescriptionTextColor
 import hr.sil.android.myappbox.compose.components.ThmErrorTextColor
 import hr.sil.android.myappbox.compose.components.ThmLoginButtonTextColor
@@ -52,6 +53,7 @@ import hr.sil.android.myappbox.compose.components.ThmSubTitleTextSize
 import hr.sil.android.myappbox.compose.components.ThmTitleLetterSpacing
 import hr.sil.android.myappbox.compose.components.ThmTitleTextColor
 import hr.sil.android.myappbox.compose.components.ThmTitleTextSize
+import hr.sil.android.myappbox.compose.dialog.PickAtFriendKeysDialog
 import hr.sil.android.myappbox.core.remote.model.InstalationType
 import hr.sil.android.myappbox.core.remote.model.RCreatedLockerKey
 import hr.sil.android.myappbox.core.remote.model.RLockerKeyPurpose
@@ -71,6 +73,9 @@ fun PickupParcelScreen(
     val context = LocalContext.current
     val activity = LocalContext.current as Activity
 
+    val displayPickAtFriendKeyDialog = rememberSaveable { mutableStateOf(false) }
+    val pickAtFriendKeyId = rememberSaveable { mutableStateOf(-1) }
+
     LaunchedEffect(key1 = Unit) {
         viewModel.onEvent(
             PickupParcelScreenEvent.OnInit(
@@ -83,17 +88,43 @@ fun PickupParcelScreen(
     LaunchedEffect(key1 = Unit) {
         viewModel.uiEvents.collect { event ->
             when (event) {
-//                is PickupParcelScreenUiEvent.NavigateToQrCode -> {
-//                    // Navigate to QR code screen
-//                }
-//                is PickupParcelScreenUiEvent.NavigateToFinish -> {
-//                    activity.finish()
-//                }
                 is UiEvent.ShowToast -> {
                     Toast.makeText(context, event.message, event.toastLength).show()
                 }
             }
         }
+        viewModel.uiEventsPickupParcel.collect { event ->
+            when (event) {
+                is PickupParcelScreenUiEvent.NavigateToQrCode -> {
+                    // Navigate to QR code
+                    //navigateUp
+                }
+                is PickupParcelScreenUiEvent.NavigateToFinish -> {
+                    navigateUp()
+                }
+            }
+        }
+    }
+
+    if( displayPickAtFriendKeyDialog.value ) {
+        PickAtFriendKeysDialog(
+            onDismiss = { displayPickAtFriendKeyDialog.value = false },
+            onConfirm = { email ->
+                log.info("onConfirm email 11: ${email}")
+                viewModel.onEvent(
+                    PickupParcelScreenEvent.OnConfirmPickAtFriendKeyClick(
+                        email = email,
+                        pickAtFriendKeyId = pickAtFriendKeyId.value,
+                        //context,
+                        //activity
+                    )
+                )
+                //displayPickAtFriendKeyDialog.value = false
+            },
+            onCancel = {
+                displayPickAtFriendKeyDialog.value = false
+            }
+        )
     }
 
     ConstraintLayout(
@@ -215,7 +246,7 @@ fun PickupParcelScreen(
                         .padding(top = 10.dp)
                         .constrainAs(keysList) {
                             top.linkTo(statusText.bottom)
-                            height = Dimension.percent(0.45f)
+                            height = Dimension.percent(0.37f)
                         }
                 ) {
                     itemsIndexed(state.keys) { index, key ->
@@ -225,7 +256,8 @@ fun PickupParcelScreen(
                             instalationType = state.installationType,
                             type = state.masterUnitType,
                             onShareClick = {
-                                viewModel.onEvent(PickupParcelScreenEvent.OnShareKeyClick(key))
+                                pickAtFriendKeyId.value = key.id
+                                displayPickAtFriendKeyDialog.value = true
                             },
                             onDeleteClick = {
                                 viewModel.onEvent(
@@ -352,35 +384,35 @@ fun PickupParcelScreen(
                 }
 
                 // Finish Button
-                //if (state.showFinishButton) {
-//                    ButtonWithFont(
-//                        text = stringResource(id = R.string.app_generic_confirm).uppercase(),
-//                        onClick = {
-//                            viewModel.onEvent(PickupParcelScreenEvent.OnFinishClick(activity))
-//                        },
-//                        backgroundColor = ThmMainButtonBackgroundColor,
-//                        textColor = ThmLoginButtonTextColor,
-//                        fontSize = ThmButtonTextSize,
-//                        fontWeight = FontWeight.Medium,
-//                        letterSpacing = ThmButtonLetterSpacing,
-//                        modifier = Modifier
-//                            .width(250.dp)
-//                            //.padding(bottom = 140.dp)
-//                            .constrainAs(pickupParcelFinish) {
-//                                //bottom.linkTo(parent.bottom)
-//                                top.linkTo(forceOpen.bottom, margin = 5.dp)
-//                                start.linkTo(parent.start)
-//                                end.linkTo(parent.end)
-//                                //height = Dimension.percent(0.08f)
-//                            },
-//                        enabled = true
-//                    )
-                //}
+                if (state.showFinishButton) {
+                    ButtonWithFont(
+                        text = stringResource(id = R.string.app_generic_confirm).uppercase(),
+                        onClick = {
+                            viewModel.onEvent(PickupParcelScreenEvent.OnFinishClick(activity))
+                        },
+                        backgroundColor = ThmMainButtonBackgroundColor,
+                        textColor = ThmLoginButtonTextColor,
+                        fontSize = ThmButtonTextSize,
+                        fontWeight = FontWeight.Medium,
+                        letterSpacing = ThmButtonLetterSpacing,
+                        modifier = Modifier
+                            .width(250.dp)
+                            //.padding(bottom = 140.dp)
+                            .constrainAs(pickupParcelFinish) {
+                                //bottom.linkTo(parent.bottom)
+                                top.linkTo(forceOpen.bottom, margin = 5.dp)
+                                start.linkTo(parent.start)
+                                end.linkTo(parent.end)
+                                //height = Dimension.percent(0.08f)
+                            },
+                        enabled = true
+                    )
+                }
 
                 // Locker Cleaning Checkbox
                 if (state.showCleaningCheckbox) {
 
-                    val topConstraint = if(state.showForceOpen) forceOpen else keysList
+                    val topConstraint = if(state.showFinishButton) pickupParcelFinish else if(state.showForceOpen) forceOpen else keysList
 
                     Row(
                         modifier = Modifier
@@ -500,6 +532,70 @@ fun PickupParcelScreen(
     }
 }
 
+private fun buildKeyText(
+    key: RCreatedLockerKey,
+    type: RMasterUnitType
+): String {
+
+    return when (key.purpose) {
+
+        RLockerKeyPurpose.DELIVERY -> {
+            val formattedDate = formatCorrectDate(key.timeCreated)
+
+            if (type == RMasterUnitType.SPL) {
+                App.ref.getString(
+                    R.string.peripheral_settings_share_access_spl,
+                    formattedDate
+                )
+            } else {
+                App.ref.getString(
+                    R.string.peripheral_settings_share_access,
+                    key.lockerSize,
+                    formattedDate
+                )
+            }
+        }
+
+        RLockerKeyPurpose.PAF -> {
+            val formattedDate = formatCorrectDate(key.baseTimeCreated)
+
+            if (key.createdForId != null) {
+                if (type == RMasterUnitType.MPL) {
+                    App.ref.getString(
+                        R.string.peripheral_settings_remove_access,
+                        key.createdForEndUserName,
+                        key.lockerSize,
+                        formattedDate
+                    )
+                } else {
+                    App.ref.getString(
+                        R.string.peripheral_settings_remove_access_spl,
+                        key.createdForEndUserName,
+                        formattedDate
+                    )
+                }
+            } else {
+                if (type == RMasterUnitType.MPL) {
+                    App.ref.getString(
+                        R.string.peripheral_settings_grant_access,
+                        key.createdByName,
+                        key.lockerSize,
+                        formattedDate
+                    )
+                } else {
+                    App.ref.getString(
+                        R.string.peripheral_settings_grant_access_spl,
+                        key.createdByName,
+                        formattedDate
+                    )
+                }
+            }
+        }
+
+        else -> ""
+    }
+}
+
 @Composable
 fun ParcelPickupKeyItem(
     key: RCreatedLockerKey,
@@ -509,45 +605,48 @@ fun ParcelPickupKeyItem(
     onShareClick: () -> Unit,
     onDeleteClick: () -> Unit,
     onQrCodeClick: () -> Unit
-) {
-    val backgroundColor = if (index % 2 == 0) ThmCPShareKeyOddBC else ThmCPShareKeyEvenBC
+) { 
+
+    val backgroundColor =
+        if (index % 2 == 0) ThmCPShareKeyOddBC else ThmCPShareKeyEvenBC
+
+    val displayText = remember(key) {
+        buildKeyText(key, type)
+    }
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .background(backgroundColor)
-            .alpha(0.4f)
-            .padding(horizontal = 10.dp, vertical = 10.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
+            .padding(horizontal = 12.dp, vertical = 10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
+
+        // ===== TEXT =====
         TextViewWithFont(
-            text = key.timeCreated, // key.displayText,
+            text = displayText,
             color = ThmShareKeyAdapterTextColor,
             fontWeight = FontWeight.Normal,
-            modifier = Modifier.weight(0.83f)
+            maxLines = 4,
+            modifier = Modifier.weight(1f)
         )
 
+        // ===== ACTION ICON =====
         when (key.purpose) {
+
             RLockerKeyPurpose.DELIVERY -> {
                 if (instalationType != InstalationType.LINUX) {
-                    IconButton(
-                        onClick = onShareClick,
-                        modifier = Modifier.weight(0.15f)
-                    ) {
+                    IconButton(onClick = onShareClick) {
                         Icon(
-                            painter = painterResource(id = R.drawable.ic_share),
+                            painter = painterResource(R.drawable.ic_share),
                             contentDescription = null,
                             tint = Color.Unspecified
                         )
                     }
                 } else {
-                    IconButton(
-                        onClick = onQrCodeClick,
-                        modifier = Modifier.weight(0.15f)
-                    ) {
+                    IconButton(onClick = onQrCodeClick) {
                         Icon(
-                            painter = painterResource(id = R.drawable.qr_code),
+                            painter = painterResource(R.drawable.qr_code),
                             contentDescription = null,
                             tint = Color.Unspecified
                         )
@@ -557,12 +656,9 @@ fun ParcelPickupKeyItem(
 
             RLockerKeyPurpose.PAF -> {
                 if (key.createdForId != null && instalationType != InstalationType.LINUX) {
-                    IconButton(
-                        onClick = onDeleteClick,
-                        modifier = Modifier.weight(0.15f)
-                    ) {
+                    IconButton(onClick = onDeleteClick) {
                         Icon(
-                            painter = painterResource(id = R.drawable.ic_remove),
+                            painter = painterResource(R.drawable.ic_remove),
                             contentDescription = null,
                             tint = Color.Unspecified
                         )
@@ -570,7 +666,7 @@ fun ParcelPickupKeyItem(
                 }
             }
 
-            else -> {}
+            else -> Unit
         }
     }
 }
