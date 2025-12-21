@@ -99,7 +99,7 @@ fun SelectParcelSizeScreen(
 
     when {
         state.isLoading -> {
-            CircularProgressIndicator(modifier = Modifier.fillMaxSize())
+            CircularProgressIndicator(modifier = Modifier.size(40.dp))
         }
 
         else -> {

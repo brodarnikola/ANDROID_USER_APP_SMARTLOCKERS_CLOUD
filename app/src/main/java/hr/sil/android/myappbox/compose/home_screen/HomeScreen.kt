@@ -360,7 +360,7 @@ fun NavHomeScreen(
                                         .size(38.dp)
                                         .offset(x = 105.dp)
                                         .background(
-                                            color = ThmDescriptionTextColor,
+                                            color = colorResource(R.color.colorRedBadgeNumber),
                                             shape = CircleShape
                                         ),
                                     contentAlignment = Alignment.Center
