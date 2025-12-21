@@ -71,6 +71,7 @@ fun NavHomeScreen(
     modifier: Modifier = Modifier,
     viewModel: NavHomeViewModel,
     nextScreen: (route: String) -> Unit = {},
+    nextScreenQrCode: (route: String, typeOfNextScreen: Int, macAddress: String) -> Unit = { _, _, _ -> },
     navigateUp: () -> Unit = {}
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle().value
@@ -420,7 +421,8 @@ fun NavHomeScreen(
                                                 displayNoAccessDialog.value = true
                                             }
                                             selectedMasterDevice?.installationType == InstalationType.LINUX -> {
-                                                //nextScreen(MainDestinations.DISPLAY_QR_CODE)
+                                                nextScreenQrCode(MainDestinations.SETTINGS_QR_CODE, 1,
+                                                    SettingsHelper.userLastSelectedLocker) // TODO: CHECK THIS IF IS WORKING GOOD
                                             }
                                             canSendParcel -> {
                                                 nextScreen(MainDestinations.SELECT_PARCEL_SIZE)
@@ -437,6 +439,9 @@ fun NavHomeScreen(
                                             color = colorResource(R.color.colorRedBadgeNumber),
                                             shape = RoundedCornerShape(4.dp)
                                         )
+                                        .clickable {
+                                            nextScreen(MainDestinations.PICK_AT_HOME_KEYS)
+                                        }
                                         .padding(horizontal = 7.dp, vertical = 5.dp),
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {

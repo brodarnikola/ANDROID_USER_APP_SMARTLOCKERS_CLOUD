@@ -143,6 +143,11 @@ fun NavGraphBuilder.mainNavGraph(
                         restoreState = true
                     }
                 }
+            },
+            nextScreenQrCode = { route, returnToScreen, macAddress ->
+                if (navBackStackEntry.value?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
+                    navController.navigate("$route/$returnToScreen/$macAddress")
+                }
             }
 //            onDeviceClick = { deviceId, nameOfDevice ->
 //                if (navBackStackEntry.value?.lifecycle?.currentState == Lifecycle.State.RESUMED) {

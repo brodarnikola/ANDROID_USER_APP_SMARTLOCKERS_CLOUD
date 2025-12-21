@@ -128,8 +128,7 @@ fun MainActivityContent(
     }
 
     val pahKeysCount = rememberSaveable { mutableStateOf(0) }
-    val newTime = System.currentTimeMillis()
-    LaunchedEffect(key1 = newTime) {
+    LaunchedEffect(key1 = appState.currentRoute) {
         if( appState.currentRoute == MainDestinations.HOME) {
             CoroutineScope(Dispatchers.IO).launch {
                 UserUtil.pahKeys = WSUser.getActivePaHCreatedKeys() ?: mutableListOf()
@@ -139,7 +138,6 @@ fun MainActivityContent(
             }
         }
     }
-    println("Will it enter here 11, ${pahKeysCount.value}")
 
     ModalNavigationDrawer(
         drawerState = drawerState,
