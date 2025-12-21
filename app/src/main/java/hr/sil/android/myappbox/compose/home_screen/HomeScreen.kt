@@ -45,6 +45,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import hr.sil.android.myappbox.R
 import hr.sil.android.myappbox.compose.components.TextViewWithFont
 import hr.sil.android.myappbox.compose.components.ThmDescriptionTextColor
+import hr.sil.android.myappbox.compose.components.ThmEdittextColor
+import hr.sil.android.myappbox.compose.components.ThmNavigationDrawerMenuTextColor
 import hr.sil.android.myappbox.compose.components.ThmTitleTextColor
 import hr.sil.android.myappbox.compose.components.ThmTitleTextSize
 import hr.sil.android.myappbox.compose.main_activity.MainDestinations
@@ -363,10 +365,11 @@ fun NavHomeScreen(
                                         ),
                                     contentAlignment = Alignment.Center
                                 ) {
-                                    Text(
+                                    TextViewWithFont(
                                         text = deliveryKeysCount.toString(),
-                                        color = ThmTitleTextColor,
-                                        fontSize = 25.sp
+                                        color = ThmNavigationDrawerMenuTextColor,
+                                        fontSize = 25.sp,
+                                        fontWeight = FontWeight.Light
                                     )
                                 }
                             }
@@ -451,12 +454,15 @@ fun NavHomeScreen(
                                         tint = Color.Unspecified
                                     )
 
-                                    Text(
+                                    TextViewWithFont(
                                         text = pahKeysCount.value.toString(),
-                                        color = ThmDescriptionTextColor,
+                                        color = ThmNavigationDrawerMenuTextColor,
                                         fontSize = 25.sp,
+                                        fontWeight = FontWeight.Light,
+                                        textAlign = TextAlign.Center,
                                         modifier = Modifier.padding(start = 2.dp)
                                     )
+
                                 }
                             }
                         }
