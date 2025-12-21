@@ -206,7 +206,7 @@ fun DeliveryItemCard(
 
             // Locker Picture
             Image(
-                painter = painterResource(R.drawable.qr_code),
+                painter = painterResource(R.drawable.ic_parcel),
                 contentDescription = "Locker",
                 modifier = Modifier
                     .constrainAs(lockerImage) {

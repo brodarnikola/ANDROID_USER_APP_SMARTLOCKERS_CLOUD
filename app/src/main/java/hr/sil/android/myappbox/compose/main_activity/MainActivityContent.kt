@@ -129,6 +129,9 @@ fun MainActivityContent(
             counterPickupDeliveryKeys += item.activeKeys.filter { it.purpose == RLockerKeyPurpose.DELIVERY || it.purpose == RLockerKeyPurpose.PAF }.size
     }
 
+    val deliveryKeysCount = selectedMasterDevice?.activeKeys
+        ?.count { it.purpose == RLockerKeyPurpose.DELIVERY || it.purpose == RLockerKeyPurpose.PAF } ?: 0
+
     val deviceAddressConfirmed = selectedMasterDevice?.requiredAccessRequestTypes
         ?.firstOrNull { it.name == RequiredAccessRequestTypes.ADDRESS_CONFIRMATION.name }
     val isPublicLocker = selectedMasterDevice != null &&
@@ -196,12 +199,51 @@ fun MainActivityContent(
                     },
                     selected = false,
                     onClick = {
-                        if (SettingsHelper.userLastSelectedLocker != "" && UserUtil.user?.status == "ACTIVE" && selectedMasterDevice?.activeKeys?.any { it.purpose == RLockerKeyPurpose.DELIVERY || it.purpose == RLockerKeyPurpose.PAF } == true)
-                            scope.launch { drawerState.close() }
-                        else {
-                            noAccessMessage.value = noSelectedLocker
-                            displayNoLockerSelected.value = true
+
+                        when {
+                            SettingsHelper.userLastSelectedLocker.isEmpty() -> {
+                                noAccessMessage.value = noSelectedLocker
+                                displayNoLockerSelected.value = true
+                            }
+                            !isPublicLocker -> {
+                                noAccessMessage.value = noDeliverisToLockerPossible
+                                displayNoLockerSelected.value = true
+                            }
+                            selectedMasterDevice?.isUserAssigned == false &&
+                                    selectedMasterDevice?.activeAccessRequest == false -> {
+                                noAccessMessage.value = appGenericRequestAccess
+                                displayNoLockerSelected.value = true
+                            }
+                            selectedMasterDevice?.isUserAssigned == false &&
+                                    selectedMasterDevice?.activeAccessRequest == true -> {
+                                noAccessMessage.value = adminAapproveRequestAccess
+                                displayNoLockerSelected.value = true
+                            }
+                            selectedMasterDevice?.hasUserRightsOnSendParcelLocker() == false -> {
+                                noAccessMessage.value = appGenericNoAccessForDevice
+                                displayNoLockerSelected.value = true
+                            }
+                            deliveryKeysCount > 0 -> {
+                                if (navBackStackEntry.value?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
+                                    appState.navController.navigate(MainDestinations.PARCEL_PICKUP) {
+                                        launchSingleTop = true
+                                        restoreState = true
+                                    }
+                                }
+                                scope.launch { drawerState.close() }
+                            }
+                            else -> {
+                                noAccessMessage.value = noDeliveriesToPickup
+                                displayNoLockerSelected.value = true
+                            }
                         }
+
+//                        if (SettingsHelper.userLastSelectedLocker != "" && UserUtil.user?.status == "ACTIVE" && selectedMasterDevice?.activeKeys?.any { it.purpose == RLockerKeyPurpose.DELIVERY || it.purpose == RLockerKeyPurpose.PAF } == true)
+//                            scope.launch { drawerState.close() }
+//                        else {
+//                            noAccessMessage.value = noSelectedLocker
+//                            displayNoLockerSelected.value = true
+//                        }
                         //onNavigateToPickupParcel()
                     },
                     colors = NavigationDrawerItemDefaults.colors(
@@ -272,14 +314,6 @@ fun MainActivityContent(
                                 scope.launch { drawerState.close() }
                             }
                         }
-
-//                        if (SettingsHelper.userLastSelectedLocker == "") {
-//                            noAccessMessage.value = noSelectedLocker
-//                            displayNoLockerSelected.value = true
-//                        } else {
-//                            scope.launch { drawerState.close() }
-//                        }
-                        //onNavigateToSendParcel()
                     },
                     colors = NavigationDrawerItemDefaults.colors(
                         unselectedContainerColor = Color.Transparent,
@@ -397,7 +431,7 @@ fun MainActivityContent(
                 NavigationDrawerItem(
                     label = {
                         val alphaValue =
-                            if (UserUtil.user?.status == "ACTIVE" && selectedMasterDevice?.hasRightsToShareAccess() ?: false && selectedMasterDevice?.installationType == InstalationType.DEVICE) 1.0f else 0.5f
+                            if (isPublicLocker && SettingsHelper.userLastSelectedLocker != "" && UserUtil.user?.status == "ACTIVE" && selectedMasterDevice?.hasRightsToShareAccess() ?: false && selectedMasterDevice?.installationType == InstalationType.DEVICE) 1.0f else 0.5f
                         TextViewWithFont(
                             text = stringResource(R.string.app_generic_key_sharing),
                             color = ThmNavigationDrawerMenuTextColor.copy(alpha = alphaValue),
@@ -411,7 +445,7 @@ fun MainActivityContent(
                     },
                     selected = false,
                     onClick = {
-                        if (SettingsHelper.userLastSelectedLocker != "" && UserUtil.user?.status == "ACTIVE" && selectedMasterDevice?.hasRightsToShareAccess() ?: false && selectedMasterDevice?.installationType == InstalationType.DEVICE) {
+                        if (isPublicLocker && SettingsHelper.userLastSelectedLocker != "" && UserUtil.user?.status == "ACTIVE" && selectedMasterDevice?.hasRightsToShareAccess() ?: false && selectedMasterDevice?.installationType == InstalationType.DEVICE) {
                             appState.navController.navigate(MainDestinations.ACCESS_SHARING_SCREEN) {
                                 launchSingleTop = true
                                 restoreState = true
