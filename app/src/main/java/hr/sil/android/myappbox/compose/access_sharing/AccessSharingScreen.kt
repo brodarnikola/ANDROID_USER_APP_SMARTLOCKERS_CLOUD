@@ -34,6 +34,9 @@ import hr.sil.android.myappbox.util.backend.UserUtil
 import kotlin.collections.List
 
 import hr.sil.android.myappbox.core.util.logger
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
+
 @Composable
 fun AccessSharingScreen(
     viewModel: AccessSharingViewModel = viewModel(),
@@ -123,14 +126,19 @@ fun AccessSharingScreen(
                             AccessSharingSubHeaderItem(
                                 admin = item,
                                 onAddClick = {
+
                                     val nameOfGroup = item.groupOwnerName
                                     val groupIdParameter = item.groupId
+
+                                    val encodedGroupName = URLEncoder.encode(
+                                        nameOfGroup,
+                                        StandardCharsets.UTF_8.toString()
+                                    )
 
                                     logger().info("nameOfGroup: $nameOfGroup")
                                     logger().info("groupId: $groupIdParameter")
 
-                                    nextScreen(MainDestinations.ACCESS_SHARING_ADD_USER_SCREEN, nameOfGroup, groupIdParameter)
-                                    //onAddUser(item)
+                                    nextScreen(MainDestinations.ACCESS_SHARING_ADD_USER_SCREEN, encodedGroupName, groupIdParameter)
                                 }
                             )
                         }
