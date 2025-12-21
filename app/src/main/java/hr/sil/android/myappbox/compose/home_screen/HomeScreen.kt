@@ -53,11 +53,15 @@ import hr.sil.android.myappbox.util.SettingsHelper
 
 import hr.sil.android.myappbox.compose.dialog.NoMasterSelectedDialog
 import hr.sil.android.myappbox.compose.dialog.TextCopiedToClipboardDialog
+import hr.sil.android.myappbox.core.remote.WSUser
 import hr.sil.android.myappbox.core.remote.model.InstalationType
 import hr.sil.android.myappbox.core.remote.model.RLockerKeyPurpose
 import hr.sil.android.myappbox.core.remote.model.RequiredAccessRequestTypes
 import hr.sil.android.myappbox.core.util.macRealToClean
 import hr.sil.android.myappbox.util.backend.UserUtil
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 @SuppressLint("SuspiciousIndentation")
@@ -75,6 +79,8 @@ fun NavHomeScreen(
     val lockerNameOrAddress = rememberSaveable { mutableStateOf("") }
     val finalProductName = rememberSaveable { mutableStateOf("") }
     val lockerAddress = rememberSaveable { mutableStateOf("") }
+
+    val pahKeysCount = rememberSaveable { mutableStateOf(0) }
 
     val displayCopiedToClipboardDialog = remember { mutableStateOf(false) }
     val displayNoLockerSelected = rememberSaveable { mutableStateOf(false) }
@@ -115,10 +121,6 @@ fun NavHomeScreen(
     val deliveryKeysCount = selectedMasterDevice?.activeKeys
         ?.count { it.purpose == RLockerKeyPurpose.DELIVERY || it.purpose == RLockerKeyPurpose.PAF } ?: 0
 
-    val pahKeysCount = UserUtil.pahKeys.filter {
-        it.lockerMasterMac == selectedMasterDevice?.macAddress?.macRealToClean()
-    }.size
-
     if (displayNoLockerSelected.value) {
         NoMasterSelectedDialog(
             messageResId = R.string.no_selected_locker,
@@ -142,6 +144,9 @@ fun NavHomeScreen(
             } ?: ""
         finalProductName.value = viewModel.setFinalProductName()
         lockerAddress.value = viewModel.setLockerAddress()
+        pahKeysCount.value = UserUtil.pahKeys.filter {
+            it.lockerMasterMac.macRealToClean() == selectedMasterDevice?.macAddress?.macRealToClean()
+        }.size
     }
 
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -154,6 +159,14 @@ fun NavHomeScreen(
                     } ?: ""
                 finalProductName.value = viewModel.setFinalProductName()
                 lockerAddress.value = viewModel.setLockerAddress()
+
+                CoroutineScope(Dispatchers.IO).launch {
+                    UserUtil.pahKeys = WSUser.getActivePaHCreatedKeys() ?: mutableListOf()
+                    pahKeysCount.value = UserUtil.pahKeys.filter {
+                        it.lockerMasterMac.macRealToClean() == selectedMasterDevice?.macAddress?.macRealToClean()
+                    }.size
+                }
+
             }
         }
         lifecycleOwner.lifecycle.addObserver(observer)
@@ -371,39 +384,39 @@ fun NavHomeScreen(
                 // Send Parcel
                 Box(
                     modifier = Modifier
-                        .weight(1f)
-                        .clickable {
-                            when {
-                                SettingsHelper.userLastSelectedLocker.isEmpty() -> {
-                                    noAccessMessage.value = noSelectedLocker
-                                    displayNoAccessDialog.value = true
-                                }
-                                !isPublicLocker -> {
-                                    noAccessMessage.value = noDeliverisToLockerPossible
-                                    displayNoAccessDialog.value = true
-                                }
-                                selectedMasterDevice?.isUserAssigned == false &&
-                                        selectedMasterDevice?.activeAccessRequest == false -> {
-                                    noAccessMessage.value = appGenericRequestAccess
-                                    displayNoAccessDialog.value = true
-                                }
-                                selectedMasterDevice?.isUserAssigned == false &&
-                                        selectedMasterDevice?.activeAccessRequest == true -> {
-                                    noAccessMessage.value = adminAapproveRequestAccess
-                                    displayNoAccessDialog.value = true
-                                }
-                                selectedMasterDevice?.hasUserRightsOnSendParcelLocker() == false -> {
-                                    noAccessMessage.value = appGenericNoAccessForDevice
-                                    displayNoAccessDialog.value = true
-                                }
-                                selectedMasterDevice?.installationType == InstalationType.LINUX -> {
-                                    //nextScreen(MainDestinations.DISPLAY_QR_CODE)
-                                }
-                                canSendParcel -> {
-                                    nextScreen(MainDestinations.SELECT_PARCEL_SIZE)
-                                }
-                            }
-                        },
+                        .weight(1f),
+//                        .clickable {
+//                            when {
+//                                SettingsHelper.userLastSelectedLocker.isEmpty() -> {
+//                                    noAccessMessage.value = noSelectedLocker
+//                                    displayNoAccessDialog.value = true
+//                                }
+//                                !isPublicLocker -> {
+//                                    noAccessMessage.value = noDeliverisToLockerPossible
+//                                    displayNoAccessDialog.value = true
+//                                }
+//                                selectedMasterDevice?.isUserAssigned == false &&
+//                                        selectedMasterDevice?.activeAccessRequest == false -> {
+//                                    noAccessMessage.value = appGenericRequestAccess
+//                                    displayNoAccessDialog.value = true
+//                                }
+//                                selectedMasterDevice?.isUserAssigned == false &&
+//                                        selectedMasterDevice?.activeAccessRequest == true -> {
+//                                    noAccessMessage.value = adminAapproveRequestAccess
+//                                    displayNoAccessDialog.value = true
+//                                }
+//                                selectedMasterDevice?.hasUserRightsOnSendParcelLocker() == false -> {
+//                                    noAccessMessage.value = appGenericNoAccessForDevice
+//                                    displayNoAccessDialog.value = true
+//                                }
+//                                selectedMasterDevice?.installationType == InstalationType.LINUX -> {
+//                                    //nextScreen(MainDestinations.DISPLAY_QR_CODE)
+//                                }
+//                                canSendParcel -> {
+//                                    nextScreen(MainDestinations.SELECT_PARCEL_SIZE)
+//                                }
+//                            }
+//                        },
                     contentAlignment = Alignment.Center
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -412,10 +425,43 @@ fun NavHomeScreen(
                                 painter = painterResource(R.drawable.ic_send_parcel),
                                 contentDescription = null,
                                 tint = Color.Unspecified,
-                                modifier = Modifier.alpha(if (canSendParcel) 1.0f else 0.2f)
+                                modifier = Modifier
+                                    .alpha(if (canSendParcel) 1.0f else 0.2f)
+                                    .clickable {
+                                        when {
+                                            SettingsHelper.userLastSelectedLocker.isEmpty() -> {
+                                                noAccessMessage.value = noSelectedLocker
+                                                displayNoAccessDialog.value = true
+                                            }
+                                            !isPublicLocker -> {
+                                                noAccessMessage.value = noDeliverisToLockerPossible
+                                                displayNoAccessDialog.value = true
+                                            }
+                                            selectedMasterDevice?.isUserAssigned == false &&
+                                                    selectedMasterDevice?.activeAccessRequest == false -> {
+                                                noAccessMessage.value = appGenericRequestAccess
+                                                displayNoAccessDialog.value = true
+                                            }
+                                            selectedMasterDevice?.isUserAssigned == false &&
+                                                    selectedMasterDevice?.activeAccessRequest == true -> {
+                                                noAccessMessage.value = adminAapproveRequestAccess
+                                                displayNoAccessDialog.value = true
+                                            }
+                                            selectedMasterDevice?.hasUserRightsOnSendParcelLocker() == false -> {
+                                                noAccessMessage.value = appGenericNoAccessForDevice
+                                                displayNoAccessDialog.value = true
+                                            }
+                                            selectedMasterDevice?.installationType == InstalationType.LINUX -> {
+                                                //nextScreen(MainDestinations.DISPLAY_QR_CODE)
+                                            }
+                                            canSendParcel -> {
+                                                nextScreen(MainDestinations.SELECT_PARCEL_SIZE)
+                                            }
+                                        }
+                                    }
                             )
 
-                            if (pahKeysCount > 0) {
+                            if (pahKeysCount.value > 0) {
                                 Row(
                                     modifier = Modifier
                                         .offset(x = 105.dp)
@@ -433,7 +479,7 @@ fun NavHomeScreen(
                                     )
 
                                     Text(
-                                        text = pahKeysCount.toString(),
+                                        text = pahKeysCount.value.toString(),
                                         color = ThmDescriptionTextColor,
                                         fontSize = 25.sp,
                                         modifier = Modifier.padding(start = 2.dp)

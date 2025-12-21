@@ -168,9 +168,9 @@ fun SendParcelsOverviewScreen(
                         lockerMasterMac.value = key.lockerMasterMac
                         idKey.value = key.id
                         if (key.isLinuxKeyDevice == InstalationType.LINUX) {
-                            displayCancelDialog.value = true
-                        } else {
                             displayCancelLinuxDialog.value = true
+                        } else {
+                            displayCancelDialog.value = true
                         }
                         //onCancelKey(key)
                     }
