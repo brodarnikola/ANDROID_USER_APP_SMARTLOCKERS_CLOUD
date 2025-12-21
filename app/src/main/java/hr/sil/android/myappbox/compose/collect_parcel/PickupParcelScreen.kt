@@ -3,6 +3,12 @@ package hr.sil.android.myappbox.compose.collect_parcel
 
 import android.app.Activity
 import android.widget.Toast
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -143,6 +149,21 @@ fun PickupParcelScreen(
                         },
                     contentAlignment = Alignment.Center
                 ) {
+
+                    val rotation by rememberInfiniteTransition(label = "spinner")
+                        .animateFloat(
+                            initialValue = 0f,
+                            targetValue = 360f,
+                            animationSpec = infiniteRepeatable(
+                                animation = tween(
+                                    durationMillis = 1000,
+                                    easing = LinearEasing
+                                ),
+                                repeatMode = RepeatMode.Restart
+                            ),
+                            label = "rotation"
+                        )
+
                     Icon(
                         painter = painterResource(id = state.circleDrawableRes),
                         contentDescription = null,
@@ -150,11 +171,7 @@ fun PickupParcelScreen(
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(10.dp)
-                            .then(
-                                if (state.isAnimating) {
-                                    Modifier.rotate(state.animationRotation)
-                                } else Modifier
-                            )
+                            .rotate(if( state.isAnimating ) rotation else 0f)
                     )
 
                     Icon(
@@ -198,7 +215,7 @@ fun PickupParcelScreen(
                         .padding(top = 10.dp)
                         .constrainAs(keysList) {
                             top.linkTo(statusText.bottom)
-                            height = Dimension.percent(0.47f)
+                            height = Dimension.percent(0.45f)
                         }
                 ) {
                     itemsIndexed(state.keys) { index, key ->
@@ -230,84 +247,84 @@ fun PickupParcelScreen(
                 }
 
                 // Telemetry
-                if (state.showTelemetry) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(ThmCPTelemetryBackgroundColor)
-                            .alpha(0.4f)
-                            .padding(horizontal = 10.dp, vertical = 10.dp)
-                            .constrainAs(clLockerTelemetry) {
-                                top.linkTo(keysList.bottom)
-                                bottom.linkTo(parent.bottom)
-                                height = Dimension.percent(0.08f)
-                            },
-                        horizontalArrangement = Arrangement.SpaceEvenly,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Row(
-                            modifier = Modifier.weight(3.3f),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_humidity),
-                                contentDescription = null,
-                                tint = Color.Unspecified
-                            )
-                            TextViewWithFont(
-                                text = state.humidity,
-                                color = ThmDescriptionTextColor,
-                                fontSize = 13.sp,
-                                fontWeight = FontWeight.Bold,
-                                maxLines = 1,
-                                modifier = Modifier.padding(start = 5.dp)
-                            )
-                        }
-
-                        Row(
-                            modifier = Modifier.weight(2.8f),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_temperature),
-                                contentDescription = null,
-                                tint = Color.Unspecified
-                            )
-                            TextViewWithFont(
-                                text = state.temperature,
-                                color = ThmDescriptionTextColor,
-                                fontSize = 13.sp,
-                                fontWeight = FontWeight.Bold,
-                                maxLines = 1,
-                                modifier = Modifier.padding(start = 5.dp)
-                            )
-                        }
-
-                        Row(
-                            modifier = Modifier.weight(3.8f),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_air_pressure),
-                                contentDescription = null,
-                                tint = Color.Unspecified
-                            )
-                            TextViewWithFont(
-                                text = state.airPressure,
-                                color = ThmDescriptionTextColor,
-                                fontSize = 13.sp,
-                                fontWeight = FontWeight.Bold,
-                                maxLines = 1,
-                                modifier = Modifier.padding(start = 5.dp)
-                            )
-                        }
-                    }
-                }
+//                if (state.showTelemetry) {
+//                    Row(
+//                        modifier = Modifier
+//                            .fillMaxWidth()
+//                            .background(ThmCPTelemetryBackgroundColor)
+//                            .alpha(0.4f)
+//                            .padding(horizontal = 10.dp, vertical = 10.dp)
+//                            .constrainAs(clLockerTelemetry) {
+//                                top.linkTo(keysList.bottom)
+//                                bottom.linkTo(parent.bottom)
+//                                height = Dimension.percent(0.08f)
+//                            },
+//                        horizontalArrangement = Arrangement.SpaceEvenly,
+//                        verticalAlignment = Alignment.CenterVertically
+//                    ) {
+//                        Row(
+//                            modifier = Modifier.weight(3.3f),
+//                            verticalAlignment = Alignment.CenterVertically
+//                        ) {
+//                            Icon(
+//                                painter = painterResource(id = R.drawable.ic_humidity),
+//                                contentDescription = null,
+//                                tint = Color.Unspecified
+//                            )
+//                            TextViewWithFont(
+//                                text = state.humidity,
+//                                color = ThmDescriptionTextColor,
+//                                fontSize = 13.sp,
+//                                fontWeight = FontWeight.Bold,
+//                                maxLines = 1,
+//                                modifier = Modifier.padding(start = 5.dp)
+//                            )
+//                        }
+//
+//                        Row(
+//                            modifier = Modifier.weight(2.8f),
+//                            verticalAlignment = Alignment.CenterVertically
+//                        ) {
+//                            Icon(
+//                                painter = painterResource(id = R.drawable.ic_temperature),
+//                                contentDescription = null,
+//                                tint = Color.Unspecified
+//                            )
+//                            TextViewWithFont(
+//                                text = state.temperature,
+//                                color = ThmDescriptionTextColor,
+//                                fontSize = 13.sp,
+//                                fontWeight = FontWeight.Bold,
+//                                maxLines = 1,
+//                                modifier = Modifier.padding(start = 5.dp)
+//                            )
+//                        }
+//
+//                        Row(
+//                            modifier = Modifier.weight(3.8f),
+//                            verticalAlignment = Alignment.CenterVertically
+//                        ) {
+//                            Icon(
+//                                painter = painterResource(id = R.drawable.ic_air_pressure),
+//                                contentDescription = null,
+//                                tint = Color.Unspecified
+//                            )
+//                            TextViewWithFont(
+//                                text = state.airPressure,
+//                                color = ThmDescriptionTextColor,
+//                                fontSize = 13.sp,
+//                                fontWeight = FontWeight.Bold,
+//                                maxLines = 1,
+//                                modifier = Modifier.padding(start = 5.dp)
+//                            )
+//                        }
+//                    }
+//                }
 
                 // Force Open Button
                 if (state.showForceOpen) {
                     ButtonWithFont(
-                        text = stringResource(id = R.string.app_generic_force_open),
+                        text = stringResource(id = R.string.app_generic_force_open).uppercase(),
                         onClick = {
                             viewModel.onEvent(
                                 PickupParcelScreenEvent.OnForceOpenClick(
@@ -323,51 +340,58 @@ fun PickupParcelScreen(
                         letterSpacing = ThmButtonLetterSpacing,
                         modifier = Modifier
                             .width(250.dp)
-                            .padding(bottom = 20.dp)
                             .constrainAs(forceOpen) {
-                                bottom.linkTo(pickupParcelFinish.top)
+                                top.linkTo(keysList.bottom, margin = 5.dp)
+                                //bottom.linkTo(pickupParcelFinish.top)
                                 start.linkTo(parent.start)
                                 end.linkTo(parent.end)
-                                height = Dimension.percent(0.08f)
+                                //height = Dimension.percent(0.08f)
                             },
                         enabled = true
                     )
                 }
 
                 // Finish Button
-                if (state.showFinishButton) {
-                    ButtonWithFont(
-                        text = stringResource(id = R.string.app_generic_confirm),
-                        onClick = {
-                            viewModel.onEvent(PickupParcelScreenEvent.OnFinishClick(activity))
-                        },
-                        backgroundColor = ThmMainButtonBackgroundColor,
-                        textColor = ThmLoginButtonTextColor,
-                        fontSize = ThmButtonTextSize,
-                        fontWeight = FontWeight.Medium,
-                        letterSpacing = ThmButtonLetterSpacing,
-                        modifier = Modifier
-                            .width(250.dp)
-                            .padding(bottom = 140.dp)
-                            .constrainAs(pickupParcelFinish) {
-                                bottom.linkTo(parent.bottom)
-                                start.linkTo(parent.start)
-                                end.linkTo(parent.end)
-                                height = Dimension.percent(0.08f)
-                            },
-                        enabled = true
-                    )
-                }
+                //if (state.showFinishButton) {
+//                    ButtonWithFont(
+//                        text = stringResource(id = R.string.app_generic_confirm).uppercase(),
+//                        onClick = {
+//                            viewModel.onEvent(PickupParcelScreenEvent.OnFinishClick(activity))
+//                        },
+//                        backgroundColor = ThmMainButtonBackgroundColor,
+//                        textColor = ThmLoginButtonTextColor,
+//                        fontSize = ThmButtonTextSize,
+//                        fontWeight = FontWeight.Medium,
+//                        letterSpacing = ThmButtonLetterSpacing,
+//                        modifier = Modifier
+//                            .width(250.dp)
+//                            //.padding(bottom = 140.dp)
+//                            .constrainAs(pickupParcelFinish) {
+//                                //bottom.linkTo(parent.bottom)
+//                                top.linkTo(forceOpen.bottom, margin = 5.dp)
+//                                start.linkTo(parent.start)
+//                                end.linkTo(parent.end)
+//                                //height = Dimension.percent(0.08f)
+//                            },
+//                        enabled = true
+//                    )
+                //}
 
                 // Locker Cleaning Checkbox
                 if (state.showCleaningCheckbox) {
+
+                    val topConstraint = if(state.showForceOpen) forceOpen else keysList
+
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 20.dp)
                             .constrainAs(llClean) {
-                                top.linkTo(pickupParcelFinish.bottom)
-                                bottom.linkTo(parent.bottom)
+                                top.linkTo(topConstraint.bottom, margin = 5.dp)
+                                start.linkTo(parent.start)
+                                end.linkTo(parent.end)
+                                // top.linkTo(pickupParcelFinish.bottom)
+                                //bottom.linkTo(parent.bottom)
                             },
                         horizontalArrangement = Arrangement.Center,
                         verticalAlignment = Alignment.CenterVertically
@@ -414,7 +438,8 @@ fun PickupParcelScreen(
                         modifier = Modifier
                             .size(40.dp)
                             .constrainAs(progressBarLockerCleaning) {
-                                top.linkTo(llClean.bottom)
+                                top.linkTo(llClean.bottom, margin = 12.dp)
+                                //top.linkTo(llClean.bottom)
                                 start.linkTo(parent.start)
                                 end.linkTo(parent.end)
                             }

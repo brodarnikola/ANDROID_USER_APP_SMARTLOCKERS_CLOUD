@@ -24,6 +24,7 @@ import hr.sil.android.myappbox.util.SettingsHelper
 import hr.sil.android.myappbox.util.backend.UserUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
