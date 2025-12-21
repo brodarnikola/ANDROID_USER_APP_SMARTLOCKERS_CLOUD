@@ -45,7 +45,6 @@ import kotlinx.coroutines.withContext
 @Composable
 fun SelectParcelSizeScreen(
     viewModel: SelectParcelSizeViewModel = viewModel(),
-    onSizeClick: (String) -> Unit,
     onNavigateToDelivery: (macAddress: String, pin: Int, size: String) -> Unit = { _, _, _ -> },
 ) {
     val state by viewModel.uiState.collectAsState()
@@ -108,7 +107,6 @@ fun SelectParcelSizeScreen(
                 isInBleProximity = state.isInBleProximity,
                 availableLockers = state.availableLockers,
                 onLockerSelected = viewModel::onLockerClicked,
-                onSizeClick = onSizeClick,
                 //lockerSizes = state.
             )
         }
@@ -120,7 +118,6 @@ fun SelectParcelContentScreen(
     isInBleProximity: Boolean,
     availableLockers: List<RAvailableLockerSize>,
     onLockerSelected: (RLockerSize) -> Unit,
-    onSizeClick: (String) -> Unit,
     //lockerSizes: List<LockerSize>,
 ) {
 

@@ -34,6 +34,7 @@ import hr.sil.android.myappbox.compose.home_screen.NavHomeScreen
 import hr.sil.android.myappbox.compose.home_screen.SelectLockerScreen
 import hr.sil.android.myappbox.compose.send_parcel.SelectParcelContentScreen
 import hr.sil.android.myappbox.compose.send_parcel.SelectParcelSizeScreen
+import hr.sil.android.myappbox.compose.send_parcel.SendParcelDeliveryScreen
 import hr.sil.android.myappbox.compose.send_parcel.SendParcelsOverviewScreen
 import hr.sil.android.myappbox.compose.settings.ChangePasswordScreen
 import hr.sil.android.myappbox.compose.settings.DisplayQrCodeScreenWrapper
@@ -176,9 +177,41 @@ fun NavGraphBuilder.mainNavGraph(
     composable(MainDestinations.SELECT_PARCEL_SIZE) {
         SelectParcelSizeScreen(
             viewModel = viewModel(),
-            onSizeClick = {
+            onNavigateToDelivery = { macAddress, pin, size ->
                 if (navBackStackEntry.value?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
-                    navController.navigate("${MainDestinations.SEND_PARCEL_SIZE}/$it")
+                    navController.navigate("${MainDestinations.SEND_PARCEL_SIZE}/$macAddress/$pin/$size")
+                }
+            }
+        )
+    }
+
+    composable(
+        "${MainDestinations.SEND_PARCEL_SIZE}/{${NavArguments.MAC_ADDRESS}}/{${NavArguments.PIN_OF_DEVICE}}/{${NavArguments.SIZE_OF_DEVICE}}",
+        arguments = listOf(
+            navArgument(NavArguments.MAC_ADDRESS) {
+                type = NavType.StringType
+            },
+            navArgument(NavArguments.PIN_OF_DEVICE) {
+                type = NavType.IntType
+            },
+            navArgument(NavArguments.SIZE_OF_DEVICE) {
+                type = NavType.StringType
+            }
+        )
+    ) {
+        SendParcelDeliveryScreen(
+            macAddress = it.arguments?.getString(NavArguments.MAC_ADDRESS) ?: "",
+            pin = it.arguments?.getInt(NavArguments.PIN_OF_DEVICE) ?: 0,
+            size = it.arguments?.getString(NavArguments.SIZE_OF_DEVICE) ?: "",
+            viewModel = viewModel(),
+            onFinish = {
+                if (navBackStackEntry.value?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
+                    navController.navigate(MainDestinations.HOME)
+                }
+            },
+            onNavigateToLogin = {
+                if (navBackStackEntry.value?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
+                    navController.navigate(MainDestinations.HOME)
                 }
             }
         )
