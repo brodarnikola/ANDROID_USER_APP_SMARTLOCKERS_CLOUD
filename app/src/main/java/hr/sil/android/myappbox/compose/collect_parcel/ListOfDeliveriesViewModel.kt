@@ -65,8 +65,8 @@ class ListOfDeliveriesViewModel : ViewModel() {
 
                 val data = if (SettingsHelper.userLastSelectedLocker != "") WSUser.getActiveKeys()
                     ?.filter {
-                        it.purpose != RLockerKeyPurpose.PAH &&
-                                it.lockerMasterMac == SettingsHelper.userLastSelectedLocker.macRealToClean()
+                        it.purpose != RLockerKeyPurpose.PAH
+                                // && it.lockerMasterMac == SettingsHelper.userLastSelectedLocker.macRealToClean()
 //                    && isUserPartOfGroup(
 //                it.createdForGroup,
 //                it.createdForId)

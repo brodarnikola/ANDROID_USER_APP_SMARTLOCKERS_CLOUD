@@ -264,15 +264,26 @@ fun LockerItem(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Image(
-            painter = painterResource(
-                if (isEnabled)
-                    R.drawable.btn_parcel_size
-                else
-                    R.drawable.btn_parcel_size_disabled
-            ),
-            contentDescription = null
-        )
+        Box() {
+            //ic_dimensions
+            Image(
+                painter = painterResource(
+                        R.drawable.ic_dimensions
+                ),
+                contentDescription = null,
+                modifier = Modifier.size(100.dp).align(Alignment.Center)
+            )
+
+            Image(
+                painter = painterResource(
+                    if (isEnabled)
+                        R.drawable.btn_parcel_size
+                    else
+                        R.drawable.btn_parcel_size_disabled
+                ),
+                contentDescription = null
+            )
+        }
 
         TextViewWithFont(
             text = size.name,
