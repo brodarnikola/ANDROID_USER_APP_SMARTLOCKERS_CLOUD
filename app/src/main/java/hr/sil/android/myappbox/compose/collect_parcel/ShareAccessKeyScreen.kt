@@ -221,6 +221,7 @@ fun ShareAccessKeyScreen(
             } else {
                 val error1 = stringResource(R.string.app_generic_error)
                 val error2 = stringResource(R.string.grant_access_error_exists)
+                val success = stringResource(R.string.app_generic_success)
                 ButtonWithFont(
                     text = stringResource(R.string.app_generic_confirm).uppercase(),
                     fontSize = ThmButtonTextSize,
@@ -244,6 +245,7 @@ fun ShareAccessKeyScreen(
                                 shareAccessKeyId = shareAccessKeyId,
                                 onSuccess = {
                                     showToastMessage.value = true
+                                    toastMessage.value = success
                                     navigateUp()
                                 },
                                 onError = { it ->

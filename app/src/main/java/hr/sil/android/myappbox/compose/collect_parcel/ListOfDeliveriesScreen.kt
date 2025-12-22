@@ -59,6 +59,7 @@ fun ListOfDeliveriesScreen(
     val isLoading = rememberSaveable { mutableStateOf(false) }
 
     val keyId = rememberSaveable { mutableStateOf(-1) }
+    val shareAccessEmail = rememberSaveable { mutableStateOf("") }
     val showDeleteShareKey = rememberSaveable { mutableStateOf(false) }
 
     val keySuccessDelete = stringResource(R.string.peripheral_settings_remove_access_success, keyId.toString())
@@ -66,6 +67,7 @@ fun ListOfDeliveriesScreen(
 
     if(showDeleteShareKey.value) {
         DeletePickAtFriendDialog(
+            shareAccessEmail = shareAccessEmail.value,
             onDismiss = { showDeleteShareKey.value = false },
             onConfirm = {
                 viewModel.deletePickAtFriendKey(keyId.value)
@@ -123,7 +125,8 @@ fun ListOfDeliveriesScreen(
                         //onDeliveryClick = onDeliveryClick,
                         onShareKeyClick = onShareKeyClick,
                         showDeleteShareKey = showDeleteShareKey,
-                        keyId = keyId
+                        keyId = keyId,
+                        shareAccessEmail = shareAccessEmail
                     )
                 }
             }
@@ -167,7 +170,8 @@ fun DeliveryItemCard(
     //onDeliveryClick: (LockerKeyWithShareAccess) -> Unit,
     onShareKeyClick: (id: Int, selectedMacAddress: String) -> Unit,
     showDeleteShareKey: MutableState<Boolean>,
-    keyId: MutableState<Int>
+    keyId: MutableState<Int>,
+    shareAccessEmail: MutableState<String>
 ) {
     val nameValue = when {
         delivery.masterName?.isNotEmpty() == true && UserUtil.user?.uniqueId != null ->
@@ -180,8 +184,8 @@ fun DeliveryItemCard(
     val tan = delivery.tan ?: "-"
     val formattedDate = formatCorrectDate(delivery.timeCreated)
 
-    val showShareButton = delivery.installationType != InstalationType.LINUX &&
-            delivery.purpose != RLockerKeyPurpose.DELIVERY
+    val showShareButton = delivery.installationType != InstalationType.LINUX
+            && delivery.purpose != RLockerKeyPurpose.DELIVERY
     val showSharedWith = delivery.purpose != RLockerKeyPurpose.DELIVERY &&
             delivery.installationType != InstalationType.LINUX
     val showShareAccess = (delivery.installationType == InstalationType.LINUX && delivery.listOfShareAccess.isNotEmpty()) ||
@@ -350,8 +354,11 @@ fun DeliveryItemCard(
                 }
             }
 
+            println("Delivered with 11: $showSharedWith")
             // Shared With Text
-            if (showSharedWith && delivery.createdByName != null) {
+            if (showSharedWith
+                //&& delivery.createdByName != null
+                ) {
                 Text(
 //                    text = stringResource(
 //                        R.string.peripheral_settings_grant_access,
@@ -374,23 +381,32 @@ fun DeliveryItemCard(
                 )
             }
 
+            println("Delivered with 22: $showShareAccess")
             // Share Access List
             if (showShareAccess) {
+
+                val topConstraints = if(showSharedWith) sharedWithText else deliveryDataSection
                 Column(
                     modifier = Modifier
                         .padding(horizontal = 10.dp, vertical = 5.dp)
                         .constrainAs(shareAccessList) {
-                            top.linkTo( sharedWithText.bottom )
+                            top.linkTo( topConstraints.bottom )
                             start.linkTo(deliveryDataSection.start)
                             //end.linkTo(parent.end)
-                            bottom.linkTo(shareButton.top)
+                            if(showShareButton) {
+                                bottom.linkTo(shareButton.top)
+                            }
+                            else{
+                                bottom.linkTo(parent.bottom)
+                            }
                         }
                 ) {
                     delivery.listOfShareAccess.forEach { shareAccess ->
                         ShareAccessItem(
                             shareAccess = shareAccess,
                             showDeleteShareKey = showDeleteShareKey,
-                            keyId = keyId
+                            keyId = keyId,
+                            shareAccessEmail = shareAccessEmail
                         )
                     }
 //                    items(delivery.listOfShareAccess) { shareAccess ->
@@ -443,7 +459,8 @@ fun DeliveryItemCard(
 fun ShareAccessItem(
     shareAccess: ShareAccessKey,
     showDeleteShareKey: MutableState<Boolean>,
-    keyId: MutableState<Int>
+    keyId: MutableState<Int>,
+    shareAccessEmail: MutableState<String>
 ) {
     Row(
         modifier = Modifier
@@ -456,6 +473,7 @@ fun ShareAccessItem(
             onClick = {
                 showDeleteShareKey.value = true
                 keyId.value = shareAccess.id
+                shareAccessEmail.value = shareAccess.email
             },
             modifier = Modifier
                 .size(24.dp)
