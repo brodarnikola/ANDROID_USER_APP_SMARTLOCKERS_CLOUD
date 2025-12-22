@@ -164,26 +164,36 @@ fun PickupParcelScreen(
                 val iOSLink = BuildConfig.APP_IOS_DOWNLOAD_URL
                 val webPortal = BuildConfig.WEB_PORTAL
 
-                var inviteUserText =  ""
+                var inviteUserText = ""
 
-                if(  App.ref.resources.getBoolean(R.bool.has_android_link) &&  App.ref.resources.getBoolean(R.bool.has_ios_link) &&  App.ref.resources.getBoolean(R.bool.has_web_portal_link) ) {
+                if (App.ref.resources.getBoolean(R.bool.has_android_link) && App.ref.resources.getBoolean(
+                        R.bool.has_ios_link
+                    ) && App.ref.resources.getBoolean(R.bool.has_web_portal_link)
+                ) {
                     inviteUserText += "\n" + stringDownloadAndroidApp + appLink + "\n" + stringDownloadIosApp + iOSLink + "\n" + stringDownloadWebApp + " " + webPortal
-                }
-                else if(  App.ref.resources.getBoolean(R.bool.has_android_link) &&  App.ref.resources.getBoolean(R.bool.has_ios_link) ) {
+                } else if (App.ref.resources.getBoolean(R.bool.has_android_link) && App.ref.resources.getBoolean(
+                        R.bool.has_ios_link
+                    )
+                ) {
                     inviteUserText += "\n" + stringDownloadAndroidApp + appLink + "\n" + stringDownloadIosApp + iOSLink
-                }
-                else if(  App.ref.resources.getBoolean(R.bool.has_android_link) && ! App.ref.resources.getBoolean(R.bool.has_ios_link) ) {
+                } else if (App.ref.resources.getBoolean(R.bool.has_android_link) && !App.ref.resources.getBoolean(
+                        R.bool.has_ios_link
+                    )
+                ) {
                     inviteUserText += "\n" + stringDownloadAndroidApp + appLink
                 }
 
                 val shareBodyText = inviteUserText
                 val emailIntent = Intent(Intent.ACTION_SEND)
                 emailIntent.setType("message/rfc822")
-                emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(shareAppEmail.value) /*arrayOf(userAccess.groupUserEmail)*/)
+                emailIntent.putExtra(
+                    Intent.EXTRA_EMAIL,
+                    arrayOf(shareAppEmail.value) /*arrayOf(userAccess.groupUserEmail)*/
+                )
                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject/Title")
                 emailIntent.putExtra(Intent.EXTRA_TEXT, shareBodyText)
 
-                activity.startActivity(Intent.createChooser(emailIntent,  shareAppTitle))
+                activity.startActivity(Intent.createChooser(emailIntent, shareAppTitle))
                 shareApplicationDialog.value = false
             },
             onCancel = {
@@ -328,43 +338,43 @@ fun PickupParcelScreen(
                         }
                 )
 
-                val finalList = if(!state.isUnlocked) state.keys else listOf<RCreatedLockerKey>()
-                    // Keys List
-                    LazyColumn(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 10.dp)
-                            .constrainAs(keysList) {
-                                top.linkTo(statusText.bottom)
-                                height = Dimension.percent(0.37f)
-                            }
-                    ) {
-                        itemsIndexed(finalList) { index, key ->
-                            ParcelPickupKeyItem(
-                                key = key,
-                                index = index,
-                                instalationType = state.installationType,
-                                type = state.masterUnitType,
-                                onShareClick = {
-                                    pickAtFriendKeyId.value = key.id
-                                    displayPickAtFriendKeyDialog.value = true
-                                },
-                                onDeleteClick = {
-                                    pickAtFriendKeyId.value = key.id
-                                    endUserEmail.value = key.createdForEndUserEmail ?: ""
-                                    displayRemovePickAtFriendKeyDialog.value = true
-                                    positionPickAtFriendKeyId.value = index
-                                },
-                                onQrCodeClick = {
-                                    viewModel.onEvent(
-                                        PickupParcelScreenEvent.OnQrCodeClick(
-                                            SettingsHelper.userLastSelectedLocker, context, activity
-                                        )
-                                    )
-                                }
-                            )
+                val finalList = if (!state.isUnlocked) state.keys else listOf<RCreatedLockerKey>()
+                // Keys List
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 10.dp)
+                        .constrainAs(keysList) {
+                            top.linkTo(statusText.bottom)
+                            height = Dimension.percent(0.37f)
                         }
+                ) {
+                    itemsIndexed(finalList) { index, key ->
+                        ParcelPickupKeyItem(
+                            key = key,
+                            index = index,
+                            instalationType = state.installationType,
+                            type = state.masterUnitType,
+                            onShareClick = {
+                                pickAtFriendKeyId.value = key.id
+                                displayPickAtFriendKeyDialog.value = true
+                            },
+                            onDeleteClick = {
+                                pickAtFriendKeyId.value = key.id
+                                endUserEmail.value = key.createdForEndUserEmail ?: ""
+                                displayRemovePickAtFriendKeyDialog.value = true
+                                positionPickAtFriendKeyId.value = index
+                            },
+                            onQrCodeClick = {
+                                viewModel.onEvent(
+                                    PickupParcelScreenEvent.OnQrCodeClick(
+                                        SettingsHelper.userLastSelectedLocker, context, activity
+                                    )
+                                )
+                            }
+                        )
                     }
+                }
 
                 // Telemetry
 //                if (state.showTelemetry) {
@@ -476,7 +486,8 @@ fun PickupParcelScreen(
                     ButtonWithFont(
                         text = stringResource(id = R.string.app_generic_confirm).uppercase(),
                         onClick = {
-                            viewModel.onEvent(PickupParcelScreenEvent.OnFinishClick(activity))
+                            navigateUp()
+                            //viewModel.onEvent(PickupParcelScreenEvent.OnFinishClick(activity))
                         },
                         backgroundColor = ThmMainButtonBackgroundColor,
                         textColor = ThmLoginButtonTextColor,

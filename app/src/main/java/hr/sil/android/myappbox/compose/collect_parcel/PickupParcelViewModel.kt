@@ -208,12 +208,12 @@ class PickupParcelViewModel() : ViewModel() {
             is PickupParcelScreenEvent.OnFinishClick -> {
                 viewModelScope.launch {
 
-                    MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]?.activeKeys?.toMutableList()
-                        ?.removeAll { key -> key.lockerMasterMac.macCleanToReal() == SettingsHelper.userLastSelectedLocker }
-
-                    _state.value.keys.toMutableList()
-                        .removeAll { key -> key.lockerMasterMac.macCleanToReal() == SettingsHelper.userLastSelectedLocker }
-                    _state.update { it.copy(keys = listOf()) }
+//                    MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]?.activeKeys?.toMutableList()
+//                        ?.removeAll { key -> key.lockerMasterMac.macCleanToReal() == SettingsHelper.userLastSelectedLocker }
+//
+//                    _state.value.keys.toMutableList()
+//                        .removeAll { key -> key.lockerMasterMac.macCleanToReal() == SettingsHelper.userLastSelectedLocker }
+//                    _state.update { it.copy(keys = listOf()) }
 
                     _uiEventsPickupParcel.send(PickupParcelScreenUiEvent.NavigateToFinish)
                 }
@@ -399,7 +399,7 @@ class PickupParcelViewModel() : ViewModel() {
     private fun setupOpenButton() {
         displayTelemetryOfDevice()
 
-       val anyKeysToPickup = device?.installationType == InstalationType.LINUX ||
+        val anyKeysToPickup = device?.installationType == InstalationType.LINUX ||
                 (device?.isInBleProximity == true && isOpenDoorPossible())
 
         val isInProximity = device?.installationType == InstalationType.LINUX ||
@@ -579,43 +579,48 @@ class PickupParcelViewModel() : ViewModel() {
     }
 
     private fun handleForceOpenClick(context: Context, activity: Activity) {
-        _state.update {
-            it.copy(
-                isAnimating = true,
-                isButtonEnabled = false,
-                circleDrawableRes = R.drawable.progress_spinning,
-                statusText = context.getString(R.string.nav_pickup_parcel_connecting),
-                isError = false
-            )
-        }
+        if (connecting.compareAndSet(false, true)) {
+            _state.update {
+                it.copy(
+                    isAnimating = true,
+                    isButtonEnabled = false,
+                    circleDrawableRes = R.drawable.progress_spinning,
+                    statusText = context.getString(R.string.nav_pickup_parcel_connecting),
+                    isError = false
+                )
+            }
 
-        viewModelScope.launch {
-            val comunicator = device?.createBLECommunicator(activity)
+            viewModelScope.launch {
+                val comunicator = device?.createBLECommunicator(activity)
 
-            if (comunicator?.connect() == true) {
-                var actionSuccessful = true
+                if (comunicator?.connect() == true) {
+                    var actionSuccessful = true
 
-                openedParcels.forEach { mac ->
-                    log.info("Requesting force pickup for $mac")
-                    val bleResponse = comunicator.forceOpenDoor(mac)
-                    if (!bleResponse) {
-                        actionSuccessful = false
-                        log.error(bleResponse.toString())
-                    } else {
-                        log.info("Success delivery on $mac")
+                    openedParcels.forEach { mac ->
+                        log.info("Requesting force pickup for $mac")
+                        val bleResponse = comunicator.forceOpenDoor(mac)
+                        if (!bleResponse) {
+                            actionSuccessful = false
+                            log.error(bleResponse.toString())
+                        } else {
+                            log.info("Success delivery on $mac")
+                        }
                     }
-                }
 
-                comunicator.disconnect()
+                    comunicator.disconnect()
 
-                if (actionSuccessful) {
-                    setSuccessOpenView(context)
+                    if (actionSuccessful) {
+                        setSuccessOpenView(context)
+                    } else {
+                        setUnSuccessOpenView(context.getString(R.string.something_went_wrong))
+                    }
+                    connecting.set(false)
                 } else {
-                    setUnSuccessOpenView(context.getString(R.string.something_went_wrong))
+
+                    connecting.set(false)
+                    _uiEvents.send(UiEvent.ShowToast(context.getString(R.string.app_generic_error)))
+                    setUnSuccessOpenView(context.getString(R.string.nav_pickup_parcel_content_lock))
                 }
-            } else {
-                _uiEvents.send(UiEvent.ShowToast(context.getString(R.string.app_generic_error)))
-                setUnSuccessOpenView(context.getString(R.string.nav_pickup_parcel_content_lock))
             }
         }
     }
