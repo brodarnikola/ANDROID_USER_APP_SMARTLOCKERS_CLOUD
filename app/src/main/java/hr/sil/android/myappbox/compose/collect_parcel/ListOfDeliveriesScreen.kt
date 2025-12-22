@@ -37,6 +37,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.em
+import hr.sil.android.myappbox.compose.components.TextViewWithFont
+import hr.sil.android.myappbox.compose.components.ThmDescriptionTextColor
+import hr.sil.android.myappbox.compose.components.ThmDescriptionTextSize
+import hr.sil.android.myappbox.compose.components.ThmSubTitleTextSize
+import hr.sil.android.myappbox.compose.components.ThmTitleLetterSpacing
+import hr.sil.android.myappbox.compose.components.ThmTitleTextColor
+import hr.sil.android.myappbox.compose.components.ThmTitleTextSize
 import hr.sil.android.myappbox.compose.dialog.DeletePickAtFriendDialog
 import hr.sil.android.myappbox.core.remote.model.InstalationType
 import hr.sil.android.myappbox.core.remote.model.RLockerKeyPurpose
@@ -95,20 +102,17 @@ fun ListOfDeliveriesScreen(
             modifier = Modifier.fillMaxSize()
         ) {
             // Title (0.5 weight)
-            Text(
-                text = stringResource(R.string.list_of_deliveries_cpl).uppercase(),
+            TextViewWithFont(
+                text = stringResource(id = R.string.list_of_deliveries_cpl).uppercase(),
+                color = ThmTitleTextColor,
+                fontSize = ThmTitleTextSize,
+                fontWeight = FontWeight.Medium,
+                textAlign = TextAlign.Center,
+                letterSpacing = ThmTitleLetterSpacing,
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(0.5f)
                     .wrapContentHeight(Alignment.CenterVertically),
-                textAlign = TextAlign.Center,
-                fontSize = MaterialTheme.typography.titleLarge.fontSize,
-                letterSpacing = 0.1.em,
-                color = MaterialTheme.colorScheme.onSurface,
-                fontWeight = FontWeight.Medium,
-                //style = MaterialTheme.typography.titleLarge.copy(
-                //    textTransform = TextTransform.Uppercase
-                //)
             )
 
             // RecyclerView List (8.4 weight)
@@ -138,15 +142,17 @@ fun ListOfDeliveriesScreen(
                     .weight(1.1f),
                 contentAlignment = Alignment.TopCenter
             ) {
-                Text(
+                TextViewWithFont(
                     text = stringResource(R.string.expired_deliveries_description),
+                    color = ThmDescriptionTextColor,
+                    fontSize = ThmSubTitleTextSize,
+                    fontWeight = FontWeight.Normal,
+                    textAlign = TextAlign.Center,
+                    maxLines = 5,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 8.dp, vertical = 5.dp)
                         .padding(top = 2.dp),
-                    textAlign = TextAlign.Center,
-                    color = MaterialTheme.colorScheme.onSurface,
-                    fontWeight = FontWeight.Medium
                 )
             }
         }
@@ -233,29 +239,30 @@ fun DeliveryItemCard(
                         width = Dimension.percent(0.85f)
                     }
             ) {
-                Text(
-                    text = nameValue ?: "",
+                TextViewWithFont(
+                    text =  nameValue ?: "",
+                    color = ThmDescriptionTextColor,
+                    fontSize = ThmSubTitleTextSize,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Start,
+                    maxLines = 2,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 2.dp),
-                    fontSize = 18.sp,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    fontWeight = FontWeight.Bold,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis
                 )
 
-                Text(
+                TextViewWithFont(
                     text = delivery.masterAddress ?: "",
+                    color = ThmDescriptionTextColor,
+                    fontSize = ThmSubTitleTextSize,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Start,
+                    maxLines = 2,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 2.dp),
-                    fontSize = 18.sp,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    fontWeight = FontWeight.Bold,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis
                 )
+
             }
 
             // Delivery Data Section
@@ -274,19 +281,24 @@ fun DeliveryItemCard(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text(
+                    TextViewWithFont(
                         text = stringResource(R.string.tracking_number_cpl),
+                        color = ThmDescriptionTextColor,
+                        fontSize = ThmSubTitleTextSize,
+                        fontWeight = FontWeight.Normal,
+                        textAlign = TextAlign.Start,
                         modifier = Modifier.weight(4.5f),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        fontWeight = FontWeight.Medium
-                    )
-                    Text(
-                        text = trackingNumber,
-                        modifier = Modifier.weight(5.5f),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        fontWeight = FontWeight.Medium,
                         maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
+                    )
+
+                    TextViewWithFont(
+                        text =  trackingNumber,
+                        color = ThmDescriptionTextColor,
+                        fontSize = ThmSubTitleTextSize,
+                        fontWeight = FontWeight.Normal,
+                        modifier = Modifier.weight(5.5f),
+                        textAlign = TextAlign.Start,
+                        maxLines = 1,
                     )
                 }
 
@@ -295,19 +307,24 @@ fun DeliveryItemCard(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text(
+                    TextViewWithFont(
                         text = stringResource(R.string.delivered_cpl),
+                        color = ThmDescriptionTextColor,
+                        fontSize = ThmSubTitleTextSize,
+                        fontWeight = FontWeight.Normal,
+                        textAlign = TextAlign.Start,
                         modifier = Modifier.weight(4.5f),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        fontWeight = FontWeight.Medium
-                    )
-                    Text(
-                        text = formattedDate,
-                        modifier = Modifier.weight(5.5f),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        fontWeight = FontWeight.Medium,
                         maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
+                    )
+
+                    TextViewWithFont(
+                        text = formattedDate,
+                        color = ThmDescriptionTextColor,
+                        fontSize = ThmSubTitleTextSize,
+                        fontWeight = FontWeight.Normal,
+                        textAlign = TextAlign.Start,
+                        modifier = Modifier.weight(5.5f),
+                        maxLines = 1,
                     )
                 }
 
@@ -316,19 +333,24 @@ fun DeliveryItemCard(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text(
+                    TextViewWithFont(
                         text = stringResource(R.string.tan_cpl),
+                        color = ThmDescriptionTextColor,
+                        fontSize = ThmSubTitleTextSize,
+                        fontWeight = FontWeight.Normal,
+                        textAlign = TextAlign.Start,
                         modifier = Modifier.weight(4.5f),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        fontWeight = FontWeight.Medium
-                    )
-                    Text(
-                        text = tan.toString(),
-                        modifier = Modifier.weight(5.5f),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        fontWeight = FontWeight.Medium,
                         maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
+                    )
+
+                    TextViewWithFont(
+                        text = tan.toString(),
+                        color = ThmDescriptionTextColor,
+                        fontSize = ThmSubTitleTextSize,
+                        fontWeight = FontWeight.Normal,
+                        textAlign = TextAlign.Start,
+                        modifier = Modifier.weight(5.5f),
+                        maxLines = 1,
                     )
                 }
 
@@ -337,19 +359,24 @@ fun DeliveryItemCard(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text(
+                    TextViewWithFont(
                         text = stringResource(R.string.locker_size_cpl),
+                        color = ThmDescriptionTextColor,
+                        fontSize = ThmSubTitleTextSize,
+                        fontWeight = FontWeight.Normal,
+                        textAlign = TextAlign.Start,
                         modifier = Modifier.weight(4.5f),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        fontWeight = FontWeight.Medium
-                    )
-                    Text(
-                        text = delivery.lockerSize ?: "",
-                        modifier = Modifier.weight(5.5f),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        fontWeight = FontWeight.Medium,
                         maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
+                    )
+
+                    TextViewWithFont(
+                        text = delivery.lockerSize ?: "",
+                        color = ThmDescriptionTextColor,
+                        fontSize = ThmSubTitleTextSize,
+                        fontWeight = FontWeight.Normal,
+                        textAlign = TextAlign.Start,
+                        modifier = Modifier.weight(5.5f),
+                        maxLines = 1,
                     )
                 }
             }
@@ -359,16 +386,16 @@ fun DeliveryItemCard(
             if (showSharedWith
                 //&& delivery.createdByName != null
                 ) {
-                Text(
-//                    text = stringResource(
-//                        R.string.peripheral_settings_grant_access,
-//                        delivery.createdByName ?: "",
-//                        delivery.lockerSize ?: "",
-//                        formattedDate
-//                    ),
+
+                TextViewWithFont(
                     text = stringResource(
                         R.string.shared_with
                     ),
+                    color = ThmDescriptionTextColor,
+                    fontSize = ThmSubTitleTextSize,
+                    fontWeight = FontWeight.Normal,
+                    textAlign = TextAlign.Start,
+                    maxLines = 1,
                     modifier = Modifier
                         .padding(horizontal = 10.dp)
                         .constrainAs(sharedWithText) {
@@ -376,8 +403,6 @@ fun DeliveryItemCard(
                             start.linkTo(deliveryDataSection.start)
                             //end.linkTo(parent.end)
                         },
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    fontWeight = FontWeight.Medium
                 )
             }
 
@@ -409,15 +434,6 @@ fun DeliveryItemCard(
                             shareAccessEmail = shareAccessEmail
                         )
                     }
-//                    items(delivery.listOfShareAccess) { shareAccess ->
-//                        ShareAccessItem(
-//                            shareAccess = shareAccess,
-//                            showDeleteShareKey = showDeleteShareKey,
-//                            onDeleteClick = {
-//                                //onDeleteShareKey(shareAccess)
-//                            }
-//                        )
-//                    }
                 }
             }
 
@@ -486,40 +502,32 @@ fun ShareAccessItem(
             )
         }
 
-        // Email Text
-        Text(
+        TextViewWithFont(
             text = shareAccess.email,
+            color = ThmDescriptionTextColor,
+            fontSize = ThmDescriptionTextSize,
+            fontWeight = FontWeight.Normal,
+            textAlign = TextAlign.Start,
+            maxLines = 1,
             modifier = Modifier
                 .wrapContentWidth()
                 .padding(start = 4.dp),
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            fontSize = 14.sp,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            fontWeight = FontWeight.Normal
         )
+        // Email Text
+//        Text(
+//            text = shareAccess.email,
+//            modifier = Modifier
+//                .wrapContentWidth()
+//                .padding(start = 4.dp),
+//            color = MaterialTheme.colorScheme.onSurfaceVariant,
+//            fontSize = 14.sp,
+//            maxLines = 1,
+//            overflow = TextOverflow.Ellipsis,
+//            fontWeight = FontWeight.Normal
+//        )
     }
 }
 
-//@Composable
-//fun ShareAccessItem(
-//    shareAccess: ShareAccessKey
-//) {
-//    Surface(
-//        modifier = Modifier
-//            .padding(end = 8.dp)
-//            .wrapContentWidth(),
-//        color = MaterialTheme.colorScheme.secondaryContainer,
-//        shape = RoundedCornerShape(4.dp)
-//    ) {
-//        Text(
-//            text = shareAccess.email,
-//            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
-//            color = MaterialTheme.colorScheme.onSecondaryContainer,
-//            fontSize = 14.sp
-//        )
-//    }
-//}
 
 fun formatCorrectDate(timeCreated: String): String {
     return try {

@@ -160,8 +160,8 @@ fun SendParcelTitle(text: String) {
         TextViewWithFont(
             text = text.uppercase(),
             color = ThmDescriptionTextColor,
-            fontSize = ThmSubTitleTextSize,
-            fontWeight = FontWeight.Normal,
+            fontSize = ThmTitleTextSize,
+            fontWeight = FontWeight.Medium,
             textAlign = TextAlign.Center,
             letterSpacing = 0.1.em,
             modifier = Modifier
