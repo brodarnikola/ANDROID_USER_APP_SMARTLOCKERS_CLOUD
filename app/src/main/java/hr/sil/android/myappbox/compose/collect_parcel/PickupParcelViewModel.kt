@@ -56,11 +56,13 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import hr.sil.android.ble.scanner.scan_multi.properties.advv2.common.MPLDeviceStatus
 import hr.sil.android.myappbox.App
+import hr.sil.android.myappbox.cache.DatabaseHandler
 import hr.sil.android.myappbox.cache.status.ActionStatusHandler
 import hr.sil.android.myappbox.compose.components.GradientBackground
 import hr.sil.android.myappbox.compose.dialog.DeleteAccessShareUserDialog
 import hr.sil.android.myappbox.compose.home_screen.format
 import hr.sil.android.myappbox.compose.main_activity.MainDestinations
+import hr.sil.android.myappbox.compose.settings.SettingsItem
 import hr.sil.android.myappbox.core.ble.comm.model.LockerFlagsUtil
 import hr.sil.android.myappbox.core.remote.WSUser
 import hr.sil.android.myappbox.core.remote.model.InstalationType
@@ -77,6 +79,7 @@ import hr.sil.android.myappbox.core.util.logger
 import hr.sil.android.myappbox.core.util.macCleanToBytes
 import hr.sil.android.myappbox.core.util.macCleanToReal
 import hr.sil.android.myappbox.core.util.macRealToClean
+import hr.sil.android.myappbox.data.DeliveryKey
 import hr.sil.android.myappbox.util.backend.UserUtil
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlin.collections.List
@@ -345,23 +348,83 @@ class PickupParcelViewModel() : ViewModel() {
         } != null || UserUtil.userGroup?.id == createdForGroup || UserUtil.user?.id == createdForId
     }
 
+//    private fun setupOpenButton() {
+//        displayTelemetryOfDevice()
+//
+//        val isLinux = device?.installationType == InstalationType.LINUX
+//        val isBleProximity = device?.isInBleProximity == true
+//        val canOpenDoor = isOpenDoorPossible()
+//
+//        val isInProximity = isLinux || isBleProximity
+//        val isButtonEnabled = isLinux || (isBleProximity && canOpenDoor)
+//
+//        _state.update { currentState ->
+//            currentState.copy(
+//                // visibility flags
+//                isInProximity = isInProximity,
+//                isButtonEnabled = isButtonEnabled,
+//
+//                // device info
+//                deviceName = device?.name.orEmpty(),
+//                installationType = device?.installationType ?: InstalationType.UNKNOWN,
+//                masterUnitType = device?.masterUnitType ?: RMasterUnitType.MPL,
+//
+//                // title logic
+//                titleRes = when {
+//                    isButtonEnabled ->
+//                        R.string.nav_pickup_parcel_lock
+//
+//                    isBleProximity ->
+//                        R.string.nav_pickup_parcel_unlock
+//
+//                    else ->
+//                        R.string.app_generic_enter_ble
+//                },
+//
+//                // status text logic
+//                statusText = when {
+//                    isButtonEnabled ->
+//                        App.ref.getString(R.string.nav_pickup_parcel_content_lock)
+//
+//                    isBleProximity ->
+//                        App.ref.getString(R.string.nav_pickup_parcel_content_unlock)
+//
+//                    else ->
+//                        App.ref.getString(R.string.not_in_proximity_first_description)
+//                }
+//            )
+//        }
+//    }
+
     private fun setupOpenButton() {
         displayTelemetryOfDevice()
 
-        val isInProximity = device?.installationType == InstalationType.LINUX ||
+       val anyKeysToPickup = device?.installationType == InstalationType.LINUX ||
                 (device?.isInBleProximity == true && isOpenDoorPossible())
+
+        val isInProximity = device?.installationType == InstalationType.LINUX ||
+                (device?.isInBleProximity == true )
+
+        val isButtonEnabledToOpen = device?.installationType == InstalationType.LINUX ||
+                (device?.isInBleProximity == true && isOpenDoorPossible())
+
+        val allKeysAlreadyPickup = device?.installationType == InstalationType.LINUX ||
+                (device?.isInBleProximity == true && !isOpenDoorPossible())
 
         _state.update { currentState ->
             currentState.copy(
+                isUnlocked = allKeysAlreadyPickup,
                 isInProximity = isInProximity,
-                isButtonEnabled = isInProximity,
+                isButtonEnabled = isButtonEnabledToOpen,
                 deviceName = device?.name ?: "",
                 installationType = device?.installationType ?: InstalationType.UNKNOWN,
                 masterUnitType = device?.masterUnitType ?: RMasterUnitType.MPL,
-                titleRes = if (isInProximity) R.string.nav_pickup_parcel_lock else R.string.app_generic_enter_ble,
-                statusText = if (isInProximity) {
+                titleRes = if (anyKeysToPickup) R.string.nav_pickup_parcel_lock else if (allKeysAlreadyPickup) R.string.nav_pickup_parcel_unlock else R.string.app_generic_enter_ble,
+                statusText = if (anyKeysToPickup) {
                     App.ref.getString(R.string.nav_pickup_parcel_content_lock)
-                } else {
+                }
+                else if (allKeysAlreadyPickup) App.ref.getString(R.string.nav_pickup_parcel_content_unlock)
+                else {
                     App.ref.getString(R.string.not_in_proximity_first_description)
                 }
             )
@@ -391,15 +454,35 @@ class PickupParcelViewModel() : ViewModel() {
 
     private fun isOpenDoorPossible(): Boolean {
 
-        val keys = device?.activeKeys?.any { it.purpose != RLockerKeyPurpose.PAH }
-        val userRights = device?.hasUserRightsOnLocker() ?: false
-
-        return if (keys == true && userRights) {
-            true
+        var hasUnusedKeys = false
+        val keys = DatabaseHandler.deliveryKeyDb.get(SettingsHelper.userLastSelectedLocker)
+        if (keys == null) {
+            return device?.activeKeys?.filter { it.purpose != RLockerKeyPurpose.PAH }?.isNotEmpty()
+                ?: false
         } else {
-            device?.isInBleProximity ?: false && userRights
+           device?.activeKeys?.forEach {
+                if (it.purpose != RLockerKeyPurpose.PAH && !keys.keyIds.contains(it.id)) {
+                    hasUnusedKeys = true
+                    return@forEach
+                }
+            }
         }
+
+        return device?.isInBleProximity ?: false &&  device?.hasUserRightsOnLocker() ?: false && hasUnusedKeys
+
     }
+
+//    private fun isOpenDoorPossibleWrong(): Boolean {
+//
+//        val keys = device?.activeKeys?.any { it.purpose != RLockerKeyPurpose.PAH }
+//        val userRights = device?.hasUserRightsOnLocker() ?: false
+//
+//        return if (keys == true && userRights) {
+//            true
+//        } else {
+//            device?.isInBleProximity ?: false && userRights
+//        }
+//    }
 
     private fun handleOpenClick(context: Context, activity: Activity) {
         if (connecting.compareAndSet(false, true)) {
@@ -585,15 +668,20 @@ class PickupParcelViewModel() : ViewModel() {
     }
 
     private fun persistActionOpenKey(id: Int) {
-//        val deliveryKeys = DatabaseHandler.deliveryKeyDb.get(SettingsHelper.userLastSelectedLocker)
-//        if (deliveryKeys == null) {
-//            DatabaseHandler.deliveryKeyDb.put(DeliveryKey(SettingsHelper.userLastSelectedLocker, listOf(id)))
-//        } else {
-//            if (!deliveryKeys.keyIds.contains(id)) {
-//                val listOfIds = deliveryKeys.keyIds.plus(id)
-//                DatabaseHandler.deliveryKeyDb.put(DeliveryKey(SettingsHelper.userLastSelectedLocker, listOfIds))
-//            }
-//        }
+        val deliveryKeys = DatabaseHandler.deliveryKeyDb.get(SettingsHelper.userLastSelectedLocker)
+        if (deliveryKeys == null) {
+            DatabaseHandler.deliveryKeyDb.put(
+                DeliveryKey(
+                    SettingsHelper.userLastSelectedLocker,
+                    listOf(id)
+                )
+            )
+        } else {
+            if (!deliveryKeys.keyIds.contains(id)) {
+                val listOfIds = deliveryKeys.keyIds.plus(id)
+                DatabaseHandler.deliveryKeyDb.put(DeliveryKey(SettingsHelper.userLastSelectedLocker, listOfIds))
+            }
+        }
     }
 
     private fun deletePickAtFriendKey(

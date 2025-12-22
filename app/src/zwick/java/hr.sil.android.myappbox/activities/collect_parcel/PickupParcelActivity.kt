@@ -70,50 +70,6 @@ class PickupParcelActivity //  :  BaseActivity(R.id.no_ble_layout, R.id.no_inter
     private val MAC_ADDRESS_6_BYTE_LENGTH = 12
     private val MAC_ADDRESS_LAST_BYTE_LENGTH = 2
 
-    suspend private fun combineLockerKeys(): MutableList<RCreatedLockerKey> {
-        val keysAssignedToUser = MPLDeviceStore.uniqueDevices[macAddress]?.activeKeys?.filter {
-            it.lockerMasterMac.macCleanToReal() == macAddress && it.purpose != RLockerKeyPurpose.PAH && isUserPartOfGroup(
-                it.createdForGroup,
-                it.createdForId
-            )
-        }?.map {
-            RCreatedLockerKey().apply {
-                this.id = it.id
-                this.createdById = it.createdById
-                this.lockerMac = it.lockerMac
-                this.lockerId = it.lockerId
-                this.lockerMasterId = it.lockerMasterId
-                this.lockerMasterMac = it.lockerMasterMac
-                this.createdByName = it.createdByName
-                this.purpose = it.purpose
-                this.masterAddress = it.masterAddress
-                this.masterName = it.masterName
-                this.lockerSize = it.lockerSize
-                if( it.timeCreated != null )
-                    this.timeCreated = it.timeCreated
-                else
-                    this.timeCreated = ""
-                if( it.qrCode != null && it.qrCode != "" )
-                    this.qrCode = it.qrCode
-                else
-                    this.qrCode = ""
-            }
-        }?.toMutableList()
-            ?: mutableListOf()
-        log.info("Assigned keys ${keysAssignedToUser.size}")
-        val remotePaFKeys = WSUser.getActivePaFCreatedKeys()
-        val createdPaFKeys =
-            remotePaFKeys?.filter { it.lockerMasterMac.macCleanToReal() == macAddress }
-                ?: mutableListOf()
-        log.info("PAF keys ${createdPaFKeys.size}")
-        keysAssignedToUser.addAll(createdPaFKeys)
-        return keysAssignedToUser.sortedByDescending { it.purpose }.sortedBy { it.timeCreated }
-            .toMutableList()
-    }
-
-    private fun isUserPartOfGroup(createdForGroup: Int?, createdForId: Int?): Boolean {
-        return UserUtil.userMemberships.find { it.groupId == createdForGroup && it.role == RUserAccessRole.ADMIN.name } != null || UserUtil.userGroup?.id == createdForGroup || UserUtil.user?.id == createdForId
-    }
 
     private var device: MPLDevice? = null
     private val openedParcels = mutableListOf<String>()
@@ -134,19 +90,6 @@ class PickupParcelActivity //  :  BaseActivity(R.id.no_ble_layout, R.id.no_inter
         log.info("Pickup mpl = $macAddress")
 
         device = MPLDeviceStore.uniqueDevices[macAddress]
-    }
-
-    private fun displayTelemetryOfDevice() {
-        if (device?.mplMasterDeviceStatus == MPLDeviceStatus.REGISTERED && device?.isInBleProximity ?: false) {
-            binding.clLockerTelemetry.visibility = View.VISIBLE
-            val temperatureS = device?.temperature?.format(2) ?: "-"
-            val pressureS = device?.pressure?.format(2) ?: "-"
-            val humidityS = device?.humidity?.format(2) ?: "-"
-            binding.tvHumidity.text = "$humidityS  %"
-            binding.tvTemperature.text = "$temperatureS C"
-            binding.tvAirPressure.text = "$pressureS hPa"
-        } else
-            binding.clLockerTelemetry.visibility = View.GONE
     }
 
     private fun setUnSuccessOpenView(errorText: String) {
@@ -244,19 +187,6 @@ class PickupParcelActivity //  :  BaseActivity(R.id.no_ble_layout, R.id.no_inter
             ContextCompat.getDrawable(this@PickupParcelActivity, resourceId)
         }
 
-        setupAdapterForKeys()
-
-        binding.pickupParcelFinish.setOnClickListener {
-
-            val intent = Intent()
-            val packageName = this@PickupParcelActivity.packageName
-            val componentName = ComponentName(packageName, packageName + ".aliasFinishPickupParcel")
-            intent.component = componentName
-
-            startActivity(intent)
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-            finish()
-        }
 
         binding.forceOpen.setOnClickListener {
             val animationZoomImageView =
@@ -517,129 +447,6 @@ class PickupParcelActivity //  :  BaseActivity(R.id.no_ble_layout, R.id.no_inter
         displayTelemetryOfDevice()
     }
 
-    private fun setLockerCleaningCheckBoxListener(lockerMacAddress: String) {
-        binding.lockerCleaningCheckBox.setOnClickListener {
-            binding.lockerCleaningCheckBox.isEnabled = false
-            binding.lockerCleaningCheckBox.alpha = 0.5f
-            binding.progressBarLockerCleaning.visibility = View.VISIBLE
-
-            if( device?.installationType == InstalationType.LINUX )
-            //setupCleaningNeededForLinuxDevices(lockerMacAddress)
-            else
-                setupCleaningNeededForOtherDevices(lockerMacAddress)
-        }
-    }
-
-    private fun setupCleaningNeededForOtherDevices(lockerMacAddress: String) {
-        GlobalScope.launch {
-            val comunicator =
-                MPLDeviceStore.uniqueDevices[macAddress]?.createBLECommunicator(this@PickupParcelActivity)
-            if (comunicator?.connect() == true) {
-                log.info("Connected!")
-
-                val lockerMacAddressList: MutableList<LockerFlagsUtil.LockerInfo> =
-                    mutableListOf()
-                val lockerInfo = LockerFlagsUtil.LockerInfo(byteArrayOf(), byteArrayOf())
-
-                when {
-                    // this is for mpl with new lockers with p16
-                    lockerMacAddress.length == MAC_ADDRESS_7_BYTE_LENGTH -> {
-                        lockerInfo.mac =
-                            lockerMacAddress.take(MAC_ADDRESS_6_BYTE_LENGTH)
-                                .macCleanToBytes()
-                                .reversedArray()
-                        lockerInfo.index =
-                            lockerMacAddress.takeLast(MAC_ADDRESS_LAST_BYTE_LENGTH)
-                                .hexToByteArray()
-                    }
-                    // this is for mpl with old lockers
-                    else -> {
-                        lockerInfo.mac =
-                            lockerMacAddress.macCleanToBytes().reversedArray()
-                        lockerInfo.index = byteArrayOf(0x00)
-                    }
-                }
-
-                lockerMacAddressList.add(lockerInfo)
-
-                val byteArrayCLeaningNeeded = LockerFlagsUtil.generateCleaningRequiredData(
-                    lockerMacAddressList,
-                    true
-                )
-                val response = comunicator.lockerIsDirty(byteArrayCLeaningNeeded)
-
-                comunicator.disconnect()
-
-                log.info("Cleaning function is successfully: ${response}")
-
-                withContext(Dispatchers.Main) {
-                    if (response) {
-                        binding.lockerCleaningCheckBox.isEnabled = false
-                        binding.lockerCleaningCheckBox.alpha = 1.0f
-                        binding.progressBarLockerCleaning.visibility = View.GONE
-                        App.ref.toast(getString(R.string.app_generic_success))
-                    } else {
-                        binding.lockerCleaningCheckBox.isEnabled = true
-                        binding.lockerCleaningCheckBox.alpha = 1.0f
-                        binding.progressBarLockerCleaning.visibility = View.GONE
-                        App.ref.toast(getString(R.string.app_generic_error))
-                    }
-                }
-            } else {
-                withContext(Dispatchers.Main) {
-                    binding.lockerCleaningCheckBox.isEnabled = true
-                    binding.lockerCleaningCheckBox.alpha = 1.0f
-                    binding.progressBarLockerCleaning.visibility = View.GONE
-                    App.ref.toast(getString(R.string.main_locker_ble_connection_error))
-                }
-            }
-        }
-    }
-
-    fun setupAdapterForKeys() {
-
-        GlobalScope.launch(Dispatchers.Default) {
-            keyListAdapter = ParcelPickupKeysAdapter({
-                GlobalScope.launch {
-                    val keys = combineLockerKeys()
-                    withContext(Dispatchers.Main) {
-                        keyListAdapter.update(keys)
-                    }
-                }
-            }, device?.masterUnitType ?: RMasterUnitType.MPL,  device?.installationType ?: InstalationType.UNKNOWN, macAddress, this@PickupParcelActivity)
-            withContext(Dispatchers.Main) {
-                binding.keysList.layoutManager = LinearLayoutManager(
-                    this@PickupParcelActivity,
-                    LinearLayoutManager.VERTICAL,
-                    false
-                )
-                binding.keysList.adapter = keyListAdapter
-                binding.keysList.adapter?.notifyDataSetChanged()
-                setupOpenButton()
-                keyListAdapter.update(combineLockerKeys())
-
-            }
-        }
-    }
-
-    override fun onBluetoothStateUpdated(available: Boolean) {
-        super.onBluetoothStateUpdated(available)
-        bluetoothAvalilable = available
-        updateUI()
-    }
-
-    override fun onNetworkStateUpdated(available: Boolean) {
-        super.onNetworkStateUpdated(available)
-        networkAvailable = available
-        updateUI()
-    }
-
-    override fun onLocationGPSStateUpdated(available: Boolean) {
-        super.onLocationGPSStateUpdated(available)
-        locationGPSAvalilable = available
-        updateUI()
-    }
-
     override fun onResume() {
         super.onResume()
         App.ref.eventBus.register(this)
@@ -703,39 +510,6 @@ class PickupParcelActivity //  :  BaseActivity(R.id.no_ble_layout, R.id.no_inter
         val intent = Intent( this, LoginActivity::class.java)
         startActivity(intent)
         finish()
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.getItemId()) {
-            android.R.id.home -> {
-
-
-                val intent = Intent()
-                val packageName = this@PickupParcelActivity.packageName
-                val componentName = ComponentName(packageName, packageName + ".aliasFinishPickupParcel")
-                intent.component = componentName
-
-                startActivity(intent)
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-                finish()
-                return true
-            }
-
-            else -> return super.onOptionsItemSelected(item)
-        }
-    }
-
-    override fun onBackPressed() {
-
-        val intent = Intent()
-        val packageName = this@PickupParcelActivity.packageName
-        val componentName = ComponentName(packageName, packageName + ".aliasFinishPickupParcel")
-        intent.component = componentName
-
-        startActivity(intent)
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-        finish()
-        super.onBackPressed()
     }
 
 

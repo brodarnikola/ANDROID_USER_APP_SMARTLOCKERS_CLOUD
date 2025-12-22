@@ -239,7 +239,7 @@ fun PickupParcelScreen(
         )
 
         // In Proximity Layout
-        if (state.isInProximity) {
+        if (state.isInProximity || state.isUnlocked) {
             ConstraintLayout(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -328,42 +328,43 @@ fun PickupParcelScreen(
                         }
                 )
 
-                // Keys List
-                LazyColumn(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 10.dp)
-                        .constrainAs(keysList) {
-                            top.linkTo(statusText.bottom)
-                            height = Dimension.percent(0.37f)
-                        }
-                ) {
-                    itemsIndexed(state.keys) { index, key ->
-                        ParcelPickupKeyItem(
-                            key = key,
-                            index = index,
-                            instalationType = state.installationType,
-                            type = state.masterUnitType,
-                            onShareClick = {
-                                pickAtFriendKeyId.value = key.id
-                                displayPickAtFriendKeyDialog.value = true
-                            },
-                            onDeleteClick = {
-                                pickAtFriendKeyId.value = key.id
-                                endUserEmail.value = key.createdForEndUserEmail ?: ""
-                                displayRemovePickAtFriendKeyDialog.value = true
-                                positionPickAtFriendKeyId.value = index
-                            },
-                            onQrCodeClick = {
-                                viewModel.onEvent(
-                                    PickupParcelScreenEvent.OnQrCodeClick(
-                                        SettingsHelper.userLastSelectedLocker, context, activity
-                                    )
-                                )
+                val finalList = if(!state.isUnlocked) state.keys else listOf<RCreatedLockerKey>()
+                    // Keys List
+                    LazyColumn(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 10.dp)
+                            .constrainAs(keysList) {
+                                top.linkTo(statusText.bottom)
+                                height = Dimension.percent(0.37f)
                             }
-                        )
+                    ) {
+                        itemsIndexed(finalList) { index, key ->
+                            ParcelPickupKeyItem(
+                                key = key,
+                                index = index,
+                                instalationType = state.installationType,
+                                type = state.masterUnitType,
+                                onShareClick = {
+                                    pickAtFriendKeyId.value = key.id
+                                    displayPickAtFriendKeyDialog.value = true
+                                },
+                                onDeleteClick = {
+                                    pickAtFriendKeyId.value = key.id
+                                    endUserEmail.value = key.createdForEndUserEmail ?: ""
+                                    displayRemovePickAtFriendKeyDialog.value = true
+                                    positionPickAtFriendKeyId.value = index
+                                },
+                                onQrCodeClick = {
+                                    viewModel.onEvent(
+                                        PickupParcelScreenEvent.OnQrCodeClick(
+                                            SettingsHelper.userLastSelectedLocker, context, activity
+                                        )
+                                    )
+                                }
+                            )
+                        }
                     }
-                }
 
                 // Telemetry
 //                if (state.showTelemetry) {
