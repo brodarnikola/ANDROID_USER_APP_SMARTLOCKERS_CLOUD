@@ -15,8 +15,6 @@ import hr.sil.android.ble.scanner.scan_multi.properties.advv2.common.MPLDeviceSt
 import hr.sil.android.myappbox.data.DeliveryKey
 import hr.sil.android.myappbox.view.ui.BaseActivity
 
-import hr.sil.android.util.general.extensions.format
-import hr.sil.android.util.general.extensions.hexToByteArray
 import kotlinx.coroutines.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode

@@ -24,7 +24,7 @@ package hr.sil.android.myappbox
 import android.app.Application
 import android.content.Context
 import android.content.res.Configuration
-import com.esotericsoftware.minlog.Log
+//import com.esotericsoftware.minlog.Log
 import com.facebook.stetho.Stetho
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.firebase.messaging.FirebaseMessaging
@@ -47,9 +47,9 @@ import hr.sil.android.myappbox.store.MPLDeviceStore
 import hr.sil.android.myappbox.util.SettingsHelper
 import hr.sil.android.myappbox.util.awaitForResult
 import hr.sil.android.myappbox.util.backend.UserUtil
-import hr.sil.android.util.bluetooth.BluetoothAdapterMonitor
-import hr.sil.android.util.general.delegates.synchronizedDelegate
-import hr.sil.android.util.general.extensions.format
+//import hr.sil.android.util.bluetooth.BluetoothAdapterMonitor
+//import hr.sil.android.util.general.delegates.synchronizedDelegate
+//import hr.sil.android.util.general.extensions.format
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -58,6 +58,9 @@ import okhttp3.OkHttpClient
 import org.greenrobot.eventbus.EventBus
 import java.util.*
 
+import hr.sil.android.datacache.synchronizedDelegate
+import hr.sil.android.datacache.format
+import hr.sil.android.datacache.BluetoothAdapterMonitor
 
 /**
  * @author mfatiga
@@ -81,7 +84,7 @@ class App : Application(), BLEScannerStateHolder {
 
 
     override fun attachBaseContext(base: Context) {
-        Log.info("Attaching base context in APP!!")
+        println("Attaching base context in APP!!")
 
         SettingsHelper.init(base)
         super.attachBaseContext(SettingsHelper.setLocale(base))

@@ -24,8 +24,6 @@ import androidx.core.view.GravityCompat
 import androidx.lifecycle.lifecycleScope
 import hr.sil.android.myappbox.view.ui.BaseActivity
 
-import hr.sil.android.util.general.extensions.format
-import hr.sil.android.view_util.permission.DroidPermission
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

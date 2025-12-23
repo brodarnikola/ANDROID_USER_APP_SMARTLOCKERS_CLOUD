@@ -21,7 +21,9 @@
 
 package hr.sil.android.myappbox.core.util
 
-import hr.sil.android.util.general.extensions.hexToByteArray
+//import hr.sil.android.util.general.extensions.hexToByteArray
+import hr.sil.android.rest.core.util.hexToByteArray
+
 
 /**
  * @author mfatiga
@@ -32,8 +34,10 @@ fun String.macCleanToReal(): String =
 fun String.macRealToClean(): String =
         this.replace(":", "").uppercase()
 
+
 fun String.macRealToBytes(): ByteArray =
         this.macRealToClean().hexToByteArray()
+
 
 fun String.macCleanToBytes(): ByteArray =
         this.hexToByteArray()

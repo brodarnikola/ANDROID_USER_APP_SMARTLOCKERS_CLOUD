@@ -13,7 +13,6 @@ import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.esotericsoftware.minlog.Log
 import hr.sil.android.myappbox.R
 import hr.sil.android.myappbox.util.connectivity.BluetoothChecker
 import hr.sil.android.myappbox.util.connectivity.NetworkChecker
@@ -126,7 +125,7 @@ open class BaseActivity(noBleViewId: Int = 0, noWifiViewId: Int = 0, noLocationG
 
     override fun onPause() {
         super.onPause()
-        Log.info("onPause()")
+        println("onPause()")
 
         btCheckerListenerKey?.let { BluetoothChecker.removeListener(it) }
         btCheckerListenerKey = null

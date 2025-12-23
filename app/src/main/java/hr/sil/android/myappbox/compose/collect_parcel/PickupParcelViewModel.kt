@@ -100,6 +100,8 @@ import kotlinx.coroutines.withContext
 import java.util.Date
 import java.util.concurrent.atomic.AtomicBoolean
 
+import hr.sil.android.rest.core.util.hexToByteArray
+
 data class PickupParcelState(
     val isInProximity: Boolean = false,
     val isButtonEnabled: Boolean = false,
@@ -758,7 +760,7 @@ class PickupParcelViewModel() : ViewModel() {
         }
     }
 
-    @OptIn(ExperimentalStdlibApi::class)
+    
     private suspend fun setupCleaningNeededForOtherDevices(
         lockerMacAddress: String,
         context: Context,

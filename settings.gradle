@@ -12,24 +12,29 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         // Add your custom repositories here
-        maven {
-            url "${nexusUrl}/repository/maven-releases/"
-            allowInsecureProtocol = true
-            credentials {
-                username "${nexusUsername}"
-                password "${nexusPassword}"
-            }
-        }
-        maven {
-            url "${nexusUrl}/repository/maven-snapshots/"
-            allowInsecureProtocol = true
-            credentials {
-                username "${nexusUsername}"
-                password "${nexusPassword}"
-            }
-        }
+//        maven {
+//            url "${nexusUrl}/repository/maven-releases/"
+//            allowInsecureProtocol = true
+//            credentials {
+//                username "${nexusUsername}"
+//                password "${nexusPassword}"
+//            }
+//        }
+//        maven {
+//            url "${nexusUrl}/repository/maven-snapshots/"
+//            allowInsecureProtocol = true
+//            credentials {
+//                username "${nexusUsername}"
+//                password "${nexusPassword}"
+//            }
+//        }
     }
 }
 
-include ':app', ':core'
+
+include ':app', ':core',  ':ble_core', ':ble_scan_multi', ':ble_communicator', ':rest_core', ':datacache'
+
+//include ':app', ':core', ':android_blescanner-master'//':ble_core', ':ble_scan_multi'
 rootProject.name='MPL_SPL'
+//include ':ble_communicator'
+//include ':rest_core'

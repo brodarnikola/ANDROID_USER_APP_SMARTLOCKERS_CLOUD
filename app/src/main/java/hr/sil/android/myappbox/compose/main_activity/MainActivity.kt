@@ -21,7 +21,7 @@ import hr.sil.android.myappbox.compose.theme.AppTheme
 import hr.sil.android.myappbox.core.util.logger
 import hr.sil.android.myappbox.events.UnauthorizedUserEvent
 import hr.sil.android.myappbox.util.SettingsHelper
-import hr.sil.android.view_util.permission.DroidPermission
+//import hr.sil.android.view_util.permission.DroidPermission
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -31,6 +31,8 @@ import kotlin.collections.isNotEmpty
 import kotlin.collections.toTypedArray
 import kotlin.jvm.java
 import kotlin.let
+
+import hr.sil.android.myappbox.util.DroidPermission
 
 class MainActivity : ComponentActivity() {
 

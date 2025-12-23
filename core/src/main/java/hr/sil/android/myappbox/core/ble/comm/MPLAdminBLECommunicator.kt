@@ -30,7 +30,8 @@ import hr.sil.android.myappbox.core.remote.model.RLockerSize
 import hr.sil.android.myappbox.core.remote.model.RNetworkConfiguration
 import hr.sil.android.myappbox.core.util.BLEScannerStateHolder
 import hr.sil.android.myappbox.core.util.macRealToBytes
-import hr.sil.android.util.general.extensions.toByteArray
+import hr.sil.android.rest.core.util.toByteArray
+//import hr.sil.android.util.general.extensions.toByteArray
 import java.nio.charset.StandardCharsets
 
 /**

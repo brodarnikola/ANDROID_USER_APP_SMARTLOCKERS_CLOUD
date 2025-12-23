@@ -21,7 +21,7 @@
 
 package hr.sil.android.myappbox.util.backend
 
-import com.esotericsoftware.minlog.Log
+//import com.esotericsoftware.minlog.Log
 import com.google.firebase.messaging.FirebaseMessaging
 import hr.sil.android.myappbox.App
 import hr.sil.android.myappbox.cache.status.InstallationKeyHandler
@@ -269,8 +269,8 @@ object UserUtil {
                         adminGroup.addAll(listUsersFromGroup)
                     }
 
-                    Log.info("UserUtil", "Owner group size is: " + ownerGroupList.size)
-                    Log.info("UserUtil", "Data group size is: " + adminGroup.size)
+                    println( "Owner group size is: " + ownerGroupList.size)
+                    println(  "Data group size is: " + adminGroup.size)
                 }
 
                 return result
@@ -362,7 +362,7 @@ object UserUtil {
     }
 
     suspend fun userUpdate(name: String, address: String, phone: String, language: RLanguage, pushNotification: Boolean, emailNotification: Boolean, groupName: String): Boolean {
-        Log.info("$name $phone $address   $pushNotification $emailNotification ${language.code} ${language.id} ${language.name}")
+        println("$name $phone $address   $pushNotification $emailNotification ${language.code} ${language.id} ${language.name}")
         val userInfo = WSUser.updateUserProfile(name = name, telephone = phone, address = address, language = language, isPushNotified = pushNotification, isEmailNotified = emailNotification, groupName = groupName)
 
         if (userInfo == null) {
@@ -375,7 +375,7 @@ object UserUtil {
     }
 
     suspend fun userUpdateCPLBasel(telephone: String, reducedMobility: Boolean): Boolean {
-        Log.info("$telephone $reducedMobility ")
+        println("$telephone $reducedMobility ")
         val userInfo = WSUser.updateUserProfileCPLBasel(telephone = telephone, reducedMobility = reducedMobility)
 
         if (userInfo == null) {

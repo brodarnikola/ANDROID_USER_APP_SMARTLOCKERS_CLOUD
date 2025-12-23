@@ -29,8 +29,10 @@ import hr.sil.android.myappbox.core.remote.service.AdminAppService
 import hr.sil.android.myappbox.core.remote.service.WebAppService
 import hr.sil.android.rest.core.configuration.ServiceConfig
 import hr.sil.android.myappbox.core.util.macRealToClean
-import hr.sil.android.util.general.extensions.toHexString
+//import hr.sil.android.util.general.extensions.toHexString
 import retrofit2.Call
+
+import hr.sil.android.rest.core.util.toHexString
 
 /**
  * @author mfatiga
@@ -85,6 +87,7 @@ object WSAdmin : WSBase() {
         )
     }
 
+    
     suspend fun getDeviceApiKey(challenge: ByteArray, masterBleMacAddress: String): ByteArray? {
         val result = wrapAwaitData(
                 call = AdminAppService.service.getDeviceApiKey(

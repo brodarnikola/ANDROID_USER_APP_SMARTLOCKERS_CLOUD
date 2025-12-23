@@ -35,9 +35,11 @@ import hr.sil.android.myappbox.core.remote.model.RLockerInfo
 import hr.sil.android.myappbox.core.util.logger
 import hr.sil.android.myappbox.core.util.macCleanToReal
 import hr.sil.android.myappbox.core.util.macRealToClean
-import hr.sil.android.util.general.delegates.synchronizedDelegate
+//import hr.sil.android.util.general.delegates.synchronizedDelegate
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+
+import hr.sil.android.datacache.synchronizedDelegate
 
 /**
  * @author mfatiga

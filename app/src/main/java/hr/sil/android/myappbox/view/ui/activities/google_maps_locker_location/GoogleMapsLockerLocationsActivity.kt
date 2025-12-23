@@ -32,7 +32,6 @@ import hr.sil.android.myappbox.view.ui.BaseActivity
 import hr.sil.android.myappbox.view.ui.activities.dialogs.NoMasterSelectedDialog
 import hr.sil.android.myappbox.view.ui.activities.dialogs.SupportEmailPhoneDialog
 import hr.sil.android.myappbox.view.ui.activities.dialogs.TextCopiedToClipboardDialog
-import hr.sil.android.view_util.permission.DroidPermission
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

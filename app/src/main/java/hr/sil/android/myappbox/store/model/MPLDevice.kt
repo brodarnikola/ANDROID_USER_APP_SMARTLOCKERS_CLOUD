@@ -39,9 +39,11 @@ import hr.sil.android.myappbox.core.ble.comm.MPLUserBLECommunicator
 import hr.sil.android.myappbox.core.model.MPLDeviceType
 import hr.sil.android.myappbox.core.remote.model.*
 import hr.sil.android.myappbox.core.util.macRealToClean
-import hr.sil.android.util.general.extensions.lerpInDomain
 import hr.sil.android.myappbox.core.remote.model.RequiredAccessRequestTypes
+import hr.sil.android.myappbox.core.util.logger
 import kotlinx.coroutines.runBlocking
+
+import hr.sil.android.datacache.lerpInDomain
 
 /**
  * @author mfatiga
@@ -242,6 +244,9 @@ class MPLDevice private constructor(
             val isCollectParcelSplTaken: Boolean = remoteData?.activeKeys?.filter { it -> it.purpose == RLockerKeyPurpose.DELIVERY || it.purpose == RLockerKeyPurpose.PAF }?.isNotEmpty()
                     ?: true
 
+            logger().info("PIN MANA AA ... is pin allowed ${remoteData}")
+            logger().info("PIN MANA BB ... is pin allowed ${remoteData?.masterUnit}")
+            logger().info("PIN MANA CC ... is pin allowed ${remoteData?.masterUnit?.allowPinSave}")
             val pinManagementAllowed: Boolean? = remoteData?.masterUnit?.allowPinSave
             var keypadType = ParcelLockerKeyboardType.SPL_PLUS
 

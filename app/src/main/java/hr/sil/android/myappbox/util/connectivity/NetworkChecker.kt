@@ -21,10 +21,9 @@
 
 package hr.sil.android.myappbox.util.connectivity
 
-import com.esotericsoftware.minlog.Log
+import hr.sil.android.datacache.NetworkConnectivity
 import hr.sil.android.myappbox.App
 import hr.sil.android.myappbox.cache.status.ActionStatusHandler
-import hr.sil.android.util.network.NetworkConnectivity
 import kotlinx.coroutines.*
 
 import java.net.HttpURLConnection
@@ -48,7 +47,7 @@ object NetworkChecker {
         lastResult?.let { listener.invoke(it) }
 
         if (listeners.size == 1) {
-            Log.info("Checking if the network is available")
+            println("Checking if the network is available")
             runChecker()
         }
         return key

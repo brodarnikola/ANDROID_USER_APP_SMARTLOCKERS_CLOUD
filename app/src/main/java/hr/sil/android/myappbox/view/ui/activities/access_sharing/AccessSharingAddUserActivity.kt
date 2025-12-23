@@ -12,7 +12,6 @@ import android.widget.AdapterView
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.lifecycleScope
 import hr.sil.android.myappbox.view.ui.BaseActivity
-import hr.sil.android.view_util.permission.DroidPermission
 import kotlinx.coroutines.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode

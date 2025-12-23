@@ -29,9 +29,12 @@ import hr.sil.android.myappbox.core.remote.WSUser
 import hr.sil.android.myappbox.core.remote.model.RLockerSize
 import hr.sil.android.myappbox.core.util.BLEScannerStateHolder
 import hr.sil.android.myappbox.core.util.macRealToBytes
-import hr.sil.android.util.general.extensions.hexToByteArray
-import hr.sil.android.util.general.extensions.toByteArray
+import hr.sil.android.rest.core.util.toByteArray
+//import hr.sil.android.util.general.extensions.hexToByteArray
+//import hr.sil.android.util.general.extensions.toByteArray
 import kotlinx.coroutines.delay
+
+import hr.sil.android.rest.core.util.hexToByteArray
 
 /**
  * @author mfatiga
@@ -101,6 +104,7 @@ class MPLUserBLECommunicator(
         return result
     }
 
+    
     suspend fun requestParcelPickup(lockerBLEMac: String, endUserId: Int): BLEDoorOpenResult {
 
         //result
@@ -331,6 +335,7 @@ class MPLUserBLECommunicator(
         return false
     }
 
+    
     suspend fun forceOpenDoor(slaveMacAddress: String): Boolean {
         var data: ByteArray
         when {
@@ -353,6 +358,7 @@ class MPLUserBLECommunicator(
         return sendGenericCommand(MPLGenericCommand.FORCE_OPEN_DOOR, params)*/
     }
 
+    
     suspend fun requestParcelSendCancel(lockerBLEMac: String, endUserId: Int): BLEDoorOpenResult {
         //result
         var bleDeviceErrorCode: BLEDoorOpenResult.BLEDeviceErrorCode = BLEDoorOpenResult.BLEDeviceErrorCode.OK
@@ -396,6 +402,7 @@ class MPLUserBLECommunicator(
         return result
     }
 
+    
     suspend fun requestCancelDeliveryVendor(lockerBLEMac: String, endUserId: Int): BLEDoorOpenResult {
 
         var bleDeviceErrorCode: BLEDoorOpenResult.BLEDeviceErrorCode = BLEDoorOpenResult.BLEDeviceErrorCode.OK
