@@ -96,8 +96,8 @@ fun PickupParcelScreen(
 
     val shareApplicationDialog = rememberSaveable { mutableStateOf(false) }
 
-    LaunchedEffect(key1 = state.showForceOpen) {
-        if( state.showForceOpen ) {
+    LaunchedEffect(key1 = state.showFinishButton) {
+        if( state.showFinishButton ) {
             logger().info("NEW NOTIF ... INSIDE SHOW FORCE OPEN .. will it enter here")
             viewModel.removeAllStorageKeys()
         }
