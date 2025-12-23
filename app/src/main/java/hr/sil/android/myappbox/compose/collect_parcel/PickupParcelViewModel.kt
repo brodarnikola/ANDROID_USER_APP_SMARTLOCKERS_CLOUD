@@ -456,19 +456,21 @@ class PickupParcelViewModel() : ViewModel() {
 
         var hasUnusedKeys = false
         val keys = DatabaseHandler.deliveryKeyDb.get(SettingsHelper.userLastSelectedLocker)
-        if (keys == null) {
-            return device?.activeKeys?.filter { it.purpose != RLockerKeyPurpose.PAH }?.isNotEmpty()
-                ?: false
-        } else {
-           device?.activeKeys?.forEach {
-                if (it.purpose != RLockerKeyPurpose.PAH && !keys.keyIds.contains(it.id)) {
-                    hasUnusedKeys = true
-                    return@forEach
-                }
-            }
-        }
+//        if (keys == null) {
+//            return device?.activeKeys?.filter { it.purpose != RLockerKeyPurpose.PAH }?.isNotEmpty()
+//                ?: false
+//        }
+//        else {
 
-        return device?.isInBleProximity ?: false &&  device?.hasUserRightsOnLocker() ?: false && hasUnusedKeys
+//           device?.activeKeys?.forEach {
+//                if (it.purpose != RLockerKeyPurpose.PAH && !keys.keyIds.contains(it.id)) {
+//                    hasUnusedKeys = true
+//                    return@forEach
+//                }
+//            }
+//        }
+
+        return device?.isInBleProximity ?: false &&  device?.hasUserRightsOnLocker() ?: false && keys?.keyIds?.isNotEmpty() == true // && hasUnusedKeys
 
     }
 
@@ -494,6 +496,10 @@ class PickupParcelViewModel() : ViewModel() {
                 startOpenProcedure(context, activity)
             }
         }
+    }
+
+    fun removeAllStorageKeys() {
+       DatabaseHandler.deliveryKeyDb.clear()
     }
 
     private fun startOpenProcedure(context: Context, activity: Activity) {
@@ -535,7 +541,7 @@ class PickupParcelViewModel() : ViewModel() {
                             val updatedKeys =
                                 _state.value.keys.filter { it.lockerMac != key.lockerMac }
                             _state.update { it.copy(keys = updatedKeys) }
-                            persistActionOpenKey(key.id)
+                            //persistActionOpenKey(key.id)
                             //NotificationHelper(App.ref).clearNotification()
                             denyOpenProcedure()
                         }
@@ -553,6 +559,13 @@ class PickupParcelViewModel() : ViewModel() {
                                     showCleaningCheckbox = true,
                                     showFinishButton = true,
                                     lockerMacAddress = openedParcels.firstOrNull() ?: ""
+                                )
+                            }
+                        }
+                        else {
+                            _state.update {
+                                it.copy(
+                                    showFinishButton = true
                                 )
                             }
                         }
@@ -672,22 +685,22 @@ class PickupParcelViewModel() : ViewModel() {
         }
     }
 
-    private fun persistActionOpenKey(id: Int) {
-        val deliveryKeys = DatabaseHandler.deliveryKeyDb.get(SettingsHelper.userLastSelectedLocker)
-        if (deliveryKeys == null) {
-            DatabaseHandler.deliveryKeyDb.put(
-                DeliveryKey(
-                    SettingsHelper.userLastSelectedLocker,
-                    listOf(id)
-                )
-            )
-        } else {
-            if (!deliveryKeys.keyIds.contains(id)) {
-                val listOfIds = deliveryKeys.keyIds.plus(id)
-                DatabaseHandler.deliveryKeyDb.put(DeliveryKey(SettingsHelper.userLastSelectedLocker, listOfIds))
-            }
-        }
-    }
+//    private fun persistActionOpenKey(id: Int) {
+//        val deliveryKeys = DatabaseHandler.deliveryKeyDb.get(SettingsHelper.userLastSelectedLocker)
+//        if (deliveryKeys == null) {
+//            DatabaseHandler.deliveryKeyDb.put(
+//                DeliveryKey(
+//                    SettingsHelper.userLastSelectedLocker,
+//                    listOf(id)
+//                )
+//            )
+//        } else {
+//            if (!deliveryKeys.keyIds.contains(id)) {
+//                val listOfIds = deliveryKeys.keyIds.plus(id)
+//                DatabaseHandler.deliveryKeyDb.put(DeliveryKey(SettingsHelper.userLastSelectedLocker, listOfIds))
+//            }
+//        }
+//    }
 
     private fun deletePickAtFriendKey(
         position: Int,

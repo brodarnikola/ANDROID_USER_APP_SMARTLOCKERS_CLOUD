@@ -150,11 +150,7 @@ fun NavHomeScreen(
             } ?: ""
         finalProductName.value = viewModel.setFinalProductName()
         lockerAddress.value = viewModel.setLockerAddress()
-//        pahKeysCount.value = UserUtil.pahKeys.filter {
-//            it.lockerMasterMac.macRealToClean() == selectedMasterDevice?.macAddress?.macRealToClean()
-//        }.size
-
-        viewModel.loadUserData()
+        //viewModel.loadUserData()
     }
 
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -169,14 +165,6 @@ fun NavHomeScreen(
                 lockerAddress.value = viewModel.setLockerAddress()
 
                 viewModel.loadUserData()
-
-//                CoroutineScope(Dispatchers.IO).launch {
-//                    UserUtil.pahKeys = WSUser.getActivePaHCreatedKeys() ?: mutableListOf()
-//                    pahKeysCount.value = UserUtil.pahKeys.filter {
-//                        it.lockerMasterMac.macRealToClean() == selectedMasterDevice?.macAddress?.macRealToClean()
-//                    }.size
-//                }
-
             }
         }
         lifecycleOwner.lifecycle.addObserver(observer)

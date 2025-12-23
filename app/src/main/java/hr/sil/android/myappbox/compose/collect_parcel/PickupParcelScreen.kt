@@ -34,6 +34,9 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.core.content.ContextCompat.startActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import hr.sil.android.myappbox.App
@@ -63,8 +66,11 @@ import hr.sil.android.myappbox.core.remote.model.InstalationType
 import hr.sil.android.myappbox.core.remote.model.RCreatedLockerKey
 import hr.sil.android.myappbox.core.remote.model.RLockerKeyPurpose
 import hr.sil.android.myappbox.core.remote.model.RMasterUnitType
+import hr.sil.android.myappbox.core.util.logger
+import hr.sil.android.myappbox.store.MPLDeviceStore
 import hr.sil.android.myappbox.util.SettingsHelper
 import hr.sil.android.myappbox.utils.UiEvent
+import kotlin.text.ifEmpty
 
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -89,6 +95,13 @@ fun PickupParcelScreen(
     val pickAtFriendKeyId = rememberSaveable { mutableStateOf(-1) }
 
     val shareApplicationDialog = rememberSaveable { mutableStateOf(false) }
+
+    LaunchedEffect(key1 = state.showForceOpen) {
+        if( state.showForceOpen ) {
+            logger().info("NEW NOTIF ... INSIDE SHOW FORCE OPEN .. will it enter here")
+            viewModel.removeAllStorageKeys()
+        }
+    }
 
     LaunchedEffect(key1 = Unit) {
         viewModel.onEvent(

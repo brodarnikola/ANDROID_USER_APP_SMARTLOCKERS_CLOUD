@@ -13,7 +13,7 @@ object DatabaseHandler {
     val deliveryKeyDb by lazy {
         TwoLevelCache
                 .Builder(DeliveryKey::class, DeliveryKey::masterMacAddress)
-                .memoryLruMaxSize(20)
+                .memoryLruMaxSize(30)
                 .build(App.Companion.ref)
     }
 
