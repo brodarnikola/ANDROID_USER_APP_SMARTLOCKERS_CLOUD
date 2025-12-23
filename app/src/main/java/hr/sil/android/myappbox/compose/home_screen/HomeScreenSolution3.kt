@@ -93,19 +93,19 @@ fun NavHomeScreenSolution3(
 
 
             // Device list or empty state
-            if (uiState.devices.isEmpty()) {
-                EmptyDeviceState(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(30.dp)
-                )
-            } else {
-                DeviceList(
-                    devices = uiState.devices,
-                    onDeviceClick = onDeviceClick,
-                    modifier = Modifier.fillMaxSize()
-                )
-            }
+//            if (uiState.devices.isEmpty()) {
+//                EmptyDeviceState(
+//                    modifier = Modifier
+//                        .fillMaxSize()
+//                        .padding(30.dp)
+//                )
+//            } else {
+//                DeviceList(
+//                    devices = uiState.devices,
+//                    onDeviceClick = onDeviceClick,
+//                    modifier = Modifier.fillMaxSize()
+//                )
+//            }
         }
     }
 }

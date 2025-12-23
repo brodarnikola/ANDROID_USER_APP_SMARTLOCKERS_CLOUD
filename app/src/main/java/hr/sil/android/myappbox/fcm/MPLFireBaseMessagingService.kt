@@ -6,7 +6,9 @@ import hr.sil.android.myappbox.App
 import hr.sil.android.myappbox.compose.main_activity.MainActivity
 import hr.sil.android.myappbox.core.remote.WSUser
 import hr.sil.android.myappbox.core.util.logger
+import hr.sil.android.myappbox.events.NewNotificationEvent
 import hr.sil.android.myappbox.events.QrCodeScannedEvent
+import hr.sil.android.myappbox.store.DeviceStoreRemoteUpdater
 import hr.sil.android.myappbox.util.AppUtil
 import hr.sil.android.myappbox.util.NotificationHelper
 import hr.sil.android.myappbox.util.backend.UserUtil
@@ -27,13 +29,14 @@ open class MPLFireBaseMessagingService : FirebaseMessagingService() {
         if (remoteMessage.data.size > 0) {
             log.info("Message data payload: " + remoteMessage.data)
 
-            if (/* Check if data needs to be processed by long running job */ false) {
-                // For long-running tasks (10 seconds or more) use Firebase Job Dispatcher.
-                scheduleJob()
-            } else {
-                // Handle message within 10 seconds
-                handleNow(remoteMessage.data)
-            }
+            handleNow(remoteMessage.data)
+//            if (/* Check if data needs to be processed by long running job */ false) {
+//                // For long-running tasks (10 seconds or more) use Firebase Job Dispatcher.
+//                scheduleJob()
+//            } else {
+//                // Handle message within 10 seconds
+//                handleNow(remoteMessage.data)
+//            }
 
         }
         // Check if message contains a notification payload.
@@ -71,6 +74,8 @@ open class MPLFireBaseMessagingService : FirebaseMessagingService() {
     private fun handleNow(result: Map<String, String>) {
         val type = result["type"]?:""
         log.info("Did new notification arrived?: ${result["subject"]} .. body: ${result["body"]}")
+
+        log.info("NEW NOTIF 33 Push notification type AAAAAAAAA $type")
         if(type=="DEFAULT"){
             NotificationHelper.createNotification(result["subject"], result["body"], MainActivity::class.java)
             GlobalScope.launch {
@@ -85,6 +90,8 @@ open class MPLFireBaseMessagingService : FirebaseMessagingService() {
             val masterMac = result["masterMac"]
             if (masterMac != null) {
 
+                log.info("NEW NOTIF 22 Push notification type CCCCCC $type")
+                App.ref.eventBus.post(NewNotificationEvent(true))
                 log.info("Silent push masterMac has arrived ${masterMac} ")
                 GlobalScope.launch {
                     //DataCache.preloadKeysCache()

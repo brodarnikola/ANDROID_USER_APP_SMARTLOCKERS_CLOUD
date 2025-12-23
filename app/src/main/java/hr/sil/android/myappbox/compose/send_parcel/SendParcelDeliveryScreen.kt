@@ -127,6 +127,7 @@ fun SendParcelDeliveryScreen(
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center,
                         letterSpacing = 0.05.em,
+                        maxLines = 10,
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 15.dp)

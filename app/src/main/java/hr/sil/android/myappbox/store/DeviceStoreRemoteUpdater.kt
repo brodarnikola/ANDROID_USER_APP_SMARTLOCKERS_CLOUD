@@ -22,6 +22,7 @@
 package hr.sil.android.myappbox.store
  
 
+import hr.sil.android.myappbox.App
 import hr.sil.android.myappbox.core.remote.WSUser
 import hr.sil.android.myappbox.store.model.MasterUnitWithKeys
 import hr.sil.android.myappbox.util.backend.UserUtil
@@ -29,6 +30,7 @@ import hr.sil.android.myappbox.core.remote.model.RLockerInfo
 import hr.sil.android.myappbox.core.remote.model.RLockerKey
 import hr.sil.android.myappbox.core.remote.model.RMasterUnit
 import hr.sil.android.myappbox.core.util.logger
+import hr.sil.android.myappbox.events.NewNotificationEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -67,8 +69,30 @@ object DeviceStoreRemoteUpdater {
         }
     }
 
+    suspend fun immediateForceUpdate() {
+        if (inHandleUpdate.compareAndSet(false, true)) {
+            if (UserUtil.isUserLoggedIn()) {
+
+                log.info("NEW NOTIF 44 Push notification type BBBBBB")
+                val cachedActiveKeysForce = WSUser.getActiveKeys() ?: emptyList()
+                val cachedMasterUnitsForce = WSUser.getMasterUnits() ?: emptyList()
+                MPLDeviceStore.updateFromRemote(
+                    cachedMasterUnitsForce.map { masterUnit ->
+                        MasterUnitWithKeys(
+                            masterUnit = masterUnit,
+                            activeKeys = cachedActiveKeysForce.filter { it.lockerMasterId == masterUnit.id },
+                            availableLockerSizes = emptyList()
+                        )
+                    }
+                )
+                App.ref.eventBus.post(NewNotificationEvent(true))
+            }
+            inHandleUpdate.set(false)
+        }
+    }
+
     suspend fun forceUpdate() {
-        handleUpdate()
+        immediateForceUpdate()
     }
 
     private suspend fun handleUpdate() {

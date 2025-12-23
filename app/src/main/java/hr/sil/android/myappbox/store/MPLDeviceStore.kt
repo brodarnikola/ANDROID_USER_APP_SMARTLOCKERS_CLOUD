@@ -178,7 +178,7 @@ object MPLDeviceStore {
         remoteData = remoteDevices.associateBy { it.masterUnit.mac.macCleanToReal() }
 
         mergeData()
-        notifyEvents(remoteDevices.map { it.masterUnit.mac.toUpperCase() })
+        notifyEvents(remoteDevices.map { it.masterUnit.mac.uppercase() })
     }
 
     private fun mergeData() {

@@ -22,6 +22,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -76,14 +78,15 @@ fun NavHomeScreen(
     nextScreenQrCode: (route: String, typeOfNextScreen: Int, macAddress: String) -> Unit = { _, _, _ -> },
     navigateUp: () -> Unit = {}
 ) {
-    val state = viewModel.state.collectAsStateWithLifecycle().value
+    //val state = viewModel.state.collectAsStateWithLifecycle().value
+    val uiState by viewModel.uiState.collectAsState()
 
     val selectedMasterDevice = MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]
     val lockerNameOrAddress = rememberSaveable { mutableStateOf("") }
     val finalProductName = rememberSaveable { mutableStateOf("") }
     val lockerAddress = rememberSaveable { mutableStateOf("") }
 
-    val pahKeysCount = rememberSaveable { mutableStateOf(0) }
+    //val pahKeysCount = rememberSaveable { mutableStateOf(0) }
 
     val displayCopiedToClipboardDialog = remember { mutableStateOf(false) }
     val displayNoLockerSelected = rememberSaveable { mutableStateOf(false) }
@@ -98,31 +101,31 @@ fun NavHomeScreen(
     val noDeliveriesToPickup = stringResource(R.string.no_deliveries_to_pickup)
 
     // Check conditions
-    val deviceAddressConfirmed = selectedMasterDevice?.requiredAccessRequestTypes
-        ?.firstOrNull { it.name == RequiredAccessRequestTypes.ADDRESS_CONFIRMATION.name }
+//    val deviceAddressConfirmed = selectedMasterDevice?.requiredAccessRequestTypes
+//        ?.firstOrNull { it.name == RequiredAccessRequestTypes.ADDRESS_CONFIRMATION.name }
+//
+//    val isPublicLocker = selectedMasterDevice != null &&
+//            !(UserUtil.user?.addressConfirmed == false && deviceAddressConfirmed != null)
 
-    val isPublicLocker = selectedMasterDevice != null &&
-            !(UserUtil.user?.addressConfirmed == false && deviceAddressConfirmed != null)
+//    val canCollectParcel = isPublicLocker &&
+//            UserUtil.user?.status == "ACTIVE" &&
+//            selectedMasterDevice?.activeKeys?.any {
+//                it.purpose == RLockerKeyPurpose.DELIVERY || it.purpose == RLockerKeyPurpose.PAF
+//            } == true
 
-    val canCollectParcel = isPublicLocker &&
-            UserUtil.user?.status == "ACTIVE" &&
-            selectedMasterDevice?.activeKeys?.any {
-                it.purpose == RLockerKeyPurpose.DELIVERY || it.purpose == RLockerKeyPurpose.PAF
-            } == true
+//    val canSendParcel = isPublicLocker &&
+//            SettingsHelper.userLastSelectedLocker.isNotEmpty() &&
+//            UserUtil.user?.status == "ACTIVE" &&
+//            (selectedMasterDevice?.hasUserRightsOnSendParcelLocker() ?: false) &&
+//            selectedMasterDevice?.isUserAssigned == true
 
-    val canSendParcel = isPublicLocker &&
-            SettingsHelper.userLastSelectedLocker.isNotEmpty() &&
-            UserUtil.user?.status == "ACTIVE" &&
-            (selectedMasterDevice?.hasUserRightsOnSendParcelLocker() ?: false) &&
-            selectedMasterDevice?.isUserAssigned == true
+//    val canShareAccess = isPublicLocker &&
+//            UserUtil.user?.status == "ACTIVE" &&
+//            (selectedMasterDevice?.hasRightsToShareAccess() ?: false) &&
+//            selectedMasterDevice?.installationType == InstalationType.DEVICE
 
-    val canShareAccess = isPublicLocker &&
-            UserUtil.user?.status == "ACTIVE" &&
-            (selectedMasterDevice?.hasRightsToShareAccess() ?: false) &&
-            selectedMasterDevice?.installationType == InstalationType.DEVICE
-
-    val deliveryKeysCount = selectedMasterDevice?.activeKeys
-        ?.count { it.purpose == RLockerKeyPurpose.DELIVERY || it.purpose == RLockerKeyPurpose.PAF } ?: 0
+//    val deliveryKeysCount = selectedMasterDevice?.activeKeys
+//        ?.count { it.purpose == RLockerKeyPurpose.DELIVERY || it.purpose == RLockerKeyPurpose.PAF } ?: 0
 
     if (displayNoLockerSelected.value) {
         NoMasterSelectedDialog(
@@ -147,9 +150,11 @@ fun NavHomeScreen(
             } ?: ""
         finalProductName.value = viewModel.setFinalProductName()
         lockerAddress.value = viewModel.setLockerAddress()
-        pahKeysCount.value = UserUtil.pahKeys.filter {
-            it.lockerMasterMac.macRealToClean() == selectedMasterDevice?.macAddress?.macRealToClean()
-        }.size
+//        pahKeysCount.value = UserUtil.pahKeys.filter {
+//            it.lockerMasterMac.macRealToClean() == selectedMasterDevice?.macAddress?.macRealToClean()
+//        }.size
+
+        viewModel.loadUserData()
     }
 
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -163,12 +168,14 @@ fun NavHomeScreen(
                 finalProductName.value = viewModel.setFinalProductName()
                 lockerAddress.value = viewModel.setLockerAddress()
 
-                CoroutineScope(Dispatchers.IO).launch {
-                    UserUtil.pahKeys = WSUser.getActivePaHCreatedKeys() ?: mutableListOf()
-                    pahKeysCount.value = UserUtil.pahKeys.filter {
-                        it.lockerMasterMac.macRealToClean() == selectedMasterDevice?.macAddress?.macRealToClean()
-                    }.size
-                }
+                viewModel.loadUserData()
+
+//                CoroutineScope(Dispatchers.IO).launch {
+//                    UserUtil.pahKeys = WSUser.getActivePaHCreatedKeys() ?: mutableListOf()
+//                    pahKeysCount.value = UserUtil.pahKeys.filter {
+//                        it.lockerMasterMac.macRealToClean() == selectedMasterDevice?.macAddress?.macRealToClean()
+//                    }.size
+//                }
 
             }
         }
@@ -316,7 +323,7 @@ fun NavHomeScreen(
                                     noAccessMessage.value = noSelectedLocker
                                     displayNoAccessDialog.value = true
                                 }
-                                !isPublicLocker -> {
+                                !uiState.isPublicLocker -> {
                                     noAccessMessage.value = noDeliverisToLockerPossible
                                     displayNoAccessDialog.value = true
                                 }
@@ -334,7 +341,7 @@ fun NavHomeScreen(
                                     noAccessMessage.value = appGenericNoAccessForDevice
                                     displayNoAccessDialog.value = true
                                 }
-                                deliveryKeysCount > 0 -> {
+                                uiState.canCollectParcel -> {
                                     nextScreen(MainDestinations.PARCEL_PICKUP)
                                 }
                                 else -> {
@@ -351,10 +358,10 @@ fun NavHomeScreen(
                                 painter = painterResource(R.drawable.ic_collect_parcel),
                                 contentDescription = null,
                                 tint = Color.Unspecified,
-                                modifier = Modifier.alpha(if (canCollectParcel) 1.0f else 0.2f)
+                                modifier = Modifier.alpha(if (uiState.activeKeys.isNotEmpty()) 1.0f else 0.2f)
                             )
 
-                            if (deliveryKeysCount > 0) {
+                            if (uiState.deliveryKeysCount > 0) {
                                 Box(
                                     modifier = Modifier
                                         .size(38.dp)
@@ -366,7 +373,7 @@ fun NavHomeScreen(
                                     contentAlignment = Alignment.Center
                                 ) {
                                     TextViewWithFont(
-                                        text = deliveryKeysCount.toString(),
+                                        text = uiState.deliveryKeysCount.toString(),
                                         color = ThmNavigationDrawerMenuTextColor,
                                         fontSize = 25.sp,
                                         fontWeight = FontWeight.Light
@@ -398,14 +405,14 @@ fun NavHomeScreen(
                                 contentDescription = null,
                                 tint = Color.Unspecified,
                                 modifier = Modifier
-                                    .alpha(if (canSendParcel) 1.0f else 0.2f)
+                                    .alpha(if (uiState.canSendParcel) 1.0f else 0.2f)
                                     .clickable {
                                         when {
                                             SettingsHelper.userLastSelectedLocker.isEmpty() -> {
                                                 noAccessMessage.value = noSelectedLocker
                                                 displayNoAccessDialog.value = true
                                             }
-                                            !isPublicLocker -> {
+                                            !uiState.isPublicLocker -> {
                                                 noAccessMessage.value = noDeliverisToLockerPossible
                                                 displayNoAccessDialog.value = true
                                             }
@@ -427,14 +434,14 @@ fun NavHomeScreen(
                                                 nextScreenQrCode(MainDestinations.SETTINGS_QR_CODE, 1,
                                                     SettingsHelper.userLastSelectedLocker) // TODO: CHECK THIS IF IS WORKING GOOD
                                             }
-                                            canSendParcel -> {
+                                            uiState.canSendParcel -> {
                                                 nextScreen(MainDestinations.SELECT_PARCEL_SIZE)
                                             }
                                         }
                                     }
                             )
 
-                            if (pahKeysCount.value > 0) {
+                            if (uiState.pahKeysCount > 0) {
                                 Row(
                                     modifier = Modifier
                                         .offset(x = 105.dp)
@@ -455,7 +462,7 @@ fun NavHomeScreen(
                                     )
 
                                     TextViewWithFont(
-                                        text = pahKeysCount.value.toString(),
+                                        text = uiState.pahKeysCount.toString(),
                                         color = ThmNavigationDrawerMenuTextColor,
                                         fontSize = 25.sp,
                                         fontWeight = FontWeight.Light,
@@ -495,7 +502,7 @@ fun NavHomeScreen(
                                     noAccessMessage.value = noSelectedLocker
                                     displayNoAccessDialog.value = true
                                 }
-                                !isPublicLocker -> {
+                                !uiState.isPublicLocker -> {
                                     noAccessMessage.value = noDeliverisToLockerPossible
                                     displayNoAccessDialog.value = true
                                 }
@@ -516,7 +523,7 @@ fun NavHomeScreen(
                                     noAccessMessage.value = appGenericNoAccessForDevice
                                     displayNoAccessDialog.value = true
                                 }
-                                canShareAccess -> {
+                                uiState.canShareAccess -> {
                                     nextScreen(MainDestinations.ACCESS_SHARING_SCREEN)
                                 }
                             }
@@ -527,7 +534,7 @@ fun NavHomeScreen(
                         painter = painterResource(R.drawable.ic_key_sharing),
                         contentDescription = null,
                         tint = Color.Unspecified,
-                        modifier = Modifier.alpha(if (canShareAccess) 1.0f else 0.2f)
+                        modifier = Modifier.alpha(if (uiState.canShareAccess) 1.0f else 0.2f)
                     )
 
                     TextViewWithFont(

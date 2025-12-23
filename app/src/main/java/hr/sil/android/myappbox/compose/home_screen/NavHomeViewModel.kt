@@ -4,11 +4,20 @@ import android.app.Activity
 import android.content.Context
 import android.view.View
 import android.widget.Toast
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import hr.sil.android.myappbox.App
 import hr.sil.android.myappbox.R
+import hr.sil.android.myappbox.core.remote.WSUser
+import hr.sil.android.myappbox.core.remote.model.InstalationType
+import hr.sil.android.myappbox.core.remote.model.RCreatedLockerKey
+import hr.sil.android.myappbox.core.remote.model.RLockerKey
+import hr.sil.android.myappbox.core.remote.model.RLockerKeyPurpose
+import hr.sil.android.myappbox.core.remote.model.RequiredAccessRequestTypes
 import hr.sil.android.myappbox.core.util.logger
+import hr.sil.android.myappbox.core.util.macRealToClean
 import hr.sil.android.myappbox.events.MPLDevicesUpdatedEvent
+import hr.sil.android.myappbox.events.NewNotificationEvent
 import hr.sil.android.myappbox.events.UnauthorizedUserEvent
 import hr.sil.android.myappbox.util.backend.UserUtil
 import hr.sil.android.myappbox.utils.BaseViewModel
@@ -26,8 +35,9 @@ import org.greenrobot.eventbus.ThreadMode
 
 import hr.sil.android.myappbox.store.MPLDeviceStore
 import hr.sil.android.myappbox.util.SettingsHelper
+import kotlinx.coroutines.Dispatchers
 
-class NavHomeViewModel : BaseViewModel<NavHomeUiState, HomeScreenEvent>() {
+class NavHomeViewModel : ViewModel() { //BaseViewModel<NavHomeUiState, HomeScreenEvent>() {
 
     val log = logger()
 
@@ -41,6 +51,78 @@ class NavHomeViewModel : BaseViewModel<NavHomeUiState, HomeScreenEvent>() {
         val selectedMasterDevice = MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]
         val displayNameOrAddress = selectedMasterDevice?.name?.ifEmpty { selectedMasterDevice.address }
         _uiState.value = _uiState.value.copy(selectedLocker = displayNameOrAddress ?: "")
+    }
+
+    private fun calculateHomeState(
+        activeKeys: List<RLockerKey>,
+        pahKeys: List<RCreatedLockerKey>
+    ): NavHomeUiState {
+
+        val selectedDevice =
+            MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]
+
+        val deviceAddressConfirmed =
+            selectedDevice?.requiredAccessRequestTypes
+                ?.any { it.name == RequiredAccessRequestTypes.ADDRESS_CONFIRMATION.name }
+                ?: false
+
+        val isPublicLocker =
+            selectedDevice != null &&
+                    !(UserUtil.user?.addressConfirmed == false && deviceAddressConfirmed)
+
+        val deliveryKeysCount =
+            activeKeys.count {
+                it.purpose == RLockerKeyPurpose.DELIVERY ||
+                        it.purpose == RLockerKeyPurpose.PAF
+            }
+
+        val pahKeysCount =
+            pahKeys.count {
+                it.lockerMasterMac.macRealToClean() ==
+                        selectedDevice?.macAddress?.macRealToClean()
+            }
+
+        val canCollectParcel =
+            isPublicLocker &&
+                    UserUtil.user?.status == "ACTIVE" &&
+                    deliveryKeysCount > 0
+
+        val canSendParcel =
+            isPublicLocker &&
+                    SettingsHelper.userLastSelectedLocker.isNotEmpty() &&
+                    UserUtil.user?.status == "ACTIVE" &&
+                    (selectedDevice?.hasUserRightsOnSendParcelLocker() ?: false) &&
+                    selectedDevice?.isUserAssigned == true
+
+        val canShareAccess =
+            isPublicLocker &&
+                    UserUtil.user?.status == "ACTIVE" &&
+                    (selectedDevice?.hasRightsToShareAccess() ?: false) &&
+                    selectedDevice?.installationType == InstalationType.DEVICE
+
+        return _uiState.value.copy(
+            isPublicLocker = isPublicLocker,
+            canCollectParcel = canCollectParcel,
+            canSendParcel = canSendParcel,
+            canShareAccess = canShareAccess,
+            deliveryKeysCount = deliveryKeysCount,
+            pahKeysCount = pahKeysCount,
+            activeKeys = activeKeys,
+            selectedLocker = selectedDevice?.name ?: "",
+            lockerAddress = selectedDevice?.address ?: "",
+            finalProductName = setFinalProductName()
+        )
+    }
+
+    fun loadUserData() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val activeKeys = WSUser.getActiveKeys() ?: emptyList()
+            val pahKeys = WSUser.getActivePaHCreatedKeys() ?: emptyList()
+
+            _uiState.update {
+                calculateHomeState(activeKeys, pahKeys)
+            }
+        }
     }
 
     private fun loadUserInfo() {
@@ -115,23 +197,70 @@ class NavHomeViewModel : BaseViewModel<NavHomeUiState, HomeScreenEvent>() {
         }
     }
 
+    fun updateCollectSendParcel() {
+
+        viewModelScope.launch(Dispatchers.IO) {
+
+//            val masterUnits = WSUser.getMasterUnits()
+//            val device = masterUnits?.filter { it.mac == MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]?.macAddress }
+//
+//
+//
+//            val test10 = WSUser.getDevicesInfo(listOf(MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]?.macAddress) as List<String>)
+//            val aa = test10?.filter {
+//                it.mac == MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]?.macAddress
+//            }
+
+            val activeKeys = WSUser.getActiveKeys()
+
+            val deviceAddressConfirmed = MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]?.requiredAccessRequestTypes
+                ?.firstOrNull { it.name == RequiredAccessRequestTypes.ADDRESS_CONFIRMATION.name }
+
+            val isPublicLocker = MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker] != null &&
+                    !(UserUtil.user?.addressConfirmed == false && deviceAddressConfirmed != null)
+
+            val canCollectParcel = isPublicLocker &&
+                    UserUtil.user?.status == "ACTIVE" &&
+                    activeKeys?.any {
+                        it.purpose == RLockerKeyPurpose.DELIVERY || it.purpose == RLockerKeyPurpose.PAF
+                    } == true
+
+            _uiState.update {
+                it.copy(
+                    canCollectParcel = canCollectParcel,
+                    activeKeys = activeKeys ?: emptyList(),
+                )
+            }
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onNofiticationEvent(event: NewNotificationEvent) {
+        loadUserData()
+    }
+
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    fun onDeviceChange(event: MPLDevicesUpdatedEvent) {
+//        updateCollectSendParcel()
+//    }
+
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onUnauthorizedUser(event: UnauthorizedUserEvent) {
         _uiState.value = _uiState.value.copy(isUnauthorized = true)
     }
     
-    override fun initialState(): NavHomeUiState {
-        return NavHomeUiState()
-    }
-
-    override fun onEvent(event: HomeScreenEvent) {
-        when (event) {
-            is HomeScreenEvent.OnForgotPasswordRequest -> {
-
-                }
-        }
-    }
+//    override fun initialState(): NavHomeUiState {
+//        return NavHomeUiState()
+//    }
+//
+//    override fun onEvent(event: HomeScreenEvent) {
+//        when (event) {
+//            is HomeScreenEvent.OnForgotPasswordRequest -> {
+//
+//                }
+//        }
+//    }
 
 }
 
@@ -139,10 +268,22 @@ data class NavHomeUiState(
     val loading: Boolean = false,
 
     val selectedLocker: String = "",
+    val lockerAddress: String = "",
+    val finalProductName: String = "",
 
     val userName: String = "",
     val address: String = "",
-    val devices: List<ItemHomeScreen> = emptyList(),
+
+    val isPublicLocker: Boolean = false,
+    val canCollectParcel: Boolean = false,
+    val canSendParcel: Boolean = false,
+    val canShareAccess: Boolean = false,
+
+    val deliveryKeysCount: Int = 0,
+    val pahKeysCount: Int = 0,
+
+    val activeKeys: List<RLockerKey> = emptyList(),
+
     val isUnauthorized: Boolean = false
 )
 
