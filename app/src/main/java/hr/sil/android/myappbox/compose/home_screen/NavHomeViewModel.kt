@@ -70,10 +70,15 @@ class NavHomeViewModel : ViewModel() { //BaseViewModel<NavHomeUiState, HomeScree
             selectedDevice != null &&
                     !(UserUtil.user?.addressConfirmed == false && deviceAddressConfirmed)
 
-        val deliveryKeysCount =
-            activeKeys.count {
-                it.purpose == RLockerKeyPurpose.DELIVERY ||
-                        it.purpose == RLockerKeyPurpose.PAF
+//        val deliveryKeysCount =
+//            MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]?.activeKeys
+//           ?.count { it.purpose == RLockerKeyPurpose.DELIVERY || it.purpose == RLockerKeyPurpose.PAF } ?: 0
+
+        val deliveryKeysCount = activeKeys.count {
+            (it.purpose == RLockerKeyPurpose.DELIVERY ||
+                        it.purpose == RLockerKeyPurpose.PAF)
+                    && it.lockerMasterMac.macRealToClean() ==
+                    selectedDevice?.macAddress?.macRealToClean()
             }
 
         val pahKeysCount =

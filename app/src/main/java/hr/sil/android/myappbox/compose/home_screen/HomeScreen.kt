@@ -358,7 +358,7 @@ fun NavHomeScreen(
                                 painter = painterResource(R.drawable.ic_collect_parcel),
                                 contentDescription = null,
                                 tint = Color.Unspecified,
-                                modifier = Modifier.alpha(if (uiState.activeKeys.isNotEmpty()) 1.0f else 0.2f)
+                                modifier = Modifier.alpha(if (uiState.deliveryKeysCount > 0) 1.0f else 0.2f)
                             )
 
                             if (uiState.deliveryKeysCount > 0) {
