@@ -11,8 +11,6 @@ import android.view.View
 import android.widget.RelativeLayout
 import androidx.lifecycle.lifecycleScope
 import hr.sil.android.myappbox.App
-import hr.sil.android.myappbox.cache.status.ActionStatusHandler
-import hr.sil.android.myappbox.cache.status.InstallationKeyHandler
 import hr.sil.android.myappbox.R
 import hr.sil.android.myappbox.core.remote.WSUser
 import hr.sil.android.myappbox.core.remote.model.UserStatus

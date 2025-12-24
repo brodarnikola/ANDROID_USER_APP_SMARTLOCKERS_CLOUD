@@ -23,7 +23,6 @@ package hr.sil.android.myappbox.store
  
 
 import hr.sil.android.myappbox.App
-import hr.sil.android.myappbox.cache.DatabaseHandler
 import hr.sil.android.myappbox.core.remote.WSUser
 import hr.sil.android.myappbox.store.model.MasterUnitWithKeys
 import hr.sil.android.myappbox.util.backend.UserUtil
@@ -92,32 +91,32 @@ object DeviceStoreRemoteUpdater {
                 )
 
                 log.info("NEW NOTIF 44 Push notification type EEEEE ${cachedActiveKeysForce.size}")
-                cachedActiveKeysForce.forEach { key ->
-                    log.info("NEW NOTIF 44 Push notification type FFFF ${key.lockerMasterMac}")
-                    log.info("NEW NOTIF 44 Push notification type GGGGG ${SettingsHelper.userLastSelectedLocker}")
-                    if( key.purpose == RLockerKeyPurpose.DELIVERY && key.lockerMasterMac == SettingsHelper.userLastSelectedLocker.macRealToClean() ) {
-                        val deliveryKeys =
-                            DatabaseHandler.deliveryKeyDb.get(SettingsHelper.userLastSelectedLocker)
-                        if (deliveryKeys == null) {
-                            DatabaseHandler.deliveryKeyDb.put(
-                                DeliveryKey(
-                                    SettingsHelper.userLastSelectedLocker,
-                                    listOf(key.id)
-                                )
-                            )
-                        } else {
-                            if (!deliveryKeys.keyIds.contains(key.id)) {
-                                val listOfIds = deliveryKeys.keyIds.plus(key.id)
-                                DatabaseHandler.deliveryKeyDb.put(
-                                    DeliveryKey(
-                                        SettingsHelper.userLastSelectedLocker,
-                                        listOfIds
-                                    )
-                                )
-                            }
-                        }
-                    }
-                }
+//                cachedActiveKeysForce.forEach { key ->
+//                    log.info("NEW NOTIF 44 Push notification type FFFF ${key.lockerMasterMac}")
+//                    log.info("NEW NOTIF 44 Push notification type GGGGG ${SettingsHelper.userLastSelectedLocker}")
+//                    if( key.purpose == RLockerKeyPurpose.DELIVERY && key.lockerMasterMac == SettingsHelper.userLastSelectedLocker.macRealToClean() ) {
+//                        val deliveryKeys =
+//                            DatabaseHandler.deliveryKeyDb.get(SettingsHelper.userLastSelectedLocker)
+//                        if (deliveryKeys == null) {
+//                            DatabaseHandler.deliveryKeyDb.put(
+//                                DeliveryKey(
+//                                    SettingsHelper.userLastSelectedLocker,
+//                                    listOf(key.id)
+//                                )
+//                            )
+//                        } else {
+//                            if (!deliveryKeys.keyIds.contains(key.id)) {
+//                                val listOfIds = deliveryKeys.keyIds.plus(key.id)
+//                                DatabaseHandler.deliveryKeyDb.put(
+//                                    DeliveryKey(
+//                                        SettingsHelper.userLastSelectedLocker,
+//                                        listOfIds
+//                                    )
+//                                )
+//                            }
+//                        }
+//                    }
+//                }
 
                 App.ref.eventBus.post(NewNotificationEvent(true))
             }

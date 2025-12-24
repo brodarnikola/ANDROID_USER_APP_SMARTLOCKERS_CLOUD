@@ -56,8 +56,6 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import hr.sil.android.ble.scanner.scan_multi.properties.advv2.common.MPLDeviceStatus
 import hr.sil.android.myappbox.App
-import hr.sil.android.myappbox.cache.DatabaseHandler
-import hr.sil.android.myappbox.cache.status.ActionStatusHandler
 import hr.sil.android.myappbox.compose.components.GradientBackground
 import hr.sil.android.myappbox.compose.dialog.DeleteAccessShareUserDialog
 import hr.sil.android.myappbox.compose.home_screen.format
@@ -259,7 +257,7 @@ class PickupParcelViewModel() : ViewModel() {
         onInvitationCode: () -> Unit,
         onError: () -> Unit
     ) {
-        ActionStatusHandler.log.info("onConfirm email 33: ${email}, ${pickAtFriendKeyId}")
+        println("onConfirm email 33: ${email}, ${pickAtFriendKeyId}")
         viewModelScope.launch {
 
             val groups = WSUser.getGroupMembers() // DataCache.getGroupMembers()
@@ -457,7 +455,7 @@ class PickupParcelViewModel() : ViewModel() {
     private fun isOpenDoorPossible(): Boolean {
 
         var hasUnusedKeys = false
-        val keys = DatabaseHandler.deliveryKeyDb.get(SettingsHelper.userLastSelectedLocker)
+        //val keys = DatabaseHandler.deliveryKeyDb.get(SettingsHelper.userLastSelectedLocker)
 //        if (keys == null) {
 //            return device?.activeKeys?.filter { it.purpose != RLockerKeyPurpose.PAH }?.isNotEmpty()
 //                ?: false
@@ -472,7 +470,7 @@ class PickupParcelViewModel() : ViewModel() {
 //            }
 //        }
 
-        return device?.isInBleProximity ?: false &&  device?.hasUserRightsOnLocker() ?: false && keys?.keyIds?.isNotEmpty() == true // && hasUnusedKeys
+        return device?.isInBleProximity ?: false &&  device?.hasUserRightsOnLocker() ?: false && device?.activeKeys?.any { it.purpose != RLockerKeyPurpose.PAH } == true // && keys?.keyIds?.isNotEmpty() == true // && hasUnusedKeys
 
     }
 
@@ -501,7 +499,7 @@ class PickupParcelViewModel() : ViewModel() {
     }
 
     fun removeAllStorageKeys() {
-       DatabaseHandler.deliveryKeyDb.clear()
+       //DatabaseHandler.deliveryKeyDb.clear()
     }
 
     private fun startOpenProcedure(context: Context, activity: Activity) {

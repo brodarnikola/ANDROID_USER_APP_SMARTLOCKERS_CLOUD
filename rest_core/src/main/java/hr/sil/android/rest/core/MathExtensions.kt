@@ -1,4 +1,4 @@
-package hr.sil.android.datacache
+package hr.sil.android.rest.core
 
 /**
  * Linear interpolation with given input min and max values

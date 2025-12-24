@@ -1,4 +1,4 @@
-package hr.sil.android.datacache
+package hr.sil.android.rest.core
 
 import android.bluetooth.BluetoothAdapter
 import android.content.BroadcastReceiver
@@ -7,7 +7,9 @@ import android.content.Intent
 import android.content.IntentFilter
 import java.util.*
 
-import hr.sil.android.datacache.synchronizedDelegate
+//import hr.sil.android.datacache.synchronizedDelegate
+
+import hr.sil.android.rest.core.synchronizedDelegate
 
 /**
  * @author mfatiga

@@ -24,7 +24,6 @@ package hr.sil.android.myappbox.util.backend
 //import com.esotericsoftware.minlog.Log
 import com.google.firebase.messaging.FirebaseMessaging
 import hr.sil.android.myappbox.App
-import hr.sil.android.myappbox.cache.status.InstallationKeyHandler
 import hr.sil.android.rest.core.util.UserHashUtil
 import hr.sil.android.myappbox.R
 import hr.sil.android.myappbox.core.remote.WSUser
@@ -84,14 +83,14 @@ object UserUtil {
         var user: REndUserInfo? = null
         try {
             var key = ""
-            val installationKeys = InstallationKeyHandler.key.getAll()
-            if (!installationKeys.isNullOrEmpty()) key = installationKeys.first().key
+            //val installationKeys = InstallationKeyHandler.key.getAll()
+            //if (!installationKeys.isNullOrEmpty()) key = installationKeys.first().key
             log.info("Getting ref key from registration $key")
-            log.info("Size from installation keys ${installationKeys.size}")
+            //log.info("Size from installation keys ${installationKeys.size}")
             if (language != null) {
                 user = WSUser.registerEndUser(name, address, phoneNumber, email, password, language, groupName, key)
                 updateUserHash(user?.email, password)
-                InstallationKeyHandler.key.clear()
+                //InstallationKeyHandler.key.clear()
                 return user != null && login(user.email, password)
             } else {
                 log.error("No language found -> Language list size = ${langList?.size}")
@@ -141,14 +140,11 @@ object UserUtil {
         var user: Response<REndUserInfo>? = null
         try {
             var key = ""
-            val installationKeys = InstallationKeyHandler.key.getAll()
-            if (!installationKeys.isNullOrEmpty()) key = installationKeys.first().key
+
             log.info("Getting ref key from registration $key")
-            log.info("Size from installation keys ${installationKeys.size}")
             if (language != null) {
                 user = WSUser.registerEndUserCPL(name, lastName, email, password, phoneNumber, street, houseNumber, postCode, town, reducedMobility, languageId, key)
                 updateUserHash(null, null)
-                InstallationKeyHandler.key.clear()
                 return user
             } else {
                 log.error("No language found -> Language list size = ${langList?.size}")

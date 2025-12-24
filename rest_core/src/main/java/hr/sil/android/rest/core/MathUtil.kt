@@ -1,4 +1,4 @@
-package hr.sil.android.datacache
+package hr.sil.android.rest.core
 
 /**
  * @author mfatiga

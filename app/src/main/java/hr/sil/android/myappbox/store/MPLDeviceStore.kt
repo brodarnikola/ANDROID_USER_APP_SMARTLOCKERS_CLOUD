@@ -39,7 +39,7 @@ import hr.sil.android.myappbox.core.util.macRealToClean
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-import hr.sil.android.datacache.synchronizedDelegate
+import hr.sil.android.rest.core.synchronizedDelegate
 
 /**
  * @author mfatiga

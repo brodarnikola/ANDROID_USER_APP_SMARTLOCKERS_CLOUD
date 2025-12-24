@@ -21,10 +21,11 @@
 
 package hr.sil.android.myappbox.util.connectivity
 
-import hr.sil.android.datacache.NetworkConnectivity
 import hr.sil.android.myappbox.App
-import hr.sil.android.myappbox.cache.status.ActionStatusHandler
+//import hr.sil.android.myappbox.cache.status.ActionStatusHandler
 import kotlinx.coroutines.*
+
+import hr.sil.android.rest.core.NetworkConnectivity
 
 import java.net.HttpURLConnection
 import java.net.URL
@@ -106,7 +107,8 @@ object NetworkChecker {
             val urlConnection = URL("https://clients3.google.com/generate_204").openConnection() as HttpURLConnection
             urlConnection.responseCode == 204 && urlConnection.contentLength == 0
         } catch (exc: Exception) {
-            ActionStatusHandler.log.error(exc.message, exc)
+            println("exception is .. network exception is: $exc")
+            //ActionStatusHandler.log.error(exc.message, exc)
             false
         }
     }

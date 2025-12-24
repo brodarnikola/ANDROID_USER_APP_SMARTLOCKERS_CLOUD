@@ -42,7 +42,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import hr.sil.android.myappbox.App
 import hr.sil.android.myappbox.BuildConfig
 import hr.sil.android.myappbox.R
-import hr.sil.android.myappbox.cache.status.ActionStatusHandler.log
 import hr.sil.android.myappbox.compose.components.ButtonWithFont
 import hr.sil.android.myappbox.compose.components.RotatingRingIndicator
 import hr.sil.android.myappbox.compose.components.TextViewWithFont
@@ -138,7 +137,7 @@ fun PickupParcelScreen(
         PickAtFriendKeysDialog(
             onDismiss = { displayPickAtFriendKeyDialog.value = false },
             onConfirm = { email ->
-                log.info("onConfirm email 11: ${email}")
+                println("onConfirm email 11: ${email}")
                 shareAppEmail.value = email
                 viewModel.onEvent(
                     PickupParcelScreenEvent.OnConfirmPickAtFriendKeyClick(

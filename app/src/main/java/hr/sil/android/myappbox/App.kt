@@ -32,7 +32,7 @@ import hr.sil.android.ble.scanner.BLEDeviceScanner
 import hr.sil.android.ble.scanner.exception.BLEScanException
 import hr.sil.android.ble.scanner.scan_multi.BLEGenericDeviceDataFactory
 import hr.sil.android.ble.scanner.scan_multi.model.BLEDeviceType
-import hr.sil.android.myappbox.cache.status.ActionStatusHandler
+//import hr.sil.android.myappbox.cache.status.ActionStatusHandler
 import hr.sil.android.myappbox.data.UserLastLocationGps
 import hr.sil.android.myappbox.core.remote.WSUser
 import hr.sil.android.myappbox.core.remote.model.RLanguage
@@ -58,9 +58,13 @@ import okhttp3.OkHttpClient
 import org.greenrobot.eventbus.EventBus
 import java.util.*
 
-import hr.sil.android.datacache.synchronizedDelegate
-import hr.sil.android.datacache.format
-import hr.sil.android.datacache.BluetoothAdapterMonitor
+//import hr.sil.android.datacache.synchronizedDelegate
+//import hr.sil.android.datacache.format
+//import hr.sil.android.datacache.BluetoothAdapterMonitor
+
+import hr.sil.android.rest.core.synchronizedDelegate
+import hr.sil.android.rest.core.format
+import hr.sil.android.rest.core.BluetoothAdapterMonitor
 
 /**
  * @author mfatiga
@@ -163,7 +167,7 @@ class App : Application(), BLEScannerStateHolder {
         stethoClient = OkHttpClient.Builder().addInterceptor(StethoInterceptor()).build()
 
         log.info("Starting...")
-        ActionStatusHandler.checkClasses(this)
+        //ActionStatusHandler.checkClasses(this)
         isFirstStart = handleFirstStartup()
 
         log.info("Checking cache for external cache class modifications...")
@@ -172,7 +176,7 @@ class App : Application(), BLEScannerStateHolder {
         log.info("Initializing web services...")
         WSConfig.initialize(this.applicationContext)
 
-        ActionStatusHandler.run()
+        //ActionStatusHandler.run()
 
         if( this@App.resources.getBoolean(R.bool.scan_all_devices_mpl_spl_plus_tablet) ) {
             deviceScanner.setAdvertisementFilters(BLEDeviceType.MPL_MASTER.filters() + BLEDeviceType.MPL_SLAVE.filters() + BLEDeviceType.MPL_SLAVE_P16.filters() + BLEDeviceType.SPL.filters() + BLEDeviceType.SPL_PLUS.filters() + BLEDeviceType.MPL_TABLET.filters() )

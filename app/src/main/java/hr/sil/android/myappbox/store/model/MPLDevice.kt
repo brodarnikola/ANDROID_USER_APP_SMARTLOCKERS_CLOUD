@@ -43,7 +43,7 @@ import hr.sil.android.myappbox.core.remote.model.RequiredAccessRequestTypes
 import hr.sil.android.myappbox.core.util.logger
 import kotlinx.coroutines.runBlocking
 
-import hr.sil.android.datacache.lerpInDomain
+import hr.sil.android.rest.core.lerpInDomain
 
 /**
  * @author mfatiga

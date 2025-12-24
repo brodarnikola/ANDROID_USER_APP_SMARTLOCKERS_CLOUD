@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import hr.sil.android.myappbox.R
-import hr.sil.android.myappbox.cache.status.ActionStatusHandler
 import hr.sil.android.myappbox.cache.status.ActionStatusType
 import hr.sil.android.myappbox.core.remote.WSUser
 import hr.sil.android.myappbox.core.remote.model.InstalationType

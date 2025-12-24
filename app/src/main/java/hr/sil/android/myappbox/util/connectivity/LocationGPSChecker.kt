@@ -30,7 +30,6 @@ import android.widget.Toast
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
-import hr.sil.android.myappbox.cache.status.ActionStatusHandler
 import kotlinx.coroutines.*
 
 import java.util.*
@@ -140,7 +139,7 @@ class LocationGPSChecker (context: Context)  {
 
     private fun doCheck() {
         val now = System.currentTimeMillis()
-        ActionStatusHandler.log.info("Time passed in seconds: ${now - lastCheck}")
+        println("Time passed in seconds: ${now - lastCheck}")
         if( (now - lastCheck > checkPeriod) ) {
             if (turnGPSOn()) {
                 notifyListeners(true)

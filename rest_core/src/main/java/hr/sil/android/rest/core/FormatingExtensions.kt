@@ -1,4 +1,4 @@
-package hr.sil.android.datacache
+package hr.sil.android.rest.core
 
 import java.text.SimpleDateFormat
 import java.util.*

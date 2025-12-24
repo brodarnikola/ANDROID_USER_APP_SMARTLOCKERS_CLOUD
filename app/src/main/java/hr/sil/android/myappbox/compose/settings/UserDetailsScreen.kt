@@ -32,7 +32,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import hr.sil.android.myappbox.R
-import hr.sil.android.myappbox.cache.status.ActionStatusHandler.log
 import hr.sil.android.myappbox.compose.components.ButtonWithFont
 import hr.sil.android.myappbox.compose.components.TextViewWithFont
 import hr.sil.android.myappbox.compose.components.ThmButtonLetterSpacing

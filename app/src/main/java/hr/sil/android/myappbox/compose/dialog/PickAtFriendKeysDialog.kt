@@ -47,7 +47,6 @@ import androidx.compose.ui.window.Dialog
 import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 import hr.sil.android.myappbox.R
-import hr.sil.android.myappbox.cache.status.ActionStatusHandler.log
 import hr.sil.android.myappbox.compose.components.ButtonWithFont
 import hr.sil.android.myappbox.compose.components.RoundedDialog
 import hr.sil.android.myappbox.compose.components.TextViewWithFont
@@ -258,7 +257,7 @@ fun PickAtFriendKeysDialog(
                 // ===== CONFIRM BUTTON =====
                 ButtonWithFont(
                     onClick = {
-                        log.info("onConfirm email 22: ${email}")
+                        println("onConfirm email 22: ${email}")
                         onConfirm(email)
                     },
                     modifier = Modifier

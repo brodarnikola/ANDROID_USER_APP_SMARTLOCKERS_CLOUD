@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import hr.sil.android.myappbox.App
 import hr.sil.android.myappbox.R
-import hr.sil.android.myappbox.cache.DatabaseHandler
 import hr.sil.android.myappbox.core.remote.WSUser
 import hr.sil.android.myappbox.core.remote.model.InstalationType
 import hr.sil.android.myappbox.core.remote.model.RCreatedLockerKey
@@ -58,8 +57,8 @@ class NavHomeViewModel : ViewModel() { //BaseViewModel<NavHomeUiState, HomeScree
     private fun getKeysForDelivery( ): Set<Int> {
         val mplDevice = _uiState.value.mplDevice ?: return emptySet()
         val lockerKeys = getLockerKeys(mplDevice)
-        val usedKeys = DatabaseHandler.deliveryKeyDb.get(SettingsHelper.userLastSelectedLocker)?.keyIds ?: listOf()
-        return lockerKeys.map { it.id }.subtract(usedKeys.asIterable())
+        //val usedKeys = DatabaseHandler.deliveryKeyDb.get(SettingsHelper.userLastSelectedLocker)?.keyIds ?: listOf()
+        return lockerKeys.map { it.id }.toSet() //.subtract(usedKeys.asIterable())
     }
 
     private fun getLockerKeys(mplDevice: MPLDevice): List<RLockerKey> {
@@ -87,14 +86,14 @@ class NavHomeViewModel : ViewModel() { //BaseViewModel<NavHomeUiState, HomeScree
 //            MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]?.activeKeys
 //           ?.count { it.purpose == RLockerKeyPurpose.DELIVERY || it.purpose == RLockerKeyPurpose.PAF } ?: 0
 
-//        val deliveryKeysCount = activeKeys.count {
-//            (it.purpose == RLockerKeyPurpose.DELIVERY ||
-//                        it.purpose == RLockerKeyPurpose.PAF)
-//                    && it.lockerMasterMac.macRealToClean() ==
-//                    selectedDevice?.macAddress?.macRealToClean()
-//            }
+        val deliveryKeysCount = activeKeys.count {
+            (it.purpose == RLockerKeyPurpose.DELIVERY ||
+                        it.purpose == RLockerKeyPurpose.PAF)
+                    && it.lockerMasterMac.macRealToClean() ==
+                    selectedDevice?.macAddress?.macRealToClean()
+            }
 
-        val deliveryKeysCount = DatabaseHandler.deliveryKeyDb.get(SettingsHelper.userLastSelectedLocker)
+        // val deliveryKeysCount = DatabaseHandler.deliveryKeyDb.get(SettingsHelper.userLastSelectedLocker)
 
         val pahKeysCount =
             pahKeys.count {
@@ -105,7 +104,8 @@ class NavHomeViewModel : ViewModel() { //BaseViewModel<NavHomeUiState, HomeScree
         val canCollectParcel =
             isPublicLocker &&
                     UserUtil.user?.status == "ACTIVE" &&
-                    deliveryKeysCount?.keyIds?.isNotEmpty() == true
+                    deliveryKeysCount > 0
+                    //deliveryKeysCount?.keyIds?.isNotEmpty() == true
 
         val canSendParcel =
             isPublicLocker &&
@@ -127,7 +127,7 @@ class NavHomeViewModel : ViewModel() { //BaseViewModel<NavHomeUiState, HomeScree
             canCollectParcel = canCollectParcel,
             canSendParcel = canSendParcel,
             canShareAccess = canShareAccess,
-            deliveryKeysCount = deliveryKeysCount?.keyIds?.size ?: 0,
+            deliveryKeysCount = deliveryKeysCount, //deliveryKeysCount?.keyIds?.size ?: 0,
             pahKeysCount = pahKeysCount,
             activeKeys = activeKeys,
             selectedLocker = selectedDevice?.name ?: "",
