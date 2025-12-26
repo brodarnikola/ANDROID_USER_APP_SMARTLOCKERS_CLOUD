@@ -36,7 +36,7 @@ class RMasterUnit {
     var address: String = ""
     //var accessType: RMasterUnitAccessType? = null
     var accessTypes: List<RMasterUnitAccessType> = listOf()
-    var allowPinSave: Boolean = false
+    var allowPinSave: Boolean = true
     var powerType: String = "BATTERY"
     var modemSleepTime: Long = 60
     @SerializedName("customer___productName")

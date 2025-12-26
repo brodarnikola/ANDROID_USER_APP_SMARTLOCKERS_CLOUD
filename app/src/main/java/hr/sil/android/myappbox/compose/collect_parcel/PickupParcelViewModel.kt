@@ -1,104 +1,40 @@
 package hr.sil.android.myappbox.compose.collect_parcel
 
+
 import android.app.Activity
 import android.content.Context
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import hr.sil.android.myappbox.R
-
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.constraintlayout.compose.ConstraintLayout
-
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
-import hr.sil.android.myappbox.core.remote.model.RCreatedLockerKey
-
-
-import android.widget.Toast
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.em
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import hr.sil.android.ble.scanner.scan_multi.properties.advv2.common.MPLDeviceStatus
 import hr.sil.android.myappbox.App
-import hr.sil.android.myappbox.compose.components.GradientBackground
-import hr.sil.android.myappbox.compose.dialog.DeleteAccessShareUserDialog
+import hr.sil.android.myappbox.R
 import hr.sil.android.myappbox.compose.home_screen.format
-import hr.sil.android.myappbox.compose.main_activity.MainDestinations
-import hr.sil.android.myappbox.compose.settings.SettingsItem
 import hr.sil.android.myappbox.core.ble.comm.model.LockerFlagsUtil
 import hr.sil.android.myappbox.core.remote.WSUser
 import hr.sil.android.myappbox.core.remote.model.InstalationType
-import hr.sil.android.myappbox.core.remote.model.ItemRGroupInfo
-import hr.sil.android.myappbox.core.remote.model.REmptyGroupMembers
-import hr.sil.android.myappbox.core.remote.model.RGroupDisplayMembersAdmin
-import hr.sil.android.myappbox.core.remote.model.RGroupDisplayMembersChild
-import hr.sil.android.myappbox.core.remote.model.RGroupDisplayMembersHeader
-import hr.sil.android.myappbox.core.remote.model.RLockerKey
+import hr.sil.android.myappbox.core.remote.model.RCreatedLockerKey
 import hr.sil.android.myappbox.core.remote.model.RLockerKeyPurpose
 import hr.sil.android.myappbox.core.remote.model.RMasterUnitType
 import hr.sil.android.myappbox.core.remote.model.RUserAccessRole
 import hr.sil.android.myappbox.core.util.logger
 import hr.sil.android.myappbox.core.util.macCleanToBytes
 import hr.sil.android.myappbox.core.util.macCleanToReal
-import hr.sil.android.myappbox.core.util.macRealToClean
-import hr.sil.android.myappbox.data.DeliveryKey
-import hr.sil.android.myappbox.util.backend.UserUtil
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlin.collections.List
-
 import hr.sil.android.myappbox.store.MPLDeviceStore
 import hr.sil.android.myappbox.store.model.MPLDevice
 import hr.sil.android.myappbox.util.SettingsHelper
+import hr.sil.android.myappbox.util.backend.UserUtil
 import hr.sil.android.myappbox.utils.UiEvent
-import kotlinx.coroutines.Dispatchers
+import hr.sil.android.rest.core.util.hexToByteArray
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.util.Date
 import java.util.concurrent.atomic.AtomicBoolean
-
-import hr.sil.android.rest.core.util.hexToByteArray
 
 data class PickupParcelState(
     val isInProximity: Boolean = false,
@@ -399,17 +335,19 @@ class PickupParcelViewModel() : ViewModel() {
     private fun setupOpenButton() {
         displayTelemetryOfDevice()
 
+        val isOpenDoorPossible = isOpenDoorPossible()
+
         val anyKeysToPickup = device?.installationType == InstalationType.LINUX ||
-                (device?.isInBleProximity == true && isOpenDoorPossible())
+                (device?.isInBleProximity == true && isOpenDoorPossible)
+
+        val allKeysAlreadyPickup = device?.installationType == InstalationType.LINUX ||
+                (device?.isInBleProximity == true && !isOpenDoorPossible)
 
         val isInProximity = device?.installationType == InstalationType.LINUX ||
                 (device?.isInBleProximity == true )
 
         val isButtonEnabledToOpen = device?.installationType == InstalationType.LINUX ||
-                (device?.isInBleProximity == true && isOpenDoorPossible())
-
-        val allKeysAlreadyPickup = device?.installationType == InstalationType.LINUX ||
-                (device?.isInBleProximity == true && !isOpenDoorPossible())
+                (device?.isInBleProximity == true && isOpenDoorPossible)
 
         _state.update { currentState ->
             currentState.copy(
@@ -829,13 +767,13 @@ class PickupParcelViewModel() : ViewModel() {
         }
     }
 
-    fun onMplDeviceUpdate() {
-        if (!connecting.get() && device?.installationType != InstalationType.LINUX) {
-            device =
-                MPLDeviceStore.uniqueDevices.values.find { it.macAddress == SettingsHelper.userLastSelectedLocker }
-            setupOpenButton()
-        }
-    }
+//    fun onMplDeviceUpdate() {
+//        if (!connecting.get() && device?.installationType != InstalationType.LINUX) {
+//            device =
+//                MPLDeviceStore.uniqueDevices.values.find { it.macAddress == SettingsHelper.userLastSelectedLocker }
+//            setupOpenButton()
+//        }
+//    }
 
     fun onPause() {
         exitTime = Date()

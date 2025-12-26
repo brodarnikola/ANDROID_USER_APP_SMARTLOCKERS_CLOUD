@@ -164,6 +164,7 @@ fun NavHomeScreen(
                 finalProductName.value = viewModel.setFinalProductName()
                 lockerAddress.value = viewModel.setLockerAddress()
 
+                print("NEW NOTIF ... WILL IT ENTER HERE ... LOAD USER DATA")
                 viewModel.loadUserData()
             }
         }

@@ -51,11 +51,11 @@ class NavHomeViewModel : ViewModel() { //BaseViewModel<NavHomeUiState, HomeScree
 
         val selectedMasterDevice = MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]
         val displayNameOrAddress = selectedMasterDevice?.name?.ifEmpty { selectedMasterDevice.address }
-        _uiState.value = _uiState.value.copy(selectedLocker = displayNameOrAddress ?: "", mplDevice = selectedMasterDevice)
+        _uiState.value = _uiState.value.copy(selectedLocker = displayNameOrAddress ?: "" )//, mplDevice = selectedMasterDevice)
     }
 
     private fun getKeysForDelivery( ): Set<Int> {
-        val mplDevice = _uiState.value.mplDevice ?: return emptySet()
+        val mplDevice =  MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker] ?: return emptySet()
         val lockerKeys = getLockerKeys(mplDevice)
         //val usedKeys = DatabaseHandler.deliveryKeyDb.get(SettingsHelper.userLastSelectedLocker)?.keyIds ?: listOf()
         return lockerKeys.map { it.id }.toSet() //.subtract(usedKeys.asIterable())
@@ -221,9 +221,9 @@ class NavHomeViewModel : ViewModel() { //BaseViewModel<NavHomeUiState, HomeScree
 
     fun updateDataWihoutBackend() {
 
-        viewModelScope.launch(Dispatchers.IO) {
+        //viewModelScope.launch(Dispatchers.IO) {
 
-            if(MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]?.activeKeys?.isEmpty() == true) {
+            //if(MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]?.activeKeys?.isEmpty() == true) {
                 val hasKeysForDelivery = getKeysForDelivery( )
 
                 val deviceAddressConfirmed = MPLDeviceStore.uniqueDevices[SettingsHelper.userLastSelectedLocker]?.requiredAccessRequestTypes
@@ -242,8 +242,8 @@ class NavHomeViewModel : ViewModel() { //BaseViewModel<NavHomeUiState, HomeScree
                         deliveryKeysCount = hasKeysForDelivery.size,
                     )
                 }
-            }
-        }
+            //}
+        //}
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -251,10 +251,10 @@ class NavHomeViewModel : ViewModel() { //BaseViewModel<NavHomeUiState, HomeScree
         loadUserData()
     }
 
-//    @Subscribe(threadMode = ThreadMode.MAIN)
-//    fun onDeviceChange(event: MPLDevicesUpdatedEvent) {
-//         updateDataWihoutBackend()
-//    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onDeviceChange(event: MPLDevicesUpdatedEvent) {
+         updateDataWihoutBackend()
+    }
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -283,7 +283,7 @@ data class NavHomeUiState(
     val lockerAddress: String = "",
     val finalProductName: String = "",
 
-    val mplDevice: MPLDevice? = null,
+    //val mplDevice: MPLDevice? = null,
 
     val userName: String = "",
     val address: String = "",

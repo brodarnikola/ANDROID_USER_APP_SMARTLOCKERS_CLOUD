@@ -140,10 +140,11 @@ object DeviceStoreRemoteUpdater {
     private suspend fun doUpdate() {
         val now = System.currentTimeMillis()
 
+        val activeKeys = WSUser.getActiveKeys() ?: emptyList()
         // Fetch from backend only every 30 seconds
         if (now - lastBackendFetch >= BACKEND_FETCH_PERIOD) {
             log.info("Fetching master units and keys from backend...")
-            cachedActiveKeys = WSUser.getActiveKeys() ?: emptyList()
+            //cachedActiveKeys = WSUser.getActiveKeys() ?: emptyList()
             cachedMasterUnits = WSUser.getMasterUnits() ?: emptyList()
             lastBackendFetch = now
         } else {
@@ -163,7 +164,8 @@ object DeviceStoreRemoteUpdater {
             cachedMasterUnits.map { masterUnit ->
                 MasterUnitWithKeys(
                     masterUnit = masterUnit,
-                    activeKeys = cachedActiveKeys.filter { it.lockerMasterId == masterUnit.id },
+                    activeKeys = activeKeys.filter { it.lockerMasterId == masterUnit.id },
+                    //activeKeys = cachedActiveKeys.filter { it.lockerMasterId == masterUnit.id },
                     availableLockerSizes = emptyList()
                 )
             }

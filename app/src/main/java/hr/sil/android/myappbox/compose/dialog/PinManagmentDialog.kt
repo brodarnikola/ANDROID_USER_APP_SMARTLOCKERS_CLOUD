@@ -55,8 +55,8 @@ fun PinManagementDialog(
         /* Prevent dismiss on outside click */
         },
         properties = DialogProperties(
-            dismissOnBackPress = false,
-            dismissOnClickOutside = false
+            dismissOnBackPress = true,
+            dismissOnClickOutside = true
         )
     ) {
         Surface(
