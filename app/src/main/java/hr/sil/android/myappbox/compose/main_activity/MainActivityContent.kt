@@ -130,8 +130,8 @@ fun MainActivityContent(
             counterPickupDeliveryKeys += item.activeKeys.filter { it.purpose == RLockerKeyPurpose.DELIVERY || it.purpose == RLockerKeyPurpose.PAF }.size
     }
 
-    val deliveryKeysCount = selectedMasterDevice?.activeKeys
-        ?.count { it.purpose == RLockerKeyPurpose.DELIVERY || it.purpose == RLockerKeyPurpose.PAF } ?: 0
+    //val deliveryKeysCount = selectedMasterDevice?.activeKeys
+    //    ?.count { it.purpose == RLockerKeyPurpose.DELIVERY || it.purpose == RLockerKeyPurpose.PAF } ?: 0
 
     val deviceAddressConfirmed = selectedMasterDevice?.requiredAccessRequestTypes
         ?.firstOrNull { it.name == RequiredAccessRequestTypes.ADDRESS_CONFIRMATION.name }
@@ -144,6 +144,7 @@ fun MainActivityContent(
             selectedMasterDevice?.installationType == InstalationType.DEVICE
 
     val pahKeysCount = rememberSaveable { mutableStateOf(0) }
+    val deliveryKeysCount = rememberSaveable { mutableStateOf(0) }
     LaunchedEffect(key1 = appState.currentRoute) {
         if( appState.currentRoute == MainDestinations.HOME) {
             CoroutineScope(Dispatchers.IO).launch {
@@ -151,6 +152,8 @@ fun MainActivityContent(
                 pahKeysCount.value = UserUtil.pahKeys.filter {
                     it.lockerMasterMac.macRealToClean() == SettingsHelper.userLastSelectedLocker.macRealToClean()
                 }.size
+                val deliveryKeys = WSUser.getActiveKeys()
+                deliveryKeysCount.value = deliveryKeys?.size ?: 0
             }
         }
     }
@@ -229,7 +232,7 @@ fun MainActivityContent(
                                 noAccessMessage.value = appGenericNoAccessForDevice
                                 displayNoLockerSelected.value = true
                             }
-                            deliveryKeysCount > 0 -> {
+                            deliveryKeysCount.value > 0 -> {
                                 if (navBackStackEntry.value?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
                                     appState.navController.navigate(MainDestinations.PARCEL_PICKUP) {
                                         launchSingleTop = true
@@ -322,7 +325,7 @@ fun MainActivityContent(
                 NavigationDrawerItem(
                     label = {
                         val alphaValue =
-                            if (UserUtil.user?.status == "ACTIVE" && counterPickupDeliveryKeys > 0) 1.0f else 0.5f
+                            if (UserUtil.user?.status == "ACTIVE" && deliveryKeysCount.value  > 0) 1.0f else 0.5f
                         TextViewWithFont(
                             text = stringResource(R.string.list_of_deliveries_cpl),
                             color = ThmNavigationDrawerMenuTextColor.copy(alpha = alphaValue),
@@ -335,14 +338,15 @@ fun MainActivityContent(
                         )
                     },
                     badge = {
-                        if (counterPickupDeliveryKeys > 0) {
+                        //if (counterPickupDeliveryKeys > 0) {
+                        if( deliveryKeysCount.value > 0 ) {
                             Badge(
                                 modifier = Modifier.size(25.dp),
                                 containerColor = colorResource(R.color.colorRedBadgeNumber),
                                 contentColor = colorResource(R.color.colorWhite)
                             ) {
                                 Text(
-                                    text = counterPickupDeliveryKeys.toString(),
+                                    text = deliveryKeysCount.value.toString(),
                                     fontSize = 14.sp
                                     //modifier = Modifier.size(20.dp),
                                     //textAlign = TextAlign.Center
@@ -352,7 +356,7 @@ fun MainActivityContent(
                     },
                     selected = false,
                     onClick = {
-                        if (UserUtil.user?.status == "ACTIVE" && counterPickupDeliveryKeys > 0 ) {
+                        if (UserUtil.user?.status == "ACTIVE" && deliveryKeysCount.value  > 0 ) {
 
                             if (navBackStackEntry.value?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
                                 appState.navController.navigate(MainDestinations.LIST_OF_DELIVERIES) {
@@ -361,7 +365,7 @@ fun MainActivityContent(
                                 }
                             }
                             scope.launch { drawerState.close() }
-                        } else if( counterPickupDeliveryKeys == 0 ) {
+                        } else if( deliveryKeysCount.value  == 0 ) {
                             noAccessMessage.value = noDeliveriesToPickup
                             displayNoLockerSelected.value = true
                         }

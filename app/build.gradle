@@ -17,7 +17,7 @@ def versionPatch = 0
 
 
 //RC variant - when set to 0 it is the final release
-def rcVariantNum = 1
+def rcVariantNum = 2
 
 //RC variant name suffix - DO NOT MODIFY!
 def rcVariantVersionSuffix = (rcVariantNum == 0 ? "" : "-rc${rcVariantNum}")
